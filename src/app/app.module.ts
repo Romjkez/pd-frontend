@@ -7,7 +7,7 @@ import {NotFoundPageComponent} from './not-found-page/not-found-page.component';
 import {PreloaderComponent} from './preloader/preloader.component';
 import {UserViewComponent} from './user-view/user-view.component';
 import {HeaderComponent} from './header/header.component';
-import {MainPageComponent} from './main-page/main-page.component';
+import {MainPageComponent} from './main/main-page/main-page.component';
 
 @NgModule({
   declarations: [
