@@ -8,6 +8,7 @@ import {PreloaderComponent} from './preloader/preloader.component';
 import {UserViewComponent} from './user-view/user-view.component';
 import {HeaderComponent} from './header/header.component';
 import {MainPageComponent} from './main/main-page/main-page.component';
+import { FooterComponent } from './footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import {MainPageComponent} from './main/main-page/main-page.component';
     PreloaderComponent,
     UserViewComponent,
     HeaderComponent,
-    MainPageComponent
+    MainPageComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,

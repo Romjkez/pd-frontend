@@ -1,4 +1,61 @@
-<p>
-  register works!
-</p>
+<main class="main">
+    <div class="page-wrapper">
+        <form class="form">
+            <div class="form__title">
+                <div class="auth-form__back-button">
+                    <a href="../index.html">
+                        <img class="auth-form__back-image" src="../assets/img/back_button.svg" alt="back button">
+                    </a>
+                </div>
+                <h2 class="form__reg">Регистрация</h2>
+            </div>
+            <div class="form__roles">
+                <div class="roles_block">
+                    <div class="roles_block__role">
+                        <label for="worker">Исполнитель</label>
+                        <input type="radio" name="role" id="worker" class="form__radio" onclick="showWorkerForm()">
+                    </div>
+                    <div class="roles_block__role">
+                        <label for="customer">Заказчик</label>
+                        <input type="radio" name="role" id="customer" class="form__radio" onclick="showCustomerForm()">
+                    </div>
 
+                </div>
+            </div>
+            <div class="form__user-info">
+                <div class="row">
+                    <div class="form__row">
+                        <label>Фамилия<input type="text" class="form__input form__input_row"></label>
+                    </div>
+                    <div class="form__row">
+                        <label>Имя<input type="text" class="form__input form__input_row"></label>
+                    </div>
+                </div>
+                <label>Отчество<input type="text" class="form__input"></label>
+                <label>Email<input type="email" class="form__input"></label>
+                <div class="row">
+                    <div class="form__row">
+                        <label>Пароль<input type="password" class="form__input"></label>
+                    </div>
+                    <div class="form__row">
+                        <label>Повторите пароль<input type="password" class="form__input"></label>
+                    </div>
+                </div>
+                <label>Ваш телефон<input type="text" class="form__input"></label>
+                <div id="worker-input">
+                    <label>Учебная группа<input type="text" class="form__input"></label>
+                </div>
+                <div id="customer-input">
+                    <label>Название организации<input type="text" class="form__input"></label>
+                </div>
+                <label>О себе<textarea cols="30" rows="20" class="form__input"></textarea></label>
+                <div class="form__submit">
+                    <button type="submit" class="button reg-form__button">
+                        Подтвердить
+                    </button> <br>
+                    <a href="reg.html" class="block__link">сбросить</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</main>
