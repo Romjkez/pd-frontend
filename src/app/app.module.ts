@@ -9,6 +9,10 @@ import {UserViewComponent} from './user-view/user-view.component';
 import {HeaderComponent} from './header/header.component';
 import {MainPageComponent} from './main/main-page/main-page.component';
 import { FooterComponent } from './footer/footer.component';
+import {ProjectComponent} from './project-view/project/project.component';
+import {RegisterComponent} from './auth/register/register.component';
+import {LoginComponent} from './auth/login/login.component';
+import {CabinetComponent} from './cabinet/cabinet/cabinet.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +22,11 @@ import { FooterComponent } from './footer/footer.component';
     UserViewComponent,
     HeaderComponent,
     MainPageComponent,
-    FooterComponent
+    FooterComponent,
+    ProjectComponent,
+    RegisterComponent,
+    LoginComponent,
+    CabinetComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,178 @@
+h1, h2, h3, h4, h5 {
+    font-weight: 400; 
+}
+
+
+.page-wrapper{
+    position: relative;
+}
+
+
+.profile-block {
+    width: 60%;
+    height: auto;
+    background-color: white;
+    padding: 30px; 
+    border-radius: 3px;
+    margin: 0 auto; 
+    margin-bottom: 30px;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 
+    0 3px 6px rgba(0,0,0,0.23); 
+}
+
+
+.profile-block:first-child {
+    box-shadow: none;
+    background-color: transparent; 
+    margin-bottom: 0; 
+    padding: 10px 30px;
+}
+
+.profile-block__info {
+    display: flex; 
+    justify-content: space-between; 
+}
+
+.snippet {
+    border: 0.03em solid #bebebe; 
+    box-shadow: none; 
+}
+
+.snippet__proj-tags {
+    border-bottom: 1px solid #bebebe; 
+}
+
+.projects-title {
+    padding: 20px 0; 
+}
+
+.projects__active {
+    border-bottom: 1px solid #646363;
+}
+
+.projects {
+    padding-bottom: 20px;
+}
+
+.profile-block__info {
+    width: 100%; 
+    margin-bottom: 30px;
+}
+
+.profile-block__left-column { 
+    display: flex;
+    flex-direction: column;
+}
+
+.left-column__edit {
+    text-align: center;
+    width: 100%; 
+}
+
+.left-column__photo {
+    margin-bottom: 20px;
+    width: 200px; 
+    height: 200px;  
+    border-radius: 3px;
+}
+
+.profile-block__edit-button {
+    padding: 10px 6px; 
+}
+
+.profile-block__edit-button:hover {
+   background-color: #207ec9; 
+}
+
+.profile-block__user-info {
+    width: 60%;
+    font-size: 15px;
+}
+
+.user-info__item {
+    margin-bottom: 20px;
+}
+
+
+@media screen and (min-width: 1200px) {
+    .filter-column {
+        display: none; 
+    }
+
+    .snippet {
+        width: 100%; 
+    }
+
+    .snippet-column {
+        width: 100%; 
+    }
+}
+
+@media (max-width: 575.98px) { 
+    .page-wrapper {
+        width: 90%; 
+    }
+
+    .profile-block {
+        width: 100%; 
+        padding: 20px;
+        box-sizing: border-box;
+    }
+
+
+    .profile-block__info {
+        flex-direction: column; 
+        margin-bottom: 0; 
+        padding-top: 0; 
+    }
+
+    .profile-block__left-column {
+        margin-bottom: 30px;
+    }
+
+    .left-column__photo {
+        text-align: center;
+    }
+
+    .profile-link__link {
+        font-size: 15px; 
+    }
+
+    .profile-block__left-column {
+        align-items: center; 
+    }
+    
+    .profile-block__user-info {
+        width: 100%; 
+    }
+
+    .snippet__status, .snippet__members, .snippet__curator {
+        font-size: 15px;
+        text-align:  center; 
+    }
+}
+
+@media (min-width: 576px) and (max-width: 767.98px) { 
+   .page-wrapper {
+       width: 95%; 
+   }
+
+   .profile-block {
+       width: 80%; 
+   }
+
+   .profile-block__user-info {
+       width: 50% ; 
+   }
+}
+
+@media (min-width: 768px) and (max-width: 1199px) {
+    .page-wrapper {
+        width: 95%; 
+    }
+
+    .profile-block {
+        width: 80%; 
+    }
+}
+
