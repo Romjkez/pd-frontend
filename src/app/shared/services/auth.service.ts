@@ -36,4 +36,7 @@ export class AuthService {
     return JSON.parse(window.atob(base64));
   }
 
+  isAuthorized(): boolean {
+    return !!localStorage.getItem('token');
+  }
 }

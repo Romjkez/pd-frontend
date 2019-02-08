@@ -22,9 +22,16 @@ div {
   max-width: 100%;
 }
 
+.form__title {
+  width: 100%;
+  text-align: center;
+  padding-bottom: 20px;
+  position: relative;
+}
+
 .auth-form {
   width: 100%;
-  height: 550px;
+  height: 520px;
   border-radius: 3px;
   padding: 30px;
   background-color: #fff;
@@ -33,7 +40,9 @@ div {
 }
 
 .auth-form__back-button {
-  margin-bottom: 30px;
+  position: absolute;
+  left: 0;
+  top: 10px;
 }
 
 .auth-form__back-image {
