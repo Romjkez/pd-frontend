@@ -1,4 +1,4 @@
-/* You can add global styles to this file, and also import other style files */
+@import "~@angular/material/prebuilt-themes/deeppurple-amber.css";
 body {
     margin: 0;
     padding: 0;  
@@ -272,7 +272,6 @@ header {
     width: 55%;
     margin: 0 auto;
 }
-
 
  @media (max-width: 720px){
      .header__menu {
