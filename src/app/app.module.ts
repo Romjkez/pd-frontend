@@ -8,11 +8,14 @@ import {PreloaderComponent} from './preloader/preloader.component';
 import {UserViewComponent} from './user-view/user-view.component';
 import {HeaderComponent} from './header/header.component';
 import {MainPageComponent} from './main/main-page/main-page.component';
-import { FooterComponent } from './footer/footer.component';
+import {FooterComponent} from './footer/footer.component';
 import {ProjectComponent} from './project-view/project/project.component';
 import {RegisterComponent} from './auth/register/register.component';
 import {LoginComponent} from './auth/login/login.component';
 import {CabinetComponent} from './cabinet/cabinet/cabinet.component';
+import {HTTP_INTERCEPTORS} from '@angular/common/http';
+import {TokenInterceptor} from './auth/token.interceptor';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -30,9 +33,15 @@ import {CabinetComponent} from './cabinet/cabinet/cabinet.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    BrowserAnimationsModule
   ],
-  providers: [],
+  providers: [{
+    provide: HTTP_INTERCEPTORS,
+    useClass: TokenInterceptor,
+    multi: true
+  }],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}
