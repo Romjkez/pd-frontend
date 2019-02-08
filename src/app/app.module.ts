@@ -16,6 +16,7 @@ import {CabinetComponent} from './cabinet/cabinet/cabinet.component';
 import {HTTP_INTERCEPTORS} from '@angular/common/http';
 import {TokenInterceptor} from './auth/token.interceptor';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {MatButtonToggle, MatButtonToggleModule, MatSnackBar, MatSnackBarModule} from '@angular/material';
 
 @NgModule({
   declarations: [
@@ -34,9 +35,11 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MatSnackBarModule,
+    MatButtonToggleModule
   ],
-  providers: [{
+  providers: [MatSnackBar, MatButtonToggle, {
     provide: HTTP_INTERCEPTORS,
     useClass: TokenInterceptor,
     multi: true

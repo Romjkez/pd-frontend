@@ -1,36 +1,36 @@
 <div class="page-wrapper">
   <div class="auth-form">
-      <div class="auth-form__back-button">
-          <a href="#">
-              <img class="auth-form__back-image" src="../assets/img/back_button.svg" alt="back button">
-          </a>
+    <div class="auth-form__back-button">
+      <a href="/">
+        <img class="auth-form__back-image" src="../assets/img/back_button.svg" alt="back button">
+      </a>
+    </div>
+    <form class="auth-form__form">
+      <label for="email">
+        Введите почту <br>
+        <input type="email" id="email" class="auth-form__input">
+      </label>
+      <label for="password">
+        Введите пароль <br>
+        <input type="password" id="password" class="auth-form__input">
+      </label>
+      <button type="submit" class="button auth-form__button">
+        Войти
+      </button>
+    </form>
+    <div class="register-block">
+      <a [routerLink]="['/register']" class="register-block__link">Зарегистрироваться</a>
+    </div>
+    <div class="auth-social-block">
+      <h3 class="auth-social-block__title">Войдите с помощью соцсетей</h3>
+      <div class="auth-social-block__list">
+        <div class="auth-social-block__list-item">
+          <a href="#"><img src="../assets/img/vk_icon.svg" class="auth-social-block__image" alt="vkontakte"></a>
+        </div>
+        <div class="auth-social-block__list-item">
+          <a href="#"><img src="../assets/img/yandex_icon.svg" class="auth-social-block__image" alt="yandex"></a>
+        </div>
       </div>
-      <form class="auth-form__form">
-          <label for="email">
-              Введите почту <br>
-              <input type="email" id="email" class="auth-form__input">
-          </label>
-          <label for="password">
-              Введите пароль <br>
-              <input type="password" id="password" class="auth-form__input">
-          </label>
-          <button type="submit" class="button auth-form__button">
-              Войти
-          </button>
-      </form>
-      <div class="register-block">
-          <a href="#" class="register-block__link">Зарегистрироваться</a>
-      </div>
-      <div class="auth-social-block">
-          <h3 class="auth-social-block__title">Войдите с помощью соцсетей</h3>
-          <div class="auth-social-block__list">
-              <div class="auth-social-block__list-item">
-                  <a href="#"><img src="../assets/img/vk_icon.svg" class="auth-social-block__image" alt="vkontakte"></a>
-              </div>
-              <div class="auth-social-block__list-item">
-                  <a href="#"><img src="../assets/img/yandex_icon.svg" class="auth-social-block__image" alt="yandex"></a>
-              </div>
-          </div>
-      </div>
+    </div>
   </div>
 </div>

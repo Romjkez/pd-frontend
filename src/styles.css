@@ -273,7 +273,6 @@ header {
     margin: 0 auto;
 }
 
-
  @media (max-width: 720px){
      .header__menu {
          display: none; 
