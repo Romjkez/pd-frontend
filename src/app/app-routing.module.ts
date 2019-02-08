@@ -13,8 +13,8 @@ const routes: Routes = [
   {path: '', component: MainPageComponent, pathMatch: 'full', canActivate: [AuthGuardService]},
   {path: 'user/:id', component: UserViewComponent, pathMatch: 'full'},
   {path: 'project/:id', component: ProjectComponent, pathMatch: 'full'},
-  {path: 'register', component: RegisterComponent, pathMatch: 'full'},
-  {path: 'login', component: LoginComponent, pathMatch: 'full'},
+  {path: 'register', component: RegisterComponent, pathMatch: 'full', canDeactivate: [AuthGuardService]},
+  {path: 'login', component: LoginComponent, pathMatch: 'full', canDeactivate: [AuthGuardService]},
   {path: 'cabinet', component: CabinetComponent, pathMatch: 'full'},
   {path: '404', component: NotFoundPageComponent, pathMatch: 'full'},
   {path: '**', redirectTo: '404'}

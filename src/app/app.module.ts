@@ -13,10 +13,11 @@ import {ProjectComponent} from './project-view/project/project.component';
 import {RegisterComponent} from './auth/register/register.component';
 import {LoginComponent} from './auth/login/login.component';
 import {CabinetComponent} from './cabinet/cabinet/cabinet.component';
-import {HTTP_INTERCEPTORS} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {TokenInterceptor} from './auth/token.interceptor';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {MatButtonToggle, MatButtonToggleModule, MatSnackBar, MatSnackBarModule} from '@angular/material';
+import {MatButtonToggle, MatButtonToggleModule, MatDialogModule, MatSnackBar, MatSnackBarModule} from '@angular/material';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,18 @@ import {MatButtonToggle, MatButtonToggleModule, MatSnackBar, MatSnackBarModule} 
     AppRoutingModule,
     BrowserAnimationsModule,
     MatSnackBarModule,
-    MatButtonToggleModule
+    MatButtonToggleModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatDialogModule,
+    HttpClientModule
+  ],
+  exports: [
+    FormsModule,
+    ReactiveFormsModule,
+    MatSnackBarModule,
+    MatDialogModule,
+    HttpClientModule
   ],
   providers: [MatSnackBar, MatButtonToggle, {
     provide: HTTP_INTERCEPTORS,

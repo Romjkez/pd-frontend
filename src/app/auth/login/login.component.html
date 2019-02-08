@@ -1,20 +1,22 @@
 <div class="page-wrapper">
   <div class="auth-form">
     <div class="auth-form__back-button">
-      <a href="/">
+      <a [routerLink]="['/']">
         <img class="auth-form__back-image" src="../assets/img/back_button.svg" alt="back button">
       </a>
     </div>
-    <form class="auth-form__form">
+    <h1 style="text-align: center">Авторизация</h1>
+    <br>
+    <form [formGroup]="loginForm" (ngSubmit)="authorize()" class="auth-form__form">
       <label for="email">
         Введите почту <br>
-        <input type="email" id="email" class="auth-form__input">
+        <input type="email" id="email" class="auth-form__input" formControlName="email">
       </label>
       <label for="password">
         Введите пароль <br>
-        <input type="password" id="password" class="auth-form__input">
+        <input type="password" id="password" class="auth-form__input" formControlName="password">
       </label>
-      <button type="submit" class="button auth-form__button">
+      <button [disabled]="!loginForm.valid" type="submit" class="button auth-form__button">
         Войти
       </button>
     </form>
