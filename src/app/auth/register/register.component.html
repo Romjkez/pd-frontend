@@ -40,19 +40,19 @@
         </div>
         <label>{{formLabels.middlename}}<input type="text" class="form__input" formControlName="middlename"></label>
         <label>
-          <span class="required-sign" *ngIf="regForm.controls.usergroup.value == 1">*</span>
+          <span class="required-sign">*</span>
           {{formLabels.email}}<input type="email" class="form__input" formControlName="email"></label>
         <div class="row">
           <div class="form__row">
             <label>
-              <span class="required-sign" *ngIf="regForm.controls.usergroup.value == 1">*</span>
+              <span class="required-sign">*</span>
               {{formLabels.password}}
               <input placeholder="Не менее 6 символов" type="password" class="form__input" formControlName="pass">
             </label>
           </div>
           <div class="form__row">
             <label>
-              <span class="required-sign" *ngIf="regForm.controls.usergroup.value == 1">*</span>
+              <span class="required-sign">*</span>
               {{formLabels.repeatPassword}}
               <input type="password" class="form__input" formControlName="pass_repeat">
             </label>
