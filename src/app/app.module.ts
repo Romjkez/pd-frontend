@@ -13,11 +13,10 @@ import {ProjectComponent} from './project-view/project/project.component';
 import {RegisterComponent} from './auth/register/register.component';
 import {LoginComponent} from './auth/login/login.component';
 import {CabinetComponent} from './cabinet/cabinet/cabinet.component';
-import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
-import {TokenInterceptor} from './auth/token.interceptor';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatButtonToggle, MatButtonToggleModule, MatDialogModule, MatSnackBar, MatSnackBarModule} from '@angular/material';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {HttpClientModule} from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -49,13 +48,8 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
     ReactiveFormsModule,
     MatSnackBarModule,
     MatDialogModule,
-    HttpClientModule
   ],
-  providers: [MatSnackBar, MatButtonToggle, {
-    provide: HTTP_INTERCEPTORS,
-    useClass: TokenInterceptor,
-    multi: true
-  }],
+  providers: [MatSnackBar, MatButtonToggle],
   bootstrap: [AppComponent]
 })
 export class AppModule {

@@ -16,9 +16,9 @@ export class RegisterComponent implements OnInit {
   }
 
   ngOnInit() {
-    if (this.authService.isAuthorized()) {
+    /*if (this.authService.isAuthorized()) {
       this.router.navigate(['/']);
-    } else {
+    } else {*/
       this.regForm = new FormGroup({
         name: new FormControl(null),
         surname: new FormControl(null, [Validators.required]),
@@ -46,7 +46,8 @@ export class RegisterComponent implements OnInit {
         phone: 'Ваш телефон',
       };
     }
-  }
+
+  // }
 
   register() {
   }

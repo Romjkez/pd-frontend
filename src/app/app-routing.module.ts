@@ -10,12 +10,12 @@ import {CabinetComponent} from './cabinet/cabinet/cabinet.component';
 import {AuthGuardService} from './shared/services/auth-guard.service';
 
 const routes: Routes = [
-  {path: '', component: MainPageComponent, pathMatch: 'full', canActivate: [AuthGuardService]},
+  {path: '', component: MainPageComponent, pathMatch: 'full',},
   {path: 'user/:id', component: UserViewComponent, pathMatch: 'full'},
   {path: 'project/:id', component: ProjectComponent, pathMatch: 'full'},
   {path: 'register', component: RegisterComponent, pathMatch: 'full'},
   {path: 'login', component: LoginComponent, pathMatch: 'full'},
-  {path: 'cabinet', component: CabinetComponent, pathMatch: 'full'},
+  {path: 'cabinet', component: CabinetComponent, pathMatch: 'full', canActivate: [AuthGuardService]},
   {path: '404', component: NotFoundPageComponent, pathMatch: 'full'},
   {path: '**', redirectTo: '404'}
 ];

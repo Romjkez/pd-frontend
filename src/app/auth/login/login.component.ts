@@ -16,15 +16,10 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
-    if (this.authService.isAuthorized()) {
-      this.router.navigate(['/']);
-    } else {
-      this.loginForm = new FormGroup({
-        email: new FormControl('', [Validators.required]),
-        password: new FormControl('', [Validators.required])
-      });
-    }
-
+    this.loginForm = new FormGroup({
+      email: new FormControl('', [Validators.required]),
+      password: new FormControl('', [Validators.required])
+    });
   }
 
   async authorize(): Promise<boolean> {
