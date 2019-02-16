@@ -13,7 +13,8 @@
         <div class="roles_block">
           <div class="roles_block__role">
             <label for="worker">Исполнитель</label>
-            <input required checked type="radio" name="usergroup" id="worker" value="1" class="form__radio"
+            <input [checked]="!!regForm" required type="radio" name="usergroup" id="worker" value="1"
+                   class="form__radio"
                    formControlName="usergroup">
           </div>
           <div class="roles_block__role">
@@ -25,36 +26,60 @@
       <div class="form__user-info">
         <div class="row">
           <div class="form__row">
-            <label>{{regForm.controls.usergroup.value == 1 ? formLabels.worker.surname : formLabels.curator.surname}}
-              <input type="text" class="form__input form__input_row"></label>
+            <label>
+              <span class="required-sign">*</span>
+              {{regForm.controls.usergroup.value == 1 ? formLabels.worker.surname : formLabels.curator.surname}}
+              <input type="text" class="form__input form__input_row" formControlName="surname">
+            </label>
           </div>
           <div class="form__row">
-            <label>{{formLabels.name}}<input type="text" class="form__input form__input_row"></label>
+            <label><span class="required-sign" *ngIf="regForm.controls.usergroup.value == 1">*</span>
+              {{formLabels.name}}
+              <input type="text" class="form__input form__input_row" formControlName="name"></label>
           </div>
         </div>
-        <label>{{formLabels.middlename}}<input type="text" class="form__input"></label>
-        <label>{{formLabels.email}}<input type="email" class="form__input"></label>
+        <label>{{formLabels.middlename}}<input type="text" class="form__input" formControlName="middlename"></label>
+        <label>
+          <span class="required-sign" *ngIf="regForm.controls.usergroup.value == 1">*</span>
+          {{formLabels.email}}<input type="email" class="form__input" formControlName="email"></label>
         <div class="row">
           <div class="form__row">
-            <label>{{formLabels.password}}<input type="password" class="form__input"></label>
+            <label>
+              <span class="required-sign" *ngIf="regForm.controls.usergroup.value == 1">*</span>
+              {{formLabels.password}}
+              <input placeholder="Не менее 6 символов" type="password" class="form__input" formControlName="pass">
+            </label>
           </div>
           <div class="form__row">
-            <label>{{formLabels.repeatPassword}}<input type="password" class="form__input"></label>
+            <label>
+              <span class="required-sign" *ngIf="regForm.controls.usergroup.value == 1">*</span>
+              {{formLabels.repeatPassword}}
+              <input type="password" class="form__input" formControlName="pass_repeat">
+            </label>
           </div>
         </div>
-        <label>{{formLabels.phone}}<input type="text" class="form__input"></label>
+        <label>{{formLabels.tel}}<input type="tel" class="form__input" formControlName="tel"></label>
         <div *ngIf="regForm.controls.usergroup.value==1" id="worker-input">
-          <label>Учебная группа<input type="text" class="form__input"></label>
+          <label>Учебная группа<input type="text" class="form__input" formControlName="std_group"></label>
         </div>
+        <input *ngIf="regForm.controls.usergroup.value!==1" type="text" class="form__input" hidden
+               formControlName="std_group">
+        <label>{{regForm.controls.usergroup.value == 1 ? formLabels.worker.avatar : formLabels.curator.avatar}}
+          <input type="text" class="form__input" formControlName="avatar">
+        </label>
         <label>
           {{regForm.controls.usergroup.value == 1 ? formLabels.worker.description : formLabels.curator.description}}
-          <textarea cols="30" rows="20" class="form__input"></textarea></label>
+          <textarea cols="30" rows="20" class="form__input" formControlName="description"></textarea>
+        </label>
         <div class="form__submit">
-          <button type="submit" class="button reg-form__button">
+          <button
+            [disabled]="!regForm.controls.email.valid || !regForm.controls.surname.valid || !regForm.controls.pass.valid"
+            type="submit" class="button reg-form__button reg-form__button-submit">
             Зарегистрироваться
           </button>
           <br>
-          <button type="reset" class="button reg-form__button reg-form__button-reset">Сбросить</button>
+          <button (click)="resetForm()" type="reset" class="button reg-form__button reg-form__button-reset">Сбросить
+          </button>
         </div>
       </div>
     </form>
