@@ -18,9 +18,9 @@ export class RegisterComponent implements OnInit {
   }
 
   ngOnInit() {
-    /*if (this.authService.isAuthorized()) {
+    if (this.authService.isAuthorized()) {
       this.router.navigate(['/']);
-    } else {*/
+    }
     this.regForm = new FormGroup({
       name: new FormControl(''),
       surname: new FormControl('', [Validators.required]),
@@ -55,8 +55,6 @@ export class RegisterComponent implements OnInit {
       tel: 'Ваш телефон',
     };
   }
-
-  // }
 
   async register(): Promise<any> {
     if (this.regForm.controls.pass.value === this.regForm.controls.pass_repeat.value) {
