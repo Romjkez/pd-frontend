@@ -9,7 +9,6 @@ import {ApiService, User} from '../shared/services/api.service';
 })
 export class UserViewComponent implements OnInit {
   user: User;
-  empty: '';
 
   constructor(private activatedRoute: ActivatedRoute, private apiService: ApiService) {
   }

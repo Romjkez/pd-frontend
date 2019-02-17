@@ -17,6 +17,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatButtonToggle, MatButtonToggleModule, MatDialogModule, MatSnackBar, MatSnackBarModule} from '@angular/material';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
+import {ProjectSnippetComponent} from './shared/components/project-snippet/project-snippet.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import {HttpClientModule} from '@angular/common/http';
     ProjectComponent,
     RegisterComponent,
     LoginComponent,
-    CabinetComponent
+    CabinetComponent,
+    ProjectSnippetComponent
   ],
   imports: [
     BrowserModule,
