@@ -3,9 +3,9 @@
         <div class="profile-block">
             <div class="profile-block__info">
                 <div class="profile-block__left-column">
-                    <div class="left-column__photo" style="background: url(assets/kek.jpg) 0 0 no-repeat; background-size: cover; 
-                    background-position: center;">
-
+                  <div class="left-column__photo">
+                    <img [src]="user?.avatar.length == 0 ? '../assets/img/avatar.png' : user?.avatar"
+                         class="left-column__photoContent" alt="Avatar">
                     </div>
                     <div class="left-column__edit">
                         <a href="#" class="button profile-block__edit-button">Редактировать профиль</a>
@@ -13,22 +13,17 @@
                 </div>
                 <div class="profile-block__user-info">
                     <div class="user-info__name user-info__item">
-                        <h3><B>Барашкова Дарья Николаевна</B></h3>
-                    </div>
-                    <div class="user-info__spec user-info__item">
-                        <span><b>Направление:</b> проектная деятельностьпроектная деятельностьпроектная
-                            деятельностьпроектная деятельностьпроектная деятельность</span>
+                      <h3><b>{{user?.surname}} {{user?.name?.length == 0 ? '' : user?.name}}
+                        {{user?.middle_name?.length == 0 ? '' : user?.middle_name}}</b></h3>
                     </div>
                     <div class="user-info__group user-info__item">
-                        <span><b>Группа:</b> 171-331</span>
+                      <span><b>Группа:</b> {{user?.stdgroup?.length == 0 ? 'информация отсутствует' : user?.stdgroup}}</span>
                     </div>
                     <div class="user-info__mail user-info__item">
-                        <span><b>Почта:</b> example@mail.ru</span>
+                      <span><b>Почта:</b> {{user?.email}}</span>
                     </div>
                     <div class="user-info__about user-info__item">
-                        <span><b>О себе:</b> Люблю котят Люблю котят Люблю котят Люблю котят Люблю котят Люблю
-                            котят Люблю котят Люблю котят Люблю котят Люблю котят Люблю котят Люблю котят Люблю
-                            котят Люблю котят Люблю котят Люблю котят Люблю котят Люблю котят</span>
+                      <span><b>О себе:</b> {{user?.description?.length == 0 ? 'информация отсутствует' : user?.description}}</span>
                     </div>
                 </div>
             </div>

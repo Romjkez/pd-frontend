@@ -5,7 +5,7 @@ export interface User {
   id: string;
   name: string;
   surname: string;
-  middlename: string;
+  middle_name: string;
   email: string;
   usergroup: string;
   phone: string;
@@ -30,5 +30,9 @@ export class ApiService {
 
   getUserBySurname(surname: string): Promise<User> {
     return this.http.get<User>(this.baseUrl + '/api/user/get.php?api_key=' + this.apiKey + '&surname=' + surname).toPromise();
+  }
+
+  getUserById(surname: string): Promise<User> {
+    return this.http.get<User>(this.baseUrl + '/api/user/get.php?api_key=' + this.apiKey + '&id=' + surname).toPromise();
   }
 }

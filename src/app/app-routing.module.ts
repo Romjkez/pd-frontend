@@ -10,7 +10,7 @@ import {CabinetComponent} from './cabinet/cabinet/cabinet.component';
 import {AuthGuardService} from './shared/services/auth-guard.service';
 
 const routes: Routes = [
-  {path: '', component: MainPageComponent, pathMatch: 'full',},
+  {path: '', component: MainPageComponent, pathMatch: 'full'},
   {path: 'user/:id', component: UserViewComponent, pathMatch: 'full'},
   {path: 'project/:id', component: ProjectComponent, pathMatch: 'full'},
   {path: 'register', component: RegisterComponent, pathMatch: 'full'},
