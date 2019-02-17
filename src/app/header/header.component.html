@@ -3,36 +3,43 @@
     <div class="header__content">
       <div class="header__left-side">
         <div class="header__logo">
-          <a href="#">
+          <a [routerLink]="['/']">
             <img class="logo-image" src="../assets/logo.png" alt="logo">
           </a>
         </div>
         <div class="header__menu">
-          <div class="menu__item">
-            <a href="#" class="menu__item__link">все проекты</a>
-          </div>
-          <div class="menu__item">
-            <a href="#" class="menu__item__link">личный кабинет</a>
-          </div>
+          <a class="menu__item" [routerLink]="['/']"
+             routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
+            <span class="menu__item__link">все проекты</span>
+          </a>
+          <a class="menu__item" [routerLink]="['/cabinet']"
+             routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
+            <span class="menu__item__link">личный кабинет</span>
+          </a>
         </div>
       </div>
-      <!-- блок с входом регистрацией для новых посетителей -->
-      <div class="header__reg-auth" style="display: none;">
-        <a href="#" class="reg-auth__item">Вход</a> / <a href="#" class="reg-auth__item">Регистрация</a>
+
+      <div *ngIf="!authService.isAuthorized()" class="header__reg-auth">
+        <a [routerLink]="'/login'" class="reg-auth__item">Вход</a> /
+        <a [routerLink]="'/register'" class="reg-auth__item">Регистрация</a>
       </div>
-      <div class="header__profile-link">
-        <a class="profile-link__link" href="#">
-          <h3 class="profile-link__name">Барашкова Дарья</h3>
-          <div class="profile-link__photo" style="background: url(../assets/img/defaultAvatar.png) 0 0 no-repeat; background-size: cover; background-position: center;">
+
+      <div *ngIf="authService.isAuthorized()" class="header__profile-link">
+        <a routerLink="/profile/{{user?.id}}" class="profile-link__link">
+          <h3 class="profile-link__name">{{user?.surname}} {{user?.name.length == 0 ? '' : user?.name}}</h3>
+          <div class="profile-link__photo">
+            <img [src]="user?.avatar.length == 0 ? '../assets/img/avatar.png' : user?.avatar"
+                 class="profile-link__photoContent" alt="Avatar">
           </div>
         </a>
         <div class="profile-link__logout">
-          <a href="#" class="profile-link__logout">выйти</a>
+          <a (click)="authService.logout()" class="profile-link__logout">выйти</a>
         </div>
       </div>
-      <div class="header__adapt-menu">
-        <h2>E</h2>
-      </div>
+      <!--<div class="header__adapt-menu">
+        <img [src]="user?.avatar.length == 0 ? '../assets/img/avatar.png' : user?.avatar"
+             class="profile-link__photoContent" alt="Avatar">
+      </div>-->
     </div>
   </div>
 </header>

@@ -1,4 +1,7 @@
 import {Component, OnInit} from '@angular/core';
+import {AuthService} from '../shared/services/auth.service';
+import {ApiService, User} from '../shared/services/api.service';
+
 
 @Component({
   selector: 'app-header',
@@ -6,10 +9,20 @@ import {Component, OnInit} from '@angular/core';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
+  user: User;
+  email: string;
 
-  constructor() { }
 
-  ngOnInit() {
+  constructor(public authService: AuthService, private apiService: ApiService) {
+  }
+
+  async ngOnInit() {
+    const parsedToken = this.authService.parseJwt(this.authService.getToken());
+    this.email = parsedToken.data.email;
+    await this.apiService.getUserByEmail(this.email).then((res: User) => {
+      this.user = res;
+      console.log(res);
+    }).catch(e => console.error(e));
   }
 
 }

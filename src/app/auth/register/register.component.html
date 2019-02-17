@@ -3,7 +3,7 @@
     <form class="form" [formGroup]="regForm" (ngSubmit)="register()">
       <div class="form__title">
         <div class="auth-form__back-button">
-          <a [routerLink]="['/']">
+          <a (click)="back()">
             <img class="auth-form__back-image" src="../assets/img/back_button.svg" alt="back button">
           </a>
         </div>

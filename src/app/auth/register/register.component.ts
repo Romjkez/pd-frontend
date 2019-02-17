@@ -119,4 +119,8 @@ export class RegisterComponent implements OnInit {
     return this.http.post('http://new.std-247.ist.mospolytech.ru/api/user/add.php', body, {headers, observe: 'response'})
       .toPromise();
   }
+
+  back(): void {
+    window.history.back();
+  }
 }
