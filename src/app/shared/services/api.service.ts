@@ -35,28 +35,32 @@ export class ApiService {
   ** USER
    */
   getUserByEmail(email: string): Promise<User> {
-    return this.http.get<User>(this.baseUrl + '/user/get.php?api_key=' + this.apiKey + '&email=' + email).toPromise();
+    return this.http.get<User>(`${this.baseUrl}/user/get.php?api_key=${this.apiKey}&email=${email}`).toPromise();
   }
 
   getUserBySurname(surname: string): Promise<User> {
-    return this.http.get<User>(this.baseUrl + '/user/get.php?api_key=' + this.apiKey + '&surname=' + surname).toPromise();
+    return this.http.get<User>(`${this.baseUrl}/user/get.php?api_key=${this.apiKey}&surname=${surname}`).toPromise();
   }
 
-  getUserById(surname: string): Promise<User> {
-    return this.http.get<User>(this.baseUrl + '/user/get.php?api_key=' + this.apiKey + '&id=' + surname).toPromise();
+  getUserById(id: number | string): Promise<User> {
+    return this.http.get<User>(`${this.baseUrl}/user/get.php?api_key=${this.apiKey}&id=${id}`).toPromise();
   }
 
   /*
   ** PROJECTS
    */
   getProjectsByStatus(status: number, perPage: number, page: number): Promise<Projects> {
-    return this.http.get<Projects>(this.baseUrl + '/projects/get.php?status=' + status + '&per_page=' + perPage + '&page=' + page)
-      .toPromise();
+    return this.http.get<Projects>(
+      `${this.baseUrl}/projects/get.php?status=${status}&per_page=${perPage}&page=${page}`).toPromise();
   }
 
-  getProjectsByStatusAndCurator(status: number, curator: number | string, perPage: number, page: number) {
+  getProjectsByStatusAndCurator(status: number, curator: number | string, perPage: number, page: number): Promise<Projects> {
     return this.http.get<Projects>(
-      this.baseUrl + '/projects/get.php?status=' + status + '&curator=' + curator + '&per_page=' + perPage + '&page=' + page)
-      .toPromise();
+      `${this.baseUrl}/projects/get.php?status=${status}&curator=${curator}&per_page=${perPage}&page=${page}`).toPromise();
+  }
+
+  getArchiveProjects(perPage: number, page: number): Promise<Projects> {
+    return this.http.get<Projects>(
+      `${this.baseUrl}/projects/getArchive.php?per_page=${perPage}&page=${page}`).toPromise();
   }
 }

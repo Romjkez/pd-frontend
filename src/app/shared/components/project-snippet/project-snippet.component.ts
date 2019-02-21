@@ -7,7 +7,7 @@ export interface Project {
   description: string;
   members: string;
   deadline: string;
-  curator: number | string;
+  curator: number;
   tags: string;
   status: number;
   adm_comment: string | null;
@@ -37,7 +37,7 @@ export class ProjectSnippetComponent implements OnInit {
   async ngOnInit() {
     this.fullness = this.getOccupiedQuantity(this.project.members);
     this.tags = this.project.tags.split(',');
-    await this.apiService.getUserById(<string>this.project.curator).then((res) => {
+    await this.apiService.getUserById(this.project.curator).then((res) => {
       this.curatorName = res.name;
       this.curatorSurname = res.surname;
     }).catch(e => {

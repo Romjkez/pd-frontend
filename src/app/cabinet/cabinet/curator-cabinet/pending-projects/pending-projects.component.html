@@ -1,5 +1,5 @@
 <app-preloader *ngIf="loading"></app-preloader>
-<h5 *ngIf="totalPages===0" class="not-found-label">Проектов на рассмотрении нет</h5>
+<h2 *ngIf="totalPages===0" class="not-found-label">Проектов на рассмотрении нет</h2>
 <app-project-snippet [project]="project"
                      *ngFor="let project of projects | paginate: {
                                id: 'pending',
