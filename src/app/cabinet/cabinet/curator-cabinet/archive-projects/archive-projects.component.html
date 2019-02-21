@@ -1,3 +1,12 @@
-<p>
-  archive-projects works!
-</p>
+<app-preloader *ngIf="loading"></app-preloader>
+<h2 *ngIf="totalPages===0" class="not-found-label"><i>Архивные проекты не найдены</i></h2>
+<app-project-snippet [project]="project"
+                     *ngFor="let project of projects | paginate: {
+                               id: 'archive',
+          itemsPerPage: perPage, currentPage: currentPage, totalItems: perPage*totalPages
+          }"></app-project-snippet>
+<pagination-controls *ngIf="totalPages>0"
+                     responsive="true"
+                     nextLabel="Вперёд"
+                     previousLabel="Назад"
+                     (pageChange)="switchPage($event)" [id]="'archive'"></pagination-controls>

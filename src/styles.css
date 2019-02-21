@@ -96,6 +96,12 @@ h1, h2, h3, h4, h5 {
   display: none;
 }
 
+/* label for empty list of projects */
+.not-found-label {
+  margin-top: 5%;
+  text-align: center;
+}
+
 @media (max-width: 720px) {
   .header__menu {
     display: none;

@@ -1,11 +1,12 @@
 <app-preloader *ngIf="loading"></app-preloader>
+<h5 *ngIf="totalPages===0" class="not-found-label">Нет активных проектов</h5>
 <app-project-snippet [project]="project"
                      *ngFor="let project of projects | paginate: {
                                id: 'active',
           itemsPerPage: perPage, currentPage: currentPage, totalItems: perPage*totalPages
           }"></app-project-snippet>
-<pagination-controls
-  responsive="true"
-  nextLabel="Вперёд"
-  previousLabel="Назад"
-  (pageChange)="switchPage($event)" [id]="'active'"></pagination-controls>
+<pagination-controls *ngIf="totalPages>0"
+                     responsive="true"
+                     nextLabel="Вперёд"
+                     previousLabel="Назад"
+                     (pageChange)="switchPage($event)" [id]="'active'"></pagination-controls>
