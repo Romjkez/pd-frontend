@@ -53,4 +53,10 @@ export class ApiService {
     return this.http.get<Projects>(this.baseUrl + '/projects/get.php?status=' + status + '&per_page=' + perPage + '&page=' + page)
       .toPromise();
   }
+
+  getProjectsByStatusAndCurator(status: number, curator: number | string, perPage: number, page: number) {
+    return this.http.get<Projects>(
+      this.baseUrl + '/projects/get.php?status=' + status + '&curator=' + curator + '&per_page=' + perPage + '&page=' + page)
+      .toPromise();
+  }
 }

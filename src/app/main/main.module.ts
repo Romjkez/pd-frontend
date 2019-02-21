@@ -1,12 +1,19 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {NgxPaginationModule} from 'ngx-pagination';
+import {MainPageComponent} from './main-page/main-page.component';
+import {ProjectSnippetComponent} from '../shared/components/project-snippet/project-snippet.component';
 
 @NgModule({
-  declarations: [],
+  declarations: [
+    MainPageComponent,
+    ProjectSnippetComponent
+  ],
   imports: [
     CommonModule,
-    NgxPaginationModule
-  ]
+    NgxPaginationModule,
+  ],
+  exports: [MainPageComponent]
 })
-export class MainModule { }
+export class MainModule {
+}

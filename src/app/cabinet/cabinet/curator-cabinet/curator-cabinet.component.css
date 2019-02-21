@@ -1,63 +1,107 @@
+.cabinet-wrapper {
+  width: 65%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+}
 
 .project-cr-button {
-    height: 30px;
-    margin-top: 0;
-    padding: 9px 10px;
-    box-sizing: border-box;
+  height: 30px;
+  margin-top: 0;
+  padding: 9px 10px;
+  box-sizing: border-box;
 }
 
-.tabs-items {
-    display: flex;
-    justify-content: flex-start;
-}
+/*.tabs-items {
+  display: flex;
+  justify-content: flex-start;
+}*/
 
 .tabs_block {
-    justify-content: space-between; 
+  flex: 80%;
+  max-width: 1200px;
 }
 
-@media (max-width: 575.98px) { 
-    .page-wrapper {
-        width: 90%; 
-    }
-  
-    .cabinet-wrapper {
-        width: 90%;
-    }
-  
-    .tabs_block__item {
-        margin-right: 30px;
-    }
+mat-tab-group {
+  max-width: 700px;
+  width: 100%;
+}
 
-    .tabs_block {
-        flex-direction: column;
-        height: 75px;
-        border: none;
-        margin-bottom: 30px;
-    }
+.create-project {
+  width: 200px;
+  margin: 1% 0 0 0;
+}
 
-    .tabs-items {
-        border-bottom: 1px solid #bebebe;
-        height: 30px;
-    }
+/*.tabs_block__item {
+  margin-right: 50px;
+  border-bottom: 0 solid #2196f3;
+  padding: 0 10px;
+  transition: 0.3s;
+}
+
+.tabs_block__item-active {
+  border-bottom-width: 3px;
+}
+
+.tabs_block__item:last-child {
+  margin-right: 0;
+}*/
+
+
+@media (max-width: 575.98px) {
+  .page-wrapper {
+    width: 90%;
   }
-  
-  @media (min-width: 576px) and (max-width: 767.98px) { 
-      .page-wrapper {
-          width: 95%; 
-      }
-  
-      .cabinet-wrapper {
-          width: 95%;
-      }
+
+  .cabinet-wrapper {
+    width: 90%;
   }
-  
-  @media (min-width: 768px) and (max-width: 991.98px) {
-      .page-wrapper {
-          width: 95%; 
-      }
-  
-      .cabinet-wrapper {
-          width: 95%;
-      }
+
+  .tabs_block__item {
+    margin-right: 30px;
   }
-  
+
+  .tabs_block {
+    flex-direction: column;
+    height: 75px;
+    border: none;
+    margin-bottom: 30px;
+  }
+
+  .tabs-items {
+    border-bottom: 1px solid #bebebe;
+    height: 30px;
+  }
+}
+
+@media (min-width: 576px) and (max-width: 767.98px) {
+  .page-wrapper {
+    width: 95%;
+  }
+
+  .cabinet-wrapper {
+    width: 95%;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 991.98px) {
+  .page-wrapper {
+    width: 95%;
+  }
+
+  .cabinet-wrapper {
+    width: 95%;
+  }
+}
+
+@media screen and (min-width: 992px) and (max-width: 1599px) {
+  .cabinet-wrapper {
+    width: 85%;
+  }
+
+  .tabs_block {
+    flex: 80%;
+    max-width: 900px;
+  }
+
+}

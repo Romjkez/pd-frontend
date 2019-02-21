@@ -12,28 +12,25 @@ import {FooterComponent} from './footer/footer.component';
 import {ProjectComponent} from './project-view/project/project.component';
 import {RegisterComponent} from './auth/register/register.component';
 import {LoginComponent} from './auth/login/login.component';
-import {CabinetComponent} from './cabinet/cabinet/cabinet.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatButtonToggle, MatButtonToggleModule, MatDialogModule, MatSnackBar, MatSnackBarModule} from '@angular/material';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 import {ProjectSnippetComponent} from './shared/components/project-snippet/project-snippet.component';
 import {NgxPaginationModule} from 'ngx-pagination';
+import {CabinetModule} from './cabinet/cabinet.module';
 
 @NgModule({
   declarations: [
     AppComponent,
     NotFoundPageComponent,
-    PreloaderComponent,
     UserViewComponent,
     HeaderComponent,
-    MainPageComponent,
     FooterComponent,
     ProjectComponent,
     RegisterComponent,
     LoginComponent,
-    CabinetComponent,
-    ProjectSnippetComponent
+    MainPageComponent
   ],
   imports: [
     BrowserModule,
@@ -45,14 +42,17 @@ import {NgxPaginationModule} from 'ngx-pagination';
     ReactiveFormsModule,
     MatDialogModule,
     HttpClientModule,
-    NgxPaginationModule
+    NgxPaginationModule,
+    CabinetModule
   ],
   exports: [
     FormsModule,
     ReactiveFormsModule,
     MatSnackBarModule,
     MatDialogModule,
-    NgxPaginationModule
+    NgxPaginationModule,
+    PreloaderComponent,
+    ProjectSnippetComponent
   ],
   providers: [MatSnackBar, MatButtonToggle],
   bootstrap: [AppComponent]

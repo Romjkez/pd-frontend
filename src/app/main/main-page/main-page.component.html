@@ -3,6 +3,7 @@
     <button class="button button_filter">фильтры</button>
     <div class="columns-block">
       <div class="snippet-column">
+        <app-preloader *ngIf="loading"></app-preloader>
         <ng-container *ngFor="let project of projects | paginate: {
         itemsPerPage: perPage, currentPage: currentPage, totalItems: perPage*totalPages}">
           <app-project-snippet [project]="project"></app-project-snippet>

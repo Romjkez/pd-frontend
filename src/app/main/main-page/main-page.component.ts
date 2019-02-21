@@ -12,17 +12,21 @@ export class MainPageComponent implements OnInit {
   totalPages: number;
   perPage = 2;
   statusFilter = 1;
+  loading: boolean;
 
   constructor(private apiService: ApiService) {
   }
 
   async ngOnInit() {
+    this.loading = true;
     await this.apiService.getProjectsByStatus(this.statusFilter, this.perPage, this.currentPage).then((res) => {
       this.currentPage = res.page;
       this.totalPages = res.pages;
       this.perPage = res.per_page;
       this.projects = res.data;
+      this.loading = false;
     }).catch(e => {
+      this.loading = false;
       console.error('Failed to get projects:', e);
     });
   }

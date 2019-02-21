@@ -5,14 +5,13 @@ export interface Project {
   id: number;
   title: string;
   description: string;
-  members: object;
+  members: string;
   deadline: string;
   curator: number | string;
   tags: string;
   status: number;
   adm_comment: string | null;
 }
-
 
 @Component({
   selector: 'app-project-snippet',
@@ -30,11 +29,13 @@ export class ProjectSnippetComponent implements OnInit {
     ['2', 'Закрыт'],
     ['3', 'Не прошёл модерацию']
   ]);
+  fullness: number[];
 
   constructor(private apiService: ApiService) {
   }
 
   async ngOnInit() {
+    this.fullness = this.getOccupiedQuantity(this.project.members);
     this.tags = this.project.tags.split(',');
     await this.apiService.getUserById(<string>this.project.curator).then((res) => {
       this.curatorName = res.name;
@@ -44,4 +45,18 @@ export class ProjectSnippetComponent implements OnInit {
     });
   }
 
+  getOccupiedQuantity(members: string): number[] {
+    const membersArray: object[] = JSON.parse(this.project.members);
+    let occupied = 0;
+    let places = 0;
+    for (let i = 0; i < membersArray.length; i++) {
+      for (let key in membersArray[i]) {
+        if (membersArray[i][key] !== 0) {
+          occupied++;
+        }
+        places++;
+      }
+    }
+    return [occupied, places];
+  }
 }

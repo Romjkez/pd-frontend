@@ -13,9 +13,9 @@
 }
 
 .snippet:hover {
-  transform: scale(1.02);
-  box-shadow: 0 3px 30px rgba(0, 0, 0, 0.16),
-  0 3px 30px rgba(0, 0, 0, 0.23);
+  transform: scale(1.01);
+  box-shadow: 0 3px 20px rgba(0, 0, 0, 0.16),
+  0 3px 20px rgba(0, 0, 0, 0.23);
   border: none;
 }
 

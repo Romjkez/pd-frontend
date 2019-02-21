@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import {AuthService} from '../../shared/services/auth.service';
 
 @Component({
   selector: 'app-cabinet',
@@ -7,9 +8,12 @@ import {Component, OnInit} from '@angular/core';
 })
 export class CabinetComponent implements OnInit {
 
-  constructor() { }
-
-  ngOnInit() {
+  constructor(private authService: AuthService) {
   }
 
+  usergroup: number;
+
+  ngOnInit() {
+    this.usergroup = <number>this.authService.getUserGroup();
+  }
 }
