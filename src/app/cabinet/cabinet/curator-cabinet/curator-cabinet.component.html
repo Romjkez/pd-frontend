@@ -3,24 +3,13 @@
     <div class="tabs_block">
       <mat-tab-group dynamicHeight="true" animationDuration="300">
         <mat-tab label="Активные">
-          <app-preloader *ngIf="loading"></app-preloader>
-          <app-project-snippet [project]="project"
-                               *ngFor="let project of projects | paginate: {
-          itemsPerPage: perPage, currentPage: currentPage, totalItems: perPage*totalPages
-          }"></app-project-snippet>
-          <pagination-controls
-            responsive="true"
-            nextLabel="Вперёд"
-            previousLabel="Назад"
-            (pageChange)="switchPage($event)"></pagination-controls>
+          <app-active-projects></app-active-projects>
         </mat-tab>
         <mat-tab label="На рассмотрении">
-          <h1>Some more tab content</h1>
-          <p>...</p>
+          <app-pending-projects></app-pending-projects>
         </mat-tab>
         <mat-tab label="Архив">
-          <h1>Some more tab content</h1>
-          <p>...</p>
+          <app-archive-projects></app-archive-projects>
         </mat-tab>
       </mat-tab-group>
     </div>

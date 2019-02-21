@@ -8,6 +8,9 @@ import {MatTabsModule} from '@angular/material';
 import {ProjectSnippetComponent} from '../shared/components/project-snippet/project-snippet.component';
 import {PreloaderComponent} from '../preloader/preloader.component';
 import {NgxPaginationModule} from 'ngx-pagination';
+import {ActiveProjectsComponent} from './cabinet/curator-cabinet/active-projects/active-projects.component';
+import {PendingProjectsComponent} from './cabinet/curator-cabinet/pending-projects/pending-projects.component';
+import {ArchiveProjectsComponent} from './cabinet/curator-cabinet/archive-projects/archive-projects.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +19,10 @@ import {NgxPaginationModule} from 'ngx-pagination';
     CuratorCabinetComponent,
     CabinetComponent,
     ProjectSnippetComponent,
-    PreloaderComponent
+    PreloaderComponent,
+    ActiveProjectsComponent,
+    PendingProjectsComponent,
+    ArchiveProjectsComponent
   ],
   imports: [
     CommonModule,
