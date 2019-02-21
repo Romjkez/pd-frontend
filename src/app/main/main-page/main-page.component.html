@@ -3,9 +3,17 @@
     <button class="button button_filter">фильтры</button>
     <div class="columns-block">
       <div class="snippet-column">
-        <ng-container *ngFor="let project of projects">
+        <ng-container *ngFor="let project of projects | paginate: {
+        itemsPerPage: perPage, currentPage: currentPage, totalItems: perPage*totalPages}">
           <app-project-snippet [project]="project"></app-project-snippet>
         </ng-container>
+        <div class="pagination">
+          <pagination-controls
+            responsive="true"
+            nextLabel="Вперёд"
+            previousLabel="Назад"
+            (pageChange)="switchPage($event)"></pagination-controls>
+        </div>
       </div>
       <div class="filter-column" id="filters">
         <div class="filter-block">

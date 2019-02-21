@@ -1,7 +1,7 @@
 <a href="#" class="snippet">
   <h3 class="snippet__proj-title">{{project?.title}}</h3>
   <p class="snippet__proj-desc">
-    {{project?.description.substring(0, 255)}}
+    {{project?.description.length > 255 ? project?.description.substring(0, 255) + '...' : project?.description}}
   </p>
   <div class="snippet__proj-tags">
     <div *ngFor="let tag of tags" class="proj-tags__item">{{tag}}</div>

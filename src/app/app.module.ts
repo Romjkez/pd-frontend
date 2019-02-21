@@ -18,6 +18,7 @@ import {MatButtonToggle, MatButtonToggleModule, MatDialogModule, MatSnackBar, Ma
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 import {ProjectSnippetComponent} from './shared/components/project-snippet/project-snippet.component';
+import {NgxPaginationModule} from 'ngx-pagination';
 
 @NgModule({
   declarations: [
@@ -43,13 +44,15 @@ import {ProjectSnippetComponent} from './shared/components/project-snippet/proje
     FormsModule,
     ReactiveFormsModule,
     MatDialogModule,
-    HttpClientModule
+    HttpClientModule,
+    NgxPaginationModule
   ],
   exports: [
     FormsModule,
     ReactiveFormsModule,
     MatSnackBarModule,
     MatDialogModule,
+    NgxPaginationModule
   ],
   providers: [MatSnackBar, MatButtonToggle],
   bootstrap: [AppComponent]

@@ -24,8 +24,6 @@ export class ProjectSnippetComponent implements OnInit {
   tags: string[];
   curatorName: string;
   curatorSurname: string;
-  status: string;
-
   statusMap: Map<string, string> = new Map([
     ['0', 'На рассмотрении'],
     ['1', 'Открыт'],

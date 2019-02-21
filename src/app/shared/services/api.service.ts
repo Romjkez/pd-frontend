@@ -49,7 +49,8 @@ export class ApiService {
   /*
   ** PROJECTS
    */
-  getProjectsByStatus(status: number): Promise<Projects> {
-    return this.http.get<Projects>(this.baseUrl + '/projects/get.php?status=' + status + '&per_page=10&page=1').toPromise();
+  getProjectsByStatus(status: number, perPage: number, page: number): Promise<Projects> {
+    return this.http.get<Projects>(this.baseUrl + '/projects/get.php?status=' + status + '&per_page=' + perPage + '&page=' + page)
+      .toPromise();
   }
 }

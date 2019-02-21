@@ -47,6 +47,13 @@
   text-decoration: underline;
 }
 
+.pagination {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
+}
+
 .button_filter {
   width: 35%;
   display: none;
