@@ -113,6 +113,14 @@ header {
   padding-top: 4px;
 }
 
+.disabled {
+  color: #d8d8d8;
+}
+
+.disabled:hover {
+  border-bottom-width: 0;
+  padding-top: 0;
+}
 .active:hover {
   border-bottom-width: 4px;
   padding-top: 4px;

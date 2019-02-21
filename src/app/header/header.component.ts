@@ -17,12 +17,12 @@ export class HeaderComponent implements OnInit {
   }
 
   async ngOnInit() {
-    const parsedToken = this.authService.parseJwt(this.authService.getToken());
-    this.email = parsedToken.data.email;
-    await this.apiService.getUserByEmail(this.email).then((res: User) => {
-      this.user = res;
-      console.log(res);
-    }).catch(e => console.error(e));
+    if (this.authService.getToken()) {
+      const parsedToken = this.authService.parseJwt(this.authService.getToken());
+      this.email = parsedToken.data.email;
+      await this.apiService.getUserByEmail(this.email).then((res: User) => {
+        this.user = res;
+      }).catch(e => console.error(e));
+    }
   }
-
 }
