@@ -36,51 +36,6 @@ h1, h2, h3, h4, h5 {
   box-sizing: border-box;
 }
 
-.snippet {
-  height: auto;
-  width: 100%;
-  background-color: #fff;
-  border-radius: 3px;
-  margin-bottom: 20px;
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16),
-  0 3px 6px rgba(0, 0, 0, 0.23);
-  padding: 20px 15px;
-  box-sizing: border-box;
-  display: block;
-  transition: 0.25s;
-}
-
-.snippet:hover {
-  transform: scale(1.02);
-  box-shadow: 0 3px 30px rgba(0, 0, 0, 0.16),
-  0 3px 30px rgba(0, 0, 0, 0.23);
-  border: none;
-}
-
-.snippet__link {
-  display: block;
-}
-
-.snippet__proj-desc {
-  font-size: 15px;
-  margin-bottom: 10px;
-}
-
-.snippet__proj-tags {
-  display: flex;
-  justify-content: flex-start;
-  flex-wrap: wrap;
-  border-bottom: 1px solid #707070;
-  padding-bottom: 15px;
-  margin-bottom: 10px;
-}
-
-.snippet__proj-info {
-  display: flex;
-  justify-content: space-between;
-  font-size: 14px;
-}
-
 .status-active {
   color: #2196f3;
 }

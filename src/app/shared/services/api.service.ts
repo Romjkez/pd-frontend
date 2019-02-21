@@ -14,25 +14,42 @@ export interface User {
   stdgroup: string;
 }
 
+export interface Projects {
+  page: number;
+  per_page: number;
+  pages: number;
+  data: null | [];
+}
+
 @Injectable({
   providedIn: 'root'
 })
 export class ApiService {
   apiKey = 'android';
-  baseUrl = 'http://new.std-247.ist.mospolytech.ru';
+  baseUrl = 'http://new.std-247.ist.mospolytech.ru/api';
 
   constructor(private http: HttpClient) {
   }
 
+  /*
+  ** USER
+   */
   getUserByEmail(email: string): Promise<User> {
-    return this.http.get<User>(this.baseUrl + '/api/user/get.php?api_key=' + this.apiKey + '&email=' + email).toPromise();
+    return this.http.get<User>(this.baseUrl + '/user/get.php?api_key=' + this.apiKey + '&email=' + email).toPromise();
   }
 
   getUserBySurname(surname: string): Promise<User> {
-    return this.http.get<User>(this.baseUrl + '/api/user/get.php?api_key=' + this.apiKey + '&surname=' + surname).toPromise();
+    return this.http.get<User>(this.baseUrl + '/user/get.php?api_key=' + this.apiKey + '&surname=' + surname).toPromise();
   }
 
   getUserById(surname: string): Promise<User> {
-    return this.http.get<User>(this.baseUrl + '/api/user/get.php?api_key=' + this.apiKey + '&id=' + surname).toPromise();
+    return this.http.get<User>(this.baseUrl + '/user/get.php?api_key=' + this.apiKey + '&id=' + surname).toPromise();
+  }
+
+  /*
+  ** PROJECTS
+   */
+  getProjectsByStatus(status: number): Promise<Projects> {
+    return this.http.get<Projects>(this.baseUrl + '/projects/get.php?status=' + status + '&per_page=10&page=1').toPromise();
   }
 }
