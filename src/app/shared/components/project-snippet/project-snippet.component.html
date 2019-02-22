@@ -8,7 +8,7 @@
   </div>
   <div class="snippet__proj-info">
     <span class="snippet__status">
-      Статус: <span class="status-active">{{statusMap.get(project.status)}}</span>
+      Статус: <span [ngStyle]="{'color':colorMap.get(project.status)}">{{statusMap.get(project.status)}}</span>
     </span>
     <span class="snippet__members">
       Занято: {{fullness[0]}}/{{fullness[1]}}
@@ -16,5 +16,8 @@
     <span class="snippet__curator">
       Куратор: {{curatorName}} {{curatorSurname}}
     </span>
+  </div>
+  <div *ngIf="project.adm_comment.length>0" class="snippet__proj-comment">
+    <b>Комментарий администратора:</b> {{project.adm_comment}}
   </div>
 </a>

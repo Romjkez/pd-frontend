@@ -13,7 +13,7 @@ export class ActiveProjectsComponent implements OnInit {
   currentPage = 1;
   totalPages: number;
   perPage = 2;
-  statusFilter = 1;
+  statusFilter = 12;
 
   constructor(private authService: AuthService, private apiService: ApiService) {
   }

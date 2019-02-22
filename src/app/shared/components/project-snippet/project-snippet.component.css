@@ -43,6 +43,13 @@
   font-size: 14px;
 }
 
+.snippet__proj-comment {
+  margin-top: 1%;
+  background: #eee;
+  color: #ff1934;
+  padding: 1%;
+}
+
 @media (min-width: 440px) and (max-width: 450px) {
   .snippet__proj-info {
     font-size: 13px;

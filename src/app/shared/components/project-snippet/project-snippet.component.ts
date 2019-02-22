@@ -23,13 +23,19 @@ export class ProjectSnippetComponent implements OnInit {
   tags: string[];
   curatorName: string;
   curatorSurname: string;
+  fullness: number[];
   statusMap: Map<string, string> = new Map([
     ['0', 'На рассмотрении'],
     ['1', 'Открыт'],
     ['2', 'Закрыт'],
     ['3', 'Не прошёл модерацию']
   ]);
-  fullness: number[];
+  colorMap: Map<string, string> = new Map([
+    ['0', '#000'],
+    ['1', '#08bc00'],
+    ['2', 'red'],
+    ['3', '#e3a100']
+  ]);
 
   constructor(private apiService: ApiService) {
   }
