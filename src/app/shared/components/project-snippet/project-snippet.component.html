@@ -14,7 +14,8 @@
       Занято: {{fullness[0]}}/{{fullness[1]}}
     </span>
     <span class="snippet__curator">
-      Куратор: {{curatorName}} {{curatorSurname}}
+      Куратор: {{curatorSurname}} {{curatorName?.length > 0 ? curatorName : ''}}
+
     </span>
   </div>
   <div *ngIf="project.adm_comment.length>0" class="snippet__proj-comment">

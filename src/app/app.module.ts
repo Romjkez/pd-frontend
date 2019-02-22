@@ -4,7 +4,7 @@ import {NgModule} from '@angular/core';
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {NotFoundPageComponent} from './not-found-page/not-found-page.component';
-import {PreloaderComponent} from './preloader/preloader.component';
+import {PreloaderComponent} from './shared/components/preloader/preloader.component';
 import {UserViewComponent} from './user-view/user-view.component';
 import {HeaderComponent} from './header/header.component';
 import {MainPageComponent} from './main/main-page/main-page.component';
@@ -30,7 +30,7 @@ import {ProjectComponent} from './shared/components/project/project.component';
     RegisterComponent,
     LoginComponent,
     MainPageComponent,
-    ProjectComponent
+    ProjectComponent,
   ],
   imports: [
     AppRoutingModule,
@@ -52,7 +52,8 @@ import {ProjectComponent} from './shared/components/project/project.component';
     MatDialogModule,
     NgxPaginationModule,
     PreloaderComponent,
-    ProjectSnippetComponent
+    CabinetModule,
+    ProjectSnippetComponent,
   ],
   providers: [MatSnackBar, MatButtonToggle],
   bootstrap: [AppComponent]

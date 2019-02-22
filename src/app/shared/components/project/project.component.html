@@ -2,38 +2,36 @@
   <div class="page-wrapper">
     <div class="project-view">
       <div class="project-view__top-info">
-        <!--<h5 class="project-view__id">№{{project.id}}</h5>-->
-        <!--<h4 class="project-view__status"><span [ngStyle]="{'color':colorMap.get(project.status)}">{{statusMap.get(project.status)}}</span></h4>-->
+        <h5 class="project-view__id">№{{project?.id}}</h5>
+        <h4 class="project-view__status"><span
+          [ngStyle]="{'color':colorMap.get(project?.status)}">{{statusMap.get(project?.status)}}</span></h4>
       </div>
-      <h4 class="project-view__title">СУПЕР-ПУПЕР ПРОЕКТ АФИГЕТЬ</h4>
+      <h4 class="project-view__title">{{project?.title}}</h4>
       <div class="project-view__info">
         <p class="project-view__description">
-          Lorem ipsum dolor sit amet consectetur\ adipisicing elit.
-          Quos nobis placeat accusantium delectus consectetur, voluptas
-          ratione repellendus voluptatibus ipsam assumenda esse maiores
-          dolorem eligendi suscipit ex repellat nulla dolores non?
+          {{project?.description}}
         </p>
         <div class="project-view__dead-line info-block">
-          <h4 class="point-title"><b>Запись до: </b>28.08.1999</h4>
+          <h4 class="point-title"><b>Запись до: </b>{{project?.deadline}}</h4>
         </div>
         <div class="project-view__curator info-block">
-          <h4 class="point-title" style="margin-right: 5px;"><b>Куратор: </b></h4><a class="curator-link"
-                                                                                     href="#">Чикунов Кекал
-          Кекалович</a>
+          <h4 class="point-title" style="margin-right: 5px;">
+            <b>Куратор: </b></h4><a class="curator-link" routerLink="/user/{{project?.curator}}">
+          {{curatorSurname}}
+          {{curatorName?.length > 0 ? curatorName : ''}}
+          {{curatorMiddlename?.length > 0 ? curatorMiddlename : ''}}</a>
         </div>
         <div class="project-view__tags info-block">
           <h4 class="point-title"><b>Теги: </b></h4>
           <div class="tags__tags-block">
             <div class="snippet__proj-tags">
-              <div class="proj-tags__item">Дизайн</div>
-              <div class="proj-tags__item">Маркетинг</div>
-              <div class="proj-tags__item">Маркетинг</div>
-              <div class="proj-tags__item">Маркетинг</div>
+              <div *ngFor="let tag of tags" class="proj-tags__item">{{tag}}</div>
             </div>
           </div>
         </div>
         <div class="project-view__places info-block">
-          <h4 class="point-title" style="margin-right: 5px;"><b>Заполненность: </b>25/30</h4>
+          <h4 class="point-title" style="margin-right: 5px;"><b>Заполненность: </b>
+            {{fullness?.occupied}}/{{fullness?.places}}</h4>
         </div>
       </div>
       <div class="teams">

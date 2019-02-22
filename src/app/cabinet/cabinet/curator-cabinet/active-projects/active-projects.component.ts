@@ -28,7 +28,6 @@ export class ActiveProjectsComponent implements OnInit {
         this.perPage = res.per_page;
         this.projects = res.data;
         this.loading = false;
-        console.log(res);
       }).catch(e => {
         this.loading = false;
         console.error('Failed to get active projects:', e);
