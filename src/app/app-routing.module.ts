@@ -2,7 +2,7 @@ import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {MainPageComponent} from './main/main-page/main-page.component';
 import {UserViewComponent} from './user-view/user-view.component';
-import {ProjectComponent} from './project-view/project/project.component';
+import {ProjectComponent} from './shared/components/project/project.component';
 import {NotFoundPageComponent} from './not-found-page/not-found-page.component';
 import {RegisterComponent} from './auth/register/register.component';
 import {LoginComponent} from './auth/login/login.component';

@@ -9,7 +9,6 @@ import {UserViewComponent} from './user-view/user-view.component';
 import {HeaderComponent} from './header/header.component';
 import {MainPageComponent} from './main/main-page/main-page.component';
 import {FooterComponent} from './footer/footer.component';
-import {ProjectComponent} from './project-view/project/project.component';
 import {RegisterComponent} from './auth/register/register.component';
 import {LoginComponent} from './auth/login/login.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
@@ -19,6 +18,7 @@ import {HttpClientModule} from '@angular/common/http';
 import {ProjectSnippetComponent} from './shared/components/project-snippet/project-snippet.component';
 import {NgxPaginationModule} from 'ngx-pagination';
 import {CabinetModule} from './cabinet/cabinet.module';
+import {ProjectComponent} from './shared/components/project/project.component';
 
 @NgModule({
   declarations: [
@@ -27,14 +27,14 @@ import {CabinetModule} from './cabinet/cabinet.module';
     UserViewComponent,
     HeaderComponent,
     FooterComponent,
-    ProjectComponent,
     RegisterComponent,
     LoginComponent,
-    MainPageComponent
+    MainPageComponent,
+    ProjectComponent
   ],
   imports: [
-    BrowserModule,
     AppRoutingModule,
+    BrowserModule,
     BrowserAnimationsModule,
     MatSnackBarModule,
     MatButtonToggleModule,
@@ -43,7 +43,7 @@ import {CabinetModule} from './cabinet/cabinet.module';
     MatDialogModule,
     HttpClientModule,
     NgxPaginationModule,
-    CabinetModule
+    CabinetModule,
   ],
   exports: [
     FormsModule,

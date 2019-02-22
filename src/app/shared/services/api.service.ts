@@ -1,5 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
+import {Project} from '../components/project-snippet/project-snippet.component';
 
 export interface User {
   id: string;
@@ -59,6 +60,14 @@ export class ApiService {
       `${this.baseUrl}/projects/get.php?status=${status}&curator=${curator}&per_page=${perPage}&page=${page}`).toPromise();
   }
 
+  getProjectById(id: number | string): Promise<Project> {
+    return this.http.get<Project>(
+      `${this.baseUrl}/projects/get.php?id=${id}`).toPromise();
+  }
+
+  /*
+  ** PROJECTS ARCHIVE
+   */
   getArchiveProjects(perPage: number, page: number): Promise<Projects> {
     return this.http.get<Projects>(
       `${this.baseUrl}/projects/getArchive.php?per_page=${perPage}&page=${page}`).toPromise();
