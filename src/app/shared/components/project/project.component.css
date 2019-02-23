@@ -81,6 +81,10 @@
 }
 
 .teammate__job {
+  color: #707070;
+}
+
+.teammate__name {
   color: #207ec9;
 }
 

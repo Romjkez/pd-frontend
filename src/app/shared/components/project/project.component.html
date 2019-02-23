@@ -43,7 +43,7 @@
             <div *ngFor="let teamMate of team | keyvalue" class="teammate field">
               <div class="teammate__info">
                 <span class="teammate__job">{{teamMate.key}}: </span>
-                <span>{{teamMate.value}}</span>
+                <a class="teammate__name" routerLink="/user/{{teamMate.value}}">{{teamMate.value | getName | async}}</a>
               </div>
               <span>171-331</span>
             </div>
