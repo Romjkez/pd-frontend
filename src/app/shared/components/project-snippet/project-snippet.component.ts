@@ -10,7 +10,7 @@ export interface Project {
   deadline: string;
   curator: number;
   tags: string;
-  status: number;
+  status: string;
   adm_comment: string | null;
 }
 

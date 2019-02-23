@@ -1,25 +1,20 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
-
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {NotFoundPageComponent} from './not-found-page/not-found-page.component';
-import {PreloaderComponent} from './shared/components/preloader/preloader.component';
 import {UserViewComponent} from './user-view/user-view.component';
 import {HeaderComponent} from './header/header.component';
-import {MainPageComponent} from './main/main-page/main-page.component';
 import {FooterComponent} from './footer/footer.component';
-import {RegisterComponent} from './auth/register/register.component';
-import {LoginComponent} from './auth/login/login.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatButtonToggle, MatButtonToggleModule, MatDialogModule, MatSnackBar, MatSnackBarModule} from '@angular/material';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
-import {ProjectSnippetComponent} from './shared/components/project-snippet/project-snippet.component';
 import {NgxPaginationModule} from 'ngx-pagination';
 import {CabinetModule} from './cabinet/cabinet.module';
-import {ProjectComponent} from './shared/components/project/project.component';
-import {GetNamePipe} from './shared/pipes/get-name.pipe';
+import {AuthModule} from './auth/auth.module';
+import {MainModule} from './main/main.module';
+import {SharedModule} from './shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -28,11 +23,6 @@ import {GetNamePipe} from './shared/pipes/get-name.pipe';
     UserViewComponent,
     HeaderComponent,
     FooterComponent,
-    RegisterComponent,
-    LoginComponent,
-    MainPageComponent,
-    ProjectComponent,
-    GetNamePipe,
   ],
   imports: [
     AppRoutingModule,
@@ -46,6 +36,9 @@ import {GetNamePipe} from './shared/pipes/get-name.pipe';
     HttpClientModule,
     NgxPaginationModule,
     CabinetModule,
+    AuthModule,
+    MainModule,
+    SharedModule
   ],
   exports: [
     FormsModule,
@@ -53,9 +46,7 @@ import {GetNamePipe} from './shared/pipes/get-name.pipe';
     MatSnackBarModule,
     MatDialogModule,
     NgxPaginationModule,
-    PreloaderComponent,
     CabinetModule,
-    ProjectSnippetComponent,
   ],
   providers: [MatSnackBar, MatButtonToggle],
   bootstrap: [AppComponent]

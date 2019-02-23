@@ -5,13 +5,12 @@ import {AdminCabinetComponent} from './cabinet/admin-cabinet/admin-cabinet.compo
 import {CuratorCabinetComponent} from './cabinet/curator-cabinet/curator-cabinet.component';
 import {CabinetComponent} from './cabinet/cabinet.component';
 import {MatTabsModule} from '@angular/material';
-import {PreloaderComponent} from '../shared/components/preloader/preloader.component';
 import {NgxPaginationModule} from 'ngx-pagination';
 import {ActiveProjectsComponent} from './cabinet/curator-cabinet/active-projects/active-projects.component';
 import {PendingProjectsComponent} from './cabinet/curator-cabinet/pending-projects/pending-projects.component';
 import {ArchiveProjectsComponent} from './cabinet/curator-cabinet/archive-projects/archive-projects.component';
-import {ProjectSnippetComponent} from '../shared/components/project-snippet/project-snippet.component';
 import {AppRoutingModule} from '../app-routing.module';
+import {SharedModule} from '../shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -19,25 +18,22 @@ import {AppRoutingModule} from '../app-routing.module';
     AdminCabinetComponent,
     CuratorCabinetComponent,
     CabinetComponent,
-    PreloaderComponent,
     ActiveProjectsComponent,
     PendingProjectsComponent,
     ArchiveProjectsComponent,
-    ProjectSnippetComponent
   ],
   imports: [
     CommonModule,
     MatTabsModule,
     NgxPaginationModule,
     AppRoutingModule,
+    SharedModule
   ],
   exports: [
     WorkerCabinetComponent,
     AdminCabinetComponent,
     CuratorCabinetComponent,
     CabinetComponent,
-    ProjectSnippetComponent,
-    PreloaderComponent,
   ],
 })
 export class CabinetModule {

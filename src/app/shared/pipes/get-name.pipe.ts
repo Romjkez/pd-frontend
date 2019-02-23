@@ -14,7 +14,7 @@ export class GetNamePipe implements PipeTransform {
     return from(this.apiService.getUserById(value))
       .pipe(
         map(({name, surname, middle_name}) => {
-          return `${surname} ${name.length > 0 ? name : ''} ${middle_name.length > 0 ? middle_name : ''}`;
+          return `${surname} ${name.length > 0 && name.length ? name : ''} ${middle_name.length > 0 && middle_name.length ? middle_name : ''}`;
         }),
       );
   }

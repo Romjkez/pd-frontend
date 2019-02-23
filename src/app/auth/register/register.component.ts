@@ -5,6 +5,26 @@ import {Router} from '@angular/router';
 import {HttpClient, HttpErrorResponse, HttpHeaders, HttpResponse} from '@angular/common/http';
 import {MatSnackBar} from '@angular/material';
 
+interface FormLabels {
+  worker: {
+    surname: string,
+    std_group: string,
+    description: string,
+    avatar: string
+  };
+  curator: {
+    surname: string,
+    middlename: string,
+    description: string,
+    avatar: string
+  };
+  name: string;
+  middlename: string;
+  email: string;
+  password: string;
+  repeatPassword: string;
+  tel: string;
+}
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -12,7 +32,7 @@ import {MatSnackBar} from '@angular/material';
 })
 export class RegisterComponent implements OnInit {
   regForm: FormGroup;
-  formLabels: object;
+  formLabels: FormLabels;
 
   constructor(private authService: AuthService, private router: Router, private http: HttpClient, private snackBar: MatSnackBar) {
   }

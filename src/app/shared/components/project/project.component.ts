@@ -1,19 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {colorMap, statusMap} from '../project-snippet/project-snippet.component';
+import {colorMap, Project, statusMap} from '../project-snippet/project-snippet.component';
 import {ActivatedRoute} from '@angular/router';
 import {ApiService} from '../../services/api.service';
-
-interface Project {
-  id: number;
-  title: string;
-  description: string;
-  members: string | any[];
-  deadline: string;
-  curator: number;
-  tags: string;
-  status: number;
-  adm_comment: string | null;
-}
 
 @Component({
   selector: 'app-project',
@@ -39,7 +27,7 @@ export class ProjectComponent implements OnInit {
 
   async ngOnInit() {
     const id = this.activatedRoute.snapshot.paramMap.get('id');
-    await this.apiService.getProjectById(id).then((res: Project) => {
+    await this.apiService.getProjectById(id).then((res) => {
       this.project = res;
       this.project.members = JSON.parse(<string>this.project.members);
     }).then(() => {
