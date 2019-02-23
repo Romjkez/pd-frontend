@@ -1,7 +1,19 @@
 import {Component, OnInit} from '@angular/core';
-import {colorMap, Project, statusMap} from '../project-snippet/project-snippet.component';
+import {colorMap, statusMap} from '../project-snippet/project-snippet.component';
 import {ActivatedRoute} from '@angular/router';
 import {ApiService} from '../../services/api.service';
+
+interface Project {
+  id: number;
+  title: string;
+  description: string;
+  members: string | any[];
+  deadline: string;
+  curator: number;
+  tags: string;
+  status: number;
+  adm_comment: string | null;
+}
 
 @Component({
   selector: 'app-project',
@@ -16,7 +28,10 @@ export class ProjectComponent implements OnInit {
   curatorName: string;
   curatorSurname: string;
   curatorMiddlename: string;
-  fullness: object;
+  fullness = {
+    'occupied': 0,
+    'places': 0
+  };
 
 
   constructor(private activatedRoute: ActivatedRoute, private apiService: ApiService) {
@@ -26,25 +41,26 @@ export class ProjectComponent implements OnInit {
     const id = this.activatedRoute.snapshot.paramMap.get('id');
     await this.apiService.getProjectById(id).then((res: Project) => {
       this.project = res;
+      this.project.members = JSON.parse(<string>this.project.members);
     }).then(() => {
       this.apiService.getUserById(this.project.curator).then((res) => {
-        this.fullness = this.getOccupiedQuantity(this.project.members);
+        this.getOccupiedQuantity(<any>this.project.members).then((fullness) => {
+          this.fullness = fullness;
+        });
         this.curatorName = res.name;
         this.curatorSurname = res.surname;
         this.curatorMiddlename = res.middle_name;
         this.tags = this.project.tags.split(',');
-        this.project.deadline = this.project.deadline.split('-').reverse().join('-');
       }).catch(e => console.log(e));
     });
   }
 
-  getOccupiedQuantity(members: string): object {
-    const membersArray: object[] = JSON.parse(this.project.members);
+  async getOccupiedQuantity(members: object[]): Promise<{ occupied: number, places: number }> {
     let occupied = 0;
     let places = 0;
-    for (let i = 0; i < membersArray.length; i++) {
-      for (const key in membersArray[i]) {
-        if (membersArray[i][key] !== 0) {
+    for (let i = 0; i < members.length; i++) {
+      for (const key in members[i]) {
+        if (members[i][key] !== 0) {
           occupied++;
         }
         places++;

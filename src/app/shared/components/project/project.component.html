@@ -12,7 +12,7 @@
           {{project?.description}}
         </p>
         <div class="project-view__dead-line info-block">
-          <h4 class="point-title"><b>Запись до: </b>{{project?.deadline}}</h4>
+          <h4 class="point-title"><b>Запись до: </b>{{project?.deadline | date:"dd.MM.yy"}}</h4>
         </div>
         <div class="project-view__curator info-block">
           <h4 class="point-title" style="margin-right: 5px;">
@@ -35,59 +35,17 @@
         </div>
       </div>
       <div class="teams">
-        <div class="team-block">
+        <div *ngFor="let team of project?.members; let i = index" class="team-block">
           <div class="team-block__top field">
-            <h4>Команда №1</h4>
+            <h4>Команда №{{i + 1}}</h4>
           </div>
           <div class="team-block__teammates">
-            <div class="teammate field">
+            <div *ngFor="let teamMate of team | keyvalue" class="teammate field">
               <div class="teammate__info">
-                <span class="teammate__job">Frontend: </span>
-                <span>Иванов Иван</span>
+                <span class="teammate__job">{{teamMate.key}}: </span>
+                <span>{{teamMate.value}}</span>
               </div>
-              <a class="button" href="#">профиль</a>
-            </div>
-            <div class="teammate field">
-              <div class="teammate__info">
-                <span class="teammate__job">Frontend: </span>
-                <span>Иванов Иван</span>
-              </div>
-              <a class="button" href="#">профиль</a>
-            </div>
-            <div class="teammate field">
-              <div class="teammate__info">
-                <span class="teammate__job">Frontend: </span>
-                <span>Иванов Иван</span>
-              </div>
-              <a class="button" href="#">профиль</a>
-            </div>
-          </div>
-        </div>
-        <div class="team-block">
-          <div class="team-block__top field">
-            <h4>Команда №1</h4>
-          </div>
-          <div class="team-block__teammates">
-            <div class="teammate field">
-              <div class="teammate__info">
-                <span class="teammate__job">Frontend: </span>
-                <span>Иванов Иван</span>
-              </div>
-              <a class="button" href="#">профиль</a>
-            </div>
-            <div class="teammate field">
-              <div class="teammate__info">
-                <span class="teammate__job">Frontend: </span>
-                <span>Иванов Иван</span>
-              </div>
-              <a class="button" href="#">профиль</a>
-            </div>
-            <div class="teammate field">
-              <div class="teammate__info">
-                <span class="teammate__job">Frontend: </span>
-                <span>Иванов Иван</span>
-              </div>
-              <a class="button" href="#">профиль</a>
+              <span>171-331</span>
             </div>
           </div>
         </div>

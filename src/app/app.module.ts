@@ -19,6 +19,7 @@ import {ProjectSnippetComponent} from './shared/components/project-snippet/proje
 import {NgxPaginationModule} from 'ngx-pagination';
 import {CabinetModule} from './cabinet/cabinet.module';
 import {ProjectComponent} from './shared/components/project/project.component';
+import {GetNamePipe} from './shared/pipes/get-name.pipe';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import {ProjectComponent} from './shared/components/project/project.component';
     LoginComponent,
     MainPageComponent,
     ProjectComponent,
+    GetNamePipe,
   ],
   imports: [
     AppRoutingModule,
