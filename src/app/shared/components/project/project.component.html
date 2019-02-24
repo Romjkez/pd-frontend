@@ -43,9 +43,9 @@
             <div *ngFor="let teamMate of team | keyvalue" class="teammate field">
               <div class="teammate__info">
                 <span class="teammate__job">{{teamMate.key}}: </span>
+                <span *ngIf="teamMate.value==0" [ngStyle]="{'color': colorMap.get('1')}">место свободно</span>
                 <a class="teammate__name" routerLink="/user/{{teamMate.value}}">{{teamMate.value | getName | async}}</a>
               </div>
-              <span>171-331</span>
             </div>
           </div>
         </div>
