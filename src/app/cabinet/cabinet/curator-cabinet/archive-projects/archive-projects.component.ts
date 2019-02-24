@@ -12,7 +12,7 @@ export class ArchiveProjectsComponent implements OnInit {
   loading: boolean;
   currentPage = 1;
   totalPages: number;
-  perPage = 2;
+  perPage = 5;
   statusFilter = 2;
 
   constructor(private authService: AuthService, private apiService: ApiService) {

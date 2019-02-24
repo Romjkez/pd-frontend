@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {ApiService, User} from '../shared/services/api.service';
 
 @Component({
@@ -10,13 +10,17 @@ import {ApiService, User} from '../shared/services/api.service';
 export class UserViewComponent implements OnInit {
   user: User;
 
-  constructor(private activatedRoute: ActivatedRoute, private apiService: ApiService) {
+  constructor(private activatedRoute: ActivatedRoute, private apiService: ApiService, private router: Router) {
   }
 
   async ngOnInit() {
     const id = this.activatedRoute.snapshot.paramMap.get('id');
     await this.apiService.getUserById(id).then((res: User) => {
-      this.user = res;
+      if (res.surname && res.id) {
+        this.user = res;
+      } else {
+        this.router.navigate(['/404']);
+      }
     }).catch(e => console.error(e));
   }
 

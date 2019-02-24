@@ -12,7 +12,7 @@ export class PendingProjectsComponent implements OnInit {
   loading: boolean;
   currentPage = 1;
   totalPages: number;
-  perPage = 2;
+  perPage = 5;
   statusFilter = 30;
 
   constructor(private authService: AuthService, private apiService: ApiService) {

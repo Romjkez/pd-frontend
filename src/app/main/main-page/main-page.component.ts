@@ -10,7 +10,7 @@ export class MainPageComponent implements OnInit {
   projects: [] | null;
   currentPage = 1;
   totalPages: number;
-  perPage = 2;
+  perPage = 5;
   statusFilter = 1;
   loading: boolean;
 
