@@ -15,6 +15,7 @@ import {CabinetModule} from './cabinet/cabinet.module';
 import {AuthModule} from './auth/auth.module';
 import {MainModule} from './main/main.module';
 import {SharedModule} from './shared/shared.module';
+import { CreateProjectComponent } from './project/create-project/create-project.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import {SharedModule} from './shared/shared.module';
     UserViewComponent,
     HeaderComponent,
     FooterComponent,
+    CreateProjectComponent,
   ],
   imports: [
     AppRoutingModule,
