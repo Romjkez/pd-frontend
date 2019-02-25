@@ -1,0 +1,46 @@
+<main class="main">
+  <div class="page-wrapper">
+    <form class="form">
+      <div class="form__title">
+        <div class="auth-form__back-button">
+          <a href="#">
+            <img class="auth-form__back-image" src="../assets/img/back_button.svg" alt="back button">
+          </a>
+        </div>
+        <h2 class="form__reg">создание проекта</h2>
+      </div>
+      <div class="form__user-info">
+        <label>Название проекта<input type="text" class="form__input"></label>
+        <label>Описание проекта<textarea cols="30" rows="20" class="form__textarea"></textarea></label>
+        <label>Крайняя дата записи на проект<input type="date" class="form__input form__date"></label>
+        <label>Какие специалисты вам нужны? Перечислите через запятую не более 10 специальностей
+          <input type="email" class="form__input" placeholder="Например: Frontend-разработчик"></label>
+        <label>Количество команд<input type="number" min="1" class="form__input form__date"></label>
+        <label>
+          Выберите теги необходимых компетенций, чтобы исполнителям было проще найти проект:
+          <select multiple="" class="form__select">
+            <optgroup label="IT-компетенции">
+              <option value="Frontend">Frontend</option>
+              <option value="Backend">Backend</option>
+              <option value="Веб-дизайн">Веб-дизайн</option>
+              <option value="Android">Android</option>
+              <option value="IOS">IOS</option>
+            </optgroup>
+            <optgroup label="Продвижение">
+              <option value="Маркетинг">Маркетинг</option>
+              <option value="SMM">SMM</option>
+              <option value="Контекстная реклама">Контекстная реклама</option>
+            </optgroup>
+          </select>
+        </label>
+        <div class="form__submit">
+          <button type="submit" class="button form__button">
+            Подтвердить
+          </button>
+          <br>
+          <a href="#" class="block__link">сбросить</a>
+        </div>
+      </div>
+    </form>
+  </div>
+</main>

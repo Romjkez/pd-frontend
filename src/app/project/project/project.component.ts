@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {colorMap, Project, statusMap} from '../project-snippet/project-snippet.component';
+import {colorMap, Project, statusMap} from '../../shared/components/project-snippet/project-snippet.component';
 import {ActivatedRoute} from '@angular/router';
-import {ApiService} from '../../services/api.service';
+import {ApiService} from '../../shared/services/api.service';
 
 @Component({
   selector: 'app-project',
