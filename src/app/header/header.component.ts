@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {AuthService} from '../shared/services/auth.service';
+import {AuthService, parseJwt} from '../shared/services/auth.service';
 import {ApiService, User} from '../shared/services/api.service';
 
 
@@ -17,7 +17,7 @@ export class HeaderComponent implements OnInit {
 
   async ngOnInit() {
     if (this.authService.getToken()) {
-      const parsedToken = this.authService.parseJwt(this.authService.getToken());
+      const parsedToken = parseJwt(this.authService.getToken());
       this.email = parsedToken.data.email;
       await this.apiService.getUserByEmail(this.email).then((res: User) => {
         this.user = res;

@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {AuthService} from '../../../../shared/services/auth.service';
+import {AuthService, parseJwt} from '../../../../shared/services/auth.service';
 import {ApiService} from '../../../../shared/services/api.service';
 
 @Component({
@@ -20,7 +20,7 @@ export class ArchiveProjectsComponent implements OnInit {
 
   async ngOnInit() {
     this.loading = true;
-    const curator = this.authService.parseJwt(this.authService.getToken()).data.email;
+    const curator = parseJwt(this.authService.getToken()).data.email;
     await this.apiService.getProjectsByStatusAndCurator(this.statusFilter, curator, this.perPage, this.currentPage)
       .then((res) => {
         this.currentPage = res.page;

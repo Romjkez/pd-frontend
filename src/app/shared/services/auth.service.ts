@@ -3,9 +3,16 @@ import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import {Router} from '@angular/router';
 import {HttpClientService} from './http-client.service';
 
+export function parseJwt(token: string) {
+  const base64Url = token.split('.')[1];
+  const base64 = base64Url.replace('-', '+').replace('_', '/');
+  return JSON.parse(window.atob(base64));
+}
+
 @Injectable({
   providedIn: 'root'
 })
+
 export class AuthService {
 
   constructor(private http: HttpClient, private httpService: HttpClientService, private router: Router) {
@@ -30,14 +37,8 @@ export class AuthService {
   }
 
   public getUserGroup(): number {
-    const parsedToken = this.parseJwt(this.getToken());
+    const parsedToken = parseJwt(this.getToken());
     return parsedToken.data.usergroup;
-  }
-
-  parseJwt(token: string) {
-    const base64Url = token.split('.')[1];
-    const base64 = base64Url.replace('-', '+').replace('_', '/');
-    return JSON.parse(window.atob(base64));
   }
 
   isAuthorized(): boolean {
