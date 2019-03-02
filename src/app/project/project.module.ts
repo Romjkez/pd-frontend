@@ -4,6 +4,10 @@ import {ProjectComponent} from './project/project.component';
 import {CreateProjectComponent} from './project/create-project/create-project.component';
 import {RouterModule} from '@angular/router';
 import {SharedModule} from '../shared/shared.module';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatSelectModule} from '@angular/material/select';
+import {MatOptionModule, MatTooltipModule} from '@angular/material';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 @NgModule({
   declarations: [ProjectComponent,
@@ -11,7 +15,13 @@ import {SharedModule} from '../shared/shared.module';
   imports: [
     CommonModule,
     RouterModule,
-    SharedModule
+    SharedModule,
+    MatTooltipModule,
+    ReactiveFormsModule,
+    FormsModule,
+    MatFormFieldModule,
+    MatSelectModule,
+    MatOptionModule,
   ],
   exports: [ProjectComponent, CreateProjectComponent]
 })

@@ -65,6 +65,14 @@ export class ApiService {
       `${this.baseUrl}/projects/get.php?id=${id}`).toPromise();
   }
 
+  createProject(form: object | string): Promise<any | object> {
+    form = form + '&api_key=android';
+    return this.http.post(`${this.baseUrl}/projects/create.php`, form, {
+      headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+      observe: 'response'
+    }).toPromise();
+  }
+
   /*
   ** PROJECTS ARCHIVE
    */
