@@ -1,8 +1,8 @@
 <app-preloader *ngIf="loading"></app-preloader>
+<h1 style="text-align: center; margin: 2% 0">Ожидающие модерации проекты</h1>
 <h2 *ngIf="totalPages===0" class="not-found-label">Нет новых проектов</h2>
 <main class="main">
   <div class="cabinet-wrapper">
-    <h1 style="text-align: center; margin: 2% 0">Ожидающие модерации проекты</h1>
     <div class="snippet-block">
       <app-adm-project-snippet [project]="project" *ngFor="let project of projects | paginate: {
       id: 'pending',
