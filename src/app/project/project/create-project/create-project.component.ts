@@ -92,9 +92,12 @@ export class CreateProjectComponent implements OnInit {
       if (res.status === 201) {
         this.snackBar.open('Проект создан и отправлен на модерацию', 'Закрыть', {duration: 3000});
         this.router.navigate(['/cabinet']);
+      } else {
+        this.snackBar.open('Не удалось создать проект');
         }
       }
     ).catch(e => {
+      this.snackBar.open('Не удалось создать проект');
       console.error(e);
     }).finally(() => {
       this.tagsMap.forEach(value => value = false);
