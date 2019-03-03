@@ -66,8 +66,16 @@ export class ApiService {
   }
 
   createProject(form: object | string): Promise<any | object> {
-    form = form + '&api_key=android';
+    form = form + '&api_key=' + this.apiKey;
     return this.http.post(`${this.baseUrl}/projects/create.php`, form, {
+      headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+      observe: 'response'
+    }).toPromise();
+  }
+
+  updateProjectStatus(id: number, status: number, comment: string): Promise<any> {
+    const data = `api_key=${this.apiKey}&id=${id}&status=${status}&adm_comment=${comment}`;
+    return this.http.post(`${this.baseUrl}/projects/updateProjectStatus.php`, data, {
       headers: {'Content-Type': 'application/x-www-form-urlencoded'},
       observe: 'response'
     }).toPromise();
