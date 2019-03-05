@@ -28,7 +28,7 @@
         <a routerLink="/user/{{user?.id}}" class="profile-link__link">
           <h3 class="profile-link__name">{{user?.surname}} {{user?.name.length == 0 ? '' : user?.name}}</h3>
           <div class="profile-link__photo">
-            <img [src]="user?.avatar.length == 0 ? '../assets/img/avatar.png' : user?.avatar"
+            <img src="{{user?.avatar.length == 0 ? '../assets/img/avatar.png' : user?.avatar}}"
                  class="profile-link__photoContent" alt="Фотография">
           </div>
         </a>

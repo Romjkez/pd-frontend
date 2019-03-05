@@ -49,6 +49,7 @@ import {ProjectModule} from './project/project.module';
     MatDialogModule,
     NgxPaginationModule,
     CabinetModule,
+    HeaderComponent
   ],
   providers: [MatSnackBar, MatButtonToggle],
   bootstrap: [AppComponent]

@@ -2,7 +2,6 @@ import {Component, OnInit} from '@angular/core';
 import {AuthService, parseJwt} from '../shared/services/auth.service';
 import {ApiService, User} from '../shared/services/api.service';
 
-
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -16,7 +15,6 @@ export class HeaderComponent implements OnInit {
   }
 
   async ngOnInit() {
-    // todo fix old name/avatar when relogin with another account
     if (this.authService.getToken()) {
       const parsedToken = parseJwt(this.authService.getToken());
       this.email = parsedToken.data.email;
