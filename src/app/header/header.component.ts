@@ -14,6 +14,7 @@ export class HeaderComponent implements OnInit {
   constructor(public authService: AuthService, private apiService: ApiService) {
   }
 
+  // todo FIX not changing name/avatar when relogin as another user
   async ngOnInit() {
     if (this.authService.getToken()) {
       const parsedToken = parseJwt(this.authService.getToken());

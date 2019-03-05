@@ -28,7 +28,8 @@ export class AdmProjectSnippetComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
   }
 
-  async updateProject() {
+  async updateProject(): Promise<any> {
+    console.log('update');
     if (this.approveForm.controls.approve.value === 'true') {
       await this.apiService.updateProjectStatus(this.project.id, 1, '').then((res: HttpResponse<any>) => {
         this.snackBar.open('Статус проекта успешно обновлён', 'Закрыть', {duration: 3000});
@@ -37,10 +38,16 @@ export class AdmProjectSnippetComponent implements OnInit, OnDestroy {
         this.snackBar.open('Не удалось обновить статус проекта', 'Закрыть', {duration: 3500});
         console.error(e);
       });
-    } else if (this.approveForm.controls.approve.value === 'false' && this.approveForm.controls.adm_comment.value.trim().length > 0) {
-      await this.apiService.updateProjectStatus(this.project.id, 3, this.approveForm.controls.adm_comment.value);
-      this.snackBar.open('Статус проекта успешно обновлён', 'Закрыть', {duration: 3000});
-      this.visible = false;
+    } else if (this.approveForm.controls.approve.value === 'false') {
+      if (this.approveForm.controls.adm_comment.value.trim().length > 0) {
+        await this.apiService.updateProjectStatus(this.project.id, 3, this.approveForm.controls.adm_comment.value);
+        this.snackBar.open('Статус проекта успешно обновлён', 'Закрыть', {duration: 3000});
+        this.visible = false;
+      } else {
+        this.snackBar.open('Укажите причину отказа в публикации', 'Закрыть', {duration: 3000});
+
+      }
+
     }
   }
 }

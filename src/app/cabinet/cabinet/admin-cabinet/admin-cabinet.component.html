@@ -8,11 +8,13 @@
       id: 'pending',
         itemsPerPage: perPage, currentPage: currentPage, totalItems: perPage*totalPages
         }"></app-adm-project-snippet>
-      <pagination-controls *ngIf="totalPages>0"
-                           responsive="true"
-                           nextLabel="Вперёд"
-                           previousLabel="Назад"
-                           (pageChange)="switchPage($event)" [id]="'pending'"></pagination-controls>
+      <div class="pagination">
+        <pagination-controls *ngIf="totalPages>0"
+                             responsive="true"
+                             nextLabel="Вперёд"
+                             previousLabel="Назад"
+                             (pageChange)="switchPage($event)" [id]="'pending'"></pagination-controls>
+      </div>
     </div>
   </div>
 </main>
