@@ -3,14 +3,16 @@ import {colorMap, Project, statusMap} from '../../shared/components/project-snip
 import {ActivatedRoute} from '@angular/router';
 import {ApiService} from '../../shared/services/api.service';
 import {parseJwt} from '../../shared/services/auth.service';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-project',
   templateUrl: './project.component.html',
-  styleUrls: ['./project.component.css']
+  styleUrls: ['./project.component.css'],
 })
 export class ProjectComponent implements OnInit {
   project: Project;
+  joinForm: FormGroup;
   colorMap = colorMap;
   statusMap = statusMap;
   tags: string[];
@@ -23,12 +25,15 @@ export class ProjectComponent implements OnInit {
   };
   usergroup: number;
 
-
   constructor(private activatedRoute: ActivatedRoute, private apiService: ApiService) {
   }
 
   async ngOnInit() {
     const id = this.activatedRoute.snapshot.paramMap.get('id');
+    this.joinForm = new FormGroup({
+      role: new FormControl('', [Validators.required]),
+      comment: new FormControl('', [Validators.maxLength(200)])
+    });
     await this.apiService.getProjectById(id).then((res) => {
       this.project = res;
       this.project.members = JSON.parse(<string>this.project.members);
@@ -61,5 +66,8 @@ export class ProjectComponent implements OnInit {
       'occupied': occupied,
       'places': places
     };
+  }
+
+  requestJoinProject() {
   }
 }

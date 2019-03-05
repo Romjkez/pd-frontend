@@ -56,21 +56,21 @@
         <h2>Записаться на проект</h2>
       </div>
       <div class="join-form__body">
-        <form>
+        <form [formGroup]="joinForm" (ngSubmit)="requestJoinProject()">
           <mat-form-field>
-            <mat-label>Выберите команду</mat-label>
-            <mat-select>
-              <option></option>
+            <mat-select placeholder="Выберите">
+              <mat-optgroup *ngFor="let team of project.members;let i=index" label="Команда №{{i+1}}">
+                <ng-container *ngFor="let member of team | keyvalue">
+                  <mat-option *ngIf="member.value===0" [value]="member.key" formControlName="role"
+                              ngDefaultControl>{{member.key}}</mat-option>
+                </ng-container>
+              </mat-optgroup>
             </mat-select>
           </mat-form-field>
-
           <mat-form-field>
-            <mat-label>Выберите роль</mat-label>
-            <mat-select>
-              <option></option>
-            </mat-select>
+            <textarea matInput placeholder="Комментарий" maxlength="200" formControlName="comment"></textarea>
           </mat-form-field>
-          <button class="button button_confirm" type="submit">Отправить заявку</button>
+          <button class="button button_confirm" type="submit" [disabled]="joinForm.valid">Отправить заявку</button>
         </form>
       </div>
     </div>
