@@ -80,6 +80,13 @@ h1, h2, h3, h4, h5 {
   transition: 0.5s;
 }
 
+.button_confirm {
+  width: 100%;
+  height: 35px;
+  margin-bottom: 10px;
+
+}
+
 .close_block {
   position: fixed;
   top: 0;

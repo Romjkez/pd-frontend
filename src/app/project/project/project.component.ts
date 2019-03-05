@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {colorMap, Project, statusMap} from '../../shared/components/project-snippet/project-snippet.component';
 import {ActivatedRoute} from '@angular/router';
 import {ApiService} from '../../shared/services/api.service';
+import {parseJwt} from '../../shared/services/auth.service';
 
 @Component({
   selector: 'app-project',
@@ -20,6 +21,7 @@ export class ProjectComponent implements OnInit {
     'occupied': 0,
     'places': 0
   };
+  usergroup: number;
 
 
   constructor(private activatedRoute: ActivatedRoute, private apiService: ApiService) {
@@ -39,6 +41,7 @@ export class ProjectComponent implements OnInit {
         this.curatorSurname = res.surname;
         this.curatorMiddlename = res.middle_name;
         this.tags = this.project.tags.split(',');
+        this.usergroup = parseJwt(localStorage.getItem('token')).data.usergroup;
       }).catch(e => console.log(e));
     });
   }
