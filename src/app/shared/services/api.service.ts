@@ -73,6 +73,13 @@ export class ApiService {
     }).toPromise();
   }
 
+  updateProjectsDeadlines(): Promise<any> {
+    return this.http.post(`${this.baseUrl}/projects/updateStatus.php`, `api_key=${this.apiKey}`, {
+      headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+      observe: 'response'
+    }).toPromise();
+  }
+
   updateProjectStatus(id: number, status: number, comment: string): Promise<any> {
     const data = `api_key=${this.apiKey}&id=${id}&status=${status}&adm_comment=${comment}`;
     return this.http.post(`${this.baseUrl}/projects/updateProjectStatus.php`, data, {
@@ -87,5 +94,23 @@ export class ApiService {
   getArchiveProjects(perPage: number, page: number): Promise<Projects> {
     return this.http.get<Projects>(
       `${this.baseUrl}/projects/getArchive.php?per_page=${perPage}&page=${page}`).toPromise();
+  }
+
+  /*
+  ** APPLICATIONS
+   */
+  createApp(worker_id: number, project_id: number, team: number, role: string, comment: string): Promise<any> {
+    const data = `worker_id=${worker_id}&project_id=${project_id}&team=${team}&role=${role}&comment=${comment}`;
+    return this.http.post(`${this.baseUrl}/applications/create.php`, data, {
+      headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+      observe: 'response'
+    }).toPromise();
+  }
+
+  isWorkerRequestedJoin(worker_id: number, project_id: number): Promise<any> {
+    return this.http.get(`${this.baseUrl}/applications/get.php?worker=${worker_id}&project=${project_id}`, {
+      headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+      observe: 'response'
+    }).toPromise();
   }
 }

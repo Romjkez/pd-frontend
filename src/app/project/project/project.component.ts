@@ -4,6 +4,8 @@ import {ActivatedRoute} from '@angular/router';
 import {ApiService} from '../../shared/services/api.service';
 import {parseJwt} from '../../shared/services/auth.service';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {MatOptionSelectionChange, MatSnackBar} from '@angular/material';
+import {HttpResponse} from '@angular/common/http';
 
 @Component({
   selector: 'app-project',
@@ -23,14 +25,16 @@ export class ProjectComponent implements OnInit {
     'occupied': 0,
     'places': 0
   };
+  joinRequested = false;
   usergroup: number;
 
-  constructor(private activatedRoute: ActivatedRoute, private apiService: ApiService) {
+  constructor(private activatedRoute: ActivatedRoute, private apiService: ApiService, private snackBar: MatSnackBar) {
   }
 
   async ngOnInit() {
     const id = this.activatedRoute.snapshot.paramMap.get('id');
     this.joinForm = new FormGroup({
+      team: new FormControl('', [Validators.required]),
       role: new FormControl('', [Validators.required]),
       comment: new FormControl('', [Validators.maxLength(255)])
     });
@@ -47,8 +51,14 @@ export class ProjectComponent implements OnInit {
         this.curatorMiddlename = res.middle_name;
         this.tags = this.project.tags.split(',');
         this.usergroup = parseJwt(localStorage.getItem('token')).data.usergroup;
-      }).catch(e => console.log(e));
-    });
+      });
+    }).then(() => {
+      this.apiService.isWorkerRequestedJoin(parseJwt(localStorage.getItem('token')).data.id, this.project.id).then(res => {
+        if (res.body.message === 'true') {
+          this.joinRequested = true;
+        }
+      });
+    }).catch(e => console.error(e));
   }
 
   async getOccupiedQuantity(members: object[]): Promise<{ occupied: number, places: number }> {
@@ -68,6 +78,28 @@ export class ProjectComponent implements OnInit {
     };
   }
 
-  requestJoinProject() {
+  changeSelection(event: MatOptionSelectionChange): void {
+    if (event.isUserInput) {
+      const team = event.source.value.team;
+      const role = event.source.value.role;
+      this.joinForm.patchValue({team, role});
+    }
+  }
+
+  async requestJoinProject(): Promise<any> {
+    const projectId = this.project.id;
+    const workerId = parseJwt(localStorage.getItem('token')).data.id;
+    const team = this.joinForm.controls.team.value;
+    const role = this.joinForm.controls.role.value;
+    const comment = this.joinForm.controls.comment.value;
+    await this.apiService.createApp(workerId, projectId, team, role, comment).then((res: HttpResponse<any>) => {
+      if (res.status === 201) {
+        this.snackBar.open(`Заявка подана: ${role}, команда №${team + 1}`, '', {duration: 4000});
+        this.joinRequested = true;
+      }
+    }).catch(e => {
+      this.snackBar.open('Не удалось подать заявку. Возможно, кого-то уже взяли на эту позицию', 'Закрыть', {duration: 4000});
+      console.error(e);
+    });
   }
 }
