@@ -5,7 +5,6 @@ import {AppComponent} from './app.component';
 import {NotFoundPageComponent} from './not-found-page/not-found-page.component';
 import {UserViewComponent} from './user-view/user-view.component';
 import {HeaderComponent} from './header/header.component';
-import {FooterComponent} from './footer/footer.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatButtonToggle, MatButtonToggleModule, MatDialogModule, MatSnackBar, MatSnackBarModule} from '@angular/material';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
@@ -23,7 +22,6 @@ import {ProjectModule} from './project/project.module';
     NotFoundPageComponent,
     UserViewComponent,
     HeaderComponent,
-    FooterComponent,
   ],
   imports: [
     AppRoutingModule,
