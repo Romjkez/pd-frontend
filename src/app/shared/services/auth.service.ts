@@ -1,7 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import {Router} from '@angular/router';
-import {HttpClientService} from './http-client.service';
 
 export function parseJwt(token: string) {
   const base64Url = token.split('.')[1];
@@ -15,7 +14,7 @@ export function parseJwt(token: string) {
 
 export class AuthService {
 
-  constructor(private http: HttpClient, private httpService: HttpClientService, private router: Router) {
+  constructor(private http: HttpClient, private router: Router) {
   }
 
   public login(email: string, pass: string): Promise<any> {

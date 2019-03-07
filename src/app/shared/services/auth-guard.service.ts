@@ -1,14 +1,14 @@
 import {Injectable} from '@angular/core';
 import {ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot} from '@angular/router';
 import {MatSnackBar} from '@angular/material';
-import {HttpClientService} from './http-client.service';
 import {AuthService} from './auth.service';
+import {HttpClient} from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthGuardService implements CanActivate {
-  constructor(private router: Router, private snackBar: MatSnackBar, private http: HttpClientService, private authService: AuthService) {
+  constructor(private router: Router, private snackBar: MatSnackBar, private http: HttpClient, private authService: AuthService) {
   }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Promise<boolean> | boolean {

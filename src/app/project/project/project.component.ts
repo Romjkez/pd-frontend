@@ -32,7 +32,7 @@ export class ProjectComponent implements OnInit {
     const id = this.activatedRoute.snapshot.paramMap.get('id');
     this.joinForm = new FormGroup({
       role: new FormControl('', [Validators.required]),
-      comment: new FormControl('', [Validators.maxLength(200)])
+      comment: new FormControl('', [Validators.maxLength(255)])
     });
     await this.apiService.getProjectById(id).then((res) => {
       this.project = res;
