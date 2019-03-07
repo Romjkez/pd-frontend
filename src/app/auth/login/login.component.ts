@@ -34,6 +34,7 @@ export class LoginComponent implements OnInit {
           return false;
         } else {
           localStorage.setItem('token', res);
+          this.authService.authChange.next();
           this.router.navigate(['/']);
           return true;
         }

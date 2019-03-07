@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import {Router} from '@angular/router';
+import {Subject} from 'rxjs';
 
 export function parseJwt(token: string) {
   const base64Url = token.split('.')[1];
@@ -13,7 +14,7 @@ export function parseJwt(token: string) {
 })
 
 export class AuthService {
-
+  authChange = new Subject();
   constructor(private http: HttpClient, private router: Router) {
   }
 
@@ -25,6 +26,7 @@ export class AuthService {
 
   public logout(): void {
     localStorage.clear();
+    this.authChange.next();
     this.router.navigate(['/login']);
   }
 
