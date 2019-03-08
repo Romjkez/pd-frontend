@@ -51,12 +51,12 @@
         </div>
       </div>
     </div>
-    <div *ngIf="project?.status==='1' && usergroup==1" class="join-form">
+    <div *ngIf="project?.status==='1' && usergroup==1" class="side-form">
       <ng-container *ngIf="!joinRequested">
-        <div class="join-form__header">
+        <div class="side-form__header">
           <h2>Записаться на проект</h2>
         </div>
-        <div class="join-form__body">
+        <div class="side-form__body">
           <form [formGroup]="joinForm" (ngSubmit)="requestJoinProject()">
             <mat-form-field>
               <mat-select placeholder="Выберите место">
@@ -80,6 +80,25 @@
       </ng-container>
       <div *ngIf="joinRequested" class="joinRequested">
         <div><h3>Заявка подана</h3></div>
+      </div>
+    </div>
+    <div *ngIf="project?.status==='1' && usergroup==2" class="side-form sharp">
+      <div class="side-form__header">
+        <h2>Заявки на проект</h2>
+      </div>
+      <div class="side-form__body">
+        <div class="apps">
+          <div class="apps__header">
+            <div>ФИО</div>
+            <div>Команда</div>
+            <div>Должность</div>
+            <div>Комментарий</div>
+            <div>Действие</div>
+          </div>
+          <div class="apps__body">
+            <div style="margin: 5% 0 0 0">В разработке...</div>
+          </div>
+        </div>
       </div>
     </div>
   </div>

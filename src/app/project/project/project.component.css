@@ -5,7 +5,13 @@
   justify-content: space-around;
 }
 
-.join-form {
+.project-view, .side-form {
+  background: #fff;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16),
+  0 3px 6px rgba(0, 0, 0, 0.23);
+}
+
+.side-form {
   flex: 1;
   margin-left: 2%;
   display: flex;
@@ -18,16 +24,16 @@
   top: 0;
 }
 
-.join-form h2 {
+.side-form h2 {
   text-align: center;
   margin: 10% 0 0 0;
 }
 
-.join-form__body {
+.side-form__body {
   margin: 15% 0 0 0;
 }
 
-.join-form__body form {
+.side-form__body form {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -41,6 +47,55 @@
   height: 100%
 }
 
+.side-form.sharp {
+  max-width: 600px;
+  min-width: 900px;
+}
+
+.side-form.sharp > .side-form__body {
+  margin: 2% 0 0 0;
+  width: 90%;
+  text-align: center;
+}
+
+@media screen and (max-width: 600px) {
+  .side-form.sharp {
+    max-width: 600px;
+    min-width: 320px;
+    flex: 100%;
+  }
+}
+
+.apps {
+  display: flex;
+  flex-direction: column;
+}
+
+.apps__header {
+  display: flex;
+}
+
+.apps__header > div {
+  border: 1px solid gray;
+  padding: 5px;
+}
+
+.apps__header > div:not(:first-child) {
+  border-left: 0;
+}
+
+.apps__header > div:first-child {
+  flex: 3;
+}
+
+.apps__header > div:nth-child(3), .apps__header > div:nth-child(4) {
+  flex: 2;
+}
+
+.apps__header > div:last-child {
+  flex: 1;
+}
+
 .project-view {
   flex: 2;
   min-width: 450px;
@@ -49,12 +104,6 @@
   padding: 30px;
   border-radius: 3px;
   margin: 0 auto 30px;
-}
-
-.project-view, .join-form {
-  background: #fff;
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16),
-  0 3px 6px rgba(0, 0, 0, 0.23);
 }
 
 .project-view__title {
@@ -139,7 +188,6 @@
 .teammate:last-child {
   border: none;
 }
-
 
 /*--------------------*/
 
