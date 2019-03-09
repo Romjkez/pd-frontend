@@ -7,6 +7,16 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {MatOptionSelectionChange, MatSnackBar} from '@angular/material';
 import {HttpResponse} from '@angular/common/http';
 
+export interface Application {
+  id: number;
+  worker_id: number;
+  project_id: number;
+  team: number;
+  role: string;
+  status: number;
+  comment: string | null;
+}
+
 @Component({
   selector: 'app-project',
   templateUrl: './project.component.html',
@@ -27,6 +37,7 @@ export class ProjectComponent implements OnInit {
   };
   joinRequested = false;
   usergroup: number;
+  apps: Application[];
 
   constructor(private activatedRoute: ActivatedRoute, private apiService: ApiService, private snackBar: MatSnackBar) {
   }
@@ -41,6 +52,7 @@ export class ProjectComponent implements OnInit {
     await this.apiService.getProjectById(id).then((res) => {
       this.project = res;
       this.project.members = JSON.parse(<string>this.project.members);
+      this.getApps();
     }).then(() => {
       this.apiService.getUserById(this.project.curator).then((res) => {
         this.getOccupiedQuantity(<any>this.project.members).then((fullness) => {
@@ -100,6 +112,17 @@ export class ProjectComponent implements OnInit {
     }).catch(e => {
       this.snackBar.open('Не удалось подать заявку. Возможно, кого-то уже взяли на эту позицию', 'Закрыть', {duration: 4000});
       console.error(e);
+    });
+  }
+
+  async getApps() {
+    await this.apiService.getAppsByProjectAndStatus(this.project.id, 0).then((res: HttpResponse<any>) => {
+      if (!res.body.message) {
+        this.apps = res.body;
+      }
+    }).catch(e => {
+      console.log(e);
+      this.snackBar.open('Не удалось загрузить заявки на проект', 'Закрыть', {duration: 4000});
     });
   }
 }

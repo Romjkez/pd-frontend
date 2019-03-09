@@ -107,9 +107,14 @@ export class ApiService {
     }).toPromise();
   }
 
+  getAppsByProjectAndStatus(project_id: number, status: number): Promise<any> {
+    return this.http.get(`${this.baseUrl}/applications/get.php?status=${status}&project=${project_id}`, {
+      observe: 'response'
+    }).toPromise();
+  }
+
   isWorkerRequestedJoin(worker_id: number, project_id: number): Promise<any> {
     return this.http.get(`${this.baseUrl}/applications/get.php?worker=${worker_id}&project=${project_id}`, {
-      headers: {'Content-Type': 'application/x-www-form-urlencoded'},
       observe: 'response'
     }).toPromise();
   }

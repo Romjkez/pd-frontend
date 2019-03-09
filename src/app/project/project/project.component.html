@@ -96,7 +96,17 @@
             <div>Действие</div>
           </div>
           <div class="apps__body">
-            <div style="margin: 5% 0 0 0">В разработке...</div>
+            <div *ngFor="let app of apps" class="body__row">
+              <div><a routerLink="/user/{{app.worker_id}}"
+                      class="teammate__name">{{app.worker_id | getName | async}}</a></div>
+              <div>{{1 + +app.team}}</div>
+              <div>{{app.role}}</div>
+              <div>{{app.comment}}</div>
+              <div class="row__buttons">
+                <button title="Одобрить заявку"><img src="../../../assets/img/check.svg" alt="Одобрить"></button>
+                <button title="Отказать"><img src="../../../assets/img/dismiss.svg" alt="Отказать"></button>
+              </div>
+            </div>
           </div>
         </div>
       </div>
