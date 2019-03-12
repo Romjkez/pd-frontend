@@ -15,6 +15,11 @@ import {Router} from '@angular/router';
 export class CreateProjectComponent implements OnInit {
   createProjectForm: FormGroup;
   tags: FormArray;
+  private tagsObject = {
+    'IT': ['Фронтенд', 'Бэкэнд', 'Веб-дизайн', 'Android', 'IOS'],
+    'Продвижение': ['SMM', 'Маркетолог', 'Контент-менеджмент'],
+    'Инженерное дело': ['3D-моделирование']
+  };
   private tagsMap = new Map<string, boolean>([
     ['Фронтенд', false],
     ['Бэкэнд', false],
@@ -33,9 +38,9 @@ export class CreateProjectComponent implements OnInit {
     this.tags = new FormArray([], [Validators.required]);
     this.createProjectForm = new FormGroup({
       title:
-        new FormControl('', [Validators.required, Validators.minLength((2)), Validators.maxLength(255)]),
+          new FormControl('', [Validators.required, Validators.minLength((2)), Validators.maxLength(255)]),
       description:
-        new FormControl('', [Validators.required, Validators.minLength((2))]),
+          new FormControl('', [Validators.required, Validators.minLength((2))]),
       deadline: new FormControl('', [Validators.required]),
       roles: new FormControl('', [Validators.required]),
       teamsCount: new FormControl('', [Validators.required, Validators.min(1), Validators.max(10)]),
@@ -89,13 +94,13 @@ export class CreateProjectComponent implements OnInit {
     const curatorId = parseJwt(localStorage.getItem('token')).data.id;
     const data = this.serializeObject(this.createProjectForm.getRawValue()).concat(`&curator=${curatorId}&members=${members}`);
     await this.apiService.createProject(data).then((res: HttpResponse<any>) => {
-      if (res.status === 201) {
-        this.snackBar.open('Проект создан и отправлен на модерацию', 'Закрыть', {duration: 3000});
-        this.router.navigate(['/cabinet']);
-      } else {
-        this.snackBar.open('Не удалось создать проект');
+          if (res.status === 201) {
+            this.snackBar.open('Проект создан и отправлен на модерацию', 'Закрыть', {duration: 3000});
+            this.router.navigate(['/cabinet']);
+          } else {
+            this.snackBar.open('Не удалось создать проект');
+          }
         }
-      }
     ).catch(e => {
       this.snackBar.open('Не удалось создать проект');
       console.error(e);

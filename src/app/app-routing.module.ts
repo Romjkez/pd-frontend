@@ -9,10 +9,12 @@ import {LoginComponent} from './auth/login/login.component';
 import {CabinetComponent} from './cabinet/cabinet/cabinet.component';
 import {AuthGuardService} from './shared/services/auth-guard.service';
 import {CreateProjectComponent} from './project/project/create-project/create-project.component';
+import {UserEditComponent} from './user-view/user-edit/user-edit.component';
 
 const routes: Routes = [
   {path: '', component: MainPageComponent, pathMatch: 'full'},
   {path: 'user/:id', component: UserViewComponent, pathMatch: 'full'},
+  {path: 'edit_profile', component: UserEditComponent, pathMatch: 'full'},
   {path: 'project/:id', component: ProjectComponent, pathMatch: 'full'},
   {path: 'register', component: RegisterComponent, pathMatch: 'full'},
   {path: 'login', component: LoginComponent, pathMatch: 'full'},

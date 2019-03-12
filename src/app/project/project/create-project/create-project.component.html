@@ -50,8 +50,8 @@
           class="info-icon" src="../assets/img/info.svg" alt="Информация"><br>
           <mat-form-field>
             <mat-select placeholder="Выберите теги" formArrayName="tags" multiple required>
-              <mat-option *ngFor="let tag of tagsArray" (onSelectionChange)="toggleTag(tag)"
-                          [value]="tag">{{tag}}</mat-option>
+                <mat-option *ngFor="let tag of tagsArray" (onSelectionChange)="toggleTag(tag)"
+                            [value]="tag">{{tag}}</mat-option>
             </mat-select>
           </mat-form-field>
         </label>

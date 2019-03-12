@@ -5,7 +5,7 @@ import {Router} from '@angular/router';
 import {HttpClient, HttpErrorResponse, HttpHeaders, HttpResponse} from '@angular/common/http';
 import {MatSnackBar} from '@angular/material';
 
-interface FormLabels {
+export interface FormLabels {
   worker: {
     surname: string,
     std_group: string,

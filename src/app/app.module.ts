@@ -15,6 +15,7 @@ import {AuthModule} from './auth/auth.module';
 import {MainModule} from './main/main.module';
 import {SharedModule} from './shared/shared.module';
 import {ProjectModule} from './project/project.module';
+import {UserEditComponent} from './user-view/user-edit/user-edit.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import {ProjectModule} from './project/project.module';
     NotFoundPageComponent,
     UserViewComponent,
     HeaderComponent,
+    UserEditComponent,
   ],
   imports: [
     AppRoutingModule,
