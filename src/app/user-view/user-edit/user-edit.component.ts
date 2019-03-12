@@ -26,18 +26,25 @@ export class UserEditComponent implements OnInit {
       this.router.navigate(['/']);
     }
     this.loading = true;
-    this.regForm = new FormGroup({
-      name: new FormControl(''),
-      surname: new FormControl('', [Validators.required]),
-      middlename: new FormControl(''),
-      usergroup: new FormControl(1, [Validators.required]),
-      email: new FormControl('', [Validators.required]),
-      pass: new FormControl('', [Validators.required, Validators.minLength(6)]),
-      pass_repeat: new FormControl('', [Validators.required]),
-      tel: new FormControl(''),
-      std_group: new FormControl(''),
-      avatar: new FormControl(''),
-      description: new FormControl('')
+    await this.apiService.getUserById(parseJwt(this.authService.getToken()).data.id).then(res => {
+      this.user = res;
+      this.regForm = new FormGroup({
+        name: new FormControl(this.user.name),
+        surname: new FormControl(this.user.surname, [Validators.required]),
+        middlename: new FormControl(this.user.middle_name),
+        usergroup: new FormControl(parseJwt(localStorage.getItem('token')).data.usergroup, [Validators.required]),
+        email: new FormControl(this.user.email, [Validators.required]),
+        pass: new FormControl('', [Validators.required, Validators.minLength(6)]),
+        pass_repeat: new FormControl('', [Validators.required]),
+        tel: new FormControl(this.user.phone),
+        std_group: new FormControl(this.user.stdgroup),
+        avatar: new FormControl(this.user.avatar),
+        description: new FormControl(this.user.description)
+      });
+      this.loading = false;
+    }).catch(e => {
+      console.error(e);
+      this.snackBar.open('Не удалось получить информацию о пользователе', 'Закрыть', {duration: 5000});
     });
     this.formLabels = {
       worker: {
@@ -55,16 +62,10 @@ export class UserEditComponent implements OnInit {
       name: 'Имя',
       middlename: 'Отчество',
       email: 'Email',
-      password: 'Пароль',
+      password: 'Новый пароль',
       repeatPassword: 'Повторите пароль',
       tel: 'Ваш телефон',
     };
-    await this.apiService.getUserById(parseJwt(this.authService.getToken()).data.id).then(res => {
-      this.user = res;
-    }).catch(e => {
-      console.error(e);
-      this.snackBar.open('Не удалось получить информацию о пользователе', 'Закрыть', {duration: 5000});
-    });
   }
 
 }
