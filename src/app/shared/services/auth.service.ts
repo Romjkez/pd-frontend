@@ -1,14 +1,21 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import {Router} from '@angular/router';
-import {HttpClientService} from './http-client.service';
+import {Subject} from 'rxjs';
+
+export function parseJwt(token: string) {
+  const base64Url = token.split('.')[1];
+  const base64 = base64Url.replace('-', '+').replace('_', '/');
+  return JSON.parse(window.atob(base64));
+}
 
 @Injectable({
   providedIn: 'root'
 })
-export class AuthService {
 
-  constructor(private http: HttpClient, private httpService: HttpClientService, private router: Router) {
+export class AuthService {
+  authChange = new Subject();
+  constructor(private http: HttpClient, private router: Router) {
   }
 
   public login(email: string, pass: string): Promise<any> {
@@ -19,6 +26,7 @@ export class AuthService {
 
   public logout(): void {
     localStorage.clear();
+    this.authChange.next();
     this.router.navigate(['/login']);
   }
 
@@ -29,11 +37,9 @@ export class AuthService {
     return '';
   }
 
-
-  parseJwt(token: string) {
-    const base64Url = token.split('.')[1];
-    const base64 = base64Url.replace('-', '+').replace('_', '/');
-    return JSON.parse(window.atob(base64));
+  public getUserGroup(): number {
+    const parsedToken = parseJwt(this.getToken());
+    return parsedToken.data.usergroup;
   }
 
   isAuthorized(): boolean {

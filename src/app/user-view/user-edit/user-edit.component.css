@@ -1,0 +1,211 @@
+
+.page-wrapper {
+    display: flex;
+    justify-content: center;
+}
+
+.logo-image {
+    height: 50px;
+    width: 50px;
+    padding-top: 4px;
+}
+
+textarea {
+    resize: vertical;
+}
+
+.form {
+    width: 50%;
+    height: auto;
+    background-color: white;
+    border-radius: 3px;
+    padding: 30px;
+    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25),
+    0 10px 10px rgba(0, 0, 0, 0.22);
+    margin-bottom: 30px;
+}
+
+.auth-form__back-button {
+    position: absolute;
+    left: 0;
+    top: 10px;
+}
+
+.auth-form__back-button:hover {
+    cursor: pointer;
+}
+
+.auth-form__back-image {
+    width: 20px;
+    height: 20px;
+}
+
+.form__title {
+    width: 100%;
+    text-align: center;
+    padding-bottom: 20px;
+    position: relative;
+}
+
+.form__input {
+    width: 100%;
+    height: 40px;
+    border-radius: 3px;
+    box-shadow: none;
+    margin: 10px 0 20px 0;
+    border: 1px solid #c5c3c3;
+    padding: 5px;
+    box-sizing: border-box;
+    font-size: 16px;
+}
+
+
+.form__roles {
+    padding: 20px 0;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #c5c3c3;
+    border-top: 1px solid #c5c3c3;
+}
+
+.row {
+    display: flex;
+    justify-content: space-between;
+}
+
+.form__row {
+    width: 48%;
+}
+
+.form__row:last-child {
+    margin-right: 0;
+}
+
+.form__button {
+    width: 40%;
+    margin-bottom: 5px;
+}
+
+.form__button:hover {
+    background-color: #207ec9;
+}
+
+.reg-form__button-reset {
+    background: none;
+    border: none;
+    color: #207ec9;
+}
+
+.reg-form__button-submit:disabled {
+    background-color: #d2d2d2;
+}
+
+.reg-form__button-submit:disabled:hover {
+    cursor: default;
+}
+
+.form__submit {
+    text-align: center;
+}
+
+.block__link {
+    font-size: 13px;
+    color: #2196f3;
+}
+
+.block__link:hover {
+    color: #297ab9;
+    text-decoration: underline;
+}
+
+.roles_block {
+    width: 60%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+}
+
+#customer-input {
+    display: none;
+}
+
+.required-sign {
+    color: #FF0000;
+}
+
+@media (max-width: 575.98px) {
+    .page-wrapper {
+        width: 90%;
+    }
+
+    .form {
+        width: 100%;
+        padding: 20px;
+    }
+
+    .row {
+        flex-direction: column;
+    }
+
+    .form__row {
+        width: 100%;
+    }
+
+    .roles_block {
+        flex-direction: column;
+        width: 50%;
+    }
+
+    .roles_block__role {
+        margin-bottom: 10px;
+    }
+
+    .form__radio {
+        float: right;
+    }
+
+    .form__reg {
+        font-size: 20px;
+    }
+
+    .form__input {
+        width: 100%;
+    }
+
+    .form__button {
+        width: 60%;
+    }
+
+    .auth-form__back-button {
+        top: 0;
+    }
+}
+
+@media (min-width: 576px) and (max-width: 767.98px) {
+    .page-wrapper {
+        width: 95%;
+    }
+
+    .form {
+        width: 100%;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 991.98px) {
+    .page-wrapper {
+        width: 95%;
+    }
+
+    .form {
+        width: 100%;
+    }
+}
+
+@media (min-width: 992px) and (max-width: 1199.98px) {
+    .page-wrapper {
+        width: 65%;
+    }
+
+    .form {
+        width: 100%;
+    }
+}

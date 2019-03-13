@@ -18,13 +18,11 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
     if (this.authService.isAuthorized()) {
       this.router.navigate(['/']);
-    } else {
-      this.loginForm = new FormGroup({
-        email: new FormControl('', [Validators.required]),
-        password: new FormControl('', [Validators.required])
-      });
     }
-
+    this.loginForm = new FormGroup({
+      email: new FormControl('', [Validators.required]),
+      password: new FormControl('', [Validators.required])
+    });
   }
 
   async authorize(): Promise<boolean> {
@@ -36,6 +34,7 @@ export class LoginComponent implements OnInit {
           return false;
         } else {
           localStorage.setItem('token', res);
+          this.authService.authChange.next();
           this.router.navigate(['/']);
           return true;
         }
@@ -44,5 +43,7 @@ export class LoginComponent implements OnInit {
     return false;
   }
 
-
+  back(): void {
+    window.history.back();
+  }
 }

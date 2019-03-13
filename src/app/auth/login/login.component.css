@@ -45,6 +45,10 @@ div {
   top: 10px;
 }
 
+.auth-form__back-button:hover {
+  cursor: pointer;
+}
+
 .auth-form__back-image {
   width: 20px;
   height: 20px;

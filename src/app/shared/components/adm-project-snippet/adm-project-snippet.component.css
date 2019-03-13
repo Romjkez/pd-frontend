@@ -1,0 +1,111 @@
+.approval-form {
+  width: 100%;
+  height: auto;
+  border-top: 0.05em solid #bebebe;
+  background-color: white;
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
+  padding: 25px 25px 20px 25px;
+  box-sizing: border-box;
+  margin-top: -20px;
+}
+
+.approval-form__choice {
+  display: flex;
+  justify-content: space-around;
+}
+
+.approval-form__button {
+  text-align: center;
+}
+
+.approve-button {
+  width: 30%;
+}
+
+.approval-form__reason {
+  width: 100%;
+  text-align: center;
+  margin: 15px 0;
+}
+
+.reason-block {
+  width: 75%;
+}
+
+.reason-title {
+  margin-bottom: 20px;
+}
+
+.adm-project-wrapper {
+  width: 50%;
+  margin: 1% auto 0 auto;
+  border: 1px solid gray;
+}
+
+@media (max-width: 575.98px) {
+  .page-wrapper {
+    width: 90%;
+  }
+
+  .cabinet-wrapper {
+    width: 90%;
+  }
+
+  .tabs_block__item {
+    margin-right: 30px;
+  }
+
+  .tabs_block {
+    flex-direction: column;
+    height: 75px;
+    border: none;
+    margin-bottom: 30px;
+  }
+
+  .tabs-items {
+    border-bottom: 1px solid #bebebe;
+    height: 30px;
+  }
+
+  .reason-block {
+    width: 100%;
+  }
+
+  .approve-button {
+    width: 70%;
+  }
+
+  .approve {
+    text-align: center;
+  }
+}
+
+
+@media screen and (max-width: 1600px) {
+  .adm-project-wrapper {
+    width: 70%;
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  .adm-project-wrapper {
+    width: 100%;
+  }
+}
+
+@media (min-width: 576px) and (max-width: 991.98px) {
+  .page-wrapper {
+    width: 95%;
+  }
+
+  .cabinet-wrapper {
+    width: 95%;
+  }
+
+  .approve-button {
+    width: 50%;
+  }
+}
+
+

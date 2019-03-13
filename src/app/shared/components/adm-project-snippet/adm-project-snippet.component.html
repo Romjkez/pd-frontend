@@ -1,0 +1,22 @@
+<div *ngIf="visible" class="adm-project-wrapper">
+  <app-project-snippet [project]="project"></app-project-snippet>
+  <div class="approval-form">
+    <form [formGroup]="approveForm" (ngSubmit)="updateProject()">
+      <div class="approval-form__choice">
+        <label class="approve">одобрить проект
+          <input type="radio" formControlName="approve" name="approve" value="true">
+        </label>
+        <label class="approve">отказать в публикации
+          <input type="radio" formControlName="approve" name="approve" value="false" #decline>
+        </label>
+      </div>
+      <div class="approval-form__reason" *ngIf="decline.checked">
+        <h4 class="reason-title">Пожалуйста, укажите причину</h4>
+        <textarea rows="6" class="reason-block" formControlName="adm_comment"></textarea>
+      </div>
+      <div class="approval-form__button">
+        <button class="button approve-button" type="submit">подтвердить</button>
+      </div>
+    </form>
+  </div>
+</div>

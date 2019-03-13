@@ -1,0 +1,24 @@
+<a routerLink="/project/{{project?.id}}" class="snippet">
+  <h3 class="snippet__proj-title">{{project?.title}}</h3>
+  <p class="snippet__proj-desc">
+    {{project?.description.length > 255 ? project?.description.substring(0, 255) + '...' : project?.description}}
+  </p>
+  <div class="snippet__proj-tags">
+    <div *ngFor="let tag of tags" class="proj-tags__item">{{tag}}</div>
+  </div>
+  <div class="snippet__proj-info">
+    <span class="snippet__status">
+      Статус: <span [ngStyle]="{'color':colorMap.get(project?.status)}">{{statusMap.get(project?.status)}}</span>
+    </span>
+    <span class="snippet__members">
+      Занято: {{fullness[0]}}/{{fullness[1]}}
+    </span>
+    <span class="snippet__curator">
+      Куратор: {{curatorSurname}} {{curatorName?.length > 0 ? curatorName : ''}}
+
+    </span>
+  </div>
+  <div *ngIf="project.adm_comment.length>0" class="snippet__proj-comment">
+    <b>Комментарий администратора:</b> {{project.adm_comment}}
+  </div>
+</a>

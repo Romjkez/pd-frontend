@@ -1,24 +1,152 @@
-@media (max-width: 575.98px) { 
-    .page-wrapper {
-        width: 90%; 
-    }
+header {
+  width: 100%;
+  height: 60px;
+  background-color: #fff;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12),
+  0 1px 2px rgba(0, 0, 0, 0.24);
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.logo-image {
+  height: 50px;
+  width: 50px;
+  padding-top: 4px;
+}
+
+.header__content {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.header__left-side {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.header__menu {
+  margin-left: 50px;
+  font-size: 15px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  height: 60px;
+}
+
+.menu__item {
+  margin-right: 20px;
+  height: 100%;
+  padding: 0 20px;
+  transition: 0.2s;
+  border-bottom: 0 solid #2196f3;
+  box-sizing: border-box;
+}
+
+.menu__item:last-child {
+  margin-right: 0;
+}
+
+.menu__item__link {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.menu__item:hover {
+  border-bottom-width: 4px;
+  padding-top: 4px;
+  cursor: pointer;
+
+}
+
+.profile-link__link {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.profile-link__name {
+  font-size: 15px;
+}
+
+.profile-block__projects {
+  width: 100%;
 }
 
 
-@media (min-width: 576px) and (max-width: 767.98px) { 
-    .page-wrapper {
-        width: 95%; 
-    }
+.profile-link__logout {
+  color: #2196f3;
+  margin-left: 10px;
+  font-size: 15px;
+}
+
+.profile-link__logout:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.header__profile-link {
+  display: flex;
+  align-items: center;
+}
+
+
+.profile-link__photo {
+  width: 40px;
+  height: 40px;
+  margin-left: 20px;
+}
+
+.profile-link__photoContent {
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.active {
+  border-bottom-width: 4px;
+  padding-top: 4px;
+}
+
+.disabled {
+  color: #d8d8d8;
+}
+
+.disabled:hover {
+  border-bottom-width: 0;
+  padding-top: 0;
+}
+.active:hover {
+  border-bottom-width: 4px;
+  padding-top: 4px;
+}
+
+@media (max-width: 575.98px) {
+  .page-wrapper {
+    width: 90%;
+  }
+}
+
+
+@media (min-width: 576px) and (max-width: 767.98px) {
+  .page-wrapper {
+    width: 95%;
+  }
 }
 
 @media (min-width: 768px) and (max-width: 991.98px) {
-    .page-wrapper {
-        width: 95%; 
-    }
+  .page-wrapper {
+    width: 95%;
+  }
 }
 
-@media (min-width: 992px) and (max-width: 1199.98px) { 
-    .page-wrapper {
-        width: 65%; 
-    }
+@media (min-width: 992px) and (max-width: 1199.98px) {
+  .page-wrapper {
+    width: 65%;
+  }
 }

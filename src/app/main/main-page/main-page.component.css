@@ -1,170 +1,158 @@
 .header__reg-auth {
-    font-size: 15px;
+  font-size: 15px;
 }
 
 .reg-auth__item:hover {
-    text-decoration: underline;
+  text-decoration: underline;
 }
 
 .logo-image {
-    height: 50px;
-    width: 50px;
-    padding-top: 4px;
+  height: 50px;
+  width: 50px;
+  padding-top: 4px;
 }
 
 .columns-block {
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
 }
 
 .snippet-column {
-    width: 60%;
+  width: 60%;
 }
 
 .filter-column {
-    width: 28%;
+  width: 28%;
 }
 
 .filter-block {
-    width: 100%;
-    height: 500px;
-    border-radius: 3px;
-    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16),
-        0 3px 6px rgba(0, 0, 0, 0.23);
-    background-color: #fff;
-    padding: 20px 15px;
+  width: 100%;
+  height: 500px;
+  border-radius: 3px;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16),
+  0 3px 6px rgba(0, 0, 0, 0.23);
+  background-color: #fff;
+  padding: 20px 15px;
 }
 
 .filter-block__clear-filters_desktop {
-    font-size: 13px;
-    color: #2196f3;
+  font-size: 13px;
+  color: #2196f3;
 }
 
 .filter-block__clear-filters_desktop:hover {
-    color: #297ab9;
-    text-decoration: underline;
+  color: #297ab9;
+  text-decoration: underline;
+}
+
+.pagination {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
 }
 
 .button_filter {
-    width: 35%;
-    display: none;
-    height: 40px;
-    margin-bottom: 15px;
-}
-
-.button_confirm {
-    width: 100%;
-    height: 35px;
-    margin-bottom: 10px;
-
+  width: 35%;
+  display: none;
+  height: 40px;
+  margin-bottom: 15px;
 }
 
 .filter-block__cancel {
-    display: none;
-    justify-content: space-between;
-    align-items: center;
+  display: none;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .filter-block__confirm {
-    text-align: center;
+  text-align: center;
 }
 
 .filter-block__clear-filters {
-    border: 0.05em solid #777;
-    border-radius: 3px;
-    padding: 3px;
-    box-sizing: border-box;
+  border: 0.05em solid #777;
+  border-radius: 3px;
+  padding: 3px;
+  box-sizing: border-box;
 }
 
 
 @media screen and (max-width: 1200px) {
+  .page-wrapper {
+    width: 90%;
+  }
 
-
-    .snippet {
-        width: 100%;
-    }
-
-    .page-wrapper {
-        width: 90%;
-    }
-
-    .snippet-column {
-        width: 100%;
-    }
+  .snippet-column {
+    width: 100%;
+  }
 }
 
 @media (max-width: 660px) {
 
-    header {
-        margin-bottom: 20px;
-    }
+  header {
+    margin-bottom: 20px;
+  }
 
-    .button {
-        margin-top: 0;
-    }
+  .button {
+    margin-top: 0;
+  }
 
-    .button_filter {
-        display: block;
-    }
+  .button_filter {
+    display: block;
+  }
 
-    .columns-block {
-        flex-direction: column-reverse;
-    }
+  .columns-block {
+    flex-direction: column-reverse;
+  }
 
-    .filter-column {
-        width: 100%;
-        position: fixed;
-        top: 0;
-        left: 0;
-        height: 100%;
-        z-index: 3000;
-        display: none;
-    }
+  .filter-column {
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    z-index: 3000;
+    display: none;
+  }
 
-    .filter-block {
-        height: 100vh;
-        box-sizing: border-box;
-    }
+  .filter-block {
+    height: 100vh;
+    box-sizing: border-box;
+  }
 
-    .filter-block__cancel {
-        display: flex;
-    }
+  .filter-block__cancel {
+    display: flex;
+  }
 
-    .filter-block__clear-filters_desktop {
-        display: none;
-    }
-}
-
-@media (min-width: 440px) and (max-width: 450px) {
-    .snippet__proj-info {
-        font-size: 13px;
-    }
+  .filter-block__clear-filters_desktop {
+    display: none;
+  }
 }
 
 @media (min-width: 660px) and (max-width: 991px) {
-    .snippet-column {
-        width: 60%;
-    }
+  .snippet-column {
+    width: 60%;
+  }
 
-    .filter-column {
-        width: 35%;
-    }
+  .filter-column {
+    width: 35%;
+  }
 }
 
 @media (min-width: 991px) and (max-width: 1199.98px) {
-    .snippet-column {
-        width: 70%;
-    }
+  .snippet-column {
+    width: 70%;
+  }
 
-    .filter-column {
-        width: 25%;
-    }
+  .filter-column {
+    width: 25%;
+  }
 }
 
 @media (max-width: 1199px) and (min-width: 768px) {
-    .page-wrapper {
-        width: 95%;
-    }
+  .page-wrapper {
+    width: 95%;
+  }
 }

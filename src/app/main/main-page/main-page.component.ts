@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import {ApiService} from '../../shared/services/api.service';
 
 @Component({
   selector: 'app-main-page',
@@ -6,10 +7,47 @@ import {Component, OnInit} from '@angular/core';
   styleUrls: ['./main-page.component.css']
 })
 export class MainPageComponent implements OnInit {
+  projects: [] | null;
+  currentPage = 1;
+  totalPages: number;
+  perPage = 5;
+  statusFilter = 1;
+  loading: boolean;
 
-  constructor() { }
+  constructor(private apiService: ApiService) {
+  }
 
-  ngOnInit() {
+  async ngOnInit() {
+    this.loading = true;
+    this.apiService.updateProjectsDeadlines().then((res) => {
+      if (res.body.message === 'true') {
+        console.log('Successfully updated projects');
+      } else {
+        console.log('Failed to update projects deadlines: ', res.body.message);
+      }
+
+    }).catch(e => console.error(e));
+    await this.apiService.getProjectsByStatus(this.statusFilter, this.perPage, this.currentPage).then((res) => {
+      this.currentPage = res.page;
+      this.totalPages = res.pages;
+      this.perPage = res.per_page;
+      this.projects = res.data;
+      this.loading = false;
+    }).catch(e => {
+      this.loading = false;
+      console.error('Failed to get projects:', e);
+    });
+  }
+
+  async switchPage(newPage: number) {
+    await this.apiService.getProjectsByStatus(this.statusFilter, this.perPage, newPage).then((res) => {
+      this.currentPage = res.page;
+      this.totalPages = res.pages;
+      this.perPage = res.per_page;
+      this.projects = res.data;
+    }).catch(e => {
+      console.error('Failed to get projects:', e);
+    });
   }
 
 }
