@@ -96,6 +96,7 @@
             <div>Действие</div>
           </div>
           <div class="apps__body">
+            <div *ngIf="apps?.length===0" style="padding:5px;font-style:italic">Нет заявок на проект</div>
             <div *ngFor="let app of apps" class="body__row">
               <div><a routerLink="/user/{{app.worker_id}}"
                       class="teammate__name">{{app.worker_id | getName | async}}</a></div>

@@ -119,6 +119,8 @@ export class ProjectComponent implements OnInit {
     await this.apiService.getAppsByProjectAndStatus(this.project.id, 0).then((res: HttpResponse<any>) => {
       if (!res.body.message) {
         this.apps = res.body;
+      } else {
+        this.apps = [];
       }
     }).catch(e => {
       console.log(e);
