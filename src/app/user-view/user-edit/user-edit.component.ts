@@ -5,6 +5,7 @@ import {AuthService, parseJwt} from '../../shared/services/auth.service';
 import {MatSnackBar} from '@angular/material';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {FormLabels} from '../../auth/register/register.component';
+import {HttpResponse} from '@angular/common/http';
 
 @Component({
   selector: 'app-user-edit',
@@ -27,19 +28,22 @@ export class UserEditComponent implements OnInit {
     }
     this.loading = true;
     await this.apiService.getUserById(parseJwt(this.authService.getToken()).data.id).then(res => {
+      // todo убрать снек когда смену починят
+      this.snackBar.open('Внимание! Смена пароля временно недоступна!', 'OK', {duration: 4000});
       this.user = res;
       this.regForm = new FormGroup({
         name: new FormControl(this.user.name),
         surname: new FormControl(this.user.surname, [Validators.required]),
         middlename: new FormControl(this.user.middle_name),
         usergroup: new FormControl(parseJwt(localStorage.getItem('token')).data.usergroup, [Validators.required]),
-        email: new FormControl(this.user.email, [Validators.required]),
-        pass: new FormControl('', [Validators.required, Validators.minLength(6)]),
-        pass_repeat: new FormControl('', [Validators.required]),
+        email: new FormControl(this.user.email, [Validators.required, Validators.email]),
+        pass: new FormControl('', [Validators.minLength(6)]),
+        pass_repeat: new FormControl('', [Validators.minLength(6)]),
         tel: new FormControl(this.user.phone),
         std_group: new FormControl(this.user.stdgroup),
         avatar: new FormControl(this.user.avatar),
-        description: new FormControl(this.user.description)
+        description: new FormControl(this.user.description),
+        old_pass: new FormControl('',)
       });
       this.loading = false;
     }).catch(e => {
@@ -65,7 +69,29 @@ export class UserEditComponent implements OnInit {
       password: 'Новый пароль',
       repeatPassword: 'Повторите пароль',
       tel: 'Ваш телефон',
+      old_password: 'Текущий пароль'
     };
+  }
+
+  update() {
+    const data = this.regForm.getRawValue();
+    data.id = parseJwt(this.authService.getToken()).data.id;
+    this.apiService.updateUser(data).then((res: HttpResponse<any>) => {
+      if (res.status === 202) {
+        this.snackBar.open('Профиль успешно обновлён', 'Закрыть', {duration: 3500});
+        const id = <string>data.id;
+        this.router.navigate(['/user/' + id]);
+      } else {
+        this.snackBar.open(res.body.message, 'Закрыть', {duration: 5000});
+      }
+    }).catch(e => {
+      console.error(e);
+      this.snackBar.open('Не удалось обновить профиль', 'Закрыть', {duration: 5000});
+    });
+  }
+
+  back(): void {
+    window.history.back();
   }
 
 }

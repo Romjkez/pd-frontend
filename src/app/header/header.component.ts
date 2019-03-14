@@ -9,7 +9,7 @@ import {ApiService, User} from '../shared/services/api.service';
 })
 export class HeaderComponent implements OnInit {
   user: User;
-  email: string;
+  id: number;
 
   constructor(public authService: AuthService, private apiService: ApiService) {
   }
@@ -23,8 +23,8 @@ export class HeaderComponent implements OnInit {
   async getHeaderData(): Promise<any> {
     if (this.authService.getToken()) {
       const parsedToken = parseJwt(this.authService.getToken());
-      this.email = parsedToken.data.email;
-      await this.apiService.getUserByEmail(this.email).then((res: User) => {
+      this.id = parsedToken.data.id;
+      await this.apiService.getUserById(this.id).then((res: User) => {
         this.user = res;
       }).catch(e => console.error(e));
     }
