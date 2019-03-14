@@ -23,9 +23,13 @@
   display: block;
 }
 
+.snippet__proj-title {
+  margin-bottom: 10px;
+}
+
 .snippet__proj-desc {
   font-size: 15px;
-  margin-bottom: 10px;
+  margin: 10px 0 10px 0;
 }
 
 .snippet__proj-tags {

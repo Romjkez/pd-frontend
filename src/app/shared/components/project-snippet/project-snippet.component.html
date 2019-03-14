@@ -1,5 +1,9 @@
 <a routerLink="/project/{{project?.id}}" class="snippet">
   <h3 class="snippet__proj-title">{{project?.title}}</h3>
+  <span class="snippet__curator">
+    Куратор: {{curatorSurname}} {{curatorName?.length > 0 ? curatorName : ''}}
+
+  </span>
   <p class="snippet__proj-desc">
     {{project?.description.length > 255 ? project?.description.substring(0, 255) + '...' : project?.description}}
   </p>
@@ -13,9 +17,8 @@
     <span class="snippet__members">
       Занято: {{fullness[0]}}/{{fullness[1]}}
     </span>
-    <span class="snippet__curator">
-      Куратор: {{curatorSurname}} {{curatorName?.length > 0 ? curatorName : ''}}
-
+    <span>
+      Запись до: {{ project?.deadline}}
     </span>
   </div>
   <div *ngIf="project.adm_comment.length>0" class="snippet__proj-comment">
