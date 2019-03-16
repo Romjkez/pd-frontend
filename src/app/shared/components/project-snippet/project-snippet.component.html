@@ -18,7 +18,7 @@
       Занято: {{fullness[0]}}/{{fullness[1]}}
     </span>
     <span>
-      Запись до: {{ project?.deadline}}
+      Запись до: {{ project?.deadline | date:"dd.MM.yy"}}
     </span>
   </div>
   <div *ngIf="project.adm_comment.length>0" class="snippet__proj-comment">
