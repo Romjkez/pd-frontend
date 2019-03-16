@@ -28,8 +28,7 @@ export class UserEditComponent implements OnInit {
     }
     this.loading = true;
     await this.apiService.getUserById(parseJwt(this.authService.getToken()).data.id).then(res => {
-      // todo убрать снек когда смену починят
-      this.snackBar.open('Внимание! Смена пароля временно недоступна!', 'OK', {duration: 4000});
+      // todo сделать имя обязательным для группы 1
       this.user = res;
       this.regForm = new FormGroup({
         name: new FormControl(this.user.name),
@@ -43,7 +42,7 @@ export class UserEditComponent implements OnInit {
         std_group: new FormControl(this.user.stdgroup),
         avatar: new FormControl(this.user.avatar),
         description: new FormControl(this.user.description),
-        old_pass: new FormControl('',)
+        old_pass: new FormControl('')
       });
       this.loading = false;
     }).catch(e => {

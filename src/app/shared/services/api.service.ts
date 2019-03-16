@@ -48,10 +48,10 @@ export class ApiService {
   }
 
   updateUser(user: object | any): Promise<any> {
-    const data = `&id=${user.id}&email=${user.email}&surname=${user.surname}&name=${user.name}&middlename=${user.middlename}
+    let data = `id=${user.id}&email=${user.email}&surname=${user.surname}&name=${user.name}&middlename=${user.middlename}
     &tel=${user.tel}&std_group=${user.std_group}&avatar=${user.avatar}&description=${user.description}`;
     if (user.pass.length > 5 && user.old_pass.length > 5) {
-      data.concat(`&pass=${user.pass}&old_pass=${user.old_pass}`);
+      data += `&pass=${user.pass}&old_pass=${user.old_pass}`;
     }
     return this.http.post(`${this.baseUrl}/user/update.php`, data, {
       headers: {'Content-Type': 'application/x-www-form-urlencoded'},
