@@ -14,7 +14,7 @@ export class UserViewComponent implements OnInit {
   loading: boolean;
 
   constructor(private activatedRoute: ActivatedRoute, private apiService: ApiService, private router: Router,
-              private authService: AuthService) {
+              public authService: AuthService) {
   }
 
   async ngOnInit() {
@@ -24,7 +24,12 @@ export class UserViewComponent implements OnInit {
     await this.apiService.getUserById(id).then((res: User) => {
       if (res.surname && res.id) {
         this.user = res;
-        this.canEdit = parseJwt(this.authService.getToken()).data.email === res.email;
+        if (this.authService.getToken().length > 0) {
+          this.canEdit = parseJwt(this.authService.getToken()).data.id === res.id;
+
+        } else {
+          this.canEdit = false;
+        }
         this.loading = false;
       } else {
         this.router.navigate(['/404']);
