@@ -78,6 +78,7 @@ export class UserEditComponent implements OnInit {
       if (res.status === 202) {
         this.snackBar.open('Профиль успешно обновлён', 'Закрыть', {duration: 3500});
         const id = <string>data.id;
+        this.authService.authChange.next();
         this.router.navigate(['/user/' + id]);
       } else {
         this.snackBar.open(res.body.message, 'Закрыть', {duration: 5000});

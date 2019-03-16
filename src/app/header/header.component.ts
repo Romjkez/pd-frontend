@@ -14,9 +14,7 @@ export class HeaderComponent implements OnInit {
   constructor(public authService: AuthService, private apiService: ApiService) {
   }
   async ngOnInit() {
-    this.authService.authChange.subscribe(event => {
-      this.getHeaderData();
-    });
+    this.authService.authChange.subscribe(() => this.getHeaderData());
     this.getHeaderData();
   }
 
