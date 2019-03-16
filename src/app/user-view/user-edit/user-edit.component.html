@@ -71,7 +71,9 @@
                 </label>
                 <div class="form__submit">
                   <button
-                    [disabled]="!regForm.valid || !regForm.touched || (regForm.controls.pass.value.length>5 && regForm.controls.pass.value.length>5 && regForm.controls.old_pass.value.length<6)"
+                    [disabled]="(regForm.controls.name.value.length<1 && regForm.controls.usergroup.value == 1) ||
+                    !regForm.valid || !regForm.touched ||
+                     (regForm.controls.pass.value.length>5 && regForm.controls.pass.value.length>5 && regForm.controls.old_pass.value.length<6)"
                     type="submit" class="button reg-form__button reg-form__button-submit">
                         Подтвердить
                     </button>

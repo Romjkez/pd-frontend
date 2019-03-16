@@ -28,7 +28,6 @@ export class UserEditComponent implements OnInit {
     }
     this.loading = true;
     await this.apiService.getUserById(parseJwt(this.authService.getToken()).data.id).then(res => {
-      // todo сделать имя обязательным для группы 1
       this.user = res;
       this.regForm = new FormGroup({
         name: new FormControl(this.user.name),
