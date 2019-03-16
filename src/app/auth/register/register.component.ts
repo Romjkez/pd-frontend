@@ -24,7 +24,9 @@ export interface FormLabels {
   password: string;
   repeatPassword: string;
   tel: string;
+  old_password?: string;
 }
+
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',

@@ -47,6 +47,18 @@ export class ApiService {
     return this.http.get<User>(`${this.baseUrl}/user/get.php?api_key=${this.apiKey}&id=${id}`).toPromise();
   }
 
+  updateUser(user: object | any): Promise<any> {
+    let data = `id=${user.id}&email=${user.email}&surname=${user.surname}&name=${user.name}&middlename=${user.middlename}
+    &tel=${user.tel}&std_group=${user.std_group}&avatar=${user.avatar}&description=${user.description}`;
+    if (user.pass.length > 5 && user.old_pass.length > 5) {
+      data += `&pass=${user.pass}&old_pass=${user.old_pass}`;
+    }
+    return this.http.post(`${this.baseUrl}/user/update.php`, data, {
+      headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+      observe: 'response'
+    }).toPromise();
+  }
+
   /*
   ** PROJECTS
    */
