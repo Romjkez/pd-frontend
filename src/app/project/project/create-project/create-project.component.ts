@@ -33,7 +33,7 @@ export class CreateProjectComponent implements OnInit {
 
   ngOnInit() {
     // todo validate deadline
-    this.tags = new FormArray([], [Validators.required]);
+    this.tags = new FormArray([],);
     this.createProjectForm = new FormGroup({
       title:
         new FormControl('', [Validators.required, Validators.minLength((2)), Validators.maxLength(255)]),
@@ -96,24 +96,29 @@ export class CreateProjectComponent implements OnInit {
         this.tags.push(new FormControl(key));
       }
     });
-    const members = JSON.stringify(this.makeTeams());
-    const curatorId = parseJwt(localStorage.getItem('token')).data.id;
-    const data = this.serializeObject(this.createProjectForm.getRawValue()).concat(`&curator=${curatorId}&members=${members}`);
-    await this.apiService.createProject(data).then((res: HttpResponse<any>) => {
-        if (res.status === 201) {
-          this.snackBar.open('Проект создан и отправлен на модерацию', 'Закрыть', {duration: 3000});
-          this.router.navigate(['/cabinet']);
-        } else {
-          this.snackBar.open('Не удалось создать проект');
+    if (this.tags.length < 1) {
+      this.snackBar.open('Пожалуйста, укажите теги проекта', 'Закрыть');
+    } else {
+      const members = JSON.stringify(this.makeTeams());
+      const curatorId = parseJwt(localStorage.getItem('token')).data.id;
+      const data = this.serializeObject(this.createProjectForm.getRawValue()).concat(`&curator=${curatorId}&members=${members}`);
+      await this.apiService.createProject(data).then((res: HttpResponse<any>) => {
+          if (res.status === 201) {
+            this.snackBar.open('Проект создан и отправлен на модерацию', 'Закрыть', {duration: 3000});
+            this.router.navigate(['/cabinet']);
+          } else {
+            this.snackBar.open('Не удалось создать проект');
+          }
         }
-      }
-    ).catch(e => {
-      this.snackBar.open('Не удалось создать проект');
-      console.error(e);
-    }).finally(() => {
-      this.tagsMap.forEach(value => value = false);
-      this.tags.reset([]);
-    });
+      ).catch(e => {
+        this.snackBar.open('Не удалось создать проект');
+        console.error(e);
+      }).finally(() => {
+        this.tagsMap.forEach(value => value = false);
+        this.tags.reset([]);
+      });
+    }
+
   }
 
   private serializeObject(obj: object): string {

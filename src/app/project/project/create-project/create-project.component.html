@@ -57,7 +57,8 @@
           </mat-form-field>
         </label>
         <div class="form__submit">
-          <button type="submit" class="button form__button">
+          <button [disabled]="!createProjectForm.valid" type="submit"
+                  class="button form__button reg-form__button-submit">
             Подтвердить
           </button>
           <br>
