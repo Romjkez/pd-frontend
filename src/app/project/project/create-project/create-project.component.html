@@ -49,8 +49,9 @@
           matTooltipClass="tooltip"
           class="info-icon" src="../assets/img/info.svg" alt="Информация"><br>
           <mat-form-field>
-            <mat-select placeholder="Выберите теги" formArrayName="tags" multiple required>
-                <mat-option *ngFor="let tag of tagsArray" (onSelectionChange)="toggleTag(tag)"
+            <mat-select placeholder="Не более 7 тегов" formArrayName="tags" multiple required>
+              <mat-option *ngFor="let tag of tagsArray" (onSelectionChange)="toggleTag(tag)"
+                          [disabled]="tagsMaximum && tagsMap.get(tag) === false"
                             [value]="tag">{{tag}}</mat-option>
             </mat-select>
           </mat-form-field>
