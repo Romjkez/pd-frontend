@@ -27,13 +27,15 @@ export class CreateProjectComponent implements OnInit {
     ['3D-моделирование', false]
   ]);
   tagsArray = Array.from(this.tagsMap.keys());
+  gotTags: object[];
 
   constructor(private apiService: ApiService, private snackBar: MatSnackBar, private router: Router) {
   }
 
   ngOnInit() {
     // todo validate deadline
-    this.tags = new FormArray([],);
+    // this.gotTags=this.apiService.getTags();
+    this.tags = new FormArray([]);
     this.createProjectForm = new FormGroup({
       title:
         new FormControl('', [Validators.required, Validators.minLength((2)), Validators.maxLength(255)]),
