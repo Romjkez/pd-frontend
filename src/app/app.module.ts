@@ -16,6 +16,7 @@ import {MainModule} from './main/main.module';
 import {SharedModule} from './shared/shared.module';
 import {ProjectModule} from './project/project.module';
 import {UserEditComponent} from './user-view/user-edit/user-edit.component';
+import {MatMomentDateModule} from '@angular/material-moment-adapter';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import {UserEditComponent} from './user-view/user-edit/user-edit.component';
     AuthModule,
     MainModule,
     SharedModule,
-    ProjectModule
+    ProjectModule,
+    MatMomentDateModule
   ],
   exports: [
     FormsModule,

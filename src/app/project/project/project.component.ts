@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {colorMap, Project, statusMap} from '../../shared/components/project-snippet/project-snippet.component';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {ApiService} from '../../shared/services/api.service';
 import {parseJwt} from '../../shared/services/auth.service';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
@@ -15,6 +15,11 @@ export interface Application {
   role: string;
   status: number;
   comment: string | null;
+}
+
+export interface Tags {
+  category: string;
+  value: string[];
 }
 
 @Component({
@@ -39,7 +44,8 @@ export class ProjectComponent implements OnInit {
   usergroup: number;
   apps: Application[];
 
-  constructor(private activatedRoute: ActivatedRoute, private apiService: ApiService, private snackBar: MatSnackBar) {
+  constructor(private activatedRoute: ActivatedRoute, private apiService: ApiService, private snackBar: MatSnackBar,
+              private router: Router) {
   }
 
   async ngOnInit() {
@@ -50,6 +56,9 @@ export class ProjectComponent implements OnInit {
       comment: new FormControl('', [Validators.maxLength(255)])
     });
     await this.apiService.getProjectById(id).then((res) => {
+      if (!res.id) {
+        this.router.navigate(['/404']);
+      }
       this.project = res;
       this.project.members = JSON.parse(<string>this.project.members);
       this.getApps();

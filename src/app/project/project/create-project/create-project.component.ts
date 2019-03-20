@@ -5,6 +5,10 @@ import {parseJwt} from '../../../shared/services/auth.service';
 import {HttpResponse} from '@angular/common/http';
 import {MatSnackBar} from '@angular/material';
 import {Router} from '@angular/router';
+import {Tags} from '../project.component';
+import * as _moment from 'moment';
+
+const moment = _moment;
 
 @Component({
   selector: 'app-create-project',
@@ -16,24 +20,24 @@ export class CreateProjectComponent implements OnInit {
   createProjectForm: FormGroup;
   tags: FormArray;
   tagsMaximum: boolean;
-  tagsMap = new Map<string, boolean>([
-    ['Фронтенд', false],
-    ['Бэкэнд', false],
-    ['Веб-дизайн', false],
-    ['Android', false],
-    ['IOS-разработка', false],
-    ['SMM', false],
-    ['Маркетинг', false],
-    ['3D-моделирование', false]
-  ]);
-  tagsArray = Array.from(this.tagsMap.keys());
+  gotTags: Tags[];
+  gotTagsArray = [];
+  checkedTags = {};
+  minDate: Date;
+  maxDate: Date;
 
   constructor(private apiService: ApiService, private snackBar: MatSnackBar, private router: Router) {
   }
 
   ngOnInit() {
-    // todo validate deadline
-    this.tags = new FormArray([],);
+    this.apiService.getTags().then(res => {
+      this.gotTags = res;
+      this.gotTagsArray = Object.keys(this.gotTags);
+    });
+    const date = new Date;
+    this.minDate = new Date(date.getFullYear(), date.getMonth(), date.getDate() + 1);
+    this.maxDate = new Date(date.getFullYear(), date.getMonth() + 6, date.getDate());
+    this.tags = new FormArray([]);
     this.createProjectForm = new FormGroup({
       title:
         new FormControl('', [Validators.required, Validators.minLength((2)), Validators.maxLength(255)]),
@@ -48,22 +52,17 @@ export class CreateProjectComponent implements OnInit {
 
   toggleTag(tag: string): void {
     let tagsCounter = 0;
-    if (this.tagsMap.get(tag) === false) {
-      this.tagsMap.set(tag, true);
+    if (this.checkedTags[tag] === true) {
+      this.checkedTags[tag] = false;
     } else {
-      this.tagsMap.set(tag, false);
+      this.checkedTags[tag] = true;
     }
-
-    for (let i = 0; i < Array.from(this.tagsMap.keys()).length; i++) {
-      if (this.tagsMap.get(Array.from(this.tagsMap.keys())[i]) === true) {
+    for (const prop in this.checkedTags) {
+      if (this.checkedTags[prop] === true) {
         tagsCounter++;
       }
     }
     this.tagsMaximum = tagsCounter > 6;
-  }
-
-  back(): void {
-    window.history.back();
   }
 
   getTextAreaCols(): { [key: string]: string } {
@@ -91,11 +90,11 @@ export class CreateProjectComponent implements OnInit {
   }
 
   async requestCreateProject() {
-    this.tagsMap.forEach((value, key) => {
-      if (value === true) {
-        this.tags.push(new FormControl(key));
+    for (const prop in this.checkedTags) {
+      if (this.checkedTags[prop] === true) {
+        this.tags.push(new FormControl(prop));
       }
-    });
+    }
     if (this.tags.length < 1) {
       this.snackBar.open('Пожалуйста, укажите теги проекта', 'Закрыть');
     } else {
@@ -114,7 +113,7 @@ export class CreateProjectComponent implements OnInit {
         this.snackBar.open('Не удалось создать проект');
         console.error(e);
       }).finally(() => {
-        this.tagsMap.forEach(value => value = false);
+        this.checkedTags = {};
         this.tags.reset([]);
       });
     }
@@ -124,13 +123,23 @@ export class CreateProjectComponent implements OnInit {
   private serializeObject(obj: object): string {
     let str = '';
     for (const key in obj) {
-      if (key !== 'teamsCount' && key !== 'roles') {
+      if (key !== 'teamsCount' && key !== 'roles' && key !== 'deadline') {
         if (str !== '') {
           str += '&';
         }
         str += key + '=' + obj[key];
       }
     }
+    const deadline = new Date(this.createProjectForm.controls.deadline.value._d);
+    str += `&deadline=${deadline.getFullYear()}-${deadline.getMonth() + 1}-${deadline.getDate()}`;
     return str;
+  }
+
+  isMobile(): boolean {
+    return window.innerWidth < 767;
+  }
+
+  back(): void {
+    window.history.back();
   }
 }
