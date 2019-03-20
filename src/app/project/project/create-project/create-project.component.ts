@@ -6,6 +6,9 @@ import {HttpResponse} from '@angular/common/http';
 import {MatSnackBar} from '@angular/material';
 import {Router} from '@angular/router';
 import {Tags} from '../project.component';
+import * as _moment from 'moment';
+
+const moment = _moment;
 
 @Component({
   selector: 'app-create-project',
@@ -20,23 +23,26 @@ export class CreateProjectComponent implements OnInit {
   gotTags: Tags[];
   gotTagsArray = [];
   checkedTags = {};
+  minDate: Date;
+  maxDate: Date;
 
   constructor(private apiService: ApiService, private snackBar: MatSnackBar, private router: Router) {
   }
 
   ngOnInit() {
-    // todo validate deadline
     this.apiService.getTags().then(res => {
       this.gotTags = res;
       this.gotTagsArray = Object.keys(this.gotTags);
     });
-
+    const date = new Date;
+    this.minDate = new Date(date.getFullYear(), date.getMonth(), date.getDate() + 1);
+    this.maxDate = new Date(date.getFullYear(), date.getMonth() + 6, date.getDate());
     this.tags = new FormArray([]);
     this.createProjectForm = new FormGroup({
       title:
-          new FormControl('', [Validators.required, Validators.minLength((2)), Validators.maxLength(255)]),
+        new FormControl('', [Validators.required, Validators.minLength((2)), Validators.maxLength(255)]),
       description:
-          new FormControl('', [Validators.required, Validators.minLength((2))]),
+        new FormControl('', [Validators.required, Validators.minLength((2))]),
       deadline: new FormControl('', [Validators.required]),
       roles: new FormControl('', [Validators.required]),
       teamsCount: new FormControl('', [Validators.required, Validators.min(1), Validators.max(10)]),
@@ -57,10 +63,6 @@ export class CreateProjectComponent implements OnInit {
       }
     }
     this.tagsMaximum = tagsCounter > 6;
-  }
-
-  back(): void {
-    window.history.back();
   }
 
   getTextAreaCols(): { [key: string]: string } {
@@ -100,13 +102,13 @@ export class CreateProjectComponent implements OnInit {
       const curatorId = parseJwt(localStorage.getItem('token')).data.id;
       const data = this.serializeObject(this.createProjectForm.getRawValue()).concat(`&curator=${curatorId}&members=${members}`);
       await this.apiService.createProject(data).then((res: HttpResponse<any>) => {
-            if (res.status === 201) {
-              this.snackBar.open('Проект создан и отправлен на модерацию', 'Закрыть', {duration: 3000});
-              this.router.navigate(['/cabinet']);
-            } else {
-              this.snackBar.open('Не удалось создать проект');
-            }
+          if (res.status === 201) {
+            this.snackBar.open('Проект создан и отправлен на модерацию', 'Закрыть', {duration: 3000});
+            this.router.navigate(['/cabinet']);
+          } else {
+            this.snackBar.open('Не удалось создать проект');
           }
+        }
       ).catch(e => {
         this.snackBar.open('Не удалось создать проект');
         console.error(e);
@@ -121,13 +123,23 @@ export class CreateProjectComponent implements OnInit {
   private serializeObject(obj: object): string {
     let str = '';
     for (const key in obj) {
-      if (key !== 'teamsCount' && key !== 'roles') {
+      if (key !== 'teamsCount' && key !== 'roles' && key !== 'deadline') {
         if (str !== '') {
           str += '&';
         }
         str += key + '=' + obj[key];
       }
     }
+    const deadline = new Date(this.createProjectForm.controls.deadline.value._d);
+    str += `&deadline=${deadline.getFullYear()}-${deadline.getMonth() + 1}-${deadline.getDate()}`;
     return str;
+  }
+
+  isMobile(): boolean {
+    return window.innerWidth < 767;
+  }
+
+  back(): void {
+    window.history.back();
   }
 }
