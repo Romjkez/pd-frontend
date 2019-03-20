@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Project} from '../components/project-snippet/project-snippet.component';
+import {Tags} from '../../project/project/project.component';
 
 export interface User {
   id: string;
@@ -64,17 +65,17 @@ export class ApiService {
    */
   getProjectsByStatus(status: number, perPage: number, page: number): Promise<Projects> {
     return this.http.get<Projects>(
-      `${this.baseUrl}/projects/get.php?status=${status}&per_page=${perPage}&page=${page}`).toPromise();
+        `${this.baseUrl}/projects/get.php?status=${status}&per_page=${perPage}&page=${page}`).toPromise();
   }
 
   getProjectsByStatusAndCurator(status: number, curator: number | string, perPage: number, page: number): Promise<Projects> {
     return this.http.get<Projects>(
-      `${this.baseUrl}/projects/get.php?status=${status}&curator=${curator}&per_page=${perPage}&page=${page}`).toPromise();
+        `${this.baseUrl}/projects/get.php?status=${status}&curator=${curator}&per_page=${perPage}&page=${page}`).toPromise();
   }
 
   getProjectById(id: number | string): Promise<Project> {
     return this.http.get<Project>(
-      `${this.baseUrl}/projects/get.php?id=${id}`).toPromise();
+        `${this.baseUrl}/projects/get.php?id=${id}`).toPromise();
   }
 
   createProject(form: object | string): Promise<any | object> {
@@ -105,7 +106,7 @@ export class ApiService {
    */
   getArchiveProjects(perPage: number, page: number): Promise<Projects> {
     return this.http.get<Projects>(
-      `${this.baseUrl}/projects/getArchive.php?per_page=${perPage}&page=${page}`).toPromise();
+        `${this.baseUrl}/projects/getArchive.php?per_page=${perPage}&page=${page}`).toPromise();
   }
 
   /*
@@ -129,5 +130,20 @@ export class ApiService {
     return this.http.get(`${this.baseUrl}/applications/get.php?worker=${worker_id}&project=${project_id}`, {
       observe: 'response'
     }).toPromise();
+  }
+
+  /*
+  ** TAGS
+   */
+  getTags(): Promise<Tags[]> {
+    return this.http.get<Tags[]>(`${this.baseUrl}/tags/get.php`).toPromise();
+  }
+
+  getTagsCategories() {
+
+  }
+
+  getTagsValues() {
+
   }
 }
