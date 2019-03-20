@@ -50,9 +50,11 @@
           class="info-icon" src="../assets/img/info.svg" alt="Информация"><br>
           <mat-form-field>
             <mat-select placeholder="Не более 7 тегов" formArrayName="tags" multiple required>
-              <mat-option *ngFor="let tag of tagsArray" (onSelectionChange)="toggleTag(tag)"
-                          [disabled]="tagsMaximum && tagsMap.get(tag) === false"
+              <mat-optgroup *ngFor="let group of gotTags | keyvalue" [label]="group.key">
+                <mat-option *ngFor="let tag of group.value" (onSelectionChange)="toggleTag(tag)"
+                            [disabled]="tagsMaximum && checkedTags[tag]!==true"
                             [value]="tag">{{tag}}</mat-option>
+              </mat-optgroup>
             </mat-select>
           </mat-form-field>
         </label>

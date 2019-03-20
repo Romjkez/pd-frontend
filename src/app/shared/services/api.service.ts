@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Project} from '../components/project-snippet/project-snippet.component';
+import {Tags} from '../../project/project/project.component';
 
 export interface User {
   id: string;
@@ -134,8 +135,8 @@ export class ApiService {
   /*
   ** TAGS
    */
-  getTags() {
-    return this.http.get(`${this.baseUrl}/tags/get.php`).toPromise();
+  getTags(): Promise<Tags[]> {
+    return this.http.get<Tags[]>(`${this.baseUrl}/tags/get.php`).toPromise();
   }
 
   getTagsCategories() {

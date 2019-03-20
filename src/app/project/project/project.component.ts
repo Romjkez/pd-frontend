@@ -17,6 +17,11 @@ export interface Application {
   comment: string | null;
 }
 
+export interface Tags {
+  category: string;
+  value: string[];
+}
+
 @Component({
   selector: 'app-project',
   templateUrl: './project.component.html',

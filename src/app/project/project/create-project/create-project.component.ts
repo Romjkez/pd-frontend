@@ -5,6 +5,7 @@ import {parseJwt} from '../../../shared/services/auth.service';
 import {HttpResponse} from '@angular/common/http';
 import {MatSnackBar} from '@angular/material';
 import {Router} from '@angular/router';
+import {Tags} from '../project.component';
 
 @Component({
   selector: 'app-create-project',
@@ -16,31 +17,26 @@ export class CreateProjectComponent implements OnInit {
   createProjectForm: FormGroup;
   tags: FormArray;
   tagsMaximum: boolean;
-  tagsMap = new Map<string, boolean>([
-    ['Фронтенд', false],
-    ['Бэкэнд', false],
-    ['Веб-дизайн', false],
-    ['Android', false],
-    ['IOS-разработка', false],
-    ['SMM', false],
-    ['Маркетинг', false],
-    ['3D-моделирование', false]
-  ]);
-  tagsArray = Array.from(this.tagsMap.keys());
-  gotTags: object[];
+  gotTags: Tags[];
+  gotTagsArray = [];
+  checkedTags = {};
 
   constructor(private apiService: ApiService, private snackBar: MatSnackBar, private router: Router) {
   }
 
   ngOnInit() {
     // todo validate deadline
-    // this.gotTags=this.apiService.getTags();
+    this.apiService.getTags().then(res => {
+      this.gotTags = res;
+      this.gotTagsArray = Object.keys(this.gotTags);
+    });
+
     this.tags = new FormArray([]);
     this.createProjectForm = new FormGroup({
       title:
-        new FormControl('', [Validators.required, Validators.minLength((2)), Validators.maxLength(255)]),
+          new FormControl('', [Validators.required, Validators.minLength((2)), Validators.maxLength(255)]),
       description:
-        new FormControl('', [Validators.required, Validators.minLength((2))]),
+          new FormControl('', [Validators.required, Validators.minLength((2))]),
       deadline: new FormControl('', [Validators.required]),
       roles: new FormControl('', [Validators.required]),
       teamsCount: new FormControl('', [Validators.required, Validators.min(1), Validators.max(10)]),
@@ -50,14 +46,13 @@ export class CreateProjectComponent implements OnInit {
 
   toggleTag(tag: string): void {
     let tagsCounter = 0;
-    if (this.tagsMap.get(tag) === false) {
-      this.tagsMap.set(tag, true);
+    if (this.checkedTags[tag] === true) {
+      this.checkedTags[tag] = false;
     } else {
-      this.tagsMap.set(tag, false);
+      this.checkedTags[tag] = true;
     }
-
-    for (let i = 0; i < Array.from(this.tagsMap.keys()).length; i++) {
-      if (this.tagsMap.get(Array.from(this.tagsMap.keys())[i]) === true) {
+    for (const prop in this.checkedTags) {
+      if (this.checkedTags[prop] === true) {
         tagsCounter++;
       }
     }
@@ -93,11 +88,11 @@ export class CreateProjectComponent implements OnInit {
   }
 
   async requestCreateProject() {
-    this.tagsMap.forEach((value, key) => {
-      if (value === true) {
-        this.tags.push(new FormControl(key));
+    for (const prop in this.checkedTags) {
+      if (this.checkedTags[prop] === true) {
+        this.tags.push(new FormControl(prop));
       }
-    });
+    }
     if (this.tags.length < 1) {
       this.snackBar.open('Пожалуйста, укажите теги проекта', 'Закрыть');
     } else {
@@ -105,18 +100,18 @@ export class CreateProjectComponent implements OnInit {
       const curatorId = parseJwt(localStorage.getItem('token')).data.id;
       const data = this.serializeObject(this.createProjectForm.getRawValue()).concat(`&curator=${curatorId}&members=${members}`);
       await this.apiService.createProject(data).then((res: HttpResponse<any>) => {
-          if (res.status === 201) {
-            this.snackBar.open('Проект создан и отправлен на модерацию', 'Закрыть', {duration: 3000});
-            this.router.navigate(['/cabinet']);
-          } else {
-            this.snackBar.open('Не удалось создать проект');
+            if (res.status === 201) {
+              this.snackBar.open('Проект создан и отправлен на модерацию', 'Закрыть', {duration: 3000});
+              this.router.navigate(['/cabinet']);
+            } else {
+              this.snackBar.open('Не удалось создать проект');
+            }
           }
-        }
       ).catch(e => {
         this.snackBar.open('Не удалось создать проект');
         console.error(e);
       }).finally(() => {
-        this.tagsMap.forEach(value => value = false);
+        this.checkedTags = {};
         this.tags.reset([]);
       });
     }
