@@ -82,7 +82,8 @@
         <div><h3>Заявка подана</h3></div>
       </div>
     </div>
-    <div *ngIf="project?.status==='1' && usergroup==2" class="side-form sharp">
+      <div *ngIf="project?.status==1 && ((usergroup==2 && project?.curator==userId) || usergroup==3)"
+           class="side-form sharp">
       <div class="side-form__header">
         <h2>Заявки на проект</h2>
       </div>
