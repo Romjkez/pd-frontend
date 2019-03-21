@@ -1,55 +1,62 @@
 <main class="main">
   <div class="page-wrapper">
     <div class="project-view">
-      <div class="project-view__top-info">
-        <h5 class="project-view__id">№{{project?.id}}</h5>
-        <h4 class="project-view__status"><span
-          [ngStyle]="{'color':colorMap.get(project?.status)}">{{statusMap.get(project?.status)}}</span></h4>
-      </div>
-      <h4 class="project-view__title">{{project?.title}}</h4>
-      <div class="project-view__info">
-        <p class="project-view__description">
-          {{project?.description}}
-        </p>
-        <div class="project-view__dead-line info-block">
-          <h4 class="point-title"><b>Запись до: </b>{{project?.deadline | date:"dd.MM.yy"}}</h4>
-        </div>
-        <div class="project-view__curator info-block">
-          <h4 class="point-title" style="margin-right: 5px;">
-            <b>Куратор: </b></h4><a class="curator-link" routerLink="/user/{{project?.curator}}">
-          {{curatorSurname}}
-          {{curatorName?.length > 0 ? curatorName : ''}}
-          {{curatorMiddlename?.length > 0 ? curatorMiddlename : ''}}</a>
-        </div>
-        <div class="project-view__tags info-block">
-          <h4 class="point-title"><b>Теги: </b></h4>
-          <div class="tags__tags-block">
-            <div class="snippet__proj-tags">
-              <div *ngFor="let tag of tags" class="proj-tags__item">{{tag}}</div>
+        <app-preloader *ngIf="loading"></app-preloader>
+        <ng-container *ngIf="!loading">
+            <div class="project-view__top-info">
+                <h5 class="project-view__id">№{{project?.id}}</h5>
+                <h4 class="project-view__status"><span
+                        [ngStyle]="{'color':colorMap.get(project?.status)}">{{statusMap.get(project?.status)}}</span>
+                </h4>
             </div>
-          </div>
-        </div>
-        <div class="project-view__places info-block">
-          <h4 class="point-title" style="margin-right: 5px;"><b>Заполненность: </b>
-            {{fullness?.occupied}}/{{fullness?.places}}</h4>
-        </div>
-      </div>
-      <div class="teams">
-        <div *ngFor="let team of project?.members; let i = index" class="team-block">
-          <div class="team-block__top field">
-            <h4>Команда №{{i + 1}}</h4>
-          </div>
-          <div class="team-block__teammates">
-            <div *ngFor="let teamMate of team | keyvalue" class="teammate field">
-              <div class="teammate__info">
-                <span class="teammate__job">{{teamMate.key}}: </span>
-                <span *ngIf="teamMate.value==0" [ngStyle]="{'color': colorMap.get('1')}">место свободно</span>
-                <a class="teammate__name" routerLink="/user/{{teamMate.value}}">{{teamMate.value | getName | async}}</a>
-              </div>
+            <h4 class="project-view__title">{{project?.title}}</h4>
+            <div class="project-view__info">
+                <p class="project-view__description">
+                    {{project?.description}}
+                </p>
+                <div class="project-view__dead-line info-block">
+                    <h4 class="point-title"><b>Запись до: </b>{{project?.deadline | date:"dd.MM.yy"}}</h4>
+                </div>
+                <div class="project-view__curator info-block">
+                    <h4 class="point-title" style="margin-right: 5px;">
+                        <b>Куратор: </b></h4><a class="curator-link" routerLink="/user/{{project?.curator}}">
+                    {{curatorSurname}}
+                    {{curatorName?.length > 0 ? curatorName : ''}}
+                    {{curatorMiddlename?.length > 0 ? curatorMiddlename : ''}}</a>
+                </div>
+                <div class="project-view__tags info-block">
+                    <h4 class="point-title"><b>Теги: </b></h4>
+                    <div class="tags__tags-block">
+                        <div class="snippet__proj-tags">
+                            <div *ngFor="let tag of tags" class="proj-tags__item">{{tag}}</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-view__places info-block">
+                    <h4 class="point-title" style="margin-right: 5px;"><b>Заполненность: </b>
+                        {{fullness?.occupied}}/{{fullness?.places}}</h4>
+                </div>
             </div>
-          </div>
-        </div>
-      </div>
+            <div class="teams">
+                <div *ngFor="let team of project?.members; let i = index" class="team-block">
+                    <div class="team-block__top field">
+                        <h4>Команда №{{i + 1}}</h4>
+                    </div>
+                    <div class="team-block__teammates">
+                        <div *ngFor="let teamMate of team | keyvalue" class="teammate field">
+                            <div class="teammate__info">
+                                <span class="teammate__job">{{teamMate.key}}: </span>
+                                <span *ngIf="teamMate.value==0"
+                                      [ngStyle]="{'color': colorMap.get('1')}">место свободно</span>
+                                <a class="teammate__name"
+                                   routerLink="/user/{{teamMate.value}}">{{teamMate.value | getName | async}}</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </ng-container>
+
     </div>
     <div *ngIf="project?.status==='1' && usergroup==1" class="side-form">
       <ng-container *ngIf="!joinRequested">

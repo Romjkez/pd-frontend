@@ -44,13 +44,14 @@ export class ProjectComponent implements OnInit {
   usergroup: number;
   userId: number;
   apps: Application[];
+  loading: boolean;
 
   constructor(private activatedRoute: ActivatedRoute, private apiService: ApiService, private snackBar: MatSnackBar,
               private router: Router) {
   }
 
   async ngOnInit() {
-    // todo показывать заявки только куратору проекта или админу
+    this.loading = true;
     const id = this.activatedRoute.snapshot.paramMap.get('id');
     this.joinForm = new FormGroup({
       team: new FormControl('', [Validators.required]),
@@ -77,11 +78,16 @@ export class ProjectComponent implements OnInit {
         this.userId = parseJwt(localStorage.getItem('token')).data.id;
       });
     }).then(() => {
-      this.apiService.isWorkerRequestedJoin(parseJwt(localStorage.getItem('token')).data.id, this.project.id).then(res => {
-        if (res.body.message === 'true') {
-          this.joinRequested = true;
-        }
-      });
+      if (this.usergroup === 1) {
+        this.apiService.isWorkerRequestedJoin(parseJwt(localStorage.getItem('token')).data.id, this.project.id).then(res => {
+          if (res.body.message === 'true') {
+            this.joinRequested = true;
+            this.loading = false;
+          }
+        });
+      } else {
+        this.loading = false;
+      }
     }).catch(e => console.error(e));
   }
 
