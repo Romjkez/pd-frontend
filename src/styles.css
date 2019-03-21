@@ -4,7 +4,7 @@ body {
   margin: 0;
   padding: 0;
   background-color: #f4f8fb;
-  color: #646363;
+  color: #253942;
   font-family: 'Roboto', sans-serif;
   position: relative;
 }
@@ -53,7 +53,7 @@ h1, h2, h3, h4, h5 {
 .button {
   height: 48px;
   width: 100%;
-  background-color: #22ba85;
+  background-color: #207ec9;
   color: #fff;
   border: none;
   border-radius: 3px;
