@@ -112,6 +112,11 @@ export class ApiService {
         `${this.baseUrl}/projects/getArchive.php?per_page=${perPage}&page=${page}`).toPromise();
   }
 
+  getArchiveProjectsByCurator(curator: number | string, perPage: number, page: number): Promise<Projects> {
+    return this.http.get<Projects>(
+      `${this.baseUrl}/projects/getArchive.php?curator=${curator}&per_page=${perPage}&page=${page}`).toPromise();
+  }
+
   /*
   ** APPLICATIONS
    */
