@@ -24,6 +24,7 @@ export class CreateProjectComponent implements OnInit {
   gotTagsArray = [];
   checkedTags = {};
   minDate: Date;
+  minFinishDate: Date;
   maxDate: Date;
 
   constructor(private apiService: ApiService, private snackBar: MatSnackBar, private router: Router) {
@@ -44,6 +45,7 @@ export class CreateProjectComponent implements OnInit {
       description:
         new FormControl('', [Validators.required, Validators.minLength((2))]),
       deadline: new FormControl('', [Validators.required]),
+      finish_date: new FormControl('', [Validators.required]),
       roles: new FormControl('', [Validators.required]),
       teamsCount: new FormControl('', [Validators.required, Validators.min(1), Validators.max(10)]),
       tags: this.tags
@@ -123,7 +125,7 @@ export class CreateProjectComponent implements OnInit {
   private serializeObject(obj: object): string {
     let str = '';
     for (const key in obj) {
-      if (key !== 'teamsCount' && key !== 'roles' && key !== 'deadline') {
+      if (key !== 'teamsCount' && key !== 'roles' && key !== 'deadline' && key !== 'finish_date') {
         if (str !== '') {
           str += '&';
         }
@@ -131,8 +133,16 @@ export class CreateProjectComponent implements OnInit {
       }
     }
     const deadline = new Date(this.createProjectForm.controls.deadline.value._d);
+    const finish = new Date(this.createProjectForm.controls.finish_date.value._d);
     str += `&deadline=${deadline.getFullYear()}-${deadline.getMonth() + 1}-${deadline.getDate()}`;
+    str += `&finish_date=${finish.getFullYear()}-${finish.getMonth() + 1}-${finish.getDate()}`;
     return str;
+  }
+
+  onDeadlineChange(evt) {
+    if (evt.value !== null) {
+      this.minFinishDate = evt.value._d;
+    }
   }
 
   isMobile(): boolean {

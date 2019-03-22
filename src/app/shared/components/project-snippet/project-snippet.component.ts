@@ -1,29 +1,36 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {ApiService} from '../../services/api.service';
+import {ApiService, User} from '../../services/api.service';
 import {Router} from '@angular/router';
+
+export interface ProjectDocument {
+  title: string;
+  link: string;
+}
 
 export interface Project {
   id: number;
   title: string;
   description: string;
-  members: string;
+  members: User[];
   deadline: string;
-  curator: number;
+  finish_date: string;
+  curator: User;
   tags: string;
   status: string;
   adm_comment: string | null;
+  files: ProjectDocument[];
 }
 
 export const statusMap: Map<string, string> = new Map([
   ['0', 'На рассмотрении'],
-  ['1', 'Открыт'],
-  ['2', 'Закрыт'],
+  ['1', 'Выполняется'],
+  ['2', 'Завершён'],
   ['3', 'Не прошёл модерацию']
 ]);
 export const colorMap: Map<string, string> = new Map([
   ['0', '#000'],
   ['1', '#08bc00'],
-  ['2', 'red'],
+  ['2', '#ff0000'],
   ['3', '#e3a100']
 ]);
 
@@ -35,8 +42,6 @@ export const colorMap: Map<string, string> = new Map([
 export class ProjectSnippetComponent implements OnInit {
   @Input() project: Project;
   tags: string[];
-  curatorName: string;
-  curatorSurname: string;
   fullness: number[];
   statusMap = statusMap;
   colorMap = colorMap;
@@ -47,21 +52,14 @@ export class ProjectSnippetComponent implements OnInit {
   async ngOnInit() {
     this.fullness = this.getOccupiedQuantity(this.project.members);
     this.tags = this.project.tags.split(',');
-    await this.apiService.getUserById(this.project.curator).then((res) => {
-      this.curatorName = res.name;
-      this.curatorSurname = res.surname;
-    }).catch(e => {
-      console.error('Failed to get curator name&surname:', e);
-    });
   }
 
-  getOccupiedQuantity(members: string): number[] {
-    const membersArray: object[] = JSON.parse(this.project.members);
+  getOccupiedQuantity(members: User[]): number[] {
     let occupied = 0;
     let places = 0;
-    for (let i = 0; i < membersArray.length; i++) {
-      for (const key in membersArray[i]) {
-        if (membersArray[i][key] !== 0) {
+    for (let i = 0; i < members.length; i++) {
+      for (const key in members[i]) {
+        if (members[i][key] !== 0) {
           occupied++;
         }
         places++;

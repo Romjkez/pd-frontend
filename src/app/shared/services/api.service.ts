@@ -4,7 +4,7 @@ import {Project} from '../components/project-snippet/project-snippet.component';
 import {Tags} from '../../project/project/project.component';
 
 export interface User {
-  id: string;
+  id: number;
   name: string;
   surname: string;
   middle_name: string;
@@ -14,6 +14,8 @@ export interface User {
   description: string;
   avatar: string;
   stdgroup: string;
+  active_projects: string;
+  finished_projects: string;
 }
 
 export interface Projects {
@@ -50,7 +52,8 @@ export class ApiService {
 
   updateUser(user: object | any): Promise<any> {
     let data = `id=${user.id}&email=${user.email}&surname=${user.surname}&name=${user.name}&middlename=${user.middlename}
-    &tel=${user.tel}&std_group=${user.std_group}&avatar=${user.avatar}&description=${user.description}`;
+    &tel=${user.tel}&std_group=${user.std_group}&avatar=${user.avatar}&description=${user.description}
+    &active_projects=${user.active_projects}&finished_projects=${user.finished_projects}`;
     if (user.pass.length > 5 && user.old_pass.length > 5) {
       data += `&pass=${user.pass}&old_pass=${user.old_pass}`;
     }

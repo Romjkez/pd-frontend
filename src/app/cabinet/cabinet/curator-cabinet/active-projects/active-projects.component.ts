@@ -20,7 +20,7 @@ export class ActiveProjectsComponent implements OnInit {
 
   async ngOnInit() {
     this.loading = true;
-    const curator = parseJwt(this.authService.getToken()).data.email;
+    const curator = parseJwt(this.authService.getToken()).data.id;
     await this.apiService.getProjectsByStatusAndCurator(this.statusFilter, curator, this.perPage, this.currentPage)
       .then((res) => {
         this.currentPage = res.page;
