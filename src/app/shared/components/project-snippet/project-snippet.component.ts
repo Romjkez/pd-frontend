@@ -8,10 +8,12 @@ export interface Project {
   description: string;
   members: string;
   deadline: string;
+  finish_date: string;
   curator: number;
   tags: string;
   status: string;
   adm_comment: string | null;
+  files: any[] | null;
 }
 
 export const statusMap: Map<string, string> = new Map([
