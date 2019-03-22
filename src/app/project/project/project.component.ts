@@ -29,6 +29,7 @@ export interface Tags {
 })
 export class ProjectComponent implements OnInit {
   project: Project;
+  loading: boolean;
   joinForm: FormGroup;
   colorMap = colorMap;
   statusMap = statusMap;
@@ -47,6 +48,7 @@ export class ProjectComponent implements OnInit {
   }
 
   async ngOnInit() {
+    this.loading = true;
     const id = this.activatedRoute.snapshot.paramMap.get('id');
     this.joinForm = new FormGroup({
       team: new FormControl('', [Validators.required]),
@@ -67,13 +69,17 @@ export class ProjectComponent implements OnInit {
       this.tags = this.project.tags.split(',');
       this.usergroup = parseJwt(localStorage.getItem('token')).data.usergroup;
       this.selfId = parseJwt(localStorage.getItem('token')).data.id;
+      this.loading = false;
     }).then(() => {
       this.apiService.isWorkerRequestedJoin(parseJwt(localStorage.getItem('token')).data.id, this.project.id).then(res => {
         if (res.body.message === 'true') {
           this.joinRequested = true;
         }
       });
-    }).catch(e => console.error(e));
+    }).catch(e => {
+      console.error(e);
+      this.loading = false;
+    });
   }
 
   async getOccupiedQuantity(members: object[]): Promise<{ occupied: number, places: number }> {
