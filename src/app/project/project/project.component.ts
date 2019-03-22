@@ -33,15 +33,13 @@ export class ProjectComponent implements OnInit {
   colorMap = colorMap;
   statusMap = statusMap;
   tags: string[];
-  curatorName: string;
-  curatorSurname: string;
-  curatorMiddlename: string;
   fullness = {
-    'occupied': 0,
-    'places': 0
+    occupied: 0,
+    places: 0
   };
   joinRequested = false;
   usergroup: number;
+  selfId: number;
   apps: Application[];
 
   constructor(private activatedRoute: ActivatedRoute, private apiService: ApiService, private snackBar: MatSnackBar,
@@ -60,19 +58,15 @@ export class ProjectComponent implements OnInit {
         this.router.navigate(['/404']);
       }
       this.project = res;
-      this.project.members = JSON.parse(<string>this.project.members);
+      this.project.files = JSON.parse(<any>this.project.files);
       this.getApps();
     }).then(() => {
-      this.apiService.getUserById(this.project.curator).then((res) => {
-        this.getOccupiedQuantity(<any>this.project.members).then((fullness) => {
-          this.fullness = fullness;
-        });
-        this.curatorName = res.name;
-        this.curatorSurname = res.surname;
-        this.curatorMiddlename = res.middle_name;
-        this.tags = this.project.tags.split(',');
-        this.usergroup = parseJwt(localStorage.getItem('token')).data.usergroup;
+      this.getOccupiedQuantity(<any>this.project.members).then((fullness) => {
+        this.fullness = fullness;
       });
+      this.tags = this.project.tags.split(',');
+      this.usergroup = parseJwt(localStorage.getItem('token')).data.usergroup;
+      this.selfId = parseJwt(localStorage.getItem('token')).data.id;
     }).then(() => {
       this.apiService.isWorkerRequestedJoin(parseJwt(localStorage.getItem('token')).data.id, this.project.id).then(res => {
         if (res.body.message === 'true') {
