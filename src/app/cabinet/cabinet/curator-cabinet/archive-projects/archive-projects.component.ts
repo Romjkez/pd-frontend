@@ -13,15 +13,15 @@ export class ArchiveProjectsComponent implements OnInit {
   currentPage = 1;
   totalPages: number;
   perPage = 5;
-  statusFilter = 2;
+  curator: number;
 
   constructor(private authService: AuthService, private apiService: ApiService) {
   }
 
   async ngOnInit() {
     this.loading = true;
-    const curator = parseJwt(this.authService.getToken()).data.email;
-    await this.apiService.getProjectsByStatusAndCurator(this.statusFilter, curator, this.perPage, this.currentPage)
+    this.curator = parseJwt(this.authService.getToken()).data.id;
+    await this.apiService.getArchiveProjectsByCurator(this.curator, this.perPage, this.currentPage)
       .then((res) => {
         this.currentPage = res.page;
         this.totalPages = res.pages;
@@ -35,7 +35,7 @@ export class ArchiveProjectsComponent implements OnInit {
   }
 
   async switchPage(newPage: number) {
-    await this.apiService.getProjectsByStatus(this.statusFilter, this.perPage, newPage).then((res) => {
+    await this.apiService.getArchiveProjectsByCurator(this.curator, this.perPage, newPage).then((res) => {
       this.currentPage = res.page;
       this.totalPages = res.pages;
       this.perPage = res.per_page;

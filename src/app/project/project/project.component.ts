@@ -55,34 +55,31 @@ export class ProjectComponent implements OnInit {
       role: new FormControl('', [Validators.required]),
       comment: new FormControl('', [Validators.maxLength(255)])
     });
-    await this.apiService.getProjectById(id).then((res) => {
-      if (!res.id) {
+    Promise.all([
+        this.apiService.getProjectById(id), this.apiService.getArchiveProjectById(<any>id)
+      ]
+    ).then(([res1, res2]) => {
+      if (res1.id) {
+        this.project = res1;
+      } else if (res2.id) {
+        this.project = res2;
+      } else {
         this.router.navigate(['/404']);
       }
-      this.project = res;
       this.project.files = JSON.parse(<any>this.project.files);
       this.getApps();
-    }).then(() => {
-      this.getOccupiedQuantity(<any>this.project.members).then((fullness) => {
-        this.fullness = fullness;
-      });
+      this.fullness = this.getOccupiedQuantity(this.project.members);
       this.tags = this.project.tags.split(',');
       this.usergroup = parseJwt(localStorage.getItem('token')).data.usergroup;
       this.selfId = parseJwt(localStorage.getItem('token')).data.id;
       this.loading = false;
-    }).then(() => {
-      this.apiService.isWorkerRequestedJoin(parseJwt(localStorage.getItem('token')).data.id, this.project.id).then(res => {
-        if (res.body.message === 'true') {
-          this.joinRequested = true;
-        }
-      });
     }).catch(e => {
       console.error(e);
       this.loading = false;
     });
   }
 
-  async getOccupiedQuantity(members: object[]): Promise<{ occupied: number, places: number }> {
+  getOccupiedQuantity(members: object[]): { occupied: number, places: number } {
     let occupied = 0;
     let places = 0;
     for (let i = 0; i < members.length; i++) {

@@ -68,17 +68,17 @@ export class ApiService {
    */
   getProjectsByStatus(status: number, perPage: number, page: number): Promise<Projects> {
     return this.http.get<Projects>(
-        `${this.baseUrl}/projects/get.php?status=${status}&per_page=${perPage}&page=${page}`).toPromise();
+      `${this.baseUrl}/projects/get.php?status=${status}&per_page=${perPage}&page=${page}`).toPromise();
   }
 
   getProjectsByStatusAndCurator(status: number, curator: number | string, perPage: number, page: number): Promise<Projects> {
     return this.http.get<Projects>(
-        `${this.baseUrl}/projects/get.php?status=${status}&curator=${curator}&per_page=${perPage}&page=${page}`).toPromise();
+      `${this.baseUrl}/projects/get.php?status=${status}&curator=${curator}&per_page=${perPage}&page=${page}`).toPromise();
   }
 
   getProjectById(id: number | string): Promise<Project> {
     return this.http.get<Project>(
-        `${this.baseUrl}/projects/get.php?id=${id}`).toPromise();
+      `${this.baseUrl}/projects/get.php?id=${id}`).toPromise();
   }
 
   createProject(form: object | string): Promise<any | object> {
@@ -109,7 +109,17 @@ export class ApiService {
    */
   getArchiveProjects(perPage: number, page: number): Promise<Projects> {
     return this.http.get<Projects>(
-        `${this.baseUrl}/projects/getArchive.php?per_page=${perPage}&page=${page}`).toPromise();
+      `${this.baseUrl}/projects/getArchive.php?per_page=${perPage}&page=${page}`).toPromise();
+  }
+
+  getArchiveProjectsByCurator(curator: number | string, perPage: number, page: number): Promise<Projects> {
+    return this.http.get<Projects>(
+      `${this.baseUrl}/projects/getArchive.php?curator=${curator}&per_page=${perPage}&page=${page}`).toPromise();
+  }
+
+  getArchiveProjectById(id: number) {
+    return this.http.get<Project>(
+      `${this.baseUrl}/projects/getArchive.php?id=${id}`).toPromise();
   }
 
   /*
