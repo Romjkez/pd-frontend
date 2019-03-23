@@ -122,8 +122,10 @@
               <div>{{app.role}}</div>
               <div>{{app.comment}}</div>
               <div class="row__buttons">
-                <button title="Одобрить заявку"><img src="../../../assets/img/check.svg" alt="Одобрить"></button>
-                <button title="Отказать"><img src="../../../assets/img/dismiss.svg" alt="Отказать"></button>
+                <button (click)="acceptApplication(app.id)" type="button" title="Одобрить заявку"><img
+                  src="../../../assets/img/check.svg" alt="Одобрить"></button>
+                <button (click)="declineApplication(app.id)" type="button" title="Отказать"><img
+                  src="../../../assets/img/dismiss.svg" alt="Отказать"></button>
               </div>
             </div>
           </div>

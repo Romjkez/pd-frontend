@@ -129,7 +129,7 @@ export class ApiService {
     const data = `worker_id=${worker_id}&project_id=${project_id}&team=${team}&role=${role}&comment=${comment}`;
     return this.http.post(`${this.baseUrl}/applications/create.php`, data, {
       headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-      observe: 'response'
+      observe: 'body'
     }).toPromise();
   }
 
@@ -142,6 +142,14 @@ export class ApiService {
   isWorkerRequestedJoin(worker_id: number, project_id: number): Promise<any> {
     return this.http.get(`${this.baseUrl}/applications/get.php?worker=${worker_id}&project=${project_id}`, {
       observe: 'response'
+    }).toPromise();
+  }
+
+  updateApp(appId: number, status: number): Promise<any> {
+    const data = `id=${appId}&status=${status}`;
+    return this.http.post(`${this.baseUrl}/applications/update.php`, data, {
+      headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+      observe: 'body'
     }).toPromise();
   }
 
