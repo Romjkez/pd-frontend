@@ -4,7 +4,7 @@ import {Project} from '../components/project-snippet/project-snippet.component';
 import {Tags} from '../../project/project/project.component';
 
 export interface User {
-  id: string;
+  id: number;
   name: string;
   surname: string;
   middle_name: string;
@@ -14,6 +14,8 @@ export interface User {
   description: string;
   avatar: string;
   stdgroup: string;
+  active_projects: string;
+  finished_projects: string;
 }
 
 export interface Projects {
@@ -50,7 +52,8 @@ export class ApiService {
 
   updateUser(user: object | any): Promise<any> {
     let data = `id=${user.id}&email=${user.email}&surname=${user.surname}&name=${user.name}&middlename=${user.middlename}
-    &tel=${user.tel}&std_group=${user.std_group}&avatar=${user.avatar}&description=${user.description}`;
+    &tel=${user.tel}&std_group=${user.std_group}&avatar=${user.avatar}&description=${user.description}
+    &active_projects=${user.active_projects}&finished_projects=${user.finished_projects}`;
     if (user.pass.length > 5 && user.old_pass.length > 5) {
       data += `&pass=${user.pass}&old_pass=${user.old_pass}`;
     }
@@ -65,17 +68,17 @@ export class ApiService {
    */
   getProjectsByStatus(status: number, perPage: number, page: number): Promise<Projects> {
     return this.http.get<Projects>(
-        `${this.baseUrl}/projects/get.php?status=${status}&per_page=${perPage}&page=${page}`).toPromise();
+      `${this.baseUrl}/projects/get.php?status=${status}&per_page=${perPage}&page=${page}`).toPromise();
   }
 
   getProjectsByStatusAndCurator(status: number, curator: number | string, perPage: number, page: number): Promise<Projects> {
     return this.http.get<Projects>(
-        `${this.baseUrl}/projects/get.php?status=${status}&curator=${curator}&per_page=${perPage}&page=${page}`).toPromise();
+      `${this.baseUrl}/projects/get.php?status=${status}&curator=${curator}&per_page=${perPage}&page=${page}`).toPromise();
   }
 
   getProjectById(id: number | string): Promise<Project> {
     return this.http.get<Project>(
-        `${this.baseUrl}/projects/get.php?id=${id}`).toPromise();
+      `${this.baseUrl}/projects/get.php?id=${id}`).toPromise();
   }
 
   createProject(form: object | string): Promise<any | object> {
@@ -106,7 +109,17 @@ export class ApiService {
    */
   getArchiveProjects(perPage: number, page: number): Promise<Projects> {
     return this.http.get<Projects>(
-        `${this.baseUrl}/projects/getArchive.php?per_page=${perPage}&page=${page}`).toPromise();
+      `${this.baseUrl}/projects/getArchive.php?per_page=${perPage}&page=${page}`).toPromise();
+  }
+
+  getArchiveProjectsByCurator(curator: number | string, perPage: number, page: number): Promise<Projects> {
+    return this.http.get<Projects>(
+      `${this.baseUrl}/projects/getArchive.php?curator=${curator}&per_page=${perPage}&page=${page}`).toPromise();
+  }
+
+  getArchiveProjectById(id: number) {
+    return this.http.get<Project>(
+      `${this.baseUrl}/projects/getArchive.php?id=${id}`).toPromise();
   }
 
   /*

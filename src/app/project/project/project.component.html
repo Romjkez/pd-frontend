@@ -16,7 +16,7 @@
       </div>
       <div class="project-view__request">
         <div
-          *ngIf="project?.status === '1' && usergroup == 1"
+        *ngIf="project?.status==='1' && (project.curator.id==selfId || usergroup==3)"
           class="side-form"
         >
           <ng-container *ngIf="!joinRequested">
@@ -126,7 +126,14 @@
             </div>
           </div>
         </div>
-      </div>
+        <div class="files">
+          <b>Документы проекта: </b><i *ngIf="project?.files?.length<1">документы отсутствуют</i>
+          <div class="project-view__documents">
+            <div *ngFor="let doc of project?.files" class="document">
+              <a class="teammate__name" [href]="doc.link">{{doc?.title}}</a>
+            </div>
+          </div>
+        </div>
     </div>
     <!-- <div *ngIf="project?.status === '1' && usergroup == 1" class="side-form">
       <ng-container *ngIf="!joinRequested">
@@ -171,12 +178,9 @@
       </ng-container>
       <div *ngIf="joinRequested" class="joinRequested">
         <div><h3>Заявка подана</h3></div>
-      </div>
-    </div> -->
-    <div
-      *ngIf="project?.status === '1' && usergroup == 2"
-      class="side-form sharp"
-    >
+      </div>-->
+    </div>
+    <div *ngIf="project?.status==='1' && (project.curator.id==selfId || usergroup==3)" class="side-form sharp">
       <div class="side-form__header">
         <h2>Заявки на проект</h2>
       </div>
@@ -220,5 +224,5 @@
         </div>
       </div>
     </div>
-  </div>
+  </div> 
 </main>
