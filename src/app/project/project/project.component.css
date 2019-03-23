@@ -141,10 +141,12 @@
 
 .project-view__title {
   padding: 15px 0;
+  font-weight: bold;
+  margin-top: 16px;
 }
 
 .project-view__dead-line {
-  color: #646363;
+  color: #253942;
   font-weight: 500;
   margin-right: 15px;
 }
@@ -153,6 +155,7 @@
   color: #207ec9;
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 
 .top-info__right {

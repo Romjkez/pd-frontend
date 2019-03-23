@@ -28,6 +28,10 @@
   margin-bottom: 10px;
 }
 
+.snippet__curator {
+  color: #6a767c;
+}
+
 .snippet__proj-desc {
   font-size: 15px;
   margin: 10px 0 10px 0;
