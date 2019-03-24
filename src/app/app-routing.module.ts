@@ -12,14 +12,14 @@ import {CreateProjectComponent} from './project/project/create-project/create-pr
 import {UserEditComponent} from './user-view/user-edit/user-edit.component';
 
 const routes: Routes = [
-  {path: '', component: MainPageComponent, pathMatch: 'full'},
-  {path: 'user/:id', component: UserViewComponent, pathMatch: 'full'},
+  {path: '', component: MainPageComponent, pathMatch: 'full', data: {animation: 'MainPage'}},
+  {path: 'user/:id', component: UserViewComponent, pathMatch: 'full', data: {animation: 'UserView'}},
   {path: 'edit_profile', component: UserEditComponent, pathMatch: 'full'},
-  {path: 'project/:id', component: ProjectComponent, pathMatch: 'full'},
-  {path: 'register', component: RegisterComponent, pathMatch: 'full'},
-  {path: 'login', component: LoginComponent, pathMatch: 'full'},
-  {path: 'cabinet', component: CabinetComponent, pathMatch: 'full', canActivate: [AuthGuardService]},
-  {path: 'cabinet/create_project', component: CreateProjectComponent, pathMatch: 'full'},
+  {path: 'project/:id', component: ProjectComponent, pathMatch: 'full', data: {animation: 'ProjectView'}},
+  {path: 'register', component: RegisterComponent, pathMatch: 'full', data: {animation: 'RegisterView'}},
+  {path: 'login', component: LoginComponent, pathMatch: 'full', data: {animation: 'LoginView'}},
+  {path: 'cabinet', component: CabinetComponent, pathMatch: 'full', canActivate: [AuthGuardService], data: {animation: 'Cabinet'}},
+  {path: 'cabinet/create_project', component: CreateProjectComponent, pathMatch: 'full', data: {animation: 'CreateProject'}},
   {path: '404', component: NotFoundPageComponent, pathMatch: 'full'},
   {path: '**', redirectTo: '404'}
 ];
