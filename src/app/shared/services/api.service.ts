@@ -85,7 +85,7 @@ export class ApiService {
     form = form + '&api_key=' + this.apiKey;
     return this.http.post(`${this.baseUrl}/projects/create.php`, form, {
       headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-      observe: 'response'
+      observe: 'body'
     }).toPromise();
   }
 

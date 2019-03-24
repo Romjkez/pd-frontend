@@ -88,12 +88,8 @@ textarea {
   color: #207ec9;
 }
 
-.reg-form__button-submit:disabled {
-  background-color: #d2d2d2;
-}
-
-.reg-form__button-submit:disabled:hover {
-  cursor: default;
+.reg-form__button-reset:hover {
+  color: #fff;
 }
 
 .form__submit {
@@ -103,14 +99,6 @@ textarea {
 .block__link {
   font-size: 13px;
   color: #2196f3;
-}
-
-.reg-form__button-submit:disabled {
-  background-color: #d2d2d2;
-}
-
-.reg-form__button-submit:disabled:hover {
-  cursor: default;
 }
 
 .info-icon {

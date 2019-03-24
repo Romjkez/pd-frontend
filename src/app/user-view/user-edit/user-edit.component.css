@@ -95,14 +95,6 @@ textarea {
     color: #207ec9;
 }
 
-.reg-form__button-submit:disabled {
-    background-color: #d2d2d2;
-}
-
-.reg-form__button-submit:disabled:hover {
-    cursor: default;
-}
-
 .form__submit {
     text-align: center;
 }

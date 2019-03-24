@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {colorMap, Project, statusMap} from '../../shared/components/project-snippet/project-snippet.component';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ApiService} from '../../shared/services/api.service';
@@ -42,6 +42,7 @@ export class ProjectComponent implements OnInit {
   usergroup: number;
   selfId: number;
   apps: Application[];
+  @ViewChild('joinFormSubmit') joinFormSubmit: ElementRef;
 
   constructor(private activatedRoute: ActivatedRoute, private apiService: ApiService, private snackBar: MatSnackBar,
               private router: Router) {
@@ -85,6 +86,7 @@ export class ProjectComponent implements OnInit {
   }
 
   async requestJoinProject(): Promise<any> {
+    this.joinFormSubmit.nativeElement.setAttribute('disabled', 'true');
     const projectId = this.project.id;
     const workerId = parseJwt(localStorage.getItem('token')).data.id;
     const team = this.joinForm.controls.team.value;
@@ -97,9 +99,11 @@ export class ProjectComponent implements OnInit {
       } else {
         this.snackBar.open(`Ошибка: ${res.message}`, 'Закрыть');
       }
+      this.joinFormSubmit.nativeElement.removeAttribute('disabled');
     }).catch(e => {
       this.snackBar.open('Не удалось подать заявку. Возможно, кого-то уже взяли на эту позицию', 'Закрыть', {duration: 4000});
       console.error(e);
+      this.joinFormSubmit.nativeElement.removeAttribute('disabled');
     });
   }
 
