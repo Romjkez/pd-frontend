@@ -1,8 +1,7 @@
-import {Component, OnInit, ViewEncapsulation} from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
 import {FormArray, FormControl, FormGroup, Validators} from '@angular/forms';
 import {ApiService} from '../../../shared/services/api.service';
 import {parseJwt} from '../../../shared/services/auth.service';
-import {HttpResponse} from '@angular/common/http';
 import {MatSnackBar} from '@angular/material';
 import {Router} from '@angular/router';
 import {Tags} from '../project.component';
@@ -26,6 +25,7 @@ export class CreateProjectComponent implements OnInit {
   minDate: Date;
   minFinishDate: Date;
   maxDate: Date;
+  @ViewChild('submitButton') submitButton: ElementRef;
 
   constructor(private apiService: ApiService, private snackBar: MatSnackBar, private router: Router) {
   }
@@ -92,6 +92,7 @@ export class CreateProjectComponent implements OnInit {
   }
 
   async requestCreateProject() {
+    this.submitButton.nativeElement.setAttribute('disabled', 'true');
     for (const prop in this.checkedTags) {
       if (this.checkedTags[prop] === true) {
         this.tags.push(new FormControl(prop));
@@ -99,20 +100,23 @@ export class CreateProjectComponent implements OnInit {
     }
     if (this.tags.length < 1) {
       this.snackBar.open('Пожалуйста, укажите теги проекта', 'Закрыть');
+      this.submitButton.nativeElement.removeAttribute('disabled');
     } else {
       const members = JSON.stringify(this.makeTeams());
       const curatorId = parseJwt(localStorage.getItem('token')).data.id;
       const data = this.serializeObject(this.createProjectForm.getRawValue()).concat(`&curator=${curatorId}&members=${members}`);
-      await this.apiService.createProject(data).then((res: HttpResponse<any>) => {
-          if (res.status === 201) {
+      await this.apiService.createProject(data).then(res => {
+        if (res.message === 'true') {
             this.snackBar.open('Проект создан и отправлен на модерацию', 'Закрыть', {duration: 3000});
             this.router.navigate(['/cabinet']);
           } else {
-            this.snackBar.open('Не удалось создать проект');
+          this.submitButton.nativeElement.removeAttribute('disabled');
+          this.snackBar.open(`Не удалось создать проект: ${res.message}`, 'Закрыть');
           }
         }
       ).catch(e => {
-        this.snackBar.open('Не удалось создать проект');
+        this.submitButton.nativeElement.removeAttribute('disabled');
+        this.snackBar.open(`Не удалось создать проект: ${e}`, 'Закрыть');
         console.error(e);
       }).finally(() => {
         this.checkedTags = {};

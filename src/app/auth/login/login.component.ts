@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {AuthService} from '../../shared/services/auth.service';
 import {MatSnackBar} from '@angular/material';
@@ -11,6 +11,7 @@ import {Router} from '@angular/router';
 })
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
+  @ViewChild('loginButton') loginButton: ElementRef;
 
   constructor(private authService: AuthService, private snackBar: MatSnackBar, private router: Router) {
   }
@@ -26,11 +27,13 @@ export class LoginComponent implements OnInit {
   }
 
   async authorize(): Promise<boolean> {
+    this.loginButton.nativeElement.setAttribute('disabled', 'true');
     await this.authService.login(this.loginForm.controls.email.value.trim(), this.loginForm.controls.password.value.trim())
       .then((res) => {
         if (typeof res === 'object') {
           this.snackBar.open('Email или пароль неверный. Попробуйте ещё раз', 'Закрыть');
           this.loginForm.setErrors(Validators.required);
+          this.loginButton.nativeElement.removeAttribute('disabled');
           return false;
         } else {
           localStorage.setItem('token', res);

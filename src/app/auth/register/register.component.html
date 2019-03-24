@@ -73,7 +73,8 @@
         </label>
         <div class="form__submit">
           <button
-            [disabled]="!regForm.controls.email.valid || !regForm.controls.surname.valid || !regForm.controls.pass.valid"
+            [disabled]="!regForm.valid"
+            #submitButton
             type="submit" class="button reg-form__button reg-form__button-submit">
             Зарегистрироваться
           </button>
