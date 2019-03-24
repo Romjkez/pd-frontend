@@ -14,7 +14,7 @@ import {UserEditComponent} from './user-view/user-edit/user-edit.component';
 const routes: Routes = [
   {path: '', component: MainPageComponent, pathMatch: 'full', data: {animation: 'MainPage'}},
   {path: 'user/:id', component: UserViewComponent, pathMatch: 'full', data: {animation: 'UserView'}},
-  {path: 'edit_profile', component: UserEditComponent, pathMatch: 'full'},
+  {path: 'edit_profile', component: UserEditComponent, pathMatch: 'full', data: {animation: 'EditProfileView'}},
   {path: 'project/:id', component: ProjectComponent, pathMatch: 'full', data: {animation: 'ProjectView'}},
   {path: 'register', component: RegisterComponent, pathMatch: 'full', data: {animation: 'RegisterView'}},
   {path: 'login', component: LoginComponent, pathMatch: 'full', data: {animation: 'LoginView'}},
