@@ -9,7 +9,7 @@
                  class="left-column__photoContent" alt="Avatar">
           </div>
           <div class="left-column__edit">
-              <a *ngIf="canEdit" routerLink="/edit_profile" class="button profile-block__edit-button">Редактировать
+            <a *ngIf="canEdit" routerLink="/edit_profile" class="button profile-block__edit-button">Редактировать
               профиль</a>
           </div>
         </div>
@@ -36,9 +36,18 @@
     <div class="profile-block">
       <div class="profile-block__projects">
         <h3 class="projects-title projects__title-active">Активные проекты</h3>
-          В разработке
+        <app-project-snippet [project]="project"
+                             *ngFor="let project of projects | paginate: {
+                               id: 'active',
+          itemsPerPage: perPage, currentPage: currentPage, totalItems: perPage*totalPages
+          }"></app-project-snippet>
+        <pagination-controls *ngIf="totalPages>0"
+                             responsive="true"
+                             nextLabel="Вперёд"
+                             previousLabel="Назад"
+                             (pageChange)="switchPage($event)" [id]="'user_active'"></pagination-controls>
         <h3 class="projects-title projects__title-archive">Завершённые проекты</h3>
-          В разработке
+        В разработке
       </div>
     </div>
   </div>

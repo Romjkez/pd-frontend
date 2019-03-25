@@ -36,4 +36,8 @@ export class UserViewComponent implements OnInit {
       }
     }).catch(e => console.error(e));
   }
+
+  switchPage(ev) {
+
+  }
 }
