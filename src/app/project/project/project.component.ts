@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {colorMap, Project, statusMap} from '../../shared/components/project-snippet/project-snippet.component';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ApiService} from '../../shared/services/api.service';
@@ -42,6 +42,7 @@ export class ProjectComponent implements OnInit {
   usergroup: number;
   selfId: number;
   apps: Application[];
+  @ViewChild('joinFormSubmit') joinFormSubmit: ElementRef;
 
   constructor(private activatedRoute: ActivatedRoute, private apiService: ApiService, private snackBar: MatSnackBar,
               private router: Router) {
@@ -55,6 +56,100 @@ export class ProjectComponent implements OnInit {
       role: new FormControl('', [Validators.required]),
       comment: new FormControl('', [Validators.maxLength(255)])
     });
+    this.getProject(id);
+  }
+
+  getOccupiedQuantity(members: object[]): { occupied: number, places: number } {
+    let occupied = 0;
+    let places = 0;
+    for (let i = 0; i < members.length; i++) {
+      // tslint:disable-next-line
+      for (const key in members[i]) {
+        if (members[i][key] !== 0) {
+          occupied++;
+        }
+        places++;
+      }
+    }
+    return {
+      occupied: occupied,
+      places: places
+    };
+  }
+
+  changeSelection(event: MatOptionSelectionChange): void {
+    if (event.isUserInput) {
+      const team = event.source.value.team;
+      const role = event.source.value.role;
+      this.joinForm.patchValue({team, role});
+    }
+  }
+
+  async requestJoinProject(): Promise<any> {
+    this.joinFormSubmit.nativeElement.setAttribute('disabled', 'true');
+    const projectId = this.project.id;
+    const workerId = parseJwt(localStorage.getItem('token')).data.id;
+    const team = this.joinForm.controls.team.value;
+    const role = this.joinForm.controls.role.value;
+    const comment = this.joinForm.controls.comment.value;
+    await this.apiService.createApp(workerId, projectId, team, role, comment).then(res => {
+      if (res.message === 'true') {
+        this.snackBar.open(`Заявка подана: ${role}, команда №${team + 1}`, '', {duration: 4000});
+        this.joinRequested = true;
+      } else {
+        this.snackBar.open(`Ошибка: ${res.message}`, 'Закрыть');
+      }
+      this.joinFormSubmit.nativeElement.removeAttribute('disabled');
+    }).catch(e => {
+      this.snackBar.open('Не удалось подать заявку. Возможно, кого-то уже взяли на эту позицию', 'Закрыть', {duration: 4000});
+      console.error(e);
+      this.joinFormSubmit.nativeElement.removeAttribute('disabled');
+    });
+  }
+
+  async getApps() {
+    await this.apiService.getAppsByProjectAndStatus(this.project.id, 0).then((res: HttpResponse<any>) => {
+      if (!res.body.message) {
+        this.apps = res.body;
+      } else {
+        this.apps = [];
+      }
+    }).catch(e => {
+      console.log(e);
+      this.snackBar.open('Не удалось загрузить заявки на проект', 'Закрыть', {duration: 4000});
+    });
+  }
+
+  async acceptApplication(id: number) {
+    this.apiService.updateApp(id, 1).then(res => {
+      if (res.message === 'true') {
+        this.snackBar.open(`Заявка одобрена`, 'Закрыть', {duration: 4000});
+        this.getApps();
+      } else {
+        this.snackBar.open(`Ошибка при одобрении: ${res.message}`, 'Закрыть');
+      }
+      this.getProject(this.activatedRoute.snapshot.paramMap.get('id'));
+    }).catch(e => {
+      this.snackBar.open(`Ошибка: ${e}`, 'Закрыть');
+      console.error(e);
+    });
+  }
+
+  async declineApplication(id: number) {
+    this.apiService.updateApp(id, 1).then(res => {
+      if (res.message === 'true') {
+        this.snackBar.open(`Заявка одобрена`, 'Закрыть', {duration: 4000});
+        this.getApps();
+      } else {
+        this.snackBar.open(`Ошибка при отказе: ${res.message}`, 'Закрыть');
+      }
+    }).catch(e => {
+      this.snackBar.open(`Ошибка: ${e}`, 'Закрыть');
+      console.error(e);
+    });
+  }
+
+  async getProject(id) {
     Promise.all([
         this.apiService.getProjectById(id), this.apiService.getArchiveProjectById(<any>id)
       ]
@@ -76,61 +171,6 @@ export class ProjectComponent implements OnInit {
     }).catch(e => {
       console.error(e);
       this.loading = false;
-    });
-  }
-
-  getOccupiedQuantity(members: object[]): { occupied: number, places: number } {
-    let occupied = 0;
-    let places = 0;
-    for (let i = 0; i < members.length; i++) {
-      for (const key in members[i]) {
-        if (members[i][key] !== 0) {
-          occupied++;
-        }
-        places++;
-      }
-    }
-    return {
-      'occupied': occupied,
-      'places': places
-    };
-  }
-
-  changeSelection(event: MatOptionSelectionChange): void {
-    if (event.isUserInput) {
-      const team = event.source.value.team;
-      const role = event.source.value.role;
-      this.joinForm.patchValue({team, role});
-    }
-  }
-
-  async requestJoinProject(): Promise<any> {
-    const projectId = this.project.id;
-    const workerId = parseJwt(localStorage.getItem('token')).data.id;
-    const team = this.joinForm.controls.team.value;
-    const role = this.joinForm.controls.role.value;
-    const comment = this.joinForm.controls.comment.value;
-    await this.apiService.createApp(workerId, projectId, team, role, comment).then((res: HttpResponse<any>) => {
-      if (res.status === 201) {
-        this.snackBar.open(`Заявка подана: ${role}, команда №${team + 1}`, '', {duration: 4000});
-        this.joinRequested = true;
-      }
-    }).catch(e => {
-      this.snackBar.open('Не удалось подать заявку. Возможно, кого-то уже взяли на эту позицию', 'Закрыть', {duration: 4000});
-      console.error(e);
-    });
-  }
-
-  async getApps() {
-    await this.apiService.getAppsByProjectAndStatus(this.project.id, 0).then((res: HttpResponse<any>) => {
-      if (!res.body.message) {
-        this.apps = res.body;
-      } else {
-        this.apps = [];
-      }
-    }).catch(e => {
-      console.log(e);
-      this.snackBar.open('Не удалось загрузить заявки на проект', 'Закрыть', {duration: 4000});
     });
   }
 }

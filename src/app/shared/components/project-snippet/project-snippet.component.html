@@ -1,7 +1,7 @@
 <a routerLink="/project/{{project?.id}}" class="snippet">
   <h2 class="snippet__proj-title">{{project?.title}}</h2>
   <span class="snippet__curator">
-    Куратор: {{curatorSurname}} {{curatorName?.length > 0 ? curatorName : ''}}
+    Куратор: {{project.curator.surname}} {{project.curator?.name.length > 0 ? project.curator?.name : ''}}
 
   </span>
   <p class="snippet__proj-desc">

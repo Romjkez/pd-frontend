@@ -15,10 +15,7 @@
         </div>
       </div>
       <div class="project-view__request">
-        <div
-        *ngIf="project?.status==='1' && (project.curator.id==selfId || usergroup==3)"
-          class="side-form"
-        >
+        <div *ngIf="project?.status === '1' && usergroup == 1" class="side-form">
           <ng-container *ngIf="!joinRequested">
             <div class="side-form__body">
               <form [formGroup]="joinForm" (ngSubmit)="requestJoinProject()">
@@ -43,7 +40,7 @@
                     </mat-optgroup>
                   </mat-select>
                 </mat-form-field>
-                <mat-form-field class="side-form__item">
+                <!-- <mat-form-field class="side-form__item">
                   <textarea
                     matInput
                     placeholder="Комментарий"
@@ -52,7 +49,11 @@
                     style="max-height: 200px"
                   >
                   </textarea>
-                </mat-form-field>
+                </mat-form-field> -->
+                <textarea 
+                class="side-form__comment"
+                formControlName="comment" 
+                placeholder="Комментарий"></textarea>
               </form>
             </div>
           </ng-container>
@@ -144,18 +145,11 @@
           <form [formGroup]="joinForm" (ngSubmit)="requestJoinProject()">
             <mat-form-field>
               <mat-select placeholder="Выберите место">
-                <mat-optgroup
-                  *ngFor="let team of project.members; let i = index"
-                  label="Команда №{{ i + 1 }}"
-                >
-                  <ng-container *ngFor="let member of (team | keyvalue)">
-                    <mat-option
-                      *ngIf="member.value === 0"
-                      [value]="{ team: i, role: member.key }"
-                      (onSelectionChange)="changeSelection($event)"
-                      ngDefaultControl
-                      >{{ member.key }}</mat-option
-                    >
+                <mat-optgroup *ngFor="let team of project.members;let i=index" label="Команда №{{i+1}}">
+                  <ng-container *ngFor="let member of team | keyvalue">
+                    <mat-option *ngIf="member.value===0" [value]="{team: i, role: member.key}"
+                                (onSelectionChange)="changeSelection($event)"
+                                ngDefaultControl>{{member.key}}</mat-option>
                   </ng-container>
                 </mat-optgroup>
               </mat-select>
@@ -170,8 +164,8 @@
               >
               </textarea>
             </mat-form-field>
-            <button class="button button_confirm" type="submit">
-              Отправить заявку
+            <button [disabled]="!joinForm.valid" class="button button_confirm" type="submit" #joinFormSubmit>Отправить
+              заявку
             </button>
           </form>
         </div>
@@ -212,12 +206,10 @@
               <div>{{ app.role }}</div>
               <div>{{ app.comment }}</div>
               <div class="row__buttons">
-                <button title="Одобрить заявку">
-                  <img src="../../../assets/img/check.svg" alt="Одобрить" />
-                </button>
-                <button title="Отказать">
-                  <img src="../../../assets/img/dismiss.svg" alt="Отказать" />
-                </button>
+                <button (click)="acceptApplication(app.id)" type="button" title="Одобрить заявку"><img
+                  src="../../../assets/img/check.svg" alt="Одобрить"></button>
+                <button (click)="declineApplication(app.id)" type="button" title="Отказать"><img
+                  src="../../../assets/img/dismiss.svg" alt="Отказать"></button>
               </div>
             </div>
           </div>

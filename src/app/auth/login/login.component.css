@@ -72,17 +72,8 @@ div {
   box-sizing: border-box;
 }
 
-
 .auth-form__button:hover {
   background-color: #207ec9;
-}
-
-.auth-form__button:disabled {
-  background-color: #d2d2d2;
-}
-
-.auth-form__button:disabled:hover {
-  cursor: default;
 }
 
 .register-block {

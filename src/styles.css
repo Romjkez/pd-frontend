@@ -26,20 +26,6 @@ h1, h2, h3, h4, h5 {
   margin: 0 auto;
 }
 
-/*.footer {
-  position: absolute;
-  width: 100%;
-  height: 70px;
-  background-color: white;
-  text-align: center;
-  padding-top: 10px;
-  box-sizing: border-box;
-}*/
-
-.status-active {
-  color: #2196f3;
-}
-
 .proj-tags__item {
   font-size: 14px;
   margin-right: 10px;
@@ -66,37 +52,16 @@ h1, h2, h3, h4, h5 {
 }
 
 .button:hover {
-  background-color: #207ec9;
+  background-color: #2194ef;
 }
 
-.mob-menu {
-  height: 100vh;
-  width: 0;
-  position: fixed;
-  right: 0;
-  top: 0;
-  background-color: #207ec9;
-  z-index: 1000;
-  transition: 0.5s;
+button[type=submit]:disabled {
+  background: #d2d2d2;
 }
 
-.button_confirm {
-  width: 100%;
-  height: 35px;
-  margin-bottom: 10px;
-
-}
-
-.close_block {
-  position: fixed;
-  top: 0;
-  left: 0;
-  height: 100vh;
-  width: 100%;
-  z-index: 100;
-  background-color: black;
-  opacity: 0;
-  display: none;
+button[type=submit]:disabled:hover {
+  background: #d2d2d2;
+  cursor: default;
 }
 
 .header__adapt-menu {

@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {AuthService} from '../../shared/services/auth.service';
 import {Router} from '@angular/router';
@@ -35,6 +35,7 @@ export interface FormLabels {
 export class RegisterComponent implements OnInit {
   regForm: FormGroup;
   formLabels: FormLabels;
+  @ViewChild('submitButton') submitButton: ElementRef;
 
   constructor(private authService: AuthService, private router: Router, private http: HttpClient, private snackBar: MatSnackBar) {
   }
@@ -50,7 +51,7 @@ export class RegisterComponent implements OnInit {
       usergroup: new FormControl(1, [Validators.required]),
       email: new FormControl('', [Validators.required]),
       pass: new FormControl('', [Validators.required, Validators.minLength(6)]),
-      pass_repeat: new FormControl('', [Validators.required]),
+      pass_repeat: new FormControl('', [Validators.required, Validators.minLength(6)]),
       tel: new FormControl(''),
       std_group: new FormControl(''),
       avatar: new FormControl(''),
@@ -79,6 +80,7 @@ export class RegisterComponent implements OnInit {
   }
 
   async register(): Promise<any> {
+    this.submitButton.nativeElement.setAttribute('disabled', 'true');
     if (this.regForm.controls.pass.value === this.regForm.controls.pass_repeat.value) {
       if (this.regForm.controls.usergroup.value === 1) {
         if (this.regForm.controls.name.value.trim().length !== 0) {
@@ -89,9 +91,13 @@ export class RegisterComponent implements OnInit {
               }
             }
           ).catch((e: HttpErrorResponse) => {
-            this.snackBar.open('Ошибка при регистрации: ' + e.error.message, 'Закрыть', {duration: 3500});
+            this.snackBar.open('Ошибка при регистрации: ' + e.error.message, 'Закрыть', {duration: 4000});
+            this.submitButton.nativeElement.removeAttribute('disabled');
             console.log(e);
           });
+        } else {
+          this.regForm.setErrors(Validators.required);
+          this.snackBar.open('Укажите имя', 'Закрыть', {duration: 4000});
         }
       } else {
         await this.requestRegister().then((res) => {
@@ -103,8 +109,9 @@ export class RegisterComponent implements OnInit {
       }
     } else {
       this.snackBar.open('Введённые пароли не совпадают', 'Закрыть', {
-        duration: 2500
+        duration: 4000
       });
+      this.submitButton.nativeElement.removeAttribute('disabled');
       this.regForm.setErrors(Validators.nullValidator);
     }
   }

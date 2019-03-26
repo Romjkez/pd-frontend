@@ -1,5 +1,5 @@
 <main class="main">
-  <div class="page-wrapper">
+  <div class="page-wrapper-cp">
     <form class="form" [formGroup]="createProjectForm" (ngSubmit)="requestCreateProject()">
       <div class="form__title">
         <div class="auth-form__back-button">
@@ -87,7 +87,7 @@
         </label>
         <div class="form__submit">
           <button [disabled]="!createProjectForm.valid" type="submit"
-                  class="button form__button reg-form__button-submit">
+                  class="button form__button reg-form__button-submit" #submitButton>
             Подтвердить
           </button>
           <br>

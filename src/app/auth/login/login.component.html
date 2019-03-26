@@ -17,7 +17,7 @@
         Введите пароль <br>
         <input type="password" id="password" class="auth-form__input" formControlName="password">
       </label>
-      <button [disabled]="!loginForm.valid" type="submit" class="button auth-form__button">
+      <button [disabled]="!loginForm.valid" type="submit" class="button auth-form__button" #loginButton>
         Войти
       </button>
     </form>
