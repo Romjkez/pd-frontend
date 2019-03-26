@@ -81,6 +81,10 @@ export class ApiService {
       `${this.baseUrl}/projects/get.php?id=${id}`).toPromise();
   }
 
+  getUserProjects(id: number): Promise<any> {
+    return this.http.get(`${this.baseUrl}/projects/get.php?user=${id}`).toPromise();
+  }
+
   createProject(form: object | string): Promise<any | object> {
     form = form + '&api_key=' + this.apiKey;
     return this.http.post(`${this.baseUrl}/projects/create.php`, form, {
