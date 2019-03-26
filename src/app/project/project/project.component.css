@@ -184,6 +184,14 @@
   padding: 5px;
 }
 
+.project-view__tags {
+  align-items: center;
+}
+
+.proj-tags__item {
+  margin-bottom: 0;
+}
+
 .dead-line__date {
   color: #207ec9;
 }
