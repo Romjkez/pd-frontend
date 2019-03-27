@@ -228,16 +228,18 @@
                   (click)="acceptApplication(app.id)"
                   type="button"
                   title="Одобрить заявку"
+                  class="row__button button-accept"
                 >
-                  <img src="../../../assets/img/check.svg" alt="Одобрить" />
+                &#10003;
                 </button>
 
                 <button
                   (click)="declineApplication(app.id)"
                   type="button"
                   title="Отказать"
+                  class="row__button button-reject"
                 >
-                  <img src="../../../assets/img/dismiss.svg" alt="Отказать" />
+                &#10005;
                 </button>
               </div>
             </div>
