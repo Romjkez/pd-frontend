@@ -6,7 +6,14 @@ import {NotFoundPageComponent} from './not-found-page/not-found-page.component';
 import {UserViewComponent} from './user-view/user-view.component';
 import {HeaderComponent} from './header/header.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {MatButtonToggle, MatButtonToggleModule, MatDialogModule, MatSnackBar, MatSnackBarModule} from '@angular/material';
+import {
+  MatButtonToggle,
+  MatButtonToggleModule,
+  MatDialogModule,
+  MatExpansionModule,
+  MatSnackBar,
+  MatSnackBarModule
+} from '@angular/material';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 import {NgxPaginationModule} from 'ngx-pagination';
@@ -42,7 +49,8 @@ import {MatMomentDateModule} from '@angular/material-moment-adapter';
     MainModule,
     SharedModule,
     ProjectModule,
-    MatMomentDateModule
+    MatMomentDateModule,
+    MatExpansionModule
   ],
   exports: [
     FormsModule,

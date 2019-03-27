@@ -55,6 +55,9 @@ export class ProjectSnippetComponent implements OnInit {
   }
 
   getOccupiedQuantity(members: User[]): number[] {
+    if (typeof members === 'string') {
+      members = JSON.parse(members);
+    }
     let occupied = 0;
     let places = 0;
     for (let i = 0; i < members.length; i++) {

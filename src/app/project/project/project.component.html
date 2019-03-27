@@ -15,11 +15,18 @@
         </div>
       </div>
       <div class="project-view__request">
-        <div *ngIf="project?.status === '1' && usergroup == 1" class="side-form">
+        <div
+          *ngIf="project?.status === '1' && usergroup == 1"
+          class="side-form"
+        >
           <ng-container *ngIf="!joinRequested">
             <div class="side-form__body">
               <form [formGroup]="joinForm" (ngSubmit)="requestJoinProject()">
-                <button class="button button_confirm side-form__item" type="submit">
+                <button
+                  class="button button_confirm side-form__item"
+                  [disabled]="!joinForm.valid" type="submit" #joinFormSubmit
+                  type="submit"
+                >
                   Отправить заявку
                 </button>
                 <mat-form-field class="side-form__item">
@@ -40,20 +47,12 @@
                     </mat-optgroup>
                   </mat-select>
                 </mat-form-field>
-                <!-- <mat-form-field class="side-form__item">
-                  <textarea
-                    matInput
-                    placeholder="Комментарий"
-                    maxlength="255"
-                    formControlName="comment"
-                    style="max-height: 200px"
-                  >
-                  </textarea>
-                </mat-form-field> -->
-                <textarea 
-                class="side-form__comment"
-                formControlName="comment" 
-                placeholder="Комментарий"></textarea>
+                <textarea
+                  cols="30"
+                  class="side-form__comment"
+                  formControlName="comment"
+                  placeholder="Комментарий"
+                ></textarea>
               </form>
             </div>
           </ng-container>
@@ -62,7 +61,7 @@
           </div>
         </div>
       </div>
-      <h2 class="project-view__title">{{ project?.title }}</h2>
+      <h2 class="title">{{ project?.title }}</h2>
       <div class="project-view__info">
         <p class="project-view__description">
           {{ project?.description }}
@@ -74,10 +73,17 @@
           <h4 class="point-title" style="margin-right: 5px;">
             <b>Куратор: </b>
           </h4>
-          <a class="curator-link" routerLink="/user/{{ project?.curator }}">
-            {{ curatorSurname }}
-            {{ curatorName?.length > 0 ? curatorName : "" }}
-            {{ curatorMiddlename?.length > 0 ? curatorMiddlename : "" }}</a
+          <a
+            class="curator-link"
+            [routerLink]="['/user/' + project?.curator.id]"
+          >
+            {{ project?.curator.surname }}
+            {{ project?.curator.name.length > 0 ? project?.curator.name : "" }}
+            {{
+              project?.curator.middle_name?.length > 0
+                ? project?.curator.middle_name
+                : ""
+            }}</a
           >
         </div>
         <div class="project-view__tags info-block">
@@ -90,12 +96,26 @@
             </div>
           </div>
         </div>
+        <div class="project-view__dead-line info-block">
+          <h4 class="point-title">
+            <b>Дата окончания проекта: </b
+            >{{ project?.finish_date | date: "dd.MM.yy" }}
+          </h4>
+        </div>
         <div class="project-view__places info-block">
           <h4 class="point-title" style="margin-right: 5px;">
             <b>Заполненность: </b> {{ fullness?.occupied }}/{{
               fullness?.places
             }}
           </h4>
+        </div>
+      </div>
+      <div class="files info-block" *ngIf="usergroup">
+        <b>Документы проекта: </b><i *ngIf="project?.files?.length<1"> документы отсутствуют</i>
+        <div class="project-view__documents">
+          <div *ngFor="let doc of project?.files" class="document">
+            <a class="teammate__name" [href]="doc.link">{{doc?.title}}</a>
+          </div>
         </div>
       </div>
       <div class="teams">
@@ -127,16 +147,8 @@
             </div>
           </div>
         </div>
-        <div class="files">
-          <b>Документы проекта: </b><i *ngIf="project?.files?.length<1">документы отсутствуют</i>
-          <div class="project-view__documents">
-            <div *ngFor="let doc of project?.files" class="document">
-              <a class="teammate__name" [href]="doc.link">{{doc?.title}}</a>
-            </div>
-          </div>
-        </div>
-    </div>
-    <!-- <div *ngIf="project?.status === '1' && usergroup == 1" class="side-form">
+      </div>
+      <!-- <div *ngIf="project?.status === '1' && usergroup == 1" class="side-form">
       <ng-container *ngIf="!joinRequested">
         <div class="side-form__header">
           <h2>Записаться на проект</h2>
@@ -174,18 +186,24 @@
         <div><h3>Заявка подана</h3></div>
       </div>-->
     </div>
-    <div *ngIf="project?.status==='1' && (project.curator.id==selfId || usergroup==3)" class="side-form sharp">
-      <div class="side-form__header">
-        <h2>Заявки на проект</h2>
+    <div
+      *ngIf="
+        project?.status === '1' &&
+        (project.curator.id == selfId || usergroup == 3)
+      "
+      class="requests"
+    >
+      <div class="requests__header">
+        <h2 class="title requests-title">Заявки на проект</h2>
       </div>
       <div class="side-form__body">
         <div class="apps">
           <div class="apps__header">
-            <div>ФИО</div>
-            <div>Команда</div>
-            <div>Должность</div>
-            <div>Комментарий</div>
-            <div>Действие</div>
+            <div class="apps__item">ФИО</div>
+            <div class="apps__item">Команда</div>
+            <div class="apps__item">Должность</div>
+            <div class="apps__item">Комментарий</div>
+            <div class="apps__item">Действие</div>
           </div>
           <div class="apps__body">
             <div
@@ -206,15 +224,26 @@
               <div>{{ app.role }}</div>
               <div>{{ app.comment }}</div>
               <div class="row__buttons">
-                <button (click)="acceptApplication(app.id)" type="button" title="Одобрить заявку"><img
-                  src="../../../assets/img/check.svg" alt="Одобрить"></button>
-                <button (click)="declineApplication(app.id)" type="button" title="Отказать"><img
-                  src="../../../assets/img/dismiss.svg" alt="Отказать"></button>
+                <button
+                  (click)="acceptApplication(app.id)"
+                  type="button"
+                  title="Одобрить заявку"
+                >
+                  <img src="../../../assets/img/check.svg" alt="Одобрить" />
+                </button>
+
+                <button
+                  (click)="declineApplication(app.id)"
+                  type="button"
+                  title="Отказать"
+                >
+                  <img src="../../../assets/img/dismiss.svg" alt="Отказать" />
+                </button>
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </div> 
+  </div>
 </main>

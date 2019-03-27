@@ -37,6 +37,10 @@ header {
   height: 60px;
 }
 
+.header__title {
+  font-size: 13px;
+}
+
 .menu__item {
   margin-right: 20px;
   height: 100%;
@@ -75,11 +79,6 @@ header {
   font-size: 15px;
   color: white;
 }
-
-.profile-block__projects {
-  width: 100%;
-}
-
 
 .profile-link__logout {
   color: #207ec9;

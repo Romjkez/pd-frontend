@@ -9,7 +9,7 @@
                  class="left-column__photoContent" alt="Avatar">
           </div>
           <div class="left-column__edit">
-              <a *ngIf="canEdit" routerLink="/edit_profile" class="button profile-block__edit-button">Редактировать
+            <a *ngIf="canEdit" routerLink="/edit_profile" class="button profile-block__edit-button">Редактировать
               профиль</a>
           </div>
         </div>
@@ -33,13 +33,26 @@
         </div>
       </div>
     </div>
-    <div class="profile-block">
-      <div class="profile-block__projects">
-        <h3 class="projects-title projects__title-active">Активные проекты</h3>
-          В разработке
-        <h3 class="projects-title projects__title-archive">Завершённые проекты</h3>
-          В разработке
-      </div>
+    <div class="profile-block" style="background: none; box-shadow: none">
+      <mat-expansion-panel [disabled]="projects?.active_projects==null">
+        <mat-expansion-panel-header><h3>Активные проекты
+          | {{projects?.active_projects?.length ? projects?.active_projects.length : 0}}</h3>
+        </mat-expansion-panel-header>
+        <ng-template matExpansionPanelContent>
+          <i *ngIf="projects?.active_projects==null">Нет активных проектов</i>
+          <app-project-snippet *ngFor="let project of projects?.active_projects"
+                               [project]="project"></app-project-snippet>
+        </ng-template>
+      </mat-expansion-panel>
+      <mat-expansion-panel [disabled]="projects?.finished_projects==null">
+        <ng-template matExpansionPanelContent>
+          <app-project-snippet *ngFor="let project of projects?.finished_projects"
+                               [project]="project"></app-project-snippet>
+        </ng-template>
+        <mat-expansion-panel-header><h3>Завершённые проекты
+          | {{projects?.finished_projects?.length ? projects?.finished_projects.length : 0}}</h3>
+        </mat-expansion-panel-header>
+      </mat-expansion-panel>
     </div>
   </div>
 </main>
