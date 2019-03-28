@@ -14,53 +14,6 @@
           </h4>
         </div>
       </div>
-      <div class="project-view__request">
-        <div
-          *ngIf="project?.status === '1' && usergroup == 1"
-          class="side-form"
-        >
-          <ng-container *ngIf="!joinRequested">
-            <div class="side-form__body">
-              <form [formGroup]="joinForm" (ngSubmit)="requestJoinProject()">
-                <button
-                  class="button button_confirm side-form__item"
-                  [disabled]="!joinForm.valid" type="submit" #joinFormSubmit
-                  type="submit"
-                >
-                  Отправить заявку
-                </button>
-                <mat-form-field class="side-form__item">
-                  <mat-select placeholder="Выберите место">
-                    <mat-optgroup
-                      *ngFor="let team of project.members; let i = index"
-                      label="Команда №{{ i + 1 }}"
-                    >
-                      <ng-container *ngFor="let member of (team | keyvalue)">
-                        <mat-option
-                          *ngIf="member.value === 0"
-                          [value]="{ team: i, role: member.key }"
-                          (onSelectionChange)="changeSelection($event)"
-                          ngDefaultControl
-                          >{{ member.key }}</mat-option
-                        >
-                      </ng-container>
-                    </mat-optgroup>
-                  </mat-select>
-                </mat-form-field>
-                <textarea
-                  cols="30"
-                  class="side-form__comment"
-                  formControlName="comment"
-                  placeholder="Комментарий"
-                ></textarea>
-              </form>
-            </div>
-          </ng-container>
-          <div *ngIf="joinRequested" class="joinRequested">
-            <div><h3>Заявка подана</h3></div>
-          </div>
-        </div>
-      </div>
       <h2 class="title">{{ project?.title }}</h2>
       <div class="project-view__info">
         <p class="project-view__description">
@@ -111,10 +64,66 @@
         </div>
       </div>
       <div class="files info-block" *ngIf="usergroup">
-        <b>Документы проекта: </b><i *ngIf="project?.files?.length<1"> документы отсутствуют</i>
+        <b>Документы проекта: </b>
+        <i *ngIf="project?.files?.length < 1"> документы отсутствуют</i>
         <div class="project-view__documents">
           <div *ngFor="let doc of project?.files" class="document">
-            <a class="teammate__name" [href]="doc.link">{{doc?.title}}</a>
+            <a class="teammate__name" [href]="doc.link">{{ doc?.title }}</a>
+          </div>
+        </div>
+      </div>
+      <div class="project-view__request">
+        <div
+          *ngIf="project?.status === '1' && usergroup == 1"
+          class="side-form"
+        >
+          <ng-container *ngIf="!joinRequested">
+            <div class="side-form__body">
+              <form
+                [formGroup]="joinForm"
+                (ngSubmit)="requestJoinProject()"
+                class="side-form__form"
+              >
+                <div class="fields">
+                  <mat-form-field class="side-form__item">
+                    <mat-select placeholder="Выберите место">
+                      <mat-optgroup
+                        *ngFor="let team of project.members; let i = index"
+                        label="Команда №{{ i + 1 }}"
+                      >
+                        <ng-container *ngFor="let member of (team | keyvalue)">
+                          <mat-option
+                            *ngIf="member.value === 0"
+                            [value]="{ team: i, role: member.key }"
+                            (onSelectionChange)="changeSelection($event)"
+                            ngDefaultControl
+                            >{{ member.key }}</mat-option
+                          >
+                        </ng-container>
+                      </mat-optgroup>
+                    </mat-select>
+                  </mat-form-field>
+                  <textarea
+                    cols="30"
+                    class="side-form__comment"
+                    formControlName="comment"
+                    placeholder="Комментарий"
+                  ></textarea>
+                </div>
+                <button
+                  class="button button_confirm side-form__item"
+                  [disabled]="!joinForm.valid"
+                  type="submit"
+                  #joinFormSubmit
+                  type="submit"
+                >
+                  Отправить заявку
+                </button>
+              </form>
+            </div>
+          </ng-container>
+          <div *ngIf="joinRequested" class="joinRequested">
+            <div><h3>Заявка подана</h3></div>
           </div>
         </div>
       </div>
@@ -140,8 +149,14 @@
                 >
                 <a
                   class="teammate__name"
-                  routerLink="/user/{{ teamMate.value }}"
-                  >{{ teamMate.value | getName | async }}</a
+                  routerLink="/user/{{ teamMate.value.id }}"
+                  >{{ teamMate.value.surname }}
+                  {{ teamMate.value.name }}
+                  {{
+                    teamMate.value.middle_name?.length > 0
+                      ? teamMate.value.middle_name
+                      : ""
+                  }}</a
                 >
               </div>
             </div>
@@ -198,7 +213,7 @@
       </div>
       <div class="side-form__body">
         <div class="apps">
-          <div class="apps__header">
+          <div class="apps__header" *ngIf="apps?.length > 0">
             <div class="apps__item">ФИО</div>
             <div class="apps__item">Команда</div>
             <div class="apps__item">Должность</div>
@@ -230,7 +245,7 @@
                   title="Одобрить заявку"
                   class="row__button button-accept"
                 >
-                &#10003;
+                  &#10003;
                 </button>
 
                 <button
@@ -239,7 +254,7 @@
                   title="Отказать"
                   class="row__button button-reject"
                 >
-                &#10005;
+                  &#10005;
                 </button>
               </div>
             </div>
