@@ -3,8 +3,8 @@
 body {
   margin: 0;
   padding: 0;
-  background-color: #F4F5F7;
-  color: #646363;
+  background-color: #f4f8fb;
+  color: #253942;
   font-family: 'Roboto', sans-serif;
   position: relative;
 }
@@ -39,7 +39,7 @@ h1, h2, h3, h4, h5 {
 .button {
   height: 48px;
   width: 100%;
-  background-color: #2196f3;
+  background-color: #207ec9;
   color: #fff;
   border: none;
   border-radius: 3px;
@@ -52,7 +52,7 @@ h1, h2, h3, h4, h5 {
 }
 
 .button:hover {
-  background-color: #207ec9;
+  background-color: #2194ef;
 }
 
 button[type=submit]:disabled {

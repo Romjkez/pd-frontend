@@ -1,7 +1,7 @@
 header {
   width: 100%;
   height: 60px;
-  background-color: #fff;
+  background-color: #30323f;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12),
   0 1px 2px rgba(0, 0, 0, 0.24);
   margin-bottom: 20px;
@@ -37,12 +37,16 @@ header {
   height: 60px;
 }
 
+.header__title {
+  font-size: 13px;
+}
+
 .menu__item {
   margin-right: 20px;
   height: 100%;
   padding: 0 20px;
-  transition: 0.2s;
-  border-bottom: 0 solid #2196f3;
+  transition: 0.1s;
+  border-bottom: 0 solid #207ec9;
   box-sizing: border-box;
 }
 
@@ -55,6 +59,7 @@ header {
   height: 100%;
   display: flex;
   align-items: center;
+  color: white;
 }
 
 .menu__item:hover {
@@ -72,10 +77,11 @@ header {
 
 .profile-link__name {
   font-size: 15px;
+  color: white;
 }
 
 .profile-link__logout {
-  color: #2196f3;
+  color: #207ec9;
   margin-left: 10px;
   font-size: 15px;
 }
@@ -143,6 +149,6 @@ header {
 
 @media (min-width: 992px) and (max-width: 1199.98px) {
   .page-wrapper {
-    width: 65%;
+    width: 95%;
   }
 }
