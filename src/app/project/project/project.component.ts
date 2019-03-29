@@ -138,7 +138,7 @@ export class ProjectComponent implements OnInit {
   async declineApplication(id: number) {
     this.apiService.updateApp(id, 2).then(res => {
       if (res.message === 'true') {
-        this.snackBar.open(`Заявка одобрена`, 'Закрыть', {duration: 4000});
+        this.snackBar.open(`Заявка отклонена`, 'Закрыть', {duration: 4000});
         this.getApps();
       } else {
         this.snackBar.open(`Ошибка при отказе: ${res.message}`, 'Закрыть');

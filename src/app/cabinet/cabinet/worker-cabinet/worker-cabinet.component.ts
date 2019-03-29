@@ -10,6 +10,7 @@ export class WorkerCabinetComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    // todo получить проекты воркера
   }
 
 }

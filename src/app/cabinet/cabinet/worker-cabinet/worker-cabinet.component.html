@@ -1,5 +1,17 @@
 <main class="main">
   <div class="cabinet-wrapper">
-    В разработке
+    <div class="tabs_block">
+      <mat-tab-group dynamicHeight="true" animationDuration="300">
+        <mat-tab label="Проекты">
+          <app-projects [projects]=""></app-projects>
+        </mat-tab>
+        <mat-tab label="Заявки">
+          <app-pending-projects></app-pending-projects>
+        </mat-tab>
+        <mat-tab label="Архив проектов">
+          <app-archive-projects></app-archive-projects>
+        </mat-tab>
+      </mat-tab-group>
+    </div>
   </div>
 </main>

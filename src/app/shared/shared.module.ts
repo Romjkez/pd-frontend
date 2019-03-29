@@ -6,6 +6,7 @@ import {GetNamePipe} from './pipes/get-name.pipe';
 import {RouterModule} from '@angular/router';
 import {AdmProjectSnippetComponent} from './components/adm-project-snippet/adm-project-snippet.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {ProjectsComponent} from './components/projects/projects.component';
 
 @NgModule({
   declarations: [
@@ -13,6 +14,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
     ProjectSnippetComponent,
     GetNamePipe,
     AdmProjectSnippetComponent,
+    ProjectsComponent,
   ],
   imports: [
     CommonModule,

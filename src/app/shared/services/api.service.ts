@@ -144,7 +144,7 @@ export class ApiService {
   }
 
   isWorkerRequestedJoin(worker_id: number, project_id: number): Promise<any> {
-    return this.http.get(`${this.baseUrl}/applications/get.php?worker=${worker_id}&project=${project_id}`, {
+    return this.http.get(`${this.baseUrl}/applications/get.php?workerApplied=${worker_id}&project=${project_id}`, {
       observe: 'response'
     }).toPromise();
   }
