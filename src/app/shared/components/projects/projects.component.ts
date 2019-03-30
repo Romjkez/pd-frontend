@@ -18,6 +18,6 @@ export class ProjectsComponent implements OnInit {
   ngOnInit() {
   }
 
-  switchPage() {
+  switchPage(newPage: number) {
   }
 }

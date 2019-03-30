@@ -108,6 +108,7 @@
                     class="side-form__comment"
                     formControlName="comment"
                     placeholder="Комментарий"
+                    maxlength="255"
                   ></textarea>
                 </div>
                 <button
@@ -115,7 +116,6 @@
                   [disabled]="!joinForm.valid"
                   type="submit"
                   #joinFormSubmit
-                  type="submit"
                 >
                   Отправить заявку
                 </button>
