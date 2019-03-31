@@ -15,7 +15,17 @@
           </div>
           <div class="apps__body">
             <h4 style="text-align: center;margin-top:3%" *ngIf="apps?.data==null">Список заявок пуст</h4>
-            <app-application-snippet [application]="app" *ngFor="let app of apps?.data"></app-application-snippet>
+            <app-application-snippet [application]="app" *ngFor="let app of apps?.data | paginate: {
+                               id: 'active',
+          itemsPerPage: per_page, currentPage: page, totalItems: per_page*apps?.pages
+          }"></app-application-snippet>
+            <div class="pagination">
+              <pagination-controls *ngIf="apps?.pages>0"
+                                   responsive="true"
+                                   nextLabel="Вперёд"
+                                   previousLabel="Назад"
+                                   (pageChange)="switchPage($event)" [id]="'active'"></pagination-controls>
+            </div>
           </div>
         </mat-tab>
         <mat-tab label="Архив проектов">

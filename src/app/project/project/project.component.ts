@@ -66,6 +66,11 @@ export class ProjectComponent implements OnInit {
       comment: new FormControl('', [Validators.maxLength(255)])
     });
     this.getProject(id);
+    this.apiService.isWorkerRequestedJoin(this.authService.getUserId(), <any>id).then(res => {
+      if (res.message === 'true') {
+        this.joinRequested = true;
+      }
+    });
   }
 
   getOccupiedQuantity(members: object[]): { occupied: number, places: number } {

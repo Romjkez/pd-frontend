@@ -61,6 +61,7 @@ export class ProjectSnippetComponent implements OnInit {
     let occupied = 0;
     let places = 0;
     for (let i = 0; i < members.length; i++) {
+      // tslint:disable-next-line
       for (const key in members[i]) {
         if (members[i][key] !== 0) {
           occupied++;

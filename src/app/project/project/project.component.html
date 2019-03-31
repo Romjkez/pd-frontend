@@ -160,43 +160,6 @@
           </div>
         </div>
       </div>
-      <!-- <div *ngIf="project?.status === '1' && usergroup == 1" class="side-form">
-      <ng-container *ngIf="!joinRequested">
-        <div class="side-form__header">
-          <h2>Записаться на проект</h2>
-        </div>
-        <div class="side-form__body">
-          <form [formGroup]="joinForm" (ngSubmit)="requestJoinProject()">
-            <mat-form-field>
-              <mat-select placeholder="Выберите место">
-                <mat-optgroup *ngFor="let team of project.members;let i=index" label="Команда №{{i+1}}">
-                  <ng-container *ngFor="let member of team | keyvalue">
-                    <mat-option *ngIf="member.value===0" [value]="{team: i, role: member.key}"
-                                (onSelectionChange)="changeSelection($event)"
-                                ngDefaultControl>{{member.key}}</mat-option>
-                  </ng-container>
-                </mat-optgroup>
-              </mat-select>
-            </mat-form-field>
-            <mat-form-field>
-              <textarea
-                matInput
-                placeholder="Комментарий"
-                maxlength="255"
-                formControlName="comment"
-                style="max-height: 200px"
-              >
-              </textarea>
-            </mat-form-field>
-            <button [disabled]="!joinForm.valid" class="button button_confirm" type="submit" #joinFormSubmit>Отправить
-              заявку
-            </button>
-          </form>
-        </div>
-      </ng-container>
-      <div *ngIf="joinRequested" class="joinRequested">
-        <div><h3>Заявка подана</h3></div>
-      </div>-->
     </div>
     <div
       *ngIf="

@@ -20,12 +20,6 @@ export class MainPageComponent implements OnInit {
 
   async ngOnInit() {
     this.loading = true;
-    this.apiService.updateProjectsDeadlines().then((res) => {
-      if (res.body.message === 'true') {
-      } else {
-        console.log('Failed to update projects deadlines: ', res.body.message);
-      }
-    }).catch(e => console.error(e));
     await this.apiService.getProjectsByStatus(this.statusFilter, this.perPage, this.currentPage).then((res) => {
       this.currentPage = res.page;
       this.totalPages = res.pages;
@@ -36,6 +30,12 @@ export class MainPageComponent implements OnInit {
       this.loading = false;
       console.error('Failed to get projects:', e);
     });
+    this.apiService.updateProjectsDeadlines().then((res) => {
+      if (res.body.message === 'true') {
+      } else {
+        console.log('Failed to update projects actuality: ', res.body.message);
+      }
+    }).catch(e => console.error(e));
   }
 
   async switchPage(newPage: number) {
