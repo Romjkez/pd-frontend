@@ -1,7 +1,8 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Project} from '../components/project-snippet/project-snippet.component';
-import {Tags} from '../../project/project/project.component';
+import {ParsedProjectApplication, ParsedWorkerApplication, Tags} from '../../project/project/project.component';
+import {UserProjects} from '../../user-view/user-view.component';
 
 export interface User {
   id: number;
@@ -22,7 +23,7 @@ export interface Projects {
   page: number;
   per_page: number;
   pages: number;
-  data: null | [];
+  data: null | Project[];
 }
 
 @Injectable({
@@ -81,8 +82,8 @@ export class ApiService {
       `${this.baseUrl}/projects/get.php?id=${id}`).toPromise();
   }
 
-  getUserProjects(id: number): Promise<any> {
-    return this.http.get(`${this.baseUrl}/projects/get.php?user=${id}`).toPromise();
+  getUserProjects(id: number): Promise<UserProjects> {
+    return this.http.get<UserProjects>(`${this.baseUrl}/projects/get.php?user=${id}`).toPromise();
   }
 
   createProject(form: object | string): Promise<any | object> {
@@ -138,9 +139,10 @@ export class ApiService {
   }
 
   getAppsByProjectAndStatus(project_id: number, status: number): Promise<any> {
-    return this.http.get(`${this.baseUrl}/applications/get.php?status=${status}&project=${project_id}`, {
-      observe: 'response'
-    }).toPromise();
+    return this.http.get<ParsedWorkerApplication>(`${this.baseUrl}/applications/get.php?status=${status}&project=${project_id}`,
+      {
+        observe: 'body'
+      }).toPromise();
   }
 
   isWorkerRequestedJoin(worker_id: number, project_id: number): Promise<any> {
@@ -155,6 +157,13 @@ export class ApiService {
       headers: {'Content-Type': 'application/x-www-form-urlencoded'},
       observe: 'body'
     }).toPromise();
+  }
+
+  getUserApps(userId: number, per_page: number, page: number): Promise<any> {
+    // tslint:disable-next-line
+    return this.http.get<ParsedProjectApplication>(`${this.baseUrl}/applications/get.php?worker=${userId}&per_page=${per_page}&page=${page}`,
+      {observe: 'body'})
+      .toPromise();
   }
 
   /*

@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {AuthService, parseJwt} from '../../../../shared/services/auth.service';
 import {ApiService} from '../../../../shared/services/api.service';
+import {Project} from '../../../../shared/components/project-snippet/project-snippet.component';
 
 @Component({
   selector: 'app-active-projects',
@@ -8,7 +9,7 @@ import {ApiService} from '../../../../shared/services/api.service';
   styleUrls: ['./active-projects.component.css']
 })
 export class ActiveProjectsComponent implements OnInit {
-  projects: [] | null;
+  projects: Project[] | null;
   loading: boolean;
   currentPage = 1;
   totalPages: number;
@@ -22,7 +23,7 @@ export class ActiveProjectsComponent implements OnInit {
     this.loading = true;
     const curator = parseJwt(this.authService.getToken()).data.id;
     await this.apiService.getProjectsByStatusAndCurator(this.statusFilter, curator, this.perPage, this.currentPage)
-      .then((res) => {
+      .then(res => {
         this.currentPage = res.page;
         this.totalPages = res.pages;
         this.perPage = res.per_page;

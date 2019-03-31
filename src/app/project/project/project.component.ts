@@ -1,16 +1,25 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {colorMap, Project, statusMap} from '../../shared/components/project-snippet/project-snippet.component';
 import {ActivatedRoute, Router} from '@angular/router';
-import {ApiService} from '../../shared/services/api.service';
-import {parseJwt} from '../../shared/services/auth.service';
+import {ApiService, User} from '../../shared/services/api.service';
+import {AuthService, parseJwt} from '../../shared/services/auth.service';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {MatOptionSelectionChange, MatSnackBar} from '@angular/material';
-import {HttpResponse} from '@angular/common/http';
 
-export interface Application {
+export interface ParsedWorkerApplication {
+  id: number;
+  worker_id: User;
+  project_id: number;
+  team: number;
+  role: string;
+  status: number;
+  comment: string | null;
+}
+
+export interface ParsedProjectApplication {
   id: number;
   worker_id: number;
-  project_id: number;
+  project_id: Project;
   team: number;
   role: string;
   status: number;
@@ -41,11 +50,11 @@ export class ProjectComponent implements OnInit {
   joinRequested = false;
   usergroup: number;
   selfId: number;
-  apps: Application[];
+  apps: ParsedWorkerApplication[];
   @ViewChild('joinFormSubmit') joinFormSubmit: ElementRef;
 
   constructor(private activatedRoute: ActivatedRoute, private apiService: ApiService, private snackBar: MatSnackBar,
-              private router: Router) {
+              private router: Router, public authService: AuthService) {
   }
 
   async ngOnInit() {
@@ -108,9 +117,9 @@ export class ProjectComponent implements OnInit {
   }
 
   async getApps() {
-    await this.apiService.getAppsByProjectAndStatus(this.project.id, 0).then((res: HttpResponse<any>) => {
-      if (!res.body.message) {
-        this.apps = res.body;
+    await this.apiService.getAppsByProjectAndStatus(this.project.id, 0).then(res => {
+      if (!res.message) {
+        this.apps = res;
       } else {
         this.apps = [];
       }
@@ -166,7 +175,7 @@ export class ProjectComponent implements OnInit {
       this.fullness = this.getOccupiedQuantity(this.project.members);
       this.tags = this.project.tags.split(',');
       this.usergroup = parseJwt(localStorage.getItem('token')).data.usergroup;
-      this.selfId = parseJwt(localStorage.getItem('token')).data.id;
+      this.selfId = this.authService.getUserId();
       this.loading = false;
     }).catch(e => {
       console.error(e);

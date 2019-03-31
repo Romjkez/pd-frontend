@@ -3,13 +3,25 @@
     <div class="tabs_block">
       <mat-tab-group dynamicHeight="true" animationDuration="300">
         <mat-tab label="Проекты">
-          <!--<app-projects [projects]=""></app-projects>-->
+          <h4 style="text-align: center;margin-top:3%" *ngIf="projects?.active_projects==null">Список проектов пуст</h4>
+          <app-projects [projects]="projects?.active_projects"></app-projects>
         </mat-tab>
         <mat-tab label="Заявки">
-          В разработке
+          <div class="apps__header" *ngIf="apps?.data.length > 0">
+            <div class="apps__item">Проект</div>
+            <div class="apps__item">Команда</div>
+            <div class="apps__item">Должность</div>
+            <div class="apps__item">Комментарий</div>
+          </div>
+          <div class="apps__body">
+            <h4 style="text-align: center;margin-top:3%" *ngIf="apps?.data==null">Список заявок пуст</h4>
+            <app-application-snippet [application]="app" *ngFor="let app of apps?.data"></app-application-snippet>
+          </div>
         </mat-tab>
         <mat-tab label="Архив проектов">
-          <!--<app-projects [projects]=""></app-projects>-->
+          <h4 style="text-align: center;margin-top:3%" *ngIf="projects?.finished_projects==null">Список проектов
+            пуст</h4>
+          <app-projects [projects]="projects?.finished_projects"></app-projects>
         </mat-tab>
       </mat-tab-group>
     </div>

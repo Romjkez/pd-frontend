@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Projects} from '../../services/api.service';
+import {Project} from '../project-snippet/project-snippet.component';
 
 @Component({
   selector: 'app-projects',
@@ -7,7 +7,7 @@ import {Projects} from '../../services/api.service';
   styleUrls: ['./projects.component.css']
 })
 export class ProjectsComponent implements OnInit {
-  @Input() projects: Projects[];
+  @Input() projects: Project[];
   perPage = 5;
   currentPage = 1;
   totalPages: number;

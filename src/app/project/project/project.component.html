@@ -10,7 +10,7 @@
           <h4 class="project-view__status">
             <span [ngStyle]="{ color: colorMap.get(project?.status) }">{{
               statusMap.get(project?.status)
-            }}</span>
+              }}</span>
           </h4>
         </div>
       </div>
@@ -19,9 +19,6 @@
         <p class="project-view__description">
           {{ project?.description }}
         </p>
-        <!-- <div class="project-view__dead-line info-block">
-          <h4 class="point-title"><b>Запись до: </b>{{project?.deadline | date:"dd.MM.yy"}}</h4>
-        </div> -->
         <div class="project-view__curator info-block">
           <h4 class="point-title" style="margin-right: 5px;">
             <b>Куратор: </b>
@@ -33,9 +30,9 @@
             {{ project?.curator.surname }}
             {{ project?.curator.name.length > 0 ? project?.curator.name : "" }}
             {{
-              project?.curator.middle_name?.length > 0
-                ? project?.curator.middle_name
-                : ""
+            project?.curator.middle_name?.length > 0
+              ? project?.curator.middle_name
+              : ""
             }}</a
           >
         </div>
@@ -58,7 +55,7 @@
         <div class="project-view__places info-block">
           <h4 class="point-title" style="margin-right: 5px;">
             <b>Заполненность: </b> {{ fullness?.occupied }}/{{
-              fullness?.places
+            fullness?.places
             }}
           </h4>
         </div>
@@ -97,7 +94,7 @@
                             [value]="{ team: i, role: member.key }"
                             (onSelectionChange)="changeSelection($event)"
                             ngDefaultControl
-                            >{{ member.key }}</mat-option
+                          >{{ member.key }}</mat-option
                           >
                         </ng-container>
                       </mat-optgroup>
@@ -145,17 +142,17 @@
                 <span
                   *ngIf="teamMate.value == 0"
                   [ngStyle]="{ color: colorMap.get('1') }"
-                  >место свободно</span
+                >место свободно</span
                 >
                 <a
                   class="teammate__name"
                   routerLink="/user/{{ teamMate.value.id }}"
-                  >{{ teamMate.value.surname }}
+                >{{ teamMate.value.surname }}
                   {{ teamMate.value.name }}
                   {{
-                    teamMate.value.middle_name?.length > 0
-                      ? teamMate.value.middle_name
-                      : ""
+                  teamMate.value.middle_name?.length > 0
+                    ? teamMate.value.middle_name
+                    : ""
                   }}</a
                 >
               </div>
@@ -221,18 +218,13 @@
             <div class="apps__item">Действие</div>
           </div>
           <div class="apps__body">
-            <div
-              *ngIf="apps?.length === 0"
-              style="padding:5px;font-style:italic"
-            >
-              Нет заявок на проект
-            </div>
+            <div *ngIf="apps?.length === 0" style="padding:5px;font-style:italic">Нет заявок на проект</div>
             <div *ngFor="let app of apps" class="body__row">
               <div>
                 <a
-                  routerLink="/user/{{ app.worker_id }}"
+                  routerLink="/user/{{ app.worker_id.id }}"
                   class="teammate__name"
-                  >{{ app.worker_id | getName | async }}</a
+                >{{ app.worker_id.name }} {{ app.worker_id.surname }} {{ app.worker_id.middle_name }}</a
                 >
               </div>
               <div>{{ 1 + +app.team }}</div>

@@ -1,4 +1,15 @@
 import {Component, OnInit} from '@angular/core';
+import {ApiService} from '../../../shared/services/api.service';
+import {AuthService} from '../../../shared/services/auth.service';
+import {UserProjects} from '../../../user-view/user-view.component';
+import {ParsedProjectApplication} from '../../../project/project/project.component';
+
+export interface Applications {
+  per_page: number;
+  page: number;
+  pages: number;
+  data: ParsedProjectApplication[];
+}
 
 @Component({
   selector: 'app-worker-cabinet',
@@ -6,11 +17,27 @@ import {Component, OnInit} from '@angular/core';
   styleUrls: ['./worker-cabinet.component.css']
 })
 export class WorkerCabinetComponent implements OnInit {
+  projects: UserProjects;
+  per_page = 5;
+  page = 1;
+  apps: Applications;
+  loading: boolean;
 
-  constructor() { }
+  constructor(private apiService: ApiService, private authService: AuthService) {
+  }
 
   ngOnInit() {
-    // todo получить проекты воркера
+    this.loading = true;
+    Promise.all([
+      this.apiService.getUserProjects(this.authService.getUserId()),
+      this.apiService.getUserApps(this.authService.getUserId(), this.per_page, this.page)
+    ])
+      .then(([projects, apps]) => {
+        this.projects = projects;
+        this.apps = apps;
+      })
+      .catch(e => console.error(e))
+      .finally(() => this.loading = false);
   }
 
 }
