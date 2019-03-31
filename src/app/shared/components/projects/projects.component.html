@@ -1,0 +1,10 @@
+<app-project-snippet [project]="project"
+                     *ngFor="let project of projects | paginate: {
+                               id: 'active',
+          itemsPerPage: perPage, currentPage: currentPage, totalItems: perPage*totalPages
+          }"></app-project-snippet>
+<pagination-controls *ngIf="totalPages>0"
+                     responsive="true"
+                     nextLabel="Вперёд"
+                     previousLabel="Назад"
+                     (pageChange)="switchPage($event)" [id]="'active'"></pagination-controls>

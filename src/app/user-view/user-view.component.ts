@@ -4,7 +4,7 @@ import {ApiService, User} from '../shared/services/api.service';
 import {AuthService, parseJwt} from '../shared/services/auth.service';
 import {Project} from '../shared/components/project-snippet/project-snippet.component';
 
-interface UserProjects {
+export interface UserProjects {
   active_projects: Project[];
   finished_projects: Project[];
 }

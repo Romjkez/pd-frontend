@@ -30,7 +30,7 @@ export const statusMap: Map<string, string> = new Map([
 export const colorMap: Map<string, string> = new Map([
   ['0', '#000'],
   ['1', '#08bc00'],
-  ['2', '#ff0000'],
+  ['2', '#ec4545'],
   ['3', '#e3a100']
 ]);
 

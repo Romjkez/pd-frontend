@@ -1,74 +1,166 @@
 <main class="main">
   <div class="page-wrapper">
     <div class="project-view">
-      <app-preloader *ngIf="loading"></app-preloader>
-      <ng-container *ngIf="!loading">
-        <div class="project-view__top-info">
-          <h5 class="project-view__id">№{{project?.id}}</h5>
-          <h4 class="project-view__status"><span
-            [ngStyle]="{'color':colorMap.get(project?.status)}">{{statusMap.get(project?.status)}}</span></h4>
+      <div class="project-view__top-info">
+        <h5 class="project-view__id">№{{ project?.id }}</h5>
+        <div class="top-info__right">
+          <h4 class="point-title project-view__dead-line">
+            <b>Запись до: </b>{{ project?.deadline | date: "dd.MM.yy" }}
+          </h4>
+          <h4 class="project-view__status">
+            <span [ngStyle]="{ color: colorMap.get(project?.status) }">{{
+              statusMap.get(project?.status)
+              }}</span>
+          </h4>
         </div>
-        <h4 class="project-view__title">{{project?.title}}</h4>
-        <div class="project-view__info">
-          <p class="project-view__description">
-            {{project?.description}}
-          </p>
-          <div class="project-view__dead-line info-block">
-            <h4 class="point-title"><b>Запись до: </b>{{project?.deadline | date:"dd.MM.yy"}}</h4>
-          </div>
-          <div class="project-view__dead-line info-block">
-            <h4 class="point-title"><b>Дата окончания проекта: </b>{{project?.finish_date | date:"dd.MM.yy"}}</h4>
-          </div>
-          <div class="project-view__curator info-block">
-            <h4 class="point-title" style="margin-right: 5px;">
-              <b>Куратор: </b></h4><a class="curator-link" [routerLink]="['/user/'+project?.curator.id]">
-            {{project?.curator.surname}}
-            {{project?.curator.name.length > 0 ? project?.curator.name : ''}}
-            {{project?.curator.middle_name?.length > 0 ? project?.curator.middle_name : ''}}</a>
-          </div>
-          <div class="project-view__tags info-block">
-            <h4 class="point-title"><b>Теги: </b></h4>
-            <div class="tags__tags-block">
-              <div class="snippet__proj-tags">
-                <div *ngFor="let tag of tags" class="proj-tags__item">{{tag}}</div>
+      </div>
+      <h2 class="title">{{ project?.title }}</h2>
+      <div class="project-view__info">
+        <p class="project-view__description">
+          {{ project?.description }}
+        </p>
+        <div class="project-view__curator info-block">
+          <h4 class="point-title" style="margin-right: 5px;">
+            <b>Куратор: </b>
+          </h4>
+          <a
+            class="curator-link"
+            [routerLink]="['/user/' + project?.curator.id]"
+          >
+            {{ project?.curator.surname }}
+            {{ project?.curator.name.length > 0 ? project?.curator.name : "" }}
+            {{
+            project?.curator.middle_name?.length > 0
+              ? project?.curator.middle_name
+              : ""
+            }}</a
+          >
+        </div>
+        <div class="project-view__tags info-block">
+          <h4 class="point-title"><b>Теги: </b></h4>
+          <div class="tags__tags-block">
+            <div class="snippet__proj-tags">
+              <div *ngFor="let tag of tags" class="proj-tags__item">
+                {{ tag }}
               </div>
             </div>
           </div>
-          <div class="project-view__places info-block">
-            <h4 class="point-title" style="margin-right: 5px;"><b>Заполненность: </b>
-              {{fullness?.occupied}}/{{fullness?.places}}</h4>
+        </div>
+        <div class="project-view__dead-line info-block">
+          <h4 class="point-title">
+            <b>Дата окончания проекта: </b
+            >{{ project?.finish_date | date: "dd.MM.yy" }}
+          </h4>
+        </div>
+        <div class="project-view__places info-block">
+          <h4 class="point-title" style="margin-right: 5px;">
+            <b>Заполненность: </b> {{ fullness?.occupied }}/{{
+            fullness?.places
+            }}
+          </h4>
+        </div>
+      </div>
+      <div class="files info-block" *ngIf="usergroup">
+        <b>Документы проекта: </b>
+        <i *ngIf="project?.files?.length < 1"> документы отсутствуют</i>
+        <div class="project-view__documents">
+          <div *ngFor="let doc of project?.files" class="document">
+            <a class="teammate__name" [href]="doc.link">{{ doc?.title }}</a>
           </div>
         </div>
-        <div class="teams">
-          <div *ngFor="let team of project?.members; let i = index" class="team-block">
-            <div class="team-block__top field">
-              <h4>Команда №{{i + 1}}</h4>
-            </div>
-            <div class="team-block__teammates">
-              <div *ngFor="let teamMate of team | keyvalue" class="teammate field">
-                <div class="teammate__info">
-                  <span class="teammate__job">{{teamMate.key}}: </span>
-                  <span *ngIf="teamMate.value==0" [ngStyle]="{'color': colorMap.get('1')}">место свободно</span>
-                  <a class="teammate__name" routerLink="/user/{{teamMate.value.id}}">{{teamMate.value.surname}}
-                    {{teamMate.value.name}}
-                    {{teamMate.value.middle_name?.length > 0 ? teamMate.value.middle_name : ''}}</a>
+      </div>
+      <div class="project-view__request">
+        <div
+          *ngIf="project?.status === '1' && usergroup == 1"
+          class="side-form"
+        >
+          <ng-container *ngIf="!joinRequested">
+            <div class="side-form__body">
+              <form
+                [formGroup]="joinForm"
+                (ngSubmit)="requestJoinProject()"
+                class="side-form__form"
+              >
+                <div class="fields">
+                  <mat-form-field class="side-form__item">
+                    <mat-select placeholder="Выберите место">
+                      <mat-optgroup
+                        *ngFor="let team of project.members; let i = index"
+                        label="Команда №{{ i + 1 }}"
+                      >
+                        <ng-container *ngFor="let member of (team | keyvalue)">
+                          <mat-option
+                            *ngIf="member.value === 0"
+                            [value]="{ team: i, role: member.key }"
+                            (onSelectionChange)="changeSelection($event)"
+                            ngDefaultControl
+                          >{{ member.key }}</mat-option
+                          >
+                        </ng-container>
+                      </mat-optgroup>
+                    </mat-select>
+                  </mat-form-field>
+                  <textarea
+                    cols="30"
+                    class="side-form__comment"
+                    formControlName="comment"
+                    placeholder="Комментарий"
+                    maxlength="255"
+                  ></textarea>
                 </div>
+                <button
+                  class="button button_confirm side-form__item"
+                  [disabled]="!joinForm.valid"
+                  type="submit"
+                  #joinFormSubmit
+                >
+                  Отправить заявку
+                </button>
+              </form>
+            </div>
+          </ng-container>
+          <div *ngIf="joinRequested" class="joinRequested">
+            <div><h3>Заявка подана</h3></div>
+          </div>
+        </div>
+      </div>
+      <div class="teams">
+        <div
+          *ngFor="let team of project?.members; let i = index"
+          class="team-block"
+        >
+          <div class="team-block__top field">
+            <h4>Команда №{{ i + 1 }}</h4>
+          </div>
+          <div class="team-block__teammates">
+            <div
+              *ngFor="let teamMate of (team | keyvalue)"
+              class="teammate field"
+            >
+              <div class="teammate__info">
+                <span class="teammate__job">{{ teamMate.key }}: </span>
+                <span
+                  *ngIf="teamMate.value == 0"
+                  [ngStyle]="{ color: colorMap.get('1') }"
+                >место свободно</span
+                >
+                <a
+                  class="teammate__name"
+                  routerLink="/user/{{ teamMate.value.id }}"
+                >{{ teamMate.value.surname }}
+                  {{ teamMate.value.name }}
+                  {{
+                  teamMate.value.middle_name?.length > 0
+                    ? teamMate.value.middle_name
+                    : ""
+                  }}</a
+                >
               </div>
             </div>
           </div>
         </div>
-        <div class="files" *ngIf="usergroup">
-          <b>Документы проекта: </b><i *ngIf="project?.files?.length<1">документы отсутствуют</i>
-          <div class="project-view__documents">
-            <div *ngFor="let doc of project?.files" class="document">
-              <a class="teammate__name" [href]="doc.link">{{doc?.title}}</a>
-            </div>
-          </div>
-        </div>
-      </ng-container>
-
-    </div>
-    <div *ngIf="project?.status==='1' && usergroup==1" class="side-form">
+      </div>
+      <!-- <div *ngIf="project?.status === '1' && usergroup == 1" class="side-form">
       <ng-container *ngIf="!joinRequested">
         <div class="side-form__header">
           <h2>Записаться на проект</h2>
@@ -87,9 +179,14 @@
               </mat-select>
             </mat-form-field>
             <mat-form-field>
-            <textarea matInput placeholder="Комментарий" maxlength="255" formControlName="comment"
-                      style="max-height: 200px">
-            </textarea>
+              <textarea
+                matInput
+                placeholder="Комментарий"
+                maxlength="255"
+                formControlName="comment"
+                style="max-height: 200px"
+              >
+              </textarea>
             </mat-form-field>
             <button [disabled]="!joinForm.valid" class="button button_confirm" type="submit" #joinFormSubmit>Отправить
               заявку
@@ -99,34 +196,58 @@
       </ng-container>
       <div *ngIf="joinRequested" class="joinRequested">
         <div><h3>Заявка подана</h3></div>
-      </div>
+      </div>-->
     </div>
-    <div *ngIf="project?.status==='1' && (project.curator.id==selfId || usergroup==3)" class="side-form sharp">
-      <div class="side-form__header">
-        <h2>Заявки на проект</h2>
+    <div
+      *ngIf="
+        project?.status === '1' &&
+        (project.curator.id == selfId || usergroup == 3)
+      "
+      class="requests"
+    >
+      <div class="requests__header">
+        <h2 class="title requests-title">Заявки на проект</h2>
       </div>
       <div class="side-form__body">
         <div class="apps">
-          <div class="apps__header">
-            <div>ФИО</div>
-            <div>Команда</div>
-            <div>Должность</div>
-            <div>Комментарий</div>
-            <div>Действие</div>
+          <div class="apps__header" *ngIf="apps?.length > 0">
+            <div class="apps__item">ФИО</div>
+            <div class="apps__item">Команда</div>
+            <div class="apps__item">Должность</div>
+            <div class="apps__item">Комментарий</div>
+            <div class="apps__item">Действие</div>
           </div>
           <div class="apps__body">
-            <div *ngIf="apps?.length===0" style="padding:5px;font-style:italic">Нет заявок на проект</div>
+            <div *ngIf="apps?.length === 0" style="padding:5px;font-style:italic">Нет заявок на проект</div>
             <div *ngFor="let app of apps" class="body__row">
-              <div><a routerLink="/user/{{app.worker_id}}"
-                      class="teammate__name">{{app.worker_id | getName | async}}</a></div>
-              <div>{{1 + +app.team}}</div>
-              <div>{{app.role}}</div>
-              <div>{{app.comment}}</div>
+              <div>
+                <a
+                  routerLink="/user/{{ app.worker_id.id }}"
+                  class="teammate__name"
+                >{{ app.worker_id.name }} {{ app.worker_id.surname }} {{ app.worker_id.middle_name }}</a
+                >
+              </div>
+              <div>{{ 1 + +app.team }}</div>
+              <div>{{ app.role }}</div>
+              <div>{{ app.comment }}</div>
               <div class="row__buttons">
-                <button (click)="acceptApplication(app.id)" type="button" title="Одобрить заявку"><img
-                  src="../../../assets/img/check.svg" alt="Одобрить"></button>
-                <button (click)="declineApplication(app.id)" type="button" title="Отказать"><img
-                  src="../../../assets/img/dismiss.svg" alt="Отказать"></button>
+                <button
+                  (click)="acceptApplication(app.id)"
+                  type="button"
+                  title="Одобрить заявку"
+                  class="row__button button-accept"
+                >
+                  &#10003;
+                </button>
+
+                <button
+                  (click)="declineApplication(app.id)"
+                  type="button"
+                  title="Отказать"
+                  class="row__button button-reject"
+                >
+                  &#10005;
+                </button>
               </div>
             </div>
           </div>

@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {AuthService, parseJwt} from '../../../../shared/services/auth.service';
 import {ApiService} from '../../../../shared/services/api.service';
+import {Project} from '../../../../shared/components/project-snippet/project-snippet.component';
 
 @Component({
   selector: 'app-pending-projects',
@@ -8,7 +9,7 @@ import {ApiService} from '../../../../shared/services/api.service';
   styleUrls: ['./pending-projects.component.css']
 })
 export class PendingProjectsComponent implements OnInit {
-  projects: [] | null;
+  projects: Project[] | null;
   loading: boolean;
   currentPage = 1;
   totalPages: number;

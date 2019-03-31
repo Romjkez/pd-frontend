@@ -15,6 +15,7 @@ export function parseJwt(token: string) {
 
 export class AuthService {
   authChange = new Subject();
+
   constructor(private http: HttpClient, private router: Router) {
   }
 
@@ -40,6 +41,11 @@ export class AuthService {
   public getUserGroup(): number {
     const parsedToken = parseJwt(this.getToken());
     return parsedToken.data.usergroup;
+  }
+
+  public getUserId(): number {
+    const parsedToken = parseJwt(this.getToken());
+    return parsedToken.data.id;
   }
 
   isAuthorized(): boolean {
