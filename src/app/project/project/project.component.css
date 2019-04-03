@@ -266,7 +266,6 @@
 .title {
   padding: 15px 0;
   font-weight: bold;
-  margin-top: 16px;
 }
 
 .project-view__dead-line {
@@ -290,6 +289,7 @@
 
 .project-view__status {
   padding: 5px;
+  font-weight: bold; 
 }
 
 .project-view__tags {
