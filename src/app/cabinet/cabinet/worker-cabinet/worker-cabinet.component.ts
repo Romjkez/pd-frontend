@@ -40,4 +40,13 @@ export class WorkerCabinetComponent implements OnInit {
       .finally(() => this.loading = false);
   }
 
+  async switchPage(newPage: number) {
+    await this.apiService.getUserApps(this.authService.getUserId(), this.per_page, newPage).then((res) => {
+      this.page = res.page;
+      this.per_page = res.per_page;
+      this.projects = res.data;
+    }).catch(e => {
+      console.error('Failed to get active projects:', e);
+    });
+  }
 }

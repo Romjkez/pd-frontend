@@ -1,10 +1,11 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {Component, ElementRef, OnInit, TemplateRef, ViewChild} from '@angular/core';
 import {colorMap, Project, statusMap} from '../../shared/components/project-snippet/project-snippet.component';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ApiService, User} from '../../shared/services/api.service';
 import {AuthService, parseJwt} from '../../shared/services/auth.service';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {MatOptionSelectionChange, MatSnackBar} from '@angular/material';
+import {MatDialog, MatOptionSelectionChange, MatSnackBar} from '@angular/material';
+import {HttpResponse} from '@angular/common/http';
 
 export interface ParsedWorkerApplication {
   id: number;
@@ -52,9 +53,10 @@ export class ProjectComponent implements OnInit {
   selfId: number;
   apps: ParsedWorkerApplication[];
   @ViewChild('joinFormSubmit') joinFormSubmit: ElementRef;
+  @ViewChild('confirmDeletionDialog') confirmDeletionDialog: TemplateRef<any>;
 
   constructor(private activatedRoute: ActivatedRoute, private apiService: ApiService, private snackBar: MatSnackBar,
-              private router: Router, public authService: AuthService) {
+              private router: Router, public authService: AuthService, public matDialog: MatDialog) {
   }
 
   async ngOnInit() {
@@ -66,6 +68,12 @@ export class ProjectComponent implements OnInit {
       comment: new FormControl('', [Validators.maxLength(255)])
     });
     this.getProject(id);
+    this.apiService.isWorkerRequestedJoin(this.authService.getUserId(), <any>id).then(res => {
+      if (res.message === 'true') {
+        this.joinRequested = true;
+        this.loading = false;
+      }
+    });
   }
 
   getOccupiedQuantity(members: object[]): { occupied: number, places: number } {
@@ -158,7 +166,7 @@ export class ProjectComponent implements OnInit {
     });
   }
 
-  async getProject(id) {
+  async getProject(id): Promise<void> {
     Promise.all([
         this.apiService.getProjectById(id), this.apiService.getArchiveProjectById(<any>id)
       ]
@@ -181,5 +189,28 @@ export class ProjectComponent implements OnInit {
       console.error(e);
       this.loading = false;
     });
+  }
+
+  async requestModeration(event: MouseEvent): Promise<void> {
+    if (event.isTrusted) {
+      await this.apiService.updateProjectStatus(this.project.id, 0, '')
+        .then((res: HttpResponse<any>) => {
+          if (res.body.message === 'true') {
+            this.snackBar.open('Проект отправлен на повторную модерацию', 'OK', {duration: 3000});
+          } else {
+            this.snackBar.open('Не удалось отправить проект на модерацию ', 'Закрыть');
+          }
+        })
+        .catch(e => console.error(e))
+        .finally(
+          () => this.getProject(this.activatedRoute.snapshot.paramMap.get('id'))
+        );
+    }
+  }
+
+  async deleteProject(event: MouseEvent) {
+    if (event.isTrusted) {
+      this.matDialog.open(this.confirmDeletionDialog, {});
+    }
   }
 }

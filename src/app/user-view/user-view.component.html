@@ -44,6 +44,7 @@
                                [project]="project"></app-project-snippet>
         </ng-template>
       </mat-expansion-panel>
+      <br>
       <mat-expansion-panel [disabled]="projects?.finished_projects==null">
         <ng-template matExpansionPanelContent>
           <app-project-snippet *ngFor="let project of projects?.finished_projects"

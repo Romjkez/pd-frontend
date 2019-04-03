@@ -290,6 +290,13 @@
   justify-content: space-around;
 }
 
+button[mat-menu-item][disabled] {
+  color: #d8d8d8 !important;
+}
+
+button mat-icon {
+  transform: scale(1.5);
+}
 /*--------------------*/
 
 @media (max-width: 575.98px) {
