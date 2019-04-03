@@ -22,7 +22,7 @@ import {ApplicationSnippetComponent} from './components/application-snippet/appl
     RouterModule,
     FormsModule,
     NgxPaginationModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
   exports: [
     PreloaderComponent,

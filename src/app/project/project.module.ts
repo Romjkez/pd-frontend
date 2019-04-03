@@ -6,13 +6,26 @@ import {RouterModule} from '@angular/router';
 import {SharedModule} from '../shared/shared.module';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatSelectModule} from '@angular/material/select';
-import {DateAdapter, MAT_DATE_LOCALE, MatDatepickerModule, MatInputModule, MatOptionModule, MatTooltipModule} from '@angular/material';
+import {
+  DateAdapter,
+  MAT_DATE_LOCALE,
+  MatButtonModule,
+  MatDatepickerModule,
+  MatDialogModule,
+  MatIconModule,
+  MatInputModule,
+  MatMenuModule,
+  MatOptionModule,
+  MatTooltipModule
+} from '@angular/material';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MomentDateAdapter} from '@angular/material-moment-adapter';
+import {EditProjectComponent} from './project/edit-project/edit-project.component';
 
 @NgModule({
   declarations: [ProjectComponent,
-    CreateProjectComponent],
+    CreateProjectComponent,
+    EditProjectComponent],
   imports: [
     CommonModule,
     RouterModule,
@@ -25,6 +38,10 @@ import {MomentDateAdapter} from '@angular/material-moment-adapter';
     MatOptionModule,
     MatInputModule,
     MatDatepickerModule,
+    MatMenuModule,
+    MatIconModule,
+    MatButtonModule,
+    MatDialogModule
   ],
   exports: [ProjectComponent, CreateProjectComponent],
   providers: [
