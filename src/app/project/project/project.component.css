@@ -9,6 +9,7 @@
   margin: 10% 0 0 0;
 }
 
+
 .side-form__body {
   width: 100%;
   display: flex;
@@ -272,7 +273,8 @@
 }
 
 .teammate__job {
-  color: #707070;
+  color: #253942;
+  margin-bottom: 5px;
 }
 
 .teammate__name {
