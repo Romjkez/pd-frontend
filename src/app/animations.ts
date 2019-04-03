@@ -113,7 +113,7 @@ export const slideInAnimation =
       query(':enter', [
         style({
           opacity: '0',
-          transform: 'scale(0.1) rotate(30deg)',
+          transform: 'scale(0.1)',
         })
       ]),
       query(':leave', animateChild(), {optional: true}),

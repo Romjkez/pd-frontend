@@ -1,0 +1,12 @@
+<div class="body__row"
+     [ngClass]="{'declined':application.status==2, 'accepted': application.status==1}">
+  <div>
+    <a routerLink="/project/{{ application.project_id.id }}"
+       class="teammate__name"
+    >{{application.project_id.title}}</a
+    >
+  </div>
+  <div>{{ 1 + +application.team }}</div>
+  <div>{{ application.role }}</div>
+  <div>{{application.comment }}</div>
+</div>

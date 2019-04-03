@@ -46,6 +46,7 @@ header {
   height: 100%;
   padding: 0 20px;
   transition: 0.1s;
+  color: white;
   border-bottom: 0 solid #207ec9;
   box-sizing: border-box;
 }
@@ -59,14 +60,12 @@ header {
   height: 100%;
   display: flex;
   align-items: center;
-  color: white;
 }
 
 .menu__item:hover {
   border-bottom-width: 4px;
   padding-top: 4px;
   cursor: pointer;
-
 }
 
 .profile-link__link {
@@ -116,12 +115,13 @@ header {
 }
 
 .disabled {
-  color: #d8d8d8;
+  color: #adadad !important;
 }
 
 .disabled:hover {
   border-bottom-width: 0;
   padding-top: 0;
+  cursor: default;
 }
 .active:hover {
   border-bottom-width: 4px;

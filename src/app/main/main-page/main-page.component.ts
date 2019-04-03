@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {ApiService} from '../../shared/services/api.service';
+import {Project} from '../../shared/components/project-snippet/project-snippet.component';
 
 @Component({
   selector: 'app-main-page',
@@ -7,7 +8,7 @@ import {ApiService} from '../../shared/services/api.service';
   styleUrls: ['./main-page.component.css']
 })
 export class MainPageComponent implements OnInit {
-  projects: [] | null;
+  projects: Project[] | null;
   currentPage = 1;
   totalPages: number;
   perPage = 5;

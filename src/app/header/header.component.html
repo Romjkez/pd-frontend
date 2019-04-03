@@ -13,7 +13,7 @@
              routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
             <span class="menu__item__link">все проекты</span>
           </a>
-          <a [ngClass]="{'disabled': !authService.isAuthorized()}" class="menu__item" [routerLink]="['/cabinet']"
+          <a *ngIf="authService.isAuthorized()" class="menu__item" [routerLink]="['/cabinet']"
              routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
             <span class="menu__item__link">личный кабинет</span>
           </a>
