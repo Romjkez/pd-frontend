@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import {ApiService, User} from '../shared/services/api.service';
-import {AuthService, parseJwt} from '../shared/services/auth.service';
-import {Project} from '../shared/components/project-snippet/project-snippet.component';
+import {ApiService, User} from '../../shared/services/api.service';
+import {AuthService, parseJwt} from '../../shared/services/auth.service';
+import {Project} from '../../shared/components/project-snippet/project-snippet.component';
 
 export interface UserProjects {
   active_projects: Project[];

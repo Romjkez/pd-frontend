@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Project} from '../components/project-snippet/project-snippet.component';
 import {ParsedProjectApplication, ParsedWorkerApplication, Tags} from '../../project/project/project.component';
-import {UserProjects} from '../../user-view/user-view.component';
+import {UserProjects} from '../../user/user-view/user-view.component';
 
 export interface User {
   id: number;
