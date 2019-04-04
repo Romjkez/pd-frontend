@@ -3,7 +3,6 @@ import {NgModule} from '@angular/core';
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {NotFoundPageComponent} from './not-found-page/not-found-page.component';
-import {UserViewComponent} from './user-view/user-view.component';
 import {HeaderComponent} from './header/header.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {
@@ -22,25 +21,22 @@ import {AuthModule} from './auth/auth.module';
 import {MainModule} from './main/main.module';
 import {SharedModule} from './shared/shared.module';
 import {ProjectModule} from './project/project.module';
-import {UserEditComponent} from './user-view/user-edit/user-edit.component';
 import {MatMomentDateModule} from '@angular/material-moment-adapter';
 
 @NgModule({
   declarations: [
     AppComponent,
     NotFoundPageComponent,
-    UserViewComponent,
     HeaderComponent,
-    UserEditComponent,
   ],
   imports: [
-    AppRoutingModule,
     BrowserModule,
+    FormsModule,
+    ReactiveFormsModule,
+    AppRoutingModule,
     BrowserAnimationsModule,
     MatSnackBarModule,
     MatButtonToggleModule,
-    FormsModule,
-    ReactiveFormsModule,
     MatDialogModule,
     HttpClientModule,
     NgxPaginationModule,
@@ -50,7 +46,7 @@ import {MatMomentDateModule} from '@angular/material-moment-adapter';
     SharedModule,
     ProjectModule,
     MatMomentDateModule,
-    MatExpansionModule
+    MatExpansionModule,
   ],
   exports: [
     FormsModule,

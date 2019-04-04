@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {ApiService} from '../../../shared/services/api.service';
 import {AuthService} from '../../../shared/services/auth.service';
-import {UserProjects} from '../../../user-view/user-view.component';
+import {UserProjects} from '../../../user/user-view/user-view.component';
 import {ParsedProjectApplication} from '../../../project/project/project.component';
 
 export interface Applications {
