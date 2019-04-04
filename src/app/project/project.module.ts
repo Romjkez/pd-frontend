@@ -23,7 +23,8 @@ import {MomentDateAdapter} from '@angular/material-moment-adapter';
 import {EditProjectComponent} from './project/edit-project/edit-project.component';
 
 @NgModule({
-  declarations: [ProjectComponent,
+  declarations: [
+    ProjectComponent,
     CreateProjectComponent,
     EditProjectComponent],
   imports: [
@@ -43,7 +44,7 @@ import {EditProjectComponent} from './project/edit-project/edit-project.componen
     MatButtonModule,
     MatDialogModule
   ],
-  exports: [ProjectComponent, CreateProjectComponent],
+  exports: [ProjectComponent, CreateProjectComponent, MatIconModule],
   providers: [
     {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
     {provide: MAT_DATE_LOCALE, useValue: 'ru'},
