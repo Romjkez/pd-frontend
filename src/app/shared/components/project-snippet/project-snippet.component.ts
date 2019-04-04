@@ -31,7 +31,7 @@ export const colorMap: Map<string, string> = new Map([
   ['0', '#000'],
   ['1', '#08bc00'],
   ['2', '#ec4545'],
-  ['3', '#e3a100']
+  ['3', '#b16300']
 ]);
 
 @Component({
@@ -61,6 +61,7 @@ export class ProjectSnippetComponent implements OnInit {
     let occupied = 0;
     let places = 0;
     for (let i = 0; i < members.length; i++) {
+      // tslint:disable-next-line
       for (const key in members[i]) {
         if (members[i][key] !== 0) {
           occupied++;

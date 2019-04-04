@@ -109,6 +109,10 @@ export class ApiService {
     }).toPromise();
   }
 
+  deleteProject(id: number): Promise<any> {
+    return this.http.delete(`${this.baseUrl}/projects/delete.php?id=${id}`, {observe: 'body'}).toPromise();
+  }
+
   /*
   ** PROJECTS ARCHIVE
    */
@@ -147,7 +151,7 @@ export class ApiService {
 
   isWorkerRequestedJoin(worker_id: number, project_id: number): Promise<any> {
     return this.http.get(`${this.baseUrl}/applications/get.php?workerApplied=${worker_id}&project=${project_id}`, {
-      observe: 'response'
+      observe: 'body'
     }).toPromise();
   }
 

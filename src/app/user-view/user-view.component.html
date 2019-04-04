@@ -34,7 +34,7 @@
       </div>
     </div>
     <div class="profile-block" style="background: none; box-shadow: none">
-      <mat-expansion-panel [disabled]="projects?.active_projects==null">
+      <mat-expansion-panel [disabled]="projects?.active_projects==null" style="margin-bottom: 15px;">
         <mat-expansion-panel-header><h3>Активные проекты
           | {{projects?.active_projects?.length ? projects?.active_projects.length : 0}}</h3>
         </mat-expansion-panel-header>
@@ -44,6 +44,7 @@
                                [project]="project"></app-project-snippet>
         </ng-template>
       </mat-expansion-panel>
+      <br>
       <mat-expansion-panel [disabled]="projects?.finished_projects==null">
         <ng-template matExpansionPanelContent>
           <app-project-snippet *ngFor="let project of projects?.finished_projects"
