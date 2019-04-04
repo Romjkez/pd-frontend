@@ -208,9 +208,16 @@ export class ProjectComponent implements OnInit {
     }
   }
 
-  async deleteProject(event: MouseEvent) {
-    if (event.isTrusted) {
-      this.matDialog.open(this.confirmDeletionDialog, {});
-    }
+  async deleteProject() {
+    this.apiService.deleteProject(this.project.id)
+      .then(res => {
+        if (res.message === 'true') {
+          this.snackBar.open('Проект успешно удалён', 'ОК', {duration: 3500});
+          this.router.navigate(['/cabinet']);
+        } else {
+          this.snackBar.open(`Ошибка: ${res.message}`, 'Закрыть');
+        }
+      })
+      .catch(e => console.error(e));
   }
 }
