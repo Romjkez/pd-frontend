@@ -9,6 +9,7 @@
   margin: 10% 0 0 0;
 }
 
+
 .side-form__body {
   width: 100%;
   display: flex;
@@ -172,7 +173,6 @@
 .title {
   padding: 15px 0;
   font-weight: bold;
-  margin-top: 16px;
 }
 
 .project-view__dead-line {
@@ -196,6 +196,7 @@
 
 .project-view__status {
   padding: 5px;
+  font-weight: bold; 
 }
 
 .project-view__tags {
@@ -272,7 +273,8 @@
 }
 
 .teammate__job {
-  color: #707070;
+  color: #253942;
+  margin-bottom: 5px;
 }
 
 .teammate__name {
