@@ -3,6 +3,8 @@ import {CommonModule} from '@angular/common';
 import {NgxPaginationModule} from 'ngx-pagination';
 import {MainPageComponent} from './main-page/main-page.component';
 import {SharedModule} from '../shared/shared.module';
+import {MatAutocompleteModule, MatInputModule} from '@angular/material';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -11,7 +13,11 @@ import {SharedModule} from '../shared/shared.module';
   imports: [
     CommonModule,
     NgxPaginationModule,
-    SharedModule
+    SharedModule,
+    MatInputModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatAutocompleteModule
   ],
   exports: [MainPageComponent]
 })

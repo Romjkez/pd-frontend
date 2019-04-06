@@ -7,7 +7,7 @@
           <app-projects [projects]="projects?.active_projects"></app-projects>
         </mat-tab>
         <mat-tab label="Заявки">
-          <div class="apps__header" *ngIf="apps?.data.length > 0">
+          <div class="apps__header" *ngIf="apps?.data?.length > 0">
             <div class="apps__item">Проект</div>
             <div class="apps__item">Команда</div>
             <div class="apps__item">Должность</div>

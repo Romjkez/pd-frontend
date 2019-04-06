@@ -1,16 +1,16 @@
 .snippet {
   height: auto;
   width: 100%;
-  background-color: #fff;
-  color: #253942;
+  /*background-color: #fff;*/
+  /*color: #253942;*/
+  color: #eee;
   border-radius: 3px;
   margin-bottom: 20px;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16),
   0 3px 6px rgba(0, 0, 0, 0.23);
-  padding: 20px 15px;
   box-sizing: border-box;
   display: block;
-  transition: 0.25s;
+  transition: .25s;
 }
 
 .snippet:hover {
@@ -29,7 +29,8 @@
 }
 
 .snippet__curator {
-  color: #6a767c;
+  /*color: #6a767c;*/
+  color: #fff;
 }
 
 .snippet__proj-desc {
@@ -41,8 +42,8 @@
   display: flex;
   justify-content: flex-start;
   flex-wrap: wrap;
-  border-bottom: 1px solid #707070;
-  padding-bottom: 15px;
+  /*border-bottom: 1px solid #d1d1d1;*/
+  padding-bottom: 5px;
   margin-bottom: 10px;
 }
 
@@ -50,6 +51,21 @@
   display: flex;
   justify-content: space-between;
   font-size: 14px;
+}
+
+.snippet__inner {
+  background: rgba(0, 0, 0, .6) url("https://avatars.mds.yandex.net/get-pdb/49816/6cf1a46b-dc58-4852-8687-b159af279e99/s1200") center no-repeat;
+  background-size: cover;
+  background-blend-mode: multiply;
+}
+
+.snippet__wrapper {
+  padding: 20px 15px;
+}
+
+.snippet__bottom {
+  padding: 20px 15px;
+  color: #000;
 }
 
 .snippet__proj-comment {
