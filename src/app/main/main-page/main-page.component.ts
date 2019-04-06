@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {ApiService} from '../../shared/services/api.service';
 import {Project} from '../../shared/components/project-snippet/project-snippet.component';
+import {FormControl, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-main-page',
@@ -14,12 +15,16 @@ export class MainPageComponent implements OnInit {
   perPage = 5;
   statusFilter = 1;
   loading: boolean;
+  searchValue: FormControl;
+  searchResult: Project[];
 
   constructor(private apiService: ApiService) {
   }
 
   async ngOnInit() {
     this.loading = true;
+    this.searchValue = new FormControl('',
+      [Validators.minLength(2), Validators.maxLength(200)]);
     await this.apiService.getProjectsByStatus(this.statusFilter, this.perPage, this.currentPage).then((res) => {
       this.currentPage = res.page;
       this.totalPages = res.pages;

@@ -1,27 +1,32 @@
 <a routerLink="/project/{{project?.id}}" class="snippet">
-  <h2 class="snippet__proj-title">{{project?.title}}</h2>
-  <span class="snippet__curator">
-    Куратор: {{project.curator.surname}} {{project.curator?.name.length > 0 ? project.curator?.name : ''}}
-
+  <div class="snippet__inner">
+    <div class="snippet__wrapper">
+      <h2 class="snippet__proj-title">{{project?.title}}</h2>
+      <span class="snippet__curator">
+    Куратор: {{project?.curator.surname}} {{project?.curator.name.length > 0 ? project?.curator.name : ''}}
   </span>
-  <p class="snippet__proj-desc">
-    {{project?.description.length > 255 ? project?.description.substring(0, 255) + '...' : project?.description}}
-  </p>
-  <div class="snippet__proj-tags">
-    <div *ngFor="let tag of tags" class="proj-tags__item">{{tag}}</div>
+      <p class="snippet__proj-desc">
+        {{project?.description.length > 255 ? project?.description.substring(0, 255) + '...' : project?.description}}
+      </p>
+      <div class="snippet__proj-tags">
+        <div *ngFor="let tag of tags" class="proj-tags__item">{{tag}}</div>
+      </div>
+    </div>
   </div>
-  <div class="snippet__proj-info">
+  <div class="snippet__bottom">
+    <div class="snippet__proj-info">
     <span class="snippet__status">
       Статус: <span [ngStyle]="{'color':colorMap.get(project?.status)}">{{statusMap.get(project?.status)}}</span>
     </span>
-    <span class="snippet__members">
+      <span class="snippet__members">
       Занято: {{fullness[0]}}/{{fullness[1]}}
     </span>
-    <span>
+      <span>
       Запись до: {{ project?.deadline | date:"dd.MM.yy"}}
     </span>
-  </div>
-  <div *ngIf="project.adm_comment.length>0" class="snippet__proj-comment">
-    <b>Комментарий администратора:</b> {{project.adm_comment}}
+    </div>
+    <div *ngIf="project.adm_comment.length>0" class="snippet__proj-comment">
+      <b>Комментарий администратора:</b> {{project.adm_comment}}
+    </div>
   </div>
 </a>
