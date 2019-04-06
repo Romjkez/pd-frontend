@@ -5,7 +5,7 @@
         <div class="header__logo">
           <a [routerLink]="['/']" style="display: flex; align-items: center; color: #d5d5d5; font-size: 12px;">
             <img class="logo-image" src="../../assets/logo.png" alt="logo" draggable="false" style="margin-right: 10px">
-            <span class="header__title">портал подбора <br> студенческих команд</span>
+            <span class="header__title">портал подбора <br> студенческих проектов</span>
           </a>
         </div>
         <div class="header__menu">
@@ -13,7 +13,7 @@
              routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
             <span class="menu__item__link">все проекты</span>
           </a>
-          <a *ngIf="authService.isAuthorized()" class="menu__item" [routerLink]="['/cabinet']"
+          <a *ngIf="authService.isAuthorized()" class="menu__item" routerLink="/cabinet"
              routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
             <span class="menu__item__link">личный кабинет</span>
           </a>
@@ -29,7 +29,7 @@
         <a routerLink="/user/{{user?.id}}" class="profile-link__link">
           <h3 class="profile-link__name">{{user?.surname}} {{user?.name.length == 0 ? '' : user?.name}}</h3>
           <div class="profile-link__photo">
-            <img src="{{user?.avatar.length == 0 ? '../assets/img/avatar.png' : user?.avatar}}"
+            <img src="{{user?.avatar?.length == 0 ? '../assets/img/avatar.png' : user?.avatar}}"
                  class="profile-link__photoContent" alt="Фотография">
           </div>
         </a>

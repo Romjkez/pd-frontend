@@ -84,7 +84,10 @@ export class CreateProjectComponent implements OnInit {
     for (let i = 0; i < teams; i++) {
       const team = {};
       for (let j = 0; j < members.length; j++) {
-        team[members[j].trim()] = 0;
+        const member = members[j].trim();
+        if (member.length > 0) {
+          team[members[j].trim()] = 0;
+        }
       }
       result.push(team);
     }

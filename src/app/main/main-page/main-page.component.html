@@ -4,11 +4,12 @@
     <div class="columns-block">
       <div class="snippet-column">
         <app-preloader *ngIf="loading"></app-preloader>
+        <h3 *ngIf="totalPages<1" style="text-align: center">Никто ещё не разместил проект...</h3>
         <ng-container *ngFor="let project of projects | paginate: {
         itemsPerPage: perPage, currentPage: currentPage, totalItems: perPage*totalPages}">
           <app-project-snippet [project]="project"></app-project-snippet>
         </ng-container>
-        <div class="pagination">
+        <div class="pagination" *ngIf="totalPages>0">
           <pagination-controls
             responsive="true"
             nextLabel="Вперёд"
