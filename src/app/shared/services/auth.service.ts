@@ -2,12 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import {Router} from '@angular/router';
 import {Subject} from 'rxjs';
-
-export function parseJwt(token: string) {
-  const base64Url = token.split('.')[1];
-  const base64 = base64Url.replace('-', '+').replace('_', '/');
-  return JSON.parse(window.atob(base64));
-}
+import {parseJwt} from '../utils/functions.util';
 
 @Injectable({
   providedIn: 'root'

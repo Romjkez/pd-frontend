@@ -1,11 +1,12 @@
 import {Component, ElementRef, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
 import {FormArray, FormControl, FormGroup, Validators} from '@angular/forms';
 import {ApiService} from '../../../shared/services/api.service';
-import {parseJwt} from '../../../shared/services/auth.service';
+
 import {MatSnackBar} from '@angular/material';
 import {Router} from '@angular/router';
-import {Tags} from '../project.component';
 import * as _moment from 'moment';
+import {back, isMobile, parseJwt} from '../../../shared/utils/functions.util';
+import {Tags} from '../../../shared/models/tags.model';
 
 const moment = _moment;
 
@@ -20,11 +21,12 @@ export class CreateProjectComponent implements OnInit {
   tags: FormArray;
   tagsMaximum: boolean;
   gotTags: Tags[];
-  gotTagsArray = [];
   checkedTags = {};
   minDate: Date;
   minFinishDate: Date;
   maxDate: Date;
+  back = back;
+  isMobile = isMobile;
   @ViewChild('submitButton') submitButton: ElementRef;
 
   constructor(private apiService: ApiService, private snackBar: MatSnackBar, private router: Router) {
@@ -33,7 +35,6 @@ export class CreateProjectComponent implements OnInit {
   ngOnInit() {
     this.apiService.getTags().then(res => {
       this.gotTags = res;
-      this.gotTagsArray = Object.keys(this.gotTags);
     });
     const date = new Date;
     this.minDate = new Date(date.getFullYear(), date.getMonth(), date.getDate() + 1);
@@ -48,7 +49,8 @@ export class CreateProjectComponent implements OnInit {
       finish_date: new FormControl('', [Validators.required]),
       roles: new FormControl('', [Validators.required]),
       teamsCount: new FormControl('', [Validators.required, Validators.min(1), Validators.max(10)]),
-      tags: this.tags
+      tags: this.tags,
+      avatar: new FormControl('')
     });
   }
 
@@ -150,13 +152,5 @@ export class CreateProjectComponent implements OnInit {
     if (evt.value !== null) {
       this.minFinishDate = evt.value._d;
     }
-  }
-
-  isMobile(): boolean {
-    return window.innerWidth < 767;
-  }
-
-  back(): void {
-    window.history.back();
   }
 }

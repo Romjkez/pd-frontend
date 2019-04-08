@@ -1,11 +1,13 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import {ApiService, User} from '../../shared/services/api.service';
-import {AuthService, parseJwt} from '../../shared/services/auth.service';
+import {ApiService} from '../../shared/services/api.service';
+import {AuthService} from '../../shared/services/auth.service';
 import {MatSnackBar} from '@angular/material';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {FormLabels} from '../../auth/register/register.component';
 import {HttpResponse} from '@angular/common/http';
+import {back, parseJwt} from '../../shared/utils/functions.util';
+import {User} from '../../shared/models/user.model';
 
 @Component({
   selector: 'app-user-edit',
@@ -17,7 +19,7 @@ export class UserEditComponent implements OnInit {
   user: User;
   regForm: FormGroup;
   formLabels: FormLabels;
-
+  back = back;
   constructor(private activatedRoute: ActivatedRoute, private apiService: ApiService, private snackBar: MatSnackBar,
               private authService: AuthService, private router: Router) {
   }
@@ -88,9 +90,4 @@ export class UserEditComponent implements OnInit {
       this.snackBar.open('Не удалось обновить профиль', 'Закрыть', {duration: 5000});
     });
   }
-
-  back(): void {
-    window.history.back();
-  }
-
 }

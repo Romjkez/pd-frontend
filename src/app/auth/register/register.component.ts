@@ -4,6 +4,7 @@ import {AuthService} from '../../shared/services/auth.service';
 import {Router} from '@angular/router';
 import {HttpClient, HttpErrorResponse, HttpHeaders, HttpResponse} from '@angular/common/http';
 import {MatSnackBar} from '@angular/material';
+import {back} from '../../shared/utils/functions.util';
 
 export interface FormLabels {
   worker: {
@@ -35,6 +36,7 @@ export interface FormLabels {
 export class RegisterComponent implements OnInit {
   regForm: FormGroup;
   formLabels: FormLabels;
+  back = back;
   @ViewChild('submitButton') submitButton: ElementRef;
 
   constructor(private authService: AuthService, private router: Router, private http: HttpClient, private snackBar: MatSnackBar) {
@@ -147,9 +149,5 @@ export class RegisterComponent implements OnInit {
       '&api_key=android';
     return this.http.post('http://new.std-247.ist.mospolytech.ru/api/user/add.php', body, {headers, observe: 'response'})
       .toPromise();
-  }
-
-  back(): void {
-    window.history.back();
   }
 }

@@ -1,15 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {ApiService} from '../../../shared/services/api.service';
 import {AuthService} from '../../../shared/services/auth.service';
-import {UserProjects} from '../../../user/user-view/user-view.component';
-import {ParsedProjectApplication} from '../../../project/project/project.component';
-
-export interface Applications {
-  per_page: number;
-  page: number;
-  pages: number;
-  data: ParsedProjectApplication[];
-}
+import {UserProjects} from '../../../shared/models/project.model';
+import {Applications} from '../../../shared/models/application.model';
 
 @Component({
   selector: 'app-worker-cabinet',

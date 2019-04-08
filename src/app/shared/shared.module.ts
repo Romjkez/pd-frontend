@@ -9,6 +9,7 @@ import {ProjectsComponent} from './components/projects/projects.component';
 import {NgxPaginationModule} from 'ngx-pagination';
 import {ApplicationSnippetComponent} from './components/application-snippet/application-snippet.component';
 
+
 @NgModule({
   declarations: [
     PreloaderComponent,
@@ -29,7 +30,7 @@ import {ApplicationSnippetComponent} from './components/application-snippet/appl
     ProjectSnippetComponent,
     AdmProjectSnippetComponent,
     ProjectsComponent,
-    ApplicationSnippetComponent
+    ApplicationSnippetComponent,
   ],
 })
 export class SharedModule {
