@@ -1,25 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {ApiService, User} from '../../services/api.service';
-import {Router} from '@angular/router';
+import {Project} from '../../models/project.model';
+import {User} from '../../models/user.model';
 
-export interface ProjectDocument {
-  title: string;
-  link: string;
-}
-
-export interface Project {
-  id: number;
-  title: string;
-  description: string;
-  members: User[];
-  deadline: string;
-  finish_date: string;
-  curator: User;
-  tags: string;
-  status: string;
-  adm_comment: string | null;
-  files: ProjectDocument[];
-}
 
 export const statusMap: Map<string, string> = new Map([
   ['0', 'На рассмотрении'],
@@ -46,12 +28,13 @@ export class ProjectSnippetComponent implements OnInit {
   statusMap = statusMap;
   colorMap = colorMap;
 
-  constructor(private apiService: ApiService, private router: Router) {
+  constructor() {
   }
 
   async ngOnInit() {
     this.fullness = this.getOccupiedQuantity(this.project.members);
     this.tags = this.project.tags.split(',');
+    this.project.avatar = this.project.avatar || '../assets/img/snippet_default_bg.jpg';
   }
 
   getOccupiedQuantity(members: User[]): number[] {

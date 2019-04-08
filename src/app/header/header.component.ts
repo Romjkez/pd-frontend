@@ -1,6 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {AuthService, parseJwt} from '../shared/services/auth.service';
-import {ApiService, User} from '../shared/services/api.service';
+import {AuthService} from '../shared/services/auth.service';
+import {ApiService} from '../shared/services/api.service';
+import {parseJwt} from '../shared/utils/functions.util';
+import {User} from '../shared/models/user.model';
 
 @Component({
   selector: 'app-header',

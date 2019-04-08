@@ -1,5 +1,5 @@
 <a routerLink="/project/{{project?.id}}" class="snippet">
-  <div class="snippet__inner">
+  <div class="snippet__inner" [ngStyle]="{'background-image':'url('+project?.avatar+')'}">
     <div class="snippet__wrapper">
       <h2 class="snippet__proj-title">{{project?.title}}</h2>
       <span class="snippet__curator">

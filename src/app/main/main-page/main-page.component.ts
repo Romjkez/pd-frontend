@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {ApiService} from '../../shared/services/api.service';
-import {Project} from '../../shared/components/project-snippet/project-snippet.component';
 import {FormControl, Validators} from '@angular/forms';
+import {Project} from '../../shared/models/project.model';
 
 @Component({
   selector: 'app-main-page',

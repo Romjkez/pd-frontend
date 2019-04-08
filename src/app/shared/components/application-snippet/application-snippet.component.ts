@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {ParsedProjectApplication} from '../../../project/project/project.component';
 import {AuthService} from '../../services/auth.service';
+import {ParsedProjectApplication} from '../../models/application.model';
 
 @Component({
   selector: 'app-application-snippet',

@@ -13,7 +13,8 @@
           <ng-container *ngIf="project?.status!=2 && selfId==project?.curator?.id">
             <mat-menu #appMenu="matMenu">
               <ng-template matMenuContent>
-                <button mat-menu-item>Редактировать</button>
+                <button mat-menu-item (click)="router.navigate(['/project/'+project?.id+'/edit'])">Редактировать
+                </button>
                 <button mat-menu-item *ngIf="project?.status!=2">Загрузить документ</button>
                 <button mat-menu-item *ngIf="project?.status==3"
                         (click)="requestModeration($event)">Отправить на модерацию

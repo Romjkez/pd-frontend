@@ -1,13 +1,12 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import {ApiService, User} from '../../shared/services/api.service';
-import {AuthService, parseJwt} from '../../shared/services/auth.service';
-import {Project} from '../../shared/components/project-snippet/project-snippet.component';
+import {ApiService} from '../../shared/services/api.service';
+import {AuthService} from '../../shared/services/auth.service';
+import {parseJwt} from '../../shared/utils/functions.util';
+import {UserProjects} from '../../shared/models/project.model';
+import {User} from '../../shared/models/user.model';
 
-export interface UserProjects {
-  active_projects: Project[];
-  finished_projects: Project[];
-}
+
 @Component({
   selector: 'app-user-view',
   templateUrl: './user-view.component.html',

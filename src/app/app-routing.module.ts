@@ -8,6 +8,7 @@ import {LoginComponent} from './auth/login/login.component';
 import {CabinetComponent} from './cabinet/cabinet/cabinet.component';
 import {AuthGuardService} from './shared/services/auth-guard.service';
 import {CreateProjectComponent} from './project/project/create-project/create-project.component';
+import {EditProjectComponent} from './project/project/edit-project/edit-project.component';
 
 const routes: Routes = [
   {
@@ -31,6 +32,12 @@ const routes: Routes = [
     component: ProjectComponent,
     pathMatch: 'full',
     data: {animation: 'ProjectView'}
+  },
+  {
+    path: 'project/:id/edit',
+    component: EditProjectComponent,
+    pathMatch: 'full',
+    data: {animation: 'EditProfileView'}
   },
   {
     path: 'register',
