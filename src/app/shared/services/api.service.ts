@@ -65,7 +65,7 @@ export class ApiService {
     return this.http.get<UserProjects>(`${this.baseUrl}/projects/get.php?user=${id}`).toPromise();
   }
 
-  createProject(form: object | string): Promise<any | object> {
+  createProject(form: object | string): Promise<any> {
     form = form + '&api_key=' + this.apiKey;
     return this.http.post(`${this.baseUrl}/projects/create.php`, form, {
       headers: {'Content-Type': 'application/x-www-form-urlencoded'},
@@ -85,6 +85,13 @@ export class ApiService {
     return this.http.post(`${this.baseUrl}/projects/updateProjectStatus.php`, data, {
       headers: {'Content-Type': 'application/x-www-form-urlencoded'},
       observe: 'response'
+    }).toPromise();
+  }
+
+  updateProject(form: object | string): Promise<any> {
+    return this.http.post(`${this.baseUrl}/projects/update.php`, form, {
+      headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+      observe: 'body'
     }).toPromise();
   }
 

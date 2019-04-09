@@ -56,14 +56,14 @@
                matTooltipClass="tooltip"
                class="info-icon" src="../assets/img/info.svg" alt="Информация">
           <br><br>
-          <label>Специальности(роли)
+          <label *ngIf="project.status==0 || project.status==3">Специальности(роли)
             <img
               matTooltip="Специальности обязательно перечисляйте через запятую. Например: Frontend-разработчик, Web-дизайнер"
               matTooltipClass="tooltip"
               class="info-icon" src="../assets/img/info.svg" alt="Информация">
             <input required type="email" class="form__input" placeholder="От 1 до 10 специальностей"
                    formControlName="roles"></label>
-          <label>Количество команд
+          <label *ngIf="project.status==0 || project.status==3">Количество команд
             <img
               matTooltip="В каждой из команд будут те специальности, которые вы укажете в поле 'Специальности(роли)'"
               matTooltipClass="tooltip"
@@ -72,6 +72,7 @@
                    placeholder="От 1 до 10 команд"
                    class="form__input form__date"
                    formControlName="teamsCount"></label>
+          <!--todo починить отметку ранее выбранных тегов -->
           <label>
             Теги проекта<img
             matTooltip="Выберите необходимые для проекта компетенции. По ним студент сможет отфильтровать проекты и найти подходящий"
@@ -79,7 +80,7 @@
             class="info-icon" src="../assets/img/info.svg" alt="Информация"><br>
             <mat-form-field>
               <mat-select placeholder="Не более 7 тегов" formArrayName="tags" multiple required>
-                <mat-optgroup *ngFor="let group of gotTags | keyvalue" [label]="group.key">
+                <mat-optgroup *ngFor="let group of gotTags | keyvalue" [label]="group.key.toString()">
                   <mat-option *ngFor="let tag of group.value" (onSelectionChange)="toggleTag(tag)"
                               [disabled]="tagsMaximum && checkedTags[tag]!==true"
                               [value]="tag">{{tag}}</mat-option>
@@ -100,11 +101,7 @@
                    formControlName="avatar">
           </label>
           <div class="form__submit">
-            <!--<button [disabled]="!createProjectForm.valid" type="submit"
-                    class="button form__button reg-form__button-submit" #submitButton>
-              Подтвердить
-            </button>-->
-            <button [disabled]="true" type="submit"
+            <button [disabled]="!createProjectForm.valid" type="submit"
                     class="button form__button reg-form__button-submit" #submitButton>
               Подтвердить
             </button>
