@@ -79,10 +79,11 @@
             matTooltipClass="tooltip"
             class="info-icon" src="../assets/img/info.svg" alt="Информация"><br>
             <mat-form-field>
-              <mat-select placeholder="Не более 7 тегов" formArrayName="tags" multiple required>
+              <mat-select [(value)]="checkedTagsList" placeholder="Не более 7 тегов" formArrayName="tags" multiple
+                          required>
                 <mat-optgroup *ngFor="let group of gotTags | keyvalue" [label]="group.key.toString()">
-                  <mat-option *ngFor="let tag of group.value" (onSelectionChange)="toggleTag(tag)"
-                              [disabled]="tagsMaximum && checkedTags[tag]!==true"
+                  <mat-option *ngFor="let tag of group.value"
+                              [disabled]="checkedTagsList.length > 6 && checkedTagsList.includes(tag)!==true"
                               [value]="tag">{{tag}}</mat-option>
                 </mat-optgroup>
               </mat-select>

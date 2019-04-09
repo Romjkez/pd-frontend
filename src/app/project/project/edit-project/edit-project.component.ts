@@ -1,6 +1,6 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {back, isMobile, parseJwt} from '../../../shared/utils/functions.util';
-import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {FormArray, FormControl, FormGroup, Validators} from '@angular/forms';
 import {Tags} from '../../../shared/models/tags.model';
 import {ApiService} from '../../../shared/services/api.service';
 import {MatSnackBar} from '@angular/material';
@@ -14,10 +14,8 @@ import {Project} from '../../../shared/models/project.model';
 })
 export class EditProjectComponent implements OnInit {
   createProjectForm: FormGroup;
-  tags: FormArray;
-  tagsMaximum: boolean;
   gotTags: Tags[];
-  checkedTags = {};
+  checkedTagsList: any[];
   minDate: Date;
   minFinishDate: Date;
   maxDate: Date;
@@ -26,7 +24,6 @@ export class EditProjectComponent implements OnInit {
   project: Project;
   loading: boolean;
   teamsInfo: { roles: string[], teams: number };
-  fb = new FormBuilder();
   @ViewChild('submitButton') submitButton: ElementRef;
 
   constructor(private apiService: ApiService, private snackBar: MatSnackBar, private router: Router,
@@ -49,7 +46,12 @@ export class EditProjectComponent implements OnInit {
       this.teamsInfo = this.getTeams(this.project.members);
 
       const tagsArray = this.project.tags.split(',');
-      this.tags = this.fb.array(tagsArray);
+      tagsArray.forEach((value, i) => {
+        if (value.length === 0) {
+          tagsArray.splice(i, 1);
+        }
+      });
+      this.checkedTagsList = tagsArray;
 
       this.createProjectForm = new FormGroup({
         title:
@@ -60,7 +62,7 @@ export class EditProjectComponent implements OnInit {
         finish_date: new FormControl(this.project.finish_date, [Validators.required]),
         roles: new FormControl(this.teamsInfo.roles.slice(0), [Validators.required]),
         teamsCount: new FormControl(this.teamsInfo.teams, [Validators.required, Validators.min(1), Validators.max(10)]),
-        tags: this.tags,
+        tags: new FormArray([]),
         avatar: new FormControl(this.project.avatar),
         files: new FormControl(this.project.files)
       });
@@ -69,21 +71,6 @@ export class EditProjectComponent implements OnInit {
       this.snackBar.open(`Произошла ошибка: ${e}`, 'Закрыть');
       console.error(e);
     });
-  }
-
-  toggleTag(tag: string): void {
-    let tagsCounter = 0;
-    if (this.checkedTags[tag] === true) {
-      this.checkedTags[tag] = false;
-    } else {
-      this.checkedTags[tag] = true;
-    }
-    for (const prop in this.checkedTags) {
-      if (this.checkedTags[prop] === true) {
-        tagsCounter++;
-      }
-    }
-    this.tagsMaximum = tagsCounter > 6;
   }
 
   getTextAreaCols(): { [key: string]: string } {
@@ -99,7 +86,6 @@ export class EditProjectComponent implements OnInit {
   private makeTeams(): object[] {
     const result = [];
     const teams = <number>this.createProjectForm.controls.teamsCount.value;
-    console.log(this.createProjectForm.controls.roles.value);
     const members = this.createProjectForm.controls.roles.value;
     for (let i = 0; i < teams; i++) {
       const team = {};
@@ -116,12 +102,10 @@ export class EditProjectComponent implements OnInit {
 
   async requestCreateProject() {
     this.submitButton.nativeElement.setAttribute('disabled', 'true');
-    for (const prop in this.checkedTags) {
-      if (this.checkedTags[prop] === true) {
-        this.tags.push(new FormControl(prop));
-      }
-    }
-    if (this.tags.length < 1) {
+    this.checkedTagsList.forEach(value => {
+      (<FormArray>this.createProjectForm.controls.tags).push(new FormControl(value));
+    });
+    if ((<FormArray>this.createProjectForm.controls.tags).length < 1) {
       this.snackBar.open('Пожалуйста, укажите теги проекта', 'Закрыть');
       this.submitButton.nativeElement.removeAttribute('disabled');
     } else {
@@ -142,10 +126,7 @@ export class EditProjectComponent implements OnInit {
         this.submitButton.nativeElement.removeAttribute('disabled');
         this.snackBar.open(`Не удалось отредактировать проект: ${e}`, 'Закрыть');
         console.error(e);
-      }).finally(() => {
-        this.checkedTags = {};
-        this.tags.reset([]);
-      });
+      }).finally(() => this.createProjectForm.controls.tags = new FormArray([]));
     }
 
   }
