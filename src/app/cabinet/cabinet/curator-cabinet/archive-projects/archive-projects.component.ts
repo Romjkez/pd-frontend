@@ -1,7 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {AuthService, parseJwt} from '../../../../shared/services/auth.service';
+import {AuthService} from '../../../../shared/services/auth.service';
 import {ApiService} from '../../../../shared/services/api.service';
-import {Project} from '../../../../shared/components/project-snippet/project-snippet.component';
+import {parseJwt} from '../../../../shared/utils/functions.util';
+import {Project} from '../../../../shared/models/project.model';
 
 @Component({
   selector: 'app-archive-projects',

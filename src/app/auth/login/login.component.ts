@@ -3,6 +3,7 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {AuthService} from '../../shared/services/auth.service';
 import {MatSnackBar} from '@angular/material';
 import {Router} from '@angular/router';
+import {back} from '../../shared/utils/functions.util';
 
 @Component({
   selector: 'app-login',
@@ -11,6 +12,7 @@ import {Router} from '@angular/router';
 })
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
+  back = back;
   @ViewChild('loginButton') loginButton: ElementRef;
 
   constructor(private authService: AuthService, private snackBar: MatSnackBar, private router: Router) {
@@ -44,9 +46,5 @@ export class LoginComponent implements OnInit {
       })
       .catch((e) => console.log(e));
     return false;
-  }
-
-  back(): void {
-    window.history.back();
   }
 }

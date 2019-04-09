@@ -54,7 +54,7 @@
 }
 
 .snippet__inner {
-  background: rgba(0, 0, 0, .6) url("https://avatars.mds.yandex.net/get-pdb/49816/6cf1a46b-dc58-4852-8687-b159af279e99/s1200") center no-repeat;
+  background: rgba(0, 0, 0, .6) center no-repeat;
   background-size: cover;
   background-blend-mode: multiply;
 }

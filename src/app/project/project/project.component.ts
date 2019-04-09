@@ -1,36 +1,14 @@
 import {Component, ElementRef, OnInit, TemplateRef, ViewChild} from '@angular/core';
-import {colorMap, Project, statusMap} from '../../shared/components/project-snippet/project-snippet.component';
+import {colorMap, statusMap} from '../../shared/components/project-snippet/project-snippet.component';
 import {ActivatedRoute, Router} from '@angular/router';
-import {ApiService, User} from '../../shared/services/api.service';
-import {AuthService, parseJwt} from '../../shared/services/auth.service';
+import {ApiService} from '../../shared/services/api.service';
+import {AuthService} from '../../shared/services/auth.service';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {MatDialog, MatOptionSelectionChange, MatSnackBar} from '@angular/material';
 import {HttpResponse} from '@angular/common/http';
-
-export interface ParsedWorkerApplication {
-  id: number;
-  worker_id: User;
-  project_id: number;
-  team: number;
-  role: string;
-  status: number;
-  comment: string | null;
-}
-
-export interface ParsedProjectApplication {
-  id: number;
-  worker_id: number;
-  project_id: Project;
-  team: number;
-  role: string;
-  status: number;
-  comment: string | null;
-}
-
-export interface Tags {
-  category: string;
-  value: string[];
-}
+import {parseJwt} from '../../shared/utils/functions.util';
+import {Project} from '../../shared/models/project.model';
+import {ParsedWorkerApplication} from '../../shared/models/application.model';
 
 @Component({
   selector: 'app-project',

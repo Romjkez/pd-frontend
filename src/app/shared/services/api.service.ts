@@ -1,30 +1,9 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {Project} from '../components/project-snippet/project-snippet.component';
-import {ParsedProjectApplication, ParsedWorkerApplication, Tags} from '../../project/project/project.component';
-import {UserProjects} from '../../user/user-view/user-view.component';
-
-export interface User {
-  id: number;
-  name: string;
-  surname: string;
-  middle_name: string;
-  email: string;
-  usergroup: string;
-  phone: string;
-  description: string;
-  avatar: string;
-  stdgroup: string;
-  active_projects: string;
-  finished_projects: string;
-}
-
-export interface Projects {
-  page: number;
-  per_page: number;
-  pages: number;
-  data: null | Project[];
-}
+import {Tags} from '../models/tags.model';
+import {Project, Projects, UserProjects} from '../models/project.model';
+import {User} from '../models/user.model';
+import {ParsedProjectApplication, ParsedWorkerApplication} from '../models/application.model';
 
 @Injectable({
   providedIn: 'root'

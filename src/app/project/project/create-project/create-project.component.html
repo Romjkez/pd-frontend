@@ -85,6 +85,18 @@
             </mat-select>
           </mat-form-field>
         </label>
+        <br>
+        <label>
+          Ссылка на аватарку проекта
+          <img
+            matTooltip="Ссылка на картинку, которая будет отображаться как фон для сниппета проекта в списке проектов"
+            matTooltipClass="tooltip"
+            class="info-icon" src="../assets/img/info.svg" alt="Информация">
+          <input type="text" minlength="4" maxlength="255"
+                 placeholder="Рекомендуемый размер: 800x190px"
+                 class="form__input form__date"
+                 formControlName="avatar">
+        </label>
         <div class="form__submit">
           <button [disabled]="!createProjectForm.valid" type="submit"
                   class="button form__button reg-form__button-submit" #submitButton>

@@ -1,9 +1,9 @@
 import {Component, Input, OnDestroy, OnInit} from '@angular/core';
-import {Project} from '../project-snippet/project-snippet.component';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {ApiService} from '../../services/api.service';
 import {HttpErrorResponse, HttpResponse} from '@angular/common/http';
 import {MatSnackBar} from '@angular/material';
+import {Project} from '../../models/project.model';
 
 @Component({
   selector: 'app-adm-project-snippet',
