@@ -1,0 +1,12 @@
+.list-group__items {
+  display: flex;
+  justify-content: space-between;
+}
+
+.item-controls {
+  display: flex;
+}
+
+.list-group__items button {
+  margin-left: 1%;
+}

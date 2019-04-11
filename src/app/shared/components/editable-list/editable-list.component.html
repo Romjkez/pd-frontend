@@ -1,0 +1,15 @@
+<div class="list">
+  <div *ngFor="let group of groups | keyvalue" class="list-group">
+    <div *ngFor="let item of group?.value" class="list-group__items">
+      <div class="item-content">[{{group?.key}}] {{item}}</div>
+      <div class="item-controls">
+        <button mat-button>
+          <mat-icon color="primary">create</mat-icon>
+        </button>
+        <button mat-button>
+          <mat-icon color="warn">remove_circle</mat-icon>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
