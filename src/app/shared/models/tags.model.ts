@@ -1,4 +1,5 @@
-export interface Tags {
+export interface Tag {
+  id: number;
   category: string;
-  items: string[];
+  value: string;
 }

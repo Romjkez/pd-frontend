@@ -9,7 +9,7 @@ import {ProjectsComponent} from './components/projects/projects.component';
 import {NgxPaginationModule} from 'ngx-pagination';
 import {ApplicationSnippetComponent} from './components/application-snippet/application-snippet.component';
 import {EditableListComponent} from './components/editable-list/editable-list.component';
-import {MatButtonModule, MatIconModule} from '@angular/material';
+import {MatButtonModule, MatDialogModule, MatIconModule} from '@angular/material';
 
 
 @NgModule({
@@ -29,6 +29,7 @@ import {MatButtonModule, MatIconModule} from '@angular/material';
     ReactiveFormsModule,
     MatButtonModule,
     MatIconModule,
+    MatDialogModule,
   ],
   exports: [
     PreloaderComponent,

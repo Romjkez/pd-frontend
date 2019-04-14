@@ -1,8 +1,8 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {Tags} from '../models/tags.model';
 import {Project, Projects, UserProjects} from '../models/project.model';
 import {User} from '../models/user.model';
+import {Tag} from '../models/tags.model';
 import {ParsedProjectApplication, ParsedWorkerApplication} from '../models/application.model';
 
 @Injectable({
@@ -159,15 +159,22 @@ export class ApiService {
   /*
   ** TAGS
    */
-  getTags(): Promise<Tags[]> {
-    return this.http.get<Tags[]>(`${this.baseUrl}/tags/get.php`).toPromise();
+  getTags(): Promise<Tag[]> {
+    return this.http.get<Tag[]>(`${this.baseUrl}/tags/`).toPromise();
   }
 
-  getTagsCategories() {
-
+  editTag(tag: Tag): Promise<any> {
+    return this.http.put(`${this.baseUrl}/tags/`, `id=${tag.id}&category=${tag.category}&value=${tag.value}`).toPromise();
   }
 
-  getTagsValues() {
+  addTag(tag: Tag): Promise<Tag> {
+    return this.http.post<Tag>(`${this.baseUrl}/tags/`, `category=${tag.category}&value=${tag.value}`, {
+      headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+      observe: 'body'
+    }).toPromise();
+  }
 
+  deleteTag(id: number): Promise<any> {
+    return this.http.delete(`${this.baseUrl}/tags/?id=${id}`).toPromise();
   }
 }

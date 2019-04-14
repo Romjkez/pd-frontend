@@ -1,15 +1,71 @@
-<div class="list">
-  <div *ngFor="let group of groups | keyvalue" class="list-group">
-    <div *ngFor="let item of group?.value" class="list-group__items">
-      <div class="item-content">[{{group?.key}}] {{item}}</div>
-      <div class="item-controls">
-        <button mat-button>
-          <mat-icon color="primary">create</mat-icon>
-        </button>
-        <button mat-button>
-          <mat-icon color="warn">remove_circle</mat-icon>
-        </button>
-      </div>
+<header><h2>{{header}}</h2></header>
+<div class="list-controls">
+  <button [disabled]="!!addingItem" mat-button color="primary" class="list-controls__add-button"
+          (click)="requestAddingItem()">
+    <b>{{label_add}}</b>
+    <mat-icon color="primary">add_circle</mat-icon>
+  </button>
+</div>
+<div class="list-item" *ngIf="addingItem">
+  <div class="list-item__wrapper">
+    <div class="item-content">
+      <input type="text" minlength="1" maxlength="255" aria-label="category" [(ngModel)]="addingItem.category">
+      <input type="text" minlength="1" maxlength="255" aria-label="item" required [(ngModel)]="addingItem.value">
+    </div>
+    <div class="item-controls">
+      <button mat-button color="primary" (click)="onAdd()">
+        <b>{{label_confirm}}</b>
+        <mat-icon color="primary">check</mat-icon>
+      </button>
+      <button mat-button (click)="addingItem=null">
+        <b>{{label_cancel}}</b>
+        <mat-icon color="warn">remove_circle</mat-icon>
+      </button>
     </div>
   </div>
 </div>
+<div *ngFor="let item of items" class="list-item">
+  <div class="list-item__wrapper">
+    <div class="item-content">
+      <input *ngIf="editingItem?.id===item.id" type="text" minlength="1" maxlength="255" aria-label="category"
+             [(ngModel)]="editingItem.category">
+      <span *ngIf="item.category && editingItem?.id !== item.id">[{{item?.category}}]</span>
+
+      <input *ngIf="editingItem?.id===item.id" type="text" minlength="1" maxlength="255" required aria-label="item"
+             [(ngModel)]="editingItem.value">
+      <span *ngIf="editingItem?.id !== item.id">{{item.value}}</span>
+    </div>
+    <div class="item-controls">
+      <ng-container *ngIf="editingItem?.id===item.id">
+        <button mat-button color="primary" (click)="onEdit(item)">
+          <b>{{label_confirm}}</b>
+          <mat-icon color="primary">check</mat-icon>
+        </button>
+        <button mat-button (click)="editingItem=null">
+          <b>{{label_cancel}}</b>
+          <mat-icon>undo</mat-icon>
+        </button>
+      </ng-container>
+
+      <ng-container *ngIf="editingItem?.id!==item.id">
+        <button mat-button color="primary" (click)="editingItem=item">
+          <b>{{label_edit}}</b>
+          <mat-icon color="primary">create</mat-icon>
+        </button>
+        <button mat-button color="warn" (click)="onRemove(item)">
+          <b>{{label_remove}}</b>
+          <mat-icon color="warn">remove_circle</mat-icon>
+        </button>
+      </ng-container>
+    </div>
+  </div>
+</div>
+<ng-template #removeModal>
+  <mat-dialog-content>
+    <h3 style="text-align: center">{{removeModalQuestion}}</h3>
+  </mat-dialog-content>
+  <mat-dialog-actions style="display:flex; justify-content: space-around">
+    <button mat-button color="warn" [mat-dialog-close]="true">{{label_confirm}}</button>
+    <button mat-button [mat-dialog-close]="false">{{label_cancel}}</button>
+  </mat-dialog-actions>
+</ng-template>

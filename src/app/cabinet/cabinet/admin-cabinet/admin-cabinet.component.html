@@ -23,7 +23,14 @@
       <a class="menu-item">История действий</a>
     </nav>
     <ng-template #tagsModal>
-      <app-editable-list [groups]="tags"></app-editable-list>
+      <mat-dialog-content>
+        <app-editable-list [label_add]="'Добавить тег'" [label_edit]="'Редактировать'" [label_confirm]="'Подтвердить'"
+                           [label_remove]="'Удалить'" [label_cancel]="'Отменить'"
+                           [removeModalQuestion]="'Подтвердите удаление'"
+                           [confirmRemove]="true" [header]="'Теги'"
+                           [items]="tags" (removed)="onDeleteTag($event)"
+                           (edited)="onEditTag($event)" (added)="onAddTag($event)"></app-editable-list>
+      </mat-dialog-content>
     </ng-template>
   </div>
 </div>
