@@ -18,6 +18,10 @@ const routes: Routes = [
     data: {animation: 'MainPage'}
   },
   {
+    path: 'log',
+    loadChildren: './logs/logs.module#LogsModule'
+  },
+  {
     path: 'user',
     data: {animation: 'UserView'},
     loadChildren: './user/user.module#UserModule'
@@ -69,10 +73,10 @@ const routes: Routes = [
     component: NotFoundPageComponent,
     pathMatch: 'full'
   },
-  /*{
+  {
     path: '**',
     redirectTo: '404'
-  }*/
+  }
 ];
 
 @NgModule({

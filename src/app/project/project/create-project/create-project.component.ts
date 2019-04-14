@@ -67,6 +67,7 @@ export class CreateProjectComponent implements OnInit {
       }
     }
     this.tagsMaximum = tagsCounter > 6;
+    console.log(this.createProjectForm.controls.tags);
   }
 
   getTextAreaCols(): { [key: string]: string } {
