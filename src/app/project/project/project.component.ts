@@ -46,12 +46,17 @@ export class ProjectComponent implements OnInit {
       comment: new FormControl('', [Validators.maxLength(255)])
     });
     this.getProject(id);
-    this.apiService.isWorkerRequestedJoin(this.authService.getUserId(), <any>id).then(res => {
-      if (res.message === 'true') {
-        this.joinRequested = true;
-        this.loading = false;
-      }
-    });
+    if (this.authService.isAuthorized()) {
+      this.apiService.isWorkerRequestedJoin(this.authService.getUserId(), <any>id).then(res => {
+        if (res.message === 'true') {
+          this.joinRequested = true;
+          this.loading = false;
+        }
+      });
+    } else {
+      this.joinRequested = true;
+      this.loading = false;
+    }
   }
 
   getOccupiedQuantity(members: object[]): { occupied: number, places: number } {
@@ -144,7 +149,7 @@ export class ProjectComponent implements OnInit {
     });
   }
 
-  async getProject(id): Promise<void> {
+  async getProject(id) {
     Promise.all([
         this.apiService.getProjectById(id), this.apiService.getArchiveProjectById(<any>id)
       ]
@@ -160,8 +165,14 @@ export class ProjectComponent implements OnInit {
       this.getApps();
       this.fullness = this.getOccupiedQuantity(this.project.members);
       this.tags = this.project.tags.split(',');
-      this.usergroup = parseJwt(localStorage.getItem('token')).data.usergroup;
-      this.selfId = this.authService.getUserId();
+      if (this.authService.isAuthorized()) {
+        this.usergroup = parseJwt(localStorage.getItem('token')).data.usergroup;
+        this.selfId = this.authService.getUserId();
+      } else {
+        this.usergroup = -1;
+        this.selfId = -1;
+      }
+
       this.loading = false;
     }).catch(e => {
       console.error(e);
