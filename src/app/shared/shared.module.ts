@@ -38,7 +38,7 @@ import {MatButtonModule, MatDialogModule, MatIconModule} from '@angular/material
     ProjectsComponent,
     ApplicationSnippetComponent,
     EditableListComponent,
-  ],
+  ]
 })
 export class SharedModule {
 }

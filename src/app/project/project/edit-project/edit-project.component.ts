@@ -1,7 +1,7 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {back, isMobile, parseJwt} from '../../../shared/utils/functions.util';
 import {FormArray, FormControl, FormGroup, Validators} from '@angular/forms';
-import {Tags} from '../../../shared/models/tags.model';
+import {Tag} from '../../../shared/models/tags.model';
 import {ApiService} from '../../../shared/services/api.service';
 import {MatSnackBar} from '@angular/material';
 import {ActivatedRoute, Router} from '@angular/router';
@@ -14,7 +14,7 @@ import {Project} from '../../../shared/models/project.model';
 })
 export class EditProjectComponent implements OnInit {
   createProjectForm: FormGroup;
-  gotTags: Tags[];
+  gotTags: Tag[];
   checkedTagsList: any[];
   minDate: Date;
   minFinishDate: Date;

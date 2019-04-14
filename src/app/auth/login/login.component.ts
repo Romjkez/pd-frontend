@@ -28,7 +28,7 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  async authorize(): Promise<boolean> {
+  async authorize() {
     this.loginButton.nativeElement.setAttribute('disabled', 'true');
     await this.authService.login(this.loginForm.controls.email.value.trim(), this.loginForm.controls.password.value.trim())
       .then((res) => {
@@ -36,15 +36,15 @@ export class LoginComponent implements OnInit {
           this.snackBar.open('Email или пароль неверный. Попробуйте ещё раз', 'Закрыть');
           this.loginForm.setErrors(Validators.required);
           this.loginButton.nativeElement.removeAttribute('disabled');
-          return false;
         } else {
           localStorage.setItem('token', res);
           this.authService.authChange.next();
           this.router.navigate(['/']);
-          return true;
         }
       })
-      .catch((e) => console.log(e));
-    return false;
+      .catch((e) => {
+        this.snackBar.open('Ошибка авторизации', 'Закрыть', {duration: 5000});
+        console.error(e);
+      }).finally(() => this.loginButton.nativeElement.removeAttribute('disabled'));
   }
 }
