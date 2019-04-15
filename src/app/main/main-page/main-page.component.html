@@ -2,15 +2,14 @@
   <div class="page-wrapper" id="wrapper">
     <button class="button button_filter">фильтры</button>
     <div class="columns-wrapper">
-      <mat-form-field>
-        <input aria-label="Поиск по проектам" placeholder="Поиск по проектам" type="text"
-               matInput [formControl]="searchValue" [matAutocomplete]="auto">
-      </mat-form-field>
-
-      <mat-autocomplete #auto="matAutocomplete">
-        <mat-option *ngFor="let project of searchResult" [value]="project.title">{{project.title}}</mat-option>
-      </mat-autocomplete>
-
+        <mat-form-field>
+            <input aria-label="Поиск по проектам" placeholder="Поиск по проектам" type="text"
+                   matInput [formControl]="searchValue" [matAutocomplete]="auto">
+          </mat-form-field>
+    
+          <mat-autocomplete #auto="matAutocomplete">
+            <mat-option *ngFor="let project of searchResult" [value]="project.title">{{project.title}}</mat-option>
+          </mat-autocomplete>
       <div class="columns-block">
         <div class="snippet-column">
           <app-preloader *ngIf="loading"></app-preloader>
