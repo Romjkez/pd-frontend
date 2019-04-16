@@ -4,6 +4,7 @@ import {MatDialog, MatSnackBar} from '@angular/material';
 import {Projects} from '../../../shared/models/project.model';
 import {Tag} from '../../../shared/models/tags.model';
 import {ListItem} from '../../../shared/components/editable-list/editable-list.component';
+import {AuthService} from '../../../shared/services/auth.service';
 
 @Component({
   selector: 'app-admin-cabinet',
@@ -20,7 +21,7 @@ export class AdminCabinetComponent implements OnInit {
   tags: Tag[];
   @ViewChild('tagsModal') tagsModal: TemplateRef<any>;
 
-  constructor(private apiService: ApiService, private snackBar: MatSnackBar, private matDialog: MatDialog) {
+  constructor(private apiService: ApiService, private snackBar: MatSnackBar, private matDialog: MatDialog, private authService: AuthService) {
   }
 
   async ngOnInit() {
@@ -54,7 +55,8 @@ export class AdminCabinetComponent implements OnInit {
       this.tags = res;
       this.matDialog.open(this.tagsModal, {width: '90%', maxWidth: '1000px'});
     }).catch(e => {
-      this.snackBar.open('Не удалось открыть список тегов', 'Закрыть');
+      this.snackBar.open(`Не удалось открыть список тегов: ${e.error.message}`, 'Закрыть', {duration: 5000});
+      this.authService.logout();
       console.error(e);
     });
   }

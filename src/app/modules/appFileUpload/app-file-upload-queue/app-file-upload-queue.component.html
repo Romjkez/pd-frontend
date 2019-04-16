@@ -1,0 +1,4 @@
+<ng-content></ng-content>
+<br>
+<button mat-raised-button color="primary" *ngIf="files.length > 0" (click)="uploadAll()">Загрузить всё</button>
+<button mat-raised-button color="primary" *ngIf="files.length > 0" (click)="removeAll()">Удалить всё</button>
