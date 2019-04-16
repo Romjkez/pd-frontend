@@ -47,7 +47,7 @@ export class EditProjectComponent implements OnInit {
 
       const tagsArray = this.project.tags.split(',');
       tagsArray.forEach((value, i) => {
-        if (value.length === 0) {
+        if (value.length === 0) { // escape empty tags
           tagsArray.splice(i, 1);
         }
       });

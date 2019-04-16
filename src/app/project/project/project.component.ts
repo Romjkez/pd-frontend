@@ -212,7 +212,6 @@ export class ProjectComponent implements OnInit {
   }
 
   openUploadModal() {
-    const modal = this.matDialog.open(this.uploadFileModal);
-    modal.afterClosed().subscribe(() => console.log('closed'));
+    this.matDialog.open(this.uploadFileModal);
   }
 }

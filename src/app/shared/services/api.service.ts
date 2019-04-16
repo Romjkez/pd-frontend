@@ -66,8 +66,7 @@ export class ApiService {
   }
 
   createProject(form: object | string): Promise<any> {
-    form = form + '&api_key=' + this.apiKey;
-    return this.http.post(`${this.baseUrl}/projects/create.php`, form, {
+    return this.http.post(`${this.baseUrl}/projects/create/`, form, {
       headers: {'Content-Type': 'application/x-www-form-urlencoded'},
       observe: 'body'
     }).toPromise();
@@ -81,7 +80,7 @@ export class ApiService {
   }
 
   updateProjectStatus(id: number, status: number, comment: string): Promise<any> {
-    const data = `api_key=${this.apiKey}&id=${id}&status=${status}&adm_comment=${comment}`;
+    const data = `id=${id}&status=${status}&adm_comment=${comment}`;
     return this.http.post(`${this.baseUrl}/projects/updateProjectStatus.php`, data, {
       headers: {'Content-Type': 'application/x-www-form-urlencoded'},
       observe: 'response'

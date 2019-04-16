@@ -81,11 +81,9 @@
             <mat-form-field>
               <mat-select [(value)]="checkedTagsList" placeholder="Не более 7 тегов" formArrayName="tags" multiple
                           required>
-                <mat-optgroup *ngFor="let group of gotTags | keyvalue" [label]="group.key.toString()">
-                  <mat-option *ngFor="let tag of group.value"
-                              [disabled]="checkedTagsList.length > 6 && checkedTagsList.includes(tag)!==true"
-                              [value]="tag">{{tag}}</mat-option>
-                </mat-optgroup>
+                <mat-option *ngFor="let tag of gotTags"
+                            [disabled]="checkedTagsList.length > 6 && checkedTagsList.includes(tag.value)!==true"
+                            [value]="tag.value">{{tag.value}}</mat-option>
               </mat-select>
             </mat-form-field>
           </label>
