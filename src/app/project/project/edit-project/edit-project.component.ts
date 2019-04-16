@@ -128,7 +128,6 @@ export class EditProjectComponent implements OnInit {
         console.error(e);
       }).finally(() => this.createProjectForm.controls.tags = new FormArray([]));
     }
-
   }
 
   private serializeObject(obj: object): string {

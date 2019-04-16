@@ -129,10 +129,6 @@ textarea {
   justify-content: space-between;
 }
 
-#customer-input {
-  display: none;
-}
-
 .required-sign {
   color: #FF0000;
 }
