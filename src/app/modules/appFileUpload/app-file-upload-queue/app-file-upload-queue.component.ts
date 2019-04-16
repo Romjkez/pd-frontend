@@ -1,7 +1,6 @@
-import {AfterViewInit, Component, ContentChildren, forwardRef, Input, OnDestroy, QueryList} from '@angular/core';
+import {AfterViewInit, Component, ContentChildren, forwardRef, OnDestroy, QueryList} from '@angular/core';
 import {merge, Observable, Subscription} from 'rxjs';
 import {startWith} from 'rxjs/operators';
-import {HttpHeaders, HttpParams} from '@angular/common/http';
 import {AppFileUploadComponent} from '../app-file-upload/app-file-upload.component';
 
 
@@ -31,23 +30,6 @@ export class AppFileUploadQueueComponent implements OnDestroy, AfterViewInit {
   }
 
   files: Array<any> = [];
-
-  /* Http request input bindings */
-  @Input()
-  httpUrl: string;
-
-  @Input()
-  httpRequestHeaders: HttpHeaders | {
-    [header: string]: string | string[];
-  } = new HttpHeaders();
-
-  @Input()
-  httpRequestParams: HttpParams | {
-    [param: string]: string | string[];
-  } = new HttpParams();
-
-  @Input()
-  fileAlias = 'file';
 
   ngAfterViewInit() {
     // When the list changes, re-subscribe

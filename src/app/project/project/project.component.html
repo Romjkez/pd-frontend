@@ -30,14 +30,12 @@
 
             <ng-template #uploadFileModal>
               <h2>Загрузка файлов проекта</h2>
-              <input id="singleFile" type="file" [fileUploadInputFor]="fileUploadQueue"/>
+              <input type="file" [fileUploadInputFor]="fileUploadQueue"/>
               <div [fileUploadInputFor]="fileUploadQueue" class="upload-drop-zone">
                 Перетащите файлы сюда
               </div>
               <div>
-                <app-file-upload-queue #fileUploadQueue
-                                       [fileAlias]="'file'"
-                                       [httpUrl]="'http://localhost:8180/'" multiple>
+                <app-file-upload-queue #fileUploadQueue multiple>
 
                   <app-file-upload [file]="file" [id]="i"
                                    *ngFor="let file of fileUploadQueue.files; let i = index"></app-file-upload>

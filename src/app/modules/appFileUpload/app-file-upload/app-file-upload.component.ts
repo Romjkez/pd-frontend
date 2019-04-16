@@ -24,8 +24,7 @@ export class AppFileUploadComponent implements OnDestroy {
 
 
   /* Http request input bindings */
-  @Input()
-  httpUrl = 'http://localhost:8080';
+  httpUrl = 'http://new.std-247.ist.mospolytech.ru/api/file/';
 
   @Input()
   httpRequestHeaders: HttpHeaders | {
