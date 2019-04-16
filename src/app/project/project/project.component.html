@@ -15,7 +15,7 @@
               <ng-template matMenuContent>
                 <button mat-menu-item (click)="router.navigate(['/project/'+project?.id+'/edit'])">Редактировать
                 </button>
-                <button mat-menu-item *ngIf="project?.status!=2">Загрузить документ</button>
+                <button mat-menu-item *ngIf="project?.status!=2" (click)="openUploadModal()">Загрузить документ</button>
                 <button mat-menu-item *ngIf="project?.status==3"
                         (click)="requestModeration($event)">Отправить на модерацию
                 </button>
@@ -27,6 +27,23 @@
             <button mat-icon-button [matMenuTriggerFor]="appMenu">
               <mat-icon>settings</mat-icon>
             </button>
+
+            <ng-template #uploadFileModal>
+              <h2>Загрузка файлов проекта</h2>
+              <input id="singleFile" type="file" [fileUploadInputFor]="fileUploadQueue"/>
+              <div [fileUploadInputFor]="fileUploadQueue" class="upload-drop-zone">
+                Перетащите файлы сюда
+              </div>
+              <div>
+                <app-file-upload-queue #fileUploadQueue
+                                       [fileAlias]="'file'"
+                                       [httpUrl]="'http://localhost:8180/'" multiple>
+
+                  <app-file-upload [file]="file" [id]="i"
+                                   *ngFor="let file of fileUploadQueue.files; let i = index"></app-file-upload>
+                </app-file-upload-queue>
+              </div>
+            </ng-template>
 
             <ng-template #confirmDeletionDialog>
               <h1 mat-dialog-title>Подтвердите удаление</h1>

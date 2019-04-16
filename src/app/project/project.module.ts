@@ -21,6 +21,7 @@ import {
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MomentDateAdapter} from '@angular/material-moment-adapter';
 import {EditProjectComponent} from './project/edit-project/edit-project.component';
+import {AppFileUploadModule} from '../modules/appFileUpload/appFileUpload.module';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import {EditProjectComponent} from './project/edit-project/edit-project.componen
     MatMenuModule,
     MatIconModule,
     MatButtonModule,
-    MatDialogModule
+    MatDialogModule,
+    AppFileUploadModule
   ],
   exports: [ProjectComponent, CreateProjectComponent, MatIconModule],
   providers: [

@@ -32,6 +32,7 @@ export class ProjectComponent implements OnInit {
   apps: ParsedWorkerApplication[];
   @ViewChild('joinFormSubmit') joinFormSubmit: ElementRef;
   @ViewChild('confirmDeletionDialog') confirmDeletionDialog: TemplateRef<any>;
+  @ViewChild('uploadFileModal') uploadFileModal: TemplateRef<any>;
 
   constructor(private activatedRoute: ActivatedRoute, private apiService: ApiService, private snackBar: MatSnackBar,
               private router: Router, public authService: AuthService, public matDialog: MatDialog) {
@@ -208,5 +209,10 @@ export class ProjectComponent implements OnInit {
         }
       })
       .catch(e => console.error(e));
+  }
+
+  openUploadModal() {
+    const modal = this.matDialog.open(this.uploadFileModal);
+    modal.afterClosed().subscribe(() => console.log('closed'));
   }
 }
