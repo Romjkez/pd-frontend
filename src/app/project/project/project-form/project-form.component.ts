@@ -1,11 +1,4 @@
-import {Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
-import {FormArray, FormControl, FormGroup} from '@angular/forms';
-import {back, isMobile, parseJwt} from '../../../shared/utils/functions.util';
-import {Project} from '../../../shared/models/project.model';
-import {MatDatepickerInputEvent, MatSnackBar} from '@angular/material';
-import {Tag} from '../../../shared/models/tags.model';
-import {ApiService} from '../../../shared/services/api.service';
-import {ActivatedRoute, Router} from '@angular/router';
+import {Component, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-project-form',
@@ -13,7 +6,7 @@ import {ActivatedRoute, Router} from '@angular/router';
   styleUrls: ['./project-form.component.css']
 })
 export class ProjectFormComponent implements OnInit {
-  back = back;
+  /*back = back;
   isMobile = isMobile;
 
   loading: boolean;
@@ -31,9 +24,6 @@ export class ProjectFormComponent implements OnInit {
 
   constructor(private apiService: ApiService, private snackBar: MatSnackBar, private router: Router,
               private activatedRoute: ActivatedRoute) {
-  }
-
-  ngOnInit() {
   }
 
   async submitProjectForm() {
@@ -106,5 +96,7 @@ export class ProjectFormComponent implements OnInit {
       result.teams++;
     }
     return result;
+  }*/
+  ngOnInit() {
   }
 }

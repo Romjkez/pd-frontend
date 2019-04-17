@@ -72,7 +72,6 @@
                    placeholder="От 1 до 10 команд"
                    class="form__input form__date"
                    formControlName="teamsCount"></label>
-          <!--todo починить отметку ранее выбранных тегов -->
           <label>
             Теги проекта<img
             matTooltip="Выберите необходимые для проекта компетенции. По ним студент сможет отфильтровать проекты и найти подходящий"
@@ -83,7 +82,7 @@
                           required>
                 <mat-option *ngFor="let tag of gotTags"
                             [disabled]="checkedTagsList.length > 6 && checkedTagsList.includes(tag.value)!==true"
-                            [value]="tag.value">{{tag.value}}</mat-option>
+                            [value]="tag.value">{{tag.category}} | {{tag.value}}</mat-option>
               </mat-select>
             </mat-form-field>
           </label>
