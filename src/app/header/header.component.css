@@ -8,6 +8,10 @@ header {
   z-index: 500;
 }
 
+.burger__menu {
+  display: none;
+}
+
 .logo-image {
   height: 50px;
   width: 50px;
@@ -127,6 +131,13 @@ header {
 }
 
 @media (max-width: 575.98px) {
+}
+
+@media (max-width: 767.98px) {
+  header {
+    margin-bottom: 15px;
+  }
+
   .page-wrapper {
     width: 90%;
   }
@@ -140,13 +151,11 @@ header {
 
   .header__left-side {
     width: 100%;
-    justify-content: space-between; 
+    justify-content: space-between;
   }
-}
 
-@media (max-width: 767.98px) {
-  .page-wrapper {
-    width: 95%;
+  .burger__menu {
+    display: block;
   }
 }
 
