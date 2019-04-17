@@ -82,8 +82,8 @@
               <mat-select [(value)]="checkedTagsList" placeholder="Не более 7 тегов" formArrayName="tags" multiple
                           required>
                 <mat-option *ngFor="let tag of tagsList"
-                            [disabled]="checkedTagsList.length > 6 && checkedTagsList.includes(tag.value)!==true"
-                            [value]="tag.value">{{tag.value}}</mat-option>
+                            [disabled]="checkedTagsList?.length > 6 && checkedTagsList.includes(tag.value)!==true"
+                            [value]="tag.value">{{tag.category}} | {{tag.value}}</mat-option>
               </mat-select>
             </mat-form-field>
           </label>

@@ -24,7 +24,7 @@ export class ProjectFormComponent implements OnInit {
   project: Project | null;
   tagsList: Tag[]; // tags list received from server
   teamsInfo: { roles: string[], teams: number };
-  checkedTagsList: any[];
+  checkedTagsList: string[] = [];
 
   @ViewChild('submitButton') submitButton: ElementRef;
 
@@ -34,9 +34,7 @@ export class ProjectFormComponent implements OnInit {
               private activatedRoute: ActivatedRoute) {
   }
 
-  // todo определять по урлу какой isEditing вставлять
   async ngOnInit() {
-    console.log(this.router.url);
     this.loading = true;
     if (this.isEditingProject) {
       const id = this.activatedRoute.snapshot.paramMap.get('id');
@@ -46,6 +44,30 @@ export class ProjectFormComponent implements OnInit {
       ]).then(([tags, project]) => {
         this.tagsList = tags;
         this.project = project;
+
+        this.teamsInfo = this.getTeams(this.project.members);
+        const tagsArray = this.project.tags.split(',');
+        tagsArray.forEach((value, i) => {
+          if (value.length === 0) { // escape empty tags
+            tagsArray.splice(i, 1);
+          }
+        });
+        this.checkedTagsList = tagsArray;
+
+        this.projectForm = new FormGroup({
+          id: new FormControl(+this.project.id),
+          title:
+            new FormControl(this.project.title, [Validators.required, Validators.minLength((2)), Validators.maxLength(255)]),
+          description:
+            new FormControl(this.project.description, [Validators.required, Validators.minLength((2))]),
+          deadline: new FormControl(this.project.deadline, [Validators.required]),
+          finish_date: new FormControl(this.project.finish_date, [Validators.required]),
+          roles: new FormControl(this.teamsInfo.roles.slice(0), [Validators.required]),
+          teamsCount: new FormControl(this.teamsInfo.teams, [Validators.required, Validators.min(1), Validators.max(10)]),
+          tags: new FormArray([]),
+          avatar: new FormControl(this.project.avatar),
+          files: new FormControl(this.project.files)
+        });
       }).catch((e) => {
         this.snackBar.open(`Произошла ошибка: ${e}`, 'Закрыть');
         console.error(e);
@@ -53,37 +75,28 @@ export class ProjectFormComponent implements OnInit {
     } else {
       await this.apiService.getTags().then((res) => {
         this.tagsList = res;
+        this.projectForm = new FormGroup({
+          title:
+            new FormControl('', [Validators.required, Validators.minLength((2)), Validators.maxLength(255)]),
+          description:
+            new FormControl('', [Validators.required, Validators.minLength((2))]),
+          deadline: new FormControl('', [Validators.required]),
+          finish_date: new FormControl('', [Validators.required]),
+          roles: new FormControl('', [Validators.required]),
+          teamsCount: new FormControl('', [Validators.required, Validators.min(1), Validators.max(10)]),
+          tags: new FormArray([]),
+          avatar: new FormControl(''),
+          files: new FormControl('')
+        });
       }).catch(e => {
-          console.log(e);
+        this.snackBar.open(`Ошибка: ${e}`, 'Закрыть', {duration: 5000});
+        console.error(e);
         }
       ).finally(() => this.loading = false);
     }
     const date = new Date;
     this.minApplyFinishDate = new Date(date.getFullYear(), date.getMonth(), date.getDate() + 1);
     this.maxApplyFinishDate = new Date(date.getFullYear(), date.getMonth() + 6, date.getDate());
-    this.teamsInfo = this.getTeams(this.project.members);
-
-    const tagsArray = this.project.tags.split(',');
-    tagsArray.forEach((value, i) => {
-      if (value.length === 0) { // escape empty tags
-        tagsArray.splice(i, 1);
-      }
-    });
-    this.checkedTagsList = tagsArray;
-
-    this.projectForm = new FormGroup({
-      title:
-        new FormControl(this.project.title || '', [Validators.required, Validators.minLength((2)), Validators.maxLength(255)]),
-      description:
-        new FormControl(this.project.description || '', [Validators.required, Validators.minLength((2))]),
-      deadline: new FormControl(this.project.deadline || '', [Validators.required]), // todo test
-      finish_date: new FormControl(this.project.finish_date || '', [Validators.required]),
-      roles: new FormControl(this.teamsInfo.roles.slice(0) || '', [Validators.required]),
-      teamsCount: new FormControl(this.teamsInfo.teams || '', [Validators.required, Validators.min(1), Validators.max(10)]),
-      tags: new FormArray([]),
-      avatar: new FormControl(this.project.avatar || ''),
-      files: new FormControl(this.project.files || '')
-    });
   }
 
   async submitProjectForm() {
@@ -98,8 +111,8 @@ export class ProjectFormComponent implements OnInit {
       const members = JSON.stringify(this.makeTeams());
       const curatorId = parseJwt(localStorage.getItem('token')).data.id;
       const data = this.serializeObject(this.projectForm.getRawValue()).concat(`&curator=${curatorId}&members=${members}`);
+
       if (this.isEditingProject) {
-        data.concat(`&id=${this.project.id}`);
         await this.apiService.updateProject(data).then(res => {
             if (res.message === 'true') {
               this.snackBar.open('Проект отредактирован', 'Закрыть', {duration: 3000});
@@ -142,7 +155,7 @@ export class ProjectFormComponent implements OnInit {
   private makeTeams(): object[] {
     const result = [];
     const teams = <number>this.projectForm.controls.teamsCount.value;
-    const members = this.projectForm.controls.roles.value;
+    const members = this.projectForm.controls.roles.value.toString().split(',');
     for (let i = 0; i < teams; i++) {
       const team = {};
       for (let j = 0; j < members.length; j++) {
