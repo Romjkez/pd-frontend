@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Router} from '@angular/router';
 import {Subject} from 'rxjs';
 import {parseJwt} from '../utils/functions.util';
@@ -16,7 +16,7 @@ export class AuthService {
 
   public login(email: string, pass: string): Promise<any> {
     const headers = new HttpHeaders('Content-Type: application/x-www-form-urlencoded');
-    const params = new HttpParams().append('email', email).append('pass', pass);
+    const params = `email=${email}&pass=${pass}`;
     return this.http.post('http://new.std-247.ist.mospolytech.ru/api/user/auth.php', params, {headers}).toPromise();
   }
 

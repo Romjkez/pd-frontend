@@ -6,7 +6,7 @@ import {MatSnackBar} from '@angular/material';
 import {Router} from '@angular/router';
 import * as _moment from 'moment';
 import {back, isMobile, parseJwt} from '../../../shared/utils/functions.util';
-import {Tags} from '../../../shared/models/tags.model';
+import {Tag} from '../../../shared/models/tags.model';
 
 const moment = _moment;
 
@@ -20,7 +20,7 @@ export class CreateProjectComponent implements OnInit {
   createProjectForm: FormGroup;
   tags: FormArray;
   tagsMaximum: boolean;
-  gotTags: Tags[];
+  gotTags: Tag[];
   checkedTags = {};
   minDate: Date;
   minFinishDate: Date;
@@ -67,6 +67,7 @@ export class CreateProjectComponent implements OnInit {
       }
     }
     this.tagsMaximum = tagsCounter > 6;
+    console.log(this.createProjectForm.controls.tags);
   }
 
   getTextAreaCols(): { [key: string]: string } {

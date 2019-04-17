@@ -8,6 +8,8 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {ProjectsComponent} from './components/projects/projects.component';
 import {NgxPaginationModule} from 'ngx-pagination';
 import {ApplicationSnippetComponent} from './components/application-snippet/application-snippet.component';
+import {EditableListComponent} from './components/editable-list/editable-list.component';
+import {MatButtonModule, MatDialogModule, MatIconModule} from '@angular/material';
 
 
 @NgModule({
@@ -17,6 +19,7 @@ import {ApplicationSnippetComponent} from './components/application-snippet/appl
     AdmProjectSnippetComponent,
     ProjectsComponent,
     ApplicationSnippetComponent,
+    EditableListComponent,
   ],
   imports: [
     CommonModule,
@@ -24,6 +27,9 @@ import {ApplicationSnippetComponent} from './components/application-snippet/appl
     FormsModule,
     NgxPaginationModule,
     ReactiveFormsModule,
+    MatButtonModule,
+    MatIconModule,
+    MatDialogModule,
   ],
   exports: [
     PreloaderComponent,
@@ -31,7 +37,8 @@ import {ApplicationSnippetComponent} from './components/application-snippet/appl
     AdmProjectSnippetComponent,
     ProjectsComponent,
     ApplicationSnippetComponent,
-  ],
+    EditableListComponent,
+  ]
 })
 export class SharedModule {
 }
