@@ -1,0 +1,115 @@
+<div class="page-wrapper-cp">
+  <app-preloader *ngIf="loading"></app-preloader>
+  <ng-container *ngIf="!loading">
+    <form class="form" [formGroup]="projectForm" (ngSubmit)="submitProjectForm()">
+      <div class="form__title">
+        <div class="auth-form__back-button">
+          <a (click)="back()">
+            <img class="auth-form__back-image" src="../assets/img/back_button.svg" alt="Назад" width="20"
+                 height="20">
+          </a>
+        </div>
+        <h2 class="form__reg">{{isEditingProject ? 'редактирование проекта' : 'создание проекта'}}</h2>
+      </div>
+      <div class="form__user-info">
+        <label>Название проекта
+          <input autofocus required type="text" placeholder="Не более 255 символов" class="form__input"
+                 formControlName="title"></label>
+        <label for="project_desc">Описание проекта</label>
+        <img
+          matTooltip="Укажите всю необходимую о проекте информацию: цель проекта, задачи, контакты и другое. Первые 255 символов будут отображаться в карточке проекта в качестве краткого описания."
+          matTooltipClass="tooltip"
+          matTooltipShowDelay="200"
+          class="info-icon" src="../assets/img/info.svg" alt="Информация">
+        <br><textarea required id="project_desc"
+                      placeholder="Укажите дополнительную необходимую информацию о проекте: график встреч, требования, описание задач"
+                      rows="2" class="form__textarea" formControlName="description"></textarea>
+        <br>
+        <mat-form-field>
+          <label for="deadlinePicker">Крайняя дата записи</label>
+          <input (dateChange)="onApplyFinishDateChange($event)" [min]="minApplyFinishDate" [max]="maxApplyFinishDate"
+                 [matDatepicker]="deadlinePicker"
+                 required matInput
+                 id="deadlinePicker"
+                 formControlName="deadline">
+          <mat-datepicker-toggle matSuffix [for]="deadlinePicker"></mat-datepicker-toggle>
+          <mat-datepicker [touchUi]="isMobile()" #deadlinePicker></mat-datepicker>
+        </mat-form-field>
+        <img style="margin-left:1%"
+             matTooltip="Укажите дату, до которой студенты смогут записываться на проект(не включительно!)"
+             matTooltipClass="tooltip"
+             class="info-icon" src="../assets/img/info.svg" alt="Информация">
+        <br>
+        <mat-form-field>
+          <label for="finishPicker">Дата окончания проекта</label>
+          <input [min]="minProjectFinishDate? minProjectFinishDate: minApplyFinishDate" [max]="maxApplyFinishDate"
+                 [matDatepicker]="finishPicker"
+                 required matInput
+                 id="finishPicker"
+                 formControlName="finish_date">
+          <mat-datepicker-toggle matSuffix [for]="finishPicker"></mat-datepicker-toggle>
+          <mat-datepicker [touchUi]="isMobile()" #finishPicker></mat-datepicker>
+        </mat-form-field>
+        <img style="margin-left:1%"
+             matTooltip="Укажите дату, до которой проект должен быть презентован и оценён"
+             matTooltipClass="tooltip"
+             class="info-icon" src="../assets/img/info.svg" alt="Информация">
+        <br><br>
+        <label *ngIf="(isEditingProject && (project.status==0 || project.status==3)) || !isEditingProject">Специальности(роли)
+          <img
+            matTooltip="Специальности обязательно перечисляйте через запятую. Например: Frontend-разработчик, Web-дизайнер"
+            matTooltipClass="tooltip"
+            class="info-icon" src="../assets/img/info.svg" alt="Информация">
+          <input required type="email" class="form__input" placeholder="От 1 до 10 специальностей"
+                 formControlName="roles"></label>
+        <label *ngIf="(isEditingProject && (project.status==0 || project.status==3)) || !isEditingProject">Количество
+          команд
+          <img
+            matTooltip="В каждой из команд будут те специальности, которые вы укажете в поле 'Специальности(роли)'"
+            matTooltipClass="tooltip"
+            class="info-icon" src="../assets/img/info.svg" alt="Информация">
+          <input required type="number" min="1" max="10" maxlength="2"
+                 placeholder="От 1 до 10 команд"
+                 class="form__input form__date"
+                 formControlName="teamsCount"></label>
+        <label>
+          Теги проекта<img
+          matTooltip="Выберите необходимые для проекта компетенции. По ним студент сможет отфильтровать проекты и найти подходящий"
+          matTooltipClass="tooltip"
+          class="info-icon" src="../assets/img/info.svg" alt="Информация"><br>
+          <mat-form-field>
+            <mat-select [(value)]="checkedTagsList" placeholder="Не более 7 тегов" formArrayName="tags" multiple
+                        required>
+              <mat-option *ngFor="let tag of tagsList"
+                          [disabled]="checkedTagsList?.length > 6 && checkedTagsList.includes(tag.value)!==true"
+                          [value]="tag.value">{{tag.category}} | {{tag.value}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </label>
+        <br>
+        <label>
+          Ссылка на аватарку проекта
+          <img
+            matTooltip="Ссылка на картинку, которая будет отображаться как фон для сниппета проекта в списке проектов"
+            matTooltipClass="tooltip"
+            class="info-icon" src="../assets/img/info.svg" alt="Информация">
+          <input type="text" minlength="4" maxlength="255"
+                 placeholder="Рекомендуемый размер: 800x190px"
+                 class="form__input form__date"
+                 formControlName="avatar">
+        </label>
+        <div class="form__submit">
+          <button [disabled]="!projectForm.valid" type="submit"
+                  class="button form__button reg-form__button-submit" #submitButton>
+            Подтвердить
+          </button>
+          <br>
+          <button (click)="projectForm.reset()" type="reset"
+                  class="button reg-form__button reg-form__button-reset">Сбросить
+          </button>
+        </div>
+      </div>
+    </form>
+  </ng-container>
+</div>
+

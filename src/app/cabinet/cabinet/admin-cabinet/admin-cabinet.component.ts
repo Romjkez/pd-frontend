@@ -21,7 +21,8 @@ export class AdminCabinetComponent implements OnInit {
   tags: Tag[];
   @ViewChild('tagsModal') tagsModal: TemplateRef<any>;
 
-  constructor(private apiService: ApiService, private snackBar: MatSnackBar, private matDialog: MatDialog, private authService: AuthService) {
+  constructor(private apiService: ApiService, private snackBar: MatSnackBar, private matDialog: MatDialog,
+              private authService: AuthService) {
   }
 
   async ngOnInit() {
