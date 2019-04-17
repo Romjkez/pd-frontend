@@ -159,14 +159,20 @@ header {
   }
 }
 
-@media (max-width: 991.98px) {
+@media (min-width: 768px) and (max-width: 991.98px) {
+  .page-wrapper {
+    width: 95%;
+  }
+
+  .header__title {
+    display: none; 
+  }
+}
+
+@media (min-width: 992px) and (max-width: 1199.98px) {
   .page-wrapper {
     width: 95%;
   }
 }
 
-@media (max-width: 1199.98px) {
-  .page-wrapper {
-    width: 95%;
-  }
-}
+
