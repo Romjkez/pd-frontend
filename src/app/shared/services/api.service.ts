@@ -4,6 +4,7 @@ import {Project, Projects, UserProjects} from '../models/project.model';
 import {User} from '../models/user.model';
 import {Tag} from '../models/tags.model';
 import {ParsedProjectApplication, ParsedWorkerApplication} from '../models/application.model';
+import {Observable} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -96,6 +97,10 @@ export class ApiService {
 
   deleteProject(id: number): Promise<any> {
     return this.http.delete(`${this.baseUrl}/projects/delete.php?id=${id}`, {observe: 'body'}).toPromise();
+  }
+
+  searchProjectByTitle(title: string): Observable<Project[]> {
+    return this.http.get<Project[]>(`${this.baseUrl}/projects/get.php?title=${title.trim()}`, {observe: 'body'});
   }
 
   /*

@@ -1,0 +1,10 @@
+<mat-form-field>
+  <input aria-label="Поиск по проектам" placeholder="Поиск по проектам" type="text" maxlength="100"
+         matInput [formControl]="searchValue" (input)="onSearch($event)" [matAutocomplete]="auto">
+</mat-form-field>
+
+<mat-autocomplete #auto="matAutocomplete">
+  <mat-option *ngFor="let result of results" (click)="router.navigate(['/project/'+result?.id])"
+              [value]="result?.title">{{result?.title}}</mat-option>
+  <mat-option *ngIf="results?.length===0 && searchValue.value.toString().length>2">Ничего не найдено...</mat-option>
+</mat-autocomplete>
