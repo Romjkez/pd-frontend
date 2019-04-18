@@ -9,7 +9,15 @@ import {ProjectsComponent} from './components/projects/projects.component';
 import {NgxPaginationModule} from 'ngx-pagination';
 import {ApplicationSnippetComponent} from './components/application-snippet/application-snippet.component';
 import {EditableListComponent} from './components/editable-list/editable-list.component';
-import {MatButtonModule, MatDialogModule, MatIconModule} from '@angular/material';
+import {
+  MatAutocompleteModule,
+  MatButtonModule,
+  MatDialogModule,
+  MatFormFieldModule,
+  MatIconModule,
+  MatInputModule
+} from '@angular/material';
+import {SearchComponent} from './components/search/search.component';
 
 
 @NgModule({
@@ -20,6 +28,7 @@ import {MatButtonModule, MatDialogModule, MatIconModule} from '@angular/material
     ProjectsComponent,
     ApplicationSnippetComponent,
     EditableListComponent,
+    SearchComponent,
   ],
   imports: [
     CommonModule,
@@ -30,6 +39,9 @@ import {MatButtonModule, MatDialogModule, MatIconModule} from '@angular/material
     MatButtonModule,
     MatIconModule,
     MatDialogModule,
+    MatAutocompleteModule,
+    MatFormFieldModule,
+    MatInputModule
   ],
   exports: [
     PreloaderComponent,
@@ -38,6 +50,7 @@ import {MatButtonModule, MatDialogModule, MatIconModule} from '@angular/material
     ProjectsComponent,
     ApplicationSnippetComponent,
     EditableListComponent,
+    SearchComponent,
   ]
 })
 export class SharedModule {

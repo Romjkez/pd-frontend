@@ -1,43 +1,33 @@
-<main class="main">
-  <div class="page-wrapper" id="wrapper">
-    <button class="button button_filter">фильтры</button>
-    <div class="columns-wrapper">
-      <mat-form-field>
-        <input aria-label="Поиск по проектам" placeholder="Поиск по проектам" type="text"
-               matInput [formControl]="searchValue" [matAutocomplete]="auto">
-      </mat-form-field>
-
-      <mat-autocomplete #auto="matAutocomplete">
-        <mat-option *ngFor="let project of searchResult" [value]="project.title">{{project.title}}</mat-option>
-      </mat-autocomplete>
-
-      <div class="columns-block">
-        <div class="snippet-column">
-          <app-preloader *ngIf="loading"></app-preloader>
-          <h3 *ngIf="totalPages<1" style="text-align: center">Никто ещё не разместил проект...</h3>
-          <ng-container *ngFor="let project of projects | paginate: {
+<main class="page-wrapper">
+  <button class="button button_filter">фильтры</button>
+  <div class="columns-wrapper">
+    <app-search [target]="'project'"></app-search>
+    <div class="columns-block">
+      <div class="snippet-column">
+        <app-preloader *ngIf="loading"></app-preloader>
+        <h3 *ngIf="totalPages<1" style="text-align: center">Никто ещё не разместил проект...</h3>
+        <ng-container *ngFor="let project of projects | paginate: {
         itemsPerPage: perPage, currentPage: currentPage, totalItems: perPage*totalPages}">
-            <app-project-snippet [project]="project"></app-project-snippet>
-          </ng-container>
-          <div class="pagination" *ngIf="totalPages>0">
-            <pagination-controls
-              responsive="true"
-              nextLabel="Вперёд"
-              previousLabel="Назад"
-              (pageChange)="switchPage($event)"></pagination-controls>
-          </div>
+          <app-project-snippet [project]="project"></app-project-snippet>
+        </ng-container>
+        <div class="pagination" *ngIf="totalPages>0">
+          <pagination-controls
+            responsive="true"
+            nextLabel="Вперёд"
+            previousLabel="Назад"
+            (pageChange)="switchPage($event)"></pagination-controls>
         </div>
-        <div class="filter-column" id="filters">
-          <div class="filter-block">
-            <h4>фильтры</h4>
-            <div class="filter-block__cancel">
-              <a href="#">отмена</a>
-              <a href="#" class="filter-block__clear-filters">сбросить</a>
-            </div>
-            <div class="filter-block__confirm">
-              <button class="button button_confirm">подтведить</button>
-              <a href="#" class="filter-block__clear-filters_desktop">сбросить</a>
-            </div>
+      </div>
+      <div class="filter-column" id="filters">
+        <div class="filter-block">
+          <h4>фильтры</h4>
+          <div class="filter-block__cancel">
+            <a href="#">отмена</a>
+            <a href="#" class="filter-block__clear-filters">сбросить</a>
+          </div>
+          <div class="filter-block__confirm">
+            <button class="button button_confirm">подтведить</button>
+            <a href="#" class="filter-block__clear-filters_desktop">сбросить</a>
           </div>
         </div>
       </div>

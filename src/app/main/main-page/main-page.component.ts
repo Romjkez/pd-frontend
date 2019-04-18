@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {ApiService} from '../../shared/services/api.service';
-import {FormControl, Validators} from '@angular/forms';
 import {Project} from '../../shared/models/project.model';
+import {MatSnackBar} from '@angular/material';
 
 @Component({
   selector: 'app-main-page',
@@ -15,26 +15,23 @@ export class MainPageComponent implements OnInit {
   perPage = 5;
   statusFilter = 1;
   loading: boolean;
-  searchValue: FormControl;
   searchResult: Project[];
 
-  constructor(private apiService: ApiService) {
+  constructor(private apiService: ApiService, private snackBar: MatSnackBar) {
   }
 
   async ngOnInit() {
     this.loading = true;
-    this.searchValue = new FormControl('',
-      [Validators.minLength(2), Validators.maxLength(200)]);
     await this.apiService.getProjectsByStatus(this.statusFilter, this.perPage, this.currentPage).then((res) => {
       this.currentPage = res.page;
       this.totalPages = res.pages;
       this.perPage = res.per_page;
       this.projects = res.data;
-      this.loading = false;
     }).catch(e => {
-      this.loading = false;
+      this.snackBar.open('Не удалось загрузить проекты', 'Закрыть');
       console.error('Failed to get projects:', e);
-    });
+    }).finally(() => this.loading = false
+    );
     this.apiService.updateProjectsDeadlines().then((res) => {
       if (res.body.message === 'true') {
       } else {
@@ -50,8 +47,8 @@ export class MainPageComponent implements OnInit {
       this.perPage = res.per_page;
       this.projects = res.data;
     }).catch(e => {
+      this.snackBar.open('Не удалось загрузить проекты', 'Закрыть');
       console.error('Failed to get projects:', e);
     });
   }
-
 }
