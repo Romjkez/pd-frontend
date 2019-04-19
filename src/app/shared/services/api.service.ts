@@ -4,6 +4,7 @@ import {Project, Projects, UserProjects} from '../models/project.model';
 import {User} from '../models/user.model';
 import {Tag} from '../models/tags.model';
 import {ParsedProjectApplication, ParsedWorkerApplication} from '../models/application.model';
+import {Observable} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -66,8 +67,7 @@ export class ApiService {
   }
 
   createProject(form: object | string): Promise<any> {
-    form = form + '&api_key=' + this.apiKey;
-    return this.http.post(`${this.baseUrl}/projects/create.php`, form, {
+    return this.http.post(`${this.baseUrl}/projects/create/`, form, {
       headers: {'Content-Type': 'application/x-www-form-urlencoded'},
       observe: 'body'
     }).toPromise();
@@ -81,7 +81,7 @@ export class ApiService {
   }
 
   updateProjectStatus(id: number, status: number, comment: string): Promise<any> {
-    const data = `api_key=${this.apiKey}&id=${id}&status=${status}&adm_comment=${comment}`;
+    const data = `id=${id}&status=${status}&adm_comment=${comment}`;
     return this.http.post(`${this.baseUrl}/projects/updateProjectStatus.php`, data, {
       headers: {'Content-Type': 'application/x-www-form-urlencoded'},
       observe: 'response'
@@ -97,6 +97,10 @@ export class ApiService {
 
   deleteProject(id: number): Promise<any> {
     return this.http.delete(`${this.baseUrl}/projects/delete.php?id=${id}`, {observe: 'body'}).toPromise();
+  }
+
+  searchProjectByTitle(title: string): Observable<Project[]> {
+    return this.http.get<Project[]>(`${this.baseUrl}/projects/get.php?title=${title.trim()}`, {observe: 'body'});
   }
 
   /*
