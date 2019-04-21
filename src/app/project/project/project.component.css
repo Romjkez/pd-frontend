@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/icon?family=Material+Icons");
+
 .side-form {
   padding: 10px 0 30px 0;
   border-top: 1px solid #707070;
@@ -24,6 +25,7 @@
   justify-content: space-between;
 }
 
+
 .teammate__info {
   display: flex;
   flex-direction: column;
@@ -35,7 +37,7 @@
   flex-direction: row;
 }
 
-.side-form__body form {
+.side-form__form {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -52,7 +54,6 @@
 }
 
 .requests {
-  min-width: 450px;
   max-width: 900px;
   height: auto;
   padding: 30px;
@@ -161,7 +162,6 @@
   background-color: red;
 }
 .project-view {
-  min-width: 450px;
   max-width: 900px;
   height: auto;
   padding: 30px;
@@ -243,6 +243,7 @@
 
 .snippet__proj-tags {
   display: flex;
+  flex-wrap: wrap;
   border: none;
   padding: 0;
   margin: 0 0 0 10px;
@@ -307,27 +308,66 @@ button mat-icon {
 
   .project-view {
     width: 100%;
-    padding: 20px;
+    padding: 20px 15px;
     box-sizing: border-box;
   }
+
+  .project-view__id {
+    display: none;
+  }
+
+  .top-info__right {
+    flex-direction: row-reverse;
+    justify-content: space-between;
+    width: 100%;
+    font-size: 14px;
+  }
+
+  .side-form__body, .side-form__form, .fields{
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .fields {
+    width: 100%;
+    text-align: center;
+  }
+
+  .side-form__item {
+    width: 100%;
+  }
+
+  .button_confirm {
+    margin-left: 0;
+    margin-top: 20px;
+  }
+
+  .side-form__comment {
+    height: 80px;
+  }
+
+  .team-block {
+    width: 45%;
+    margin: 5px;
+  }
 }
 
-@media (min-width: 576px) and (max-width: 767.98px) {
+@media (max-width: 767.98px) {
   .page-wrapper {
     width: 95%;
   }
 
-  .project-view {
-    width: 80%;
-  }
+  
 }
 
-@media (min-width: 768px) and (max-width: 1199px) {
+@media (max-width: 991.98px) { 
+
+}
+
+@media (max-width: 1199px) {
   .page-wrapper {
     width: 95%;
   }
 
-  .project-view {
-    width: 80%;
-  }
+  
 }
