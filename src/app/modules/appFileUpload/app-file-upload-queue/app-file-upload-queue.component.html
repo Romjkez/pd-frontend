@@ -1,4 +1,8 @@
 <ng-content></ng-content>
 <br>
-<button mat-raised-button color="primary" *ngIf="files.length > 0" (click)="uploadAll()">Загрузить всё</button>
-<button mat-raised-button color="primary" *ngIf="files.length > 0" (click)="removeAll()">Удалить всё</button>
+<div class="controls">
+  <button mat-raised-button color="primary" *ngIf="files.length > 0" (click)="uploadAll()">Загрузить всё</button>
+  <button mat-raised-button color="primary" *ngIf="files.length > 0" (click)="removeAll()">Очистить список</button>
+  <button mat-button color="primary" (click)="close()">Закрыть</button>
+</div>
+

@@ -1,12 +1,8 @@
-import {AfterViewInit, Component, ContentChildren, forwardRef, OnDestroy, QueryList} from '@angular/core';
+import {AfterViewInit, Component, ContentChildren, EventEmitter, forwardRef, OnDestroy, Output, QueryList} from '@angular/core';
 import {merge, Observable, Subscription} from 'rxjs';
 import {startWith} from 'rxjs/operators';
 import {AppFileUploadComponent} from '../app-file-upload/app-file-upload.component';
 
-
-/**
- * A material design file upload queue component.
- */
 @Component({
   selector: 'app-file-upload-queue',
   templateUrl: `app-file-upload-queue.component.html`,
@@ -17,7 +13,8 @@ import {AppFileUploadComponent} from '../app-file-upload/app-file-upload.compone
 export class AppFileUploadQueueComponent implements OnDestroy, AfterViewInit {
 
   @ContentChildren(forwardRef(() => AppFileUploadComponent)) fileUploads: QueryList<AppFileUploadComponent>;
-
+  @Output() closed = new EventEmitter();
+  @Output() error = new EventEmitter();
   /** Subscription to remove changes in files. */
   private _fileRemoveSubscription: Subscription | null;
 
@@ -29,7 +26,11 @@ export class AppFileUploadQueueComponent implements OnDestroy, AfterViewInit {
     return merge(...this.fileUploads.map(fileUpload => fileUpload.removeEvent));
   }
 
-  files: Array<any> = [];
+  files: Array<File> = [];
+
+  close(): void {
+    this.closed.emit();
+  }
 
   ngAfterViewInit() {
     // When the list changes, re-subscribe
@@ -47,8 +48,14 @@ export class AppFileUploadQueueComponent implements OnDestroy, AfterViewInit {
     });
   }
 
-  add(file: any) {
-    this.files.push(file);
+  add(file: File) {
+    let isDuplicate: boolean;
+    this.files.map(el => el.name === file.name ? isDuplicate = true : false);
+    if (isDuplicate) {
+      this.error.emit('Невозможно добавить один и тот же файл ещё раз');
+    } else {
+      this.files.push(file);
+    }
   }
 
   uploadAll() {
@@ -66,5 +73,4 @@ export class AppFileUploadQueueComponent implements OnDestroy, AfterViewInit {
       this.removeAll();
     }
   }
-
 }

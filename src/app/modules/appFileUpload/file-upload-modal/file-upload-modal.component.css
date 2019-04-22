@@ -1,0 +1,11 @@
+h2 {
+  margin: 5% 0;
+}
+
+.upload-drop-zone {
+  color: #a5a5a5;
+  border-style: dashed;
+  border-color: #ccc;
+  line-height: 200px;
+  text-align: center
+}

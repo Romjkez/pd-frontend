@@ -2,9 +2,10 @@ import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {AuthService} from '../../shared/services/auth.service';
 import {Router} from '@angular/router';
-import {HttpClient, HttpErrorResponse, HttpHeaders, HttpResponse} from '@angular/common/http';
+import {HttpErrorResponse, HttpResponse} from '@angular/common/http';
 import {MatSnackBar} from '@angular/material';
 import {back} from '../../shared/utils/functions.util';
+import {ApiService} from '../../shared/services/api.service';
 
 export interface FormLabels {
   worker: {
@@ -39,7 +40,7 @@ export class RegisterComponent implements OnInit {
   back = back;
   @ViewChild('submitButton') submitButton: ElementRef;
 
-  constructor(private authService: AuthService, private router: Router, private http: HttpClient, private snackBar: MatSnackBar) {
+  constructor(private authService: AuthService, private router: Router, private apiService: ApiService, private snackBar: MatSnackBar) {
   }
 
   ngOnInit() {
@@ -110,9 +111,7 @@ export class RegisterComponent implements OnInit {
         });
       }
     } else {
-      this.snackBar.open('Введённые пароли не совпадают', 'Закрыть', {
-        duration: 4000
-      });
+      this.snackBar.open('Введённые пароли не совпадают', 'Закрыть', {duration: 4000});
       this.submitButton.nativeElement.removeAttribute('disabled');
       this.regForm.setErrors(Validators.nullValidator);
     }
@@ -135,19 +134,16 @@ export class RegisterComponent implements OnInit {
   }
 
   async requestRegister(): Promise<any> {
-    const headers = new HttpHeaders('Content-Type: application/x-www-form-urlencoded');
-    const body = 'name=' + this.regForm.controls.name.value.trim() +
-      '&surname=' + this.regForm.controls.surname.value.trim() +
-      '&middlename=' + this.regForm.controls.middlename.value.trim() +
-      '&usergroup=' + this.regForm.controls.usergroup.value +
-      '&email=' + this.regForm.controls.email.value.trim() +
-      '&pass=' + this.regForm.controls.pass.value.trim() +
-      '&tel=' + this.regForm.controls.tel.value.trim() +
-      '&std_group=' + this.regForm.controls.std_group.value.trim() +
-      '&avatar=' + this.regForm.controls.avatar.value.trim() +
-      '&description=' + this.regForm.controls.description.value.trim() +
-      '&api_key=android';
-    return this.http.post('http://new.std-247.ist.mospolytech.ru/api/user/add.php', body, {headers, observe: 'response'})
-      .toPromise();
+    const body = `name=${this.regForm.controls.name.value.trim()}
+    &surname=${this.regForm.controls.surname.value.trim()}
+    &middlename=${this.regForm.controls.middlename.value.trim()}
+    &usergroup=${this.regForm.controls.usergroup.value}
+    &email=${this.regForm.controls.email.value.trim()}
+    &pass=${this.regForm.controls.pass.value.trim()}
+    &tel=${this.regForm.controls.tel.value.trim()}
+    &std_group=${this.regForm.controls.std_group.value.trim()}
+    &avatar=${this.regForm.controls.avatar.value.trim()}
+    &description=${this.regForm.controls.description.value.trim()}`;
+    return this.apiService.registerUser(body);
   }
 }

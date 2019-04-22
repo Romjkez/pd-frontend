@@ -9,6 +9,7 @@ import {HttpResponse} from '@angular/common/http';
 import {parseJwt} from '../../shared/utils/functions.util';
 import {Project} from '../../shared/models/project.model';
 import {ParsedWorkerApplication} from '../../shared/models/application.model';
+import {FileUploadModalComponent} from '../../modules/appFileUpload/file-upload-modal/file-upload-modal.component';
 
 @Component({
   selector: 'app-project',
@@ -32,7 +33,6 @@ export class ProjectComponent implements OnInit {
   apps: ParsedWorkerApplication[];
   @ViewChild('joinFormSubmit') joinFormSubmit: ElementRef;
   @ViewChild('confirmDeletionDialog') confirmDeletionDialog: TemplateRef<any>;
-  @ViewChild('uploadFileModal') uploadFileModal: TemplateRef<any>;
 
   constructor(private activatedRoute: ActivatedRoute, private apiService: ApiService, private snackBar: MatSnackBar,
               private router: Router, public authService: AuthService, public matDialog: MatDialog) {
@@ -212,6 +212,6 @@ export class ProjectComponent implements OnInit {
   }
 
   openUploadModal() {
-    this.matDialog.open(this.uploadFileModal);
+    this.matDialog.open(FileUploadModalComponent, {data: {project_id: +this.project.id}});
   }
 }
