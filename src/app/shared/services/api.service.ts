@@ -192,4 +192,11 @@ export class ApiService {
   deleteTag(id: number): Promise<any> {
     return this.http.delete(`${this.baseUrl}/tags/?id=${id}`).toPromise();
   }
+
+  /**
+   * FILE
+   */
+  getProjectFiles(project: number): Promise<any> {
+    return this.http.get(`${this.baseUrl}/file/?project_id=${project}`).toPromise();
+  }
 }

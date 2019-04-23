@@ -162,7 +162,6 @@ export class ProjectComponent implements OnInit {
       } else {
         this.router.navigate(['/404']);
       }
-      this.project.files = JSON.parse(<any>this.project.files);
       this.getApps();
       this.fullness = this.getOccupiedQuantity(this.project.members);
       this.tags = this.project.tags.split(',');
@@ -173,12 +172,9 @@ export class ProjectComponent implements OnInit {
         this.usergroup = -1;
         this.selfId = -1;
       }
-
-      this.loading = false;
     }).catch(e => {
       console.error(e);
-      this.loading = false;
-    });
+    }).finally(() => this.loading = false);
   }
 
   async requestModeration(event: MouseEvent): Promise<void> {

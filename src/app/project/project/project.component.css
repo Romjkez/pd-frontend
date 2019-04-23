@@ -114,6 +114,11 @@
   text-align: center;
 }
 
+.project-view__documents {
+  display: flex;
+  flex-direction: column;
+}
+
 .apps__header > div:first-child,
 .body__row > div:first-child {
   flex: 3;
