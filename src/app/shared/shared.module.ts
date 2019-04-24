@@ -18,7 +18,6 @@ import {
   MatInputModule
 } from '@angular/material';
 import {SearchComponent} from './components/search/search.component';
-import {MessageBoardComponent} from './components/message-board/message-board.component';
 
 
 @NgModule({
@@ -30,7 +29,6 @@ import {MessageBoardComponent} from './components/message-board/message-board.co
     ApplicationSnippetComponent,
     EditableListComponent,
     SearchComponent,
-    MessageBoardComponent,
   ],
   imports: [
     CommonModule,
@@ -53,7 +51,6 @@ import {MessageBoardComponent} from './components/message-board/message-board.co
     ApplicationSnippetComponent,
     EditableListComponent,
     SearchComponent,
-    MessageBoardComponent,
   ]
 })
 export class SharedModule {

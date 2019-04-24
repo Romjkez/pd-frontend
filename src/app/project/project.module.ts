@@ -23,13 +23,15 @@ import {MomentDateAdapter} from '@angular/material-moment-adapter';
 import {EditProjectComponent} from './project/edit-project/edit-project.component';
 import {AppFileUploadModule} from '../modules/appFileUpload/appFileUpload.module';
 import {ProjectFormComponent} from './project/project-form/project-form.component';
+import {MessageBoardComponent} from './project/message-board/message-board.component';
 
 @NgModule({
   declarations: [
     ProjectComponent,
     CreateProjectComponent,
     EditProjectComponent,
-    ProjectFormComponent
+    ProjectFormComponent,
+    MessageBoardComponent
   ],
   imports: [
     CommonModule,

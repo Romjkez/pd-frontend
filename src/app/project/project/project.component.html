@@ -42,51 +42,55 @@
         </div>
       </div>
       <h2 class="title">{{ project?.title }}</h2>
-      <div class="project-view__info">
-        <p class="project-view__description">
-          {{ project?.description }}
-        </p>
-        <div class="project-view__curator info-block">
-          <h4 class="point-title" style="margin-right: 5px;">
-            <b>Куратор: </b>
-          </h4>
-          <a class="curator-link"
-             [routerLink]="['/user/' + project?.curator.id]">
-            {{ project?.curator.surname }}
-            {{ project?.curator.name.length > 0 ? project?.curator.name : "" }}
-            {{project?.curator.middle_name?.length > 0 ? project?.curator.middle_name : ""}}</a>
-        </div>
-        <div class="project-view__tags info-block">
-          <h4 class="point-title"><b>Теги: </b></h4>
-          <div class="tags__tags-block">
-            <div class="snippet__proj-tags">
-              <div *ngFor="let tag of tags" class="proj-tags__item">
-                {{ tag }}
+      <div class="project-view__wrapper">
+        <div class="project-view__info">
+          <p>
+            {{ project?.description }}
+          </p>
+          <div class="project-view__curator info-block">
+            <h4 class="point-title" style="margin-right: 5px;">
+              <b>Куратор: </b>
+            </h4>
+            <a class="curator-link"
+               [routerLink]="['/user/' + project?.curator.id]">
+              {{ project?.curator.surname }}
+              {{ project?.curator.name.length > 0 ? project?.curator.name : "" }}
+              {{project?.curator.middle_name?.length > 0 ? project?.curator.middle_name : ""}}</a>
+          </div>
+          <div class="project-view__tags info-block">
+            <h4 class="point-title"><b>Теги: </b></h4>
+            <div class="tags__tags-block">
+              <div class="snippet__proj-tags">
+                <div *ngFor="let tag of tags" class="proj-tags__item">
+                  {{ tag }}
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="project-view__dead-line info-block">
+            <h4 class="point-title">
+              <b>Дата окончания проекта: </b
+              >{{ project?.finish_date | date: "dd.MM.yy" }}
+            </h4>
+          </div>
+          <div class="project-view__places info-block">
+            <h4 class="point-title" style="margin-right: 5px;">
+              <b>Заполненность: </b> {{ fullness?.occupied }}/{{fullness?.places}}
+            </h4>
+          </div>
+          <div class="info-block" *ngIf="usergroup!=-1">
+            <b>Документы проекта:</b>&nbsp;<i *ngIf="project?.files == null">документы отсутствуют</i>
+            <div class="project-view__documents">
+              <div *ngFor="let file of project?.files" class="document">
+                <a class="teammate__name" [href]="file?.link">{{ file?.title }}</a>
               </div>
             </div>
           </div>
         </div>
-        <div class="project-view__dead-line info-block">
-          <h4 class="point-title">
-            <b>Дата окончания проекта: </b
-            >{{ project?.finish_date | date: "dd.MM.yy" }}
-          </h4>
-        </div>
-        <div class="project-view__places info-block">
-          <h4 class="point-title" style="margin-right: 5px;">
-            <b>Заполненность: </b> {{ fullness?.occupied }}/{{fullness?.places}}
-          </h4>
+        <div class="message-board">
+          <app-message-board></app-message-board>
         </div>
       </div>
-      <div class="files info-block" *ngIf="usergroup!=-1">
-        <b>Документы проекта:</b>&nbsp;<i *ngIf="project?.files == null">документы отсутствуют</i>
-        <div class="project-view__documents">
-          <div *ngFor="let file of project?.files" class="document">
-            <a class="teammate__name" [href]="file?.link">{{ file?.title }}</a>
-          </div>
-        </div>
-      </div>
-      <app-message-board></app-message-board>
       <div class="project-view__request">
         <div *ngIf="project?.status === '1' && usergroup == 1" class="side-form">
           <ng-container *ngIf="!joinRequested">
@@ -110,12 +114,11 @@
                       </mat-optgroup>
                     </mat-select>
                   </mat-form-field>
-                  <textarea
-                    cols="30"
-                    class="side-form__comment"
-                    formControlName="comment"
-                    placeholder="Комментарий"
-                    maxlength="255">
+                  <textarea cols="30"
+                            class="side-form__comment"
+                            formControlName="comment"
+                            placeholder="Комментарий"
+                            maxlength="255">
                   </textarea>
                 </div>
                 <button class="button button_confirm side-form__item"

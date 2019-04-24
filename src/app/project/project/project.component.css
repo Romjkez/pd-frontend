@@ -166,6 +166,7 @@
 .button-reject {
   background-color: red;
 }
+
 .project-view {
   max-width: 900px;
   height: auto;
@@ -179,6 +180,12 @@
 .title {
   padding: 15px 0;
   font-weight: bold;
+}
+
+.project-view__wrapper {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
 }
 
 .project-view__dead-line {
@@ -202,11 +209,19 @@
 
 .project-view__status {
   padding: 5px;
-  font-weight: bold; 
+  font-weight: bold;
 }
 
 .project-view__tags {
   align-items: center;
+}
+
+.project-view__info, .message-board {
+  flex: 1;
+}
+
+.message-board {
+  padding-left: 2%
 }
 
 .proj-tags__item {
@@ -304,6 +319,7 @@ button[mat-menu-item][disabled] {
 button mat-icon {
   transform: scale(1.5);
 }
+
 /*--------------------*/
 
 @media (max-width: 575.98px) {
@@ -328,7 +344,7 @@ button mat-icon {
     font-size: 14px;
   }
 
-  .side-form__body, .side-form__form, .fields{
+  .side-form__body, .side-form__form, .fields {
     flex-direction: column;
     justify-content: center;
   }
@@ -362,10 +378,10 @@ button mat-icon {
     width: 95%;
   }
 
-  
+
 }
 
-@media (max-width: 991.98px) { 
+@media (max-width: 991.98px) {
 
 }
 
@@ -374,5 +390,5 @@ button mat-icon {
     width: 95%;
   }
 
-  
+
 }
