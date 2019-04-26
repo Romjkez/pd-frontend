@@ -27,7 +27,8 @@
         <br>
         <mat-form-field>
           <label for="deadlinePicker">Крайняя дата записи</label>
-          <input (dateChange)="onApplyFinishDateChange($event)" [min]="minApplyFinishDate" [max]="maxApplyFinishDate"
+          <input (dateChange)="onApplyFinishDateChange($event)"
+                 [min]="isEditingProject?project.deadline:minApplyFinishDate" [max]="maxApplyFinishDate"
                  [matDatepicker]="deadlinePicker"
                  required matInput
                  id="deadlinePicker"

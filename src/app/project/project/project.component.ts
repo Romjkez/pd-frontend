@@ -9,6 +9,7 @@ import {HttpResponse} from '@angular/common/http';
 import {parseJwt} from '../../shared/utils/functions.util';
 import {Project} from '../../shared/models/project.model';
 import {ParsedWorkerApplication} from '../../shared/models/application.model';
+import {FileUploadModalComponent} from '../../modules/appFileUpload/file-upload-modal/file-upload-modal.component';
 
 @Component({
   selector: 'app-project',
@@ -29,10 +30,10 @@ export class ProjectComponent implements OnInit {
   joinRequested = false;
   usergroup: number;
   selfId: number;
+  membersIds: number[] = [];
   apps: ParsedWorkerApplication[];
   @ViewChild('joinFormSubmit') joinFormSubmit: ElementRef;
   @ViewChild('confirmDeletionDialog') confirmDeletionDialog: TemplateRef<any>;
-  @ViewChild('uploadFileModal') uploadFileModal: TemplateRef<any>;
 
   constructor(private activatedRoute: ActivatedRoute, private apiService: ApiService, private snackBar: MatSnackBar,
               private router: Router, public authService: AuthService, public matDialog: MatDialog) {
@@ -68,6 +69,7 @@ export class ProjectComponent implements OnInit {
       for (const key in members[i]) {
         if (members[i][key] !== 0) {
           occupied++;
+          this.membersIds.push(members[i][key].id);
         }
         places++;
       }
@@ -162,7 +164,6 @@ export class ProjectComponent implements OnInit {
       } else {
         this.router.navigate(['/404']);
       }
-      this.project.files = JSON.parse(<any>this.project.files);
       this.getApps();
       this.fullness = this.getOccupiedQuantity(this.project.members);
       this.tags = this.project.tags.split(',');
@@ -173,12 +174,9 @@ export class ProjectComponent implements OnInit {
         this.usergroup = -1;
         this.selfId = -1;
       }
-
-      this.loading = false;
     }).catch(e => {
       console.error(e);
-      this.loading = false;
-    });
+    }).finally(() => this.loading = false);
   }
 
   async requestModeration(event: MouseEvent): Promise<void> {
@@ -212,6 +210,6 @@ export class ProjectComponent implements OnInit {
   }
 
   openUploadModal() {
-    this.matDialog.open(this.uploadFileModal);
+    this.matDialog.open(FileUploadModalComponent, {data: {project_id: +this.project.id}});
   }
 }

@@ -1,17 +1,17 @@
 import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Project, Projects, UserProjects} from '../models/project.model';
 import {User} from '../models/user.model';
 import {Tag} from '../models/tags.model';
 import {ParsedProjectApplication, ParsedWorkerApplication} from '../models/application.model';
 import {Observable} from 'rxjs';
+import {environment} from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApiService {
-  apiKey = 'android';
-  baseUrl = 'http://new.std-247.ist.mospolytech.ru/api';
+  baseUrl = environment.baseUrl;
 
   constructor(private http: HttpClient) {
   }
@@ -19,16 +19,27 @@ export class ApiService {
   /*
   ** USER
    */
-  getUserByEmail(email: string): Promise<User> {
-    return this.http.get<User>(`${this.baseUrl}/user/get.php?api_key=${this.apiKey}&email=${email}`).toPromise();
+  registerUser(body: string): Promise<any> {
+    const headers = new HttpHeaders('Content-Type: application/x-www-form-urlencoded');
+    return this.http.post(`${this.baseUrl}/user/add.php`, body, {headers, observe: 'response'})
+      .toPromise();
   }
 
-  getUserBySurname(surname: string): Promise<User> {
-    return this.http.get<User>(`${this.baseUrl}/user/get.php?api_key=${this.apiKey}&surname=${surname}`).toPromise();
+  authorizeUser(body: string): Promise<any> {
+    const headers = new HttpHeaders('Content-Type: application/x-www-form-urlencoded');
+    return this.http.post(`${this.baseUrl}/user/auth.php`, body, {headers}).toPromise();
+  }
+
+  getUserByEmail(email: string): Promise<User> {
+    return this.http.get<User>(`${this.baseUrl}/user/get.php?email=${email}`).toPromise();
+  }
+
+  getUserBySurname(surname: string): Promise<User> | Promise<User[]> {
+    return this.http.get<User>(`${this.baseUrl}/user/get.php?surname=${surname}`).toPromise();
   }
 
   getUserById(id: number | string): Promise<User> {
-    return this.http.get<User>(`${this.baseUrl}/user/get.php?api_key=${this.apiKey}&id=${id}`).toPromise();
+    return this.http.get<User>(`${this.baseUrl}/user/get.php?id=${id}`).toPromise();
   }
 
   updateUser(user: object | any): Promise<any> {
@@ -74,7 +85,7 @@ export class ApiService {
   }
 
   updateProjectsDeadlines(): Promise<any> {
-    return this.http.post(`${this.baseUrl}/projects/updateStatus.php`, `api_key=${this.apiKey}`, {
+    return this.http.post(`${this.baseUrl}/projects/updateStatus.php`, '', {
       headers: {'Content-Type': 'application/x-www-form-urlencoded'},
       observe: 'response'
     }).toPromise();
@@ -180,5 +191,12 @@ export class ApiService {
 
   deleteTag(id: number): Promise<any> {
     return this.http.delete(`${this.baseUrl}/tags/?id=${id}`).toPromise();
+  }
+
+  /**
+   * FILE
+   */
+  getProjectFiles(project: number): Promise<any> {
+    return this.http.get(`${this.baseUrl}/file/?project_id=${project}`).toPromise();
   }
 }

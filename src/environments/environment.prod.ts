@@ -1,3 +1,4 @@
 export const environment = {
-  production: true
+  production: true,
+  baseUrl: 'http://sandbox.std-247.ist.mospolytech.ru/api'
 };

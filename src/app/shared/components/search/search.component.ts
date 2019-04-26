@@ -3,6 +3,7 @@ import {FormControl, Validators} from '@angular/forms';
 import {ApiService} from '../../services/api.service';
 import {filter, tap} from 'rxjs/operators';
 import {Router} from '@angular/router';
+import {colorMap, statusMap} from '../project-snippet/project-snippet.component';
 
 enum SearchTarget {
   project = 'project',
@@ -17,6 +18,9 @@ enum SearchTarget {
 export class SearchComponent implements OnInit {
   searchValue: FormControl;
   results = [];
+  colorMap = colorMap;
+  statusMap = statusMap;
+  loading: boolean;
   @Input() target: string = SearchTarget.project; // search project by default
 
   constructor(private apiService: ApiService, public router: Router) {
@@ -28,6 +32,7 @@ export class SearchComponent implements OnInit {
   }
 
   onSearch(event: Event) {
+    this.loading = true;
     if (event.isTrusted) {
       if (this.target === 'project') {
         if (this.searchValue.value.toString().length > 2 && this.searchValue.value.toString().length < 100) {

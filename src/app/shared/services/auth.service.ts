@@ -1,8 +1,8 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Router} from '@angular/router';
 import {Subject} from 'rxjs';
 import {parseJwt} from '../utils/functions.util';
+import {ApiService} from './api.service';
 
 @Injectable({
   providedIn: 'root'
@@ -11,22 +11,21 @@ import {parseJwt} from '../utils/functions.util';
 export class AuthService {
   authChange = new Subject();
 
-  constructor(private http: HttpClient, private router: Router) {
+  constructor(private apiService: ApiService, private router: Router) {
   }
 
-  public login(email: string, pass: string): Promise<any> {
-    const headers = new HttpHeaders('Content-Type: application/x-www-form-urlencoded');
+  login(email: string, pass: string): Promise<any> {
     const params = `email=${email}&pass=${pass}`;
-    return this.http.post('http://new.std-247.ist.mospolytech.ru/api/user/auth.php', params, {headers}).toPromise();
+    return this.apiService.authorizeUser(params);
   }
 
-  public logout(): void {
+  logout(): void {
     localStorage.clear();
     this.authChange.next();
     this.router.navigate(['/login']);
   }
 
-  public getToken(): string {
+  getToken(): string {
     if (!!localStorage.getItem('token')) {
       return localStorage.getItem('token');
     }

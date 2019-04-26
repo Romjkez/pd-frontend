@@ -1,5 +1,6 @@
-import {Component, EventEmitter, Input, OnDestroy, Output} from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {HttpClient, HttpEventType, HttpHeaders, HttpParams} from '@angular/common/http';
+import {environment} from '../../../../environments/environment';
 
 
 /**
@@ -14,7 +15,7 @@ import {HttpClient, HttpEventType, HttpHeaders, HttpParams} from '@angular/commo
   },
   styleUrls: ['./app-file-upload.component.css'],
 })
-export class AppFileUploadComponent implements OnDestroy {
+export class AppFileUploadComponent {
 
   constructor(
     private httpClient: HttpClient) {
@@ -22,19 +23,14 @@ export class AppFileUploadComponent implements OnDestroy {
 
   public isUploading = false;
 
-
   /* Http request input bindings */
-  httpUrl = 'http://new.std-247.ist.mospolytech.ru/api/file/';
+  httpUrl = `${environment.baseUrl}/file/`;
+  @Input() project_id: number;
 
   @Input()
   httpRequestHeaders: HttpHeaders | {
     [header: string]: string | string[];
   } = new HttpHeaders();
-
-  @Input()
-  httpRequestParams: HttpParams | {
-    [param: string]: string | string[];
-  } = new HttpParams();
 
   @Input()
   fileAlias = 'file';
@@ -60,7 +56,7 @@ export class AppFileUploadComponent implements OnDestroy {
 
   /** Output  */
   @Output() removeEvent = new EventEmitter<AppFileUploadComponent>();
-  @Output() onUpload = new EventEmitter();
+  @Output() uploaded = new EventEmitter();
 
   public progressPercentage = 0;
   public loaded = 0;
@@ -71,13 +67,13 @@ export class AppFileUploadComponent implements OnDestroy {
 
   public upload(): void {
     this.isUploading = true;
-    // How to set the alias?
+
     const formData = new FormData();
     formData.set(this.fileAlias, this._file, this._file.name);
     this.fileUploadSubscription = this.httpClient.post(this.httpUrl, formData, {
       headers: this.httpRequestHeaders,
       observe: 'events',
-      params: this.httpRequestParams,
+      params: new HttpParams().append('project_id', this.project_id.toString()),
       reportProgress: true,
       responseType: 'json'
     }).subscribe((event: any) => {
@@ -86,13 +82,13 @@ export class AppFileUploadComponent implements OnDestroy {
         this.loaded = event.loaded;
         this.total = event.total;
       }
-      this.onUpload.emit({file: this._file, event: event});
+      this.uploaded.emit(event);
     }, (error: any) => {
       if (this.fileUploadSubscription) {
         this.fileUploadSubscription.unsubscribe();
       }
       this.isUploading = false;
-      this.onUpload.emit({file: this._file, event: event});
+      this.uploaded.emit(error);
     });
   }
 
@@ -101,9 +97,5 @@ export class AppFileUploadComponent implements OnDestroy {
       this.fileUploadSubscription.unsubscribe();
     }
     this.removeEvent.emit(this);
-  }
-
-  ngOnDestroy() {
-    console.log('file ' + this._file.name + ' destroyed...');
   }
 }

@@ -1,0 +1,36 @@
+<section class="chat">
+  <div class="messages-container" #messagesContainer>
+    <div *ngIf="messages==null || messages?.length<1" class="empty-message">Здесь будут отображаться сообщения</div>
+    <div class="single-message" *ngFor="let message of messages" [ngClass]="message.author.id==selfId?'float-right':''">
+      <div class="single-message__controls" *ngIf="message.author.id==selfId">
+        <button (click)="snackBar.open('Редактирование временно недоступно','OK',{duration:3500})" mat-button
+                aria-label="Редактировать" title="Редактировать">
+          <mat-icon color="primary">edit</mat-icon>
+        </button>
+        <button (click)="deleteMessage(message.message_id)" mat-button aria-label="Удалить" title="Удалить"
+                style="color:#ff0000">
+          <mat-icon>remove_circle</mat-icon>
+        </button>
+      </div>
+      <div class="single-message__content">
+        <div class="single-message__text">{{message.message}}</div>
+        <div class="single-message__footer">
+          <div>{{message.created_at | date:'dd.MM.yyyy H:mm'}}</div>
+          <div>{{message.author?.name}} {{message.author.surname}}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="chat-controls">
+    <mat-form-field>
+      <label>
+      <textarea matInput type="text" [(ngModel)]="input" maxlength="255" (keypress)="onKeyPress($event)"
+                placeholder="Введите сообщение..."></textarea>
+      </label>
+    </mat-form-field>
+    <button (click)="sendMessage()" [disabled]="!input?.length || input?.length<1" mat-button matSuffix mat-icon-button
+            aria-label="Отправить" title="Отправить">
+      <mat-icon color="primary">send</mat-icon>
+    </button>
+  </div>
+</section>
