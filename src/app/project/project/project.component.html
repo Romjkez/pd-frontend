@@ -87,7 +87,7 @@
             </div>
           </div>
         </div>
-        <div class="message-board">
+        <div *ngIf="selfId==this.project?.curator.id || membersIds.includes(selfId)" class="message-board">
           <app-message-board></app-message-board>
         </div>
       </div>
@@ -130,7 +130,7 @@
               </form>
             </div>
           </ng-container>
-          <div *ngIf="joinRequested" class="joinRequested">
+          <div *ngIf="joinRequested && !membersIds.includes(selfId)" class="joinRequested">
             <div><h3>Заявка подана</h3></div>
           </div>
         </div>

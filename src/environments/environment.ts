@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  baseUrl: 'http://localhost/api'
+  baseUrl: 'http://sandbox.std-247.ist.mospolytech.ru/api'
 };
 
 /*

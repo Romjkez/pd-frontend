@@ -30,6 +30,7 @@ export class ProjectComponent implements OnInit {
   joinRequested = false;
   usergroup: number;
   selfId: number;
+  membersIds: number[] = [];
   apps: ParsedWorkerApplication[];
   @ViewChild('joinFormSubmit') joinFormSubmit: ElementRef;
   @ViewChild('confirmDeletionDialog') confirmDeletionDialog: TemplateRef<any>;
@@ -68,6 +69,7 @@ export class ProjectComponent implements OnInit {
       for (const key in members[i]) {
         if (members[i][key] !== 0) {
           occupied++;
+          this.membersIds.push(members[i][key].id);
         }
         places++;
       }
