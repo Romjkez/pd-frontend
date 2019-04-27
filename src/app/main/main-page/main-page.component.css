@@ -46,6 +46,7 @@ h3 {
 
 .filter-block {
   width: 90%;
+  max-width: 350px;
   height: 500px;
   border-radius: 3px;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
