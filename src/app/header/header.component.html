@@ -8,7 +8,7 @@
             <span class="header__title">портал подбора <br> студенческих проектов</span>
           </a>
         </div>
-        <button mat-icon-button mat-button style="color: #fff" class="burger__menu">
+        <button *ngIf="user?.id" mat-icon-button mat-button style="color: #fff" class="burger__menu">
           <mat-icon>menu</mat-icon>
         </button>
         <div class="header__menu">

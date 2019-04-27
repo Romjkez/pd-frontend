@@ -68,7 +68,7 @@ export class MainPageComponent implements OnInit {
     if (this.tags && this.selectedTags.length < this.tags.length) {
       this.selectedTags.length = 0;
       this.tags.forEach(tag => this.selectedTags.push(tag.value));
-      console.log(this.selectedTags);
+      // console.log(this.selectedTags);
     }
   }
 }
