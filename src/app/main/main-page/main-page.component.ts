@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {ApiService} from '../../shared/services/api.service';
 import {Project} from '../../shared/models/project.model';
 import {MatSnackBar} from '@angular/material';
+import {Tag} from '../../shared/models/tags.model';
 
 @Component({
   selector: 'app-main-page',
@@ -15,29 +16,40 @@ export class MainPageComponent implements OnInit {
   perPage = 5;
   statusFilter = 1;
   loading: boolean;
-  searchResult: Project[];
+  tags: Tag[];
+  selectedTags: string[] = [];
 
   constructor(private apiService: ApiService, private snackBar: MatSnackBar) {
   }
 
   async ngOnInit() {
     this.loading = true;
-    await this.apiService.getProjectsByStatus(this.statusFilter, this.perPage, this.currentPage).then((res) => {
-      this.currentPage = res.page;
-      this.totalPages = res.pages;
-      this.perPage = res.per_page;
-      this.projects = res.data;
-    }).catch(e => {
-      this.snackBar.open('Не удалось загрузить проекты', 'Закрыть');
-      console.error('Failed to get projects:', e);
-    }).finally(() => this.loading = false
-    );
-    this.apiService.updateProjectsDeadlines().then((res) => {
-      if (res.body.message === 'true') {
+    Promise.all([
+      this.apiService.getProjectsByStatus(this.statusFilter, this.perPage, this.currentPage),
+      this.apiService.updateProjectsDeadlines(),
+      this.apiService.getTags()
+    ]).then(([projectsResponse, updateResponse, tagsResponse]) => {
+      if (projectsResponse.data && projectsResponse.page) {
+        this.currentPage = projectsResponse.page;
+        this.totalPages = projectsResponse.pages;
+        this.perPage = projectsResponse.per_page;
+        this.projects = projectsResponse.data;
       } else {
-        console.log('Failed to update projects actuality: ', res.body.message);
+        this.snackBar.open(`Не удалось загрузить проекты:\n ${(<any>projectsResponse).message}`, 'Закрыть', {duration: 6000});
       }
-    }).catch(e => console.error(e));
+      if (updateResponse.message !== 'true') {
+        this.snackBar.open(`Не удалось обновить проекты:\n ${(<any>updateResponse).message}`, 'Закрыть', {duration: 5000});
+      }
+      if (tagsResponse.length && tagsResponse.length > 0) {
+        this.tags = tagsResponse;
+        this.selectAllTags();
+      } else {
+        this.snackBar.open(`Не удалось загрузить теги:\n ${(<any>tagsResponse).message}`, 'Закрыть', {duration: 5000});
+      }
+    }).catch(e => {
+      console.error(e);
+    })
+      .finally(() => this.loading = false);
   }
 
   async switchPage(newPage: number) {
@@ -50,5 +62,13 @@ export class MainPageComponent implements OnInit {
       this.snackBar.open('Не удалось загрузить проекты', 'Закрыть');
       console.error('Failed to get projects:', e);
     });
+  }
+
+  selectAllTags(): void {
+    if (this.tags && this.selectedTags.length < this.tags.length) {
+      this.selectedTags.length = 0;
+      this.tags.forEach(tag => this.selectedTags.push(tag.value));
+      console.log(this.selectedTags);
+    }
   }
 }

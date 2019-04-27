@@ -1,4 +1,4 @@
-<header сlass="header">
+<header>
   <div class="page-wrapper">
     <div class="header__content">
       <div class="header__left-side">
@@ -8,9 +8,9 @@
             <span class="header__title">портал подбора <br> студенческих проектов</span>
           </a>
         </div>
-        <a href="#" style="color: white" class="burger__menu">
-          <h2>Е</h2>
-        </a>
+        <button mat-icon-button mat-button style="color: #fff" class="burger__menu">
+          <mat-icon>menu</mat-icon>
+        </button>
         <div class="header__menu">
           <a class="menu__item" [routerLink]="['/']"
              routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
@@ -40,10 +40,6 @@
           <a (click)="authService.logout()" class="profile-link__logout">выйти</a>
         </div>
       </div>
-      <!--<div class="header__adapt-menu">
-        <img [src]="user?.avatar.length == 0 ? '../assets/img/avatar.png' : user?.avatar"
-             class="profile-link__photoContent" alt="Avatar">
-      </div>-->
     </div>
   </div>
 </header>

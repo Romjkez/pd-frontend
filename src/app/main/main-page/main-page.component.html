@@ -1,9 +1,9 @@
 <main class="page-wrapper">
-  <button class="button button_filter">фильтры</button>
+  <button class="button button_filter" (click)="filters.classList.add('mobileOverlay')">фильтры</button>
   <div class="columns-wrapper">
     <div class="columns-block">
       <div class="snippet-column">
-          <app-search [target]="'project'"></app-search>
+        <app-search [target]="'project'"></app-search>
         <app-preloader *ngIf="loading"></app-preloader>
         <h3 *ngIf="totalPages<1" style="text-align: center">Никто ещё не разместил проект...</h3>
         <ng-container *ngFor="let project of projects | paginate: {
@@ -18,16 +18,41 @@
             (pageChange)="switchPage($event)"></pagination-controls>
         </div>
       </div>
-      <div class="filter-column" id="filters">
+      <div class="filter-column" #filters>
         <div class="filter-block">
-          <h4>фильтры</h4>
-          <div class="filter-block__cancel">
-            <a href="#">отмена</a>
-            <a href="#" class="filter-block__clear-filters">сбросить</a>
+          <h3>фильтры</h3>
+          <div class="filter-block__body">
+            <div class="filter">
+              <mat-form-field>
+                <mat-select multiple placeholder="По тегам" [(value)]="selectedTags">
+                  <mat-option *ngFor="let tag of tags" [value]="tag.value">
+                    {{tag.category}} | {{tag.value}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+              <button mat-button mat-icon-button matTooltip="Отметить всё" aria-label="Отметить все теги"
+                      color="primary"
+                      (click)="selectAllTags()">
+                <!--todo ПОЧИНИТЬ КНОПКУ -->
+                <mat-icon>check</mat-icon>
+              </button>
+              <button mat-button mat-icon-button matTooltip="Снять выделение" aria-label="Снять выделение со всех тегов"
+                      color="primary"
+                      (click)="selectedTags=[]">
+                <mat-icon>cancel</mat-icon>
+              </button>
+            </div>
+
           </div>
           <div class="filter-block__confirm">
             <button class="button button_confirm">подтведить</button>
-            <a href="#" class="filter-block__clear-filters_desktop">сбросить</a>
+            <button mat-button style="width:100%" class="filter-block__clear-filters_desktop">сбросить</button>
+          </div>
+          <div class="filter-block__cancel">
+            <button mat-button (click)="filters.classList.remove('mobileOverlay')"
+                    style="width:100%;background:#eee; margin-top: 2%">отмена
+            </button>
+            <!--<button mat-button class="filter-block__clear-filters">сбросить</button>-->
           </div>
         </div>
       </div>

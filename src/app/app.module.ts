@@ -6,6 +6,7 @@ import {NotFoundPageComponent} from './not-found-page/not-found-page.component';
 import {HeaderComponent} from './header/header.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {
+  MatButtonModule,
   MatButtonToggle,
   MatButtonToggleModule,
   MatDialogModule,
@@ -48,6 +49,7 @@ import {AuthInterceptor} from './shared/services/auth.interceptor';
     ProjectModule,
     MatMomentDateModule,
     MatExpansionModule,
+    MatButtonModule,
   ],
   exports: [
     FormsModule,

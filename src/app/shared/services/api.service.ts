@@ -87,7 +87,7 @@ export class ApiService {
   updateProjectsDeadlines(): Promise<any> {
     return this.http.post(`${this.baseUrl}/projects/updateStatus.php`, '', {
       headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-      observe: 'response'
+      observe: 'body'
     }).toPromise();
   }
 
