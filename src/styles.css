@@ -20,12 +20,6 @@ h1, h2, h3, h4, h5 {
   font-weight: 400;
 }
 
-.page-wrapper {
-  width: 70%;
-  max-width: 1330px;
-  margin: 0 auto;
-}
-
 .proj-tags__item {
   font-size: 14px;
   margin-right: 10px;
@@ -62,10 +56,6 @@ button[type=submit]:disabled {
 button[type=submit]:disabled:hover {
   background: #d2d2d2;
   cursor: default;
-}
-
-.header__adapt-menu {
-  display: none;
 }
 
 /* label for empty list of projects */

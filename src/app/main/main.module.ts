@@ -3,7 +3,17 @@ import {CommonModule} from '@angular/common';
 import {NgxPaginationModule} from 'ngx-pagination';
 import {MainPageComponent} from './main-page/main-page.component';
 import {SharedModule} from '../shared/shared.module';
-import {MatAutocompleteModule, MatInputModule} from '@angular/material';
+import {
+  MatAutocompleteModule,
+  MatButtonModule,
+  MatExpansionModule,
+  MatIconModule,
+  MatInputModule,
+  MatListModule,
+  MatSelectModule,
+  MatSlideToggleModule,
+  MatTooltipModule
+} from '@angular/material';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 @NgModule({
@@ -17,9 +27,16 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
     MatInputModule,
     FormsModule,
     ReactiveFormsModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
+    MatSlideToggleModule,
+    MatButtonModule,
+    MatListModule,
+    MatExpansionModule,
+    MatSelectModule,
+    MatIconModule,
+    MatTooltipModule
   ],
-  exports: [MainPageComponent]
+  exports: [MainPageComponent],
 })
 export class MainModule {
 }
