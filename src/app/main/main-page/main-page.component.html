@@ -24,21 +24,23 @@
           <div class="filter-block__body">
             <div class="filter">
               <mat-form-field>
-                <mat-select multiple placeholder="По тегам" [(value)]="selectedTags">
-                  <mat-option *ngFor="let tag of tags" [value]="tag.value">
+                <mat-select multiple placeholder="По тегам" [(ngModel)]="selectedTags" [compareWith]="compareFn"
+                            #tagsSelect="ngModel">
+                  <mat-option *ngFor="let tag of tags" [value]="tag">
                     {{tag.category}} | {{tag.value}}
                   </mat-option>
                 </mat-select>
               </mat-form-field>
-              <button mat-button mat-icon-button matTooltip="Отметить всё" aria-label="Отметить все теги"
+              <button [disabled]="selectedTags.length==tags?.length" mat-button mat-icon-button
+                      matTooltip="Отметить всё" aria-label="Отметить все теги"
                       color="primary"
-                      (click)="selectAllTags()">
-                <!--todo ПОЧИНИТЬ КНОПКУ -->
+                      (click)="selectAllTags(tagsSelect, tags)">
                 <mat-icon>check</mat-icon>
               </button>
-              <button mat-button mat-icon-button matTooltip="Снять выделение" aria-label="Снять выделение со всех тегов"
+              <button [disabled]="selectedTags.length==0" mat-button mat-icon-button matTooltip="Снять выделение"
+                      aria-label="Снять выделение со всех тегов"
                       color="primary"
-                      (click)="selectedTags=[]">
+                      (click)="deselectAllTags(tagsSelect)">
                 <mat-icon>cancel</mat-icon>
               </button>
             </div>

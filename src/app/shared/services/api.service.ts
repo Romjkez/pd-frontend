@@ -58,14 +58,15 @@ export class ApiService {
   /*
   ** PROJECTS
    */
-  getProjectsByStatus(status: number, perPage: number, page: number): Promise<Projects> {
+  getProjectsByStatus(status: number, perPage: number, page: number, sort?: string): Promise<Projects> {
     return this.http.get<Projects>(
-      `${this.baseUrl}/projects/get.php?status=${status}&per_page=${perPage}&page=${page}`).toPromise();
+      `${this.baseUrl}/projects/get.php?status=${status}&per_page=${perPage}&page=${page}&sort=${sort || '-id'}`).toPromise();
   }
 
-  getProjectsByStatusAndCurator(status: number, curator: number | string, perPage: number, page: number): Promise<Projects> {
+  getProjectsByStatusAndCurator(status: number, curator: number | string, perPage: number, page: number, sort?: string): Promise<Projects> {
     return this.http.get<Projects>(
-      `${this.baseUrl}/projects/get.php?status=${status}&curator=${curator}&per_page=${perPage}&page=${page}`).toPromise();
+      `${this.baseUrl}/projects/get.php?status=${status}&curator=${curator}&per_page=${perPage}&page=${page}&sort=${sort || '-id'}`)
+      .toPromise();
   }
 
   getProjectById(id: number | string): Promise<Project> {
@@ -107,7 +108,7 @@ export class ApiService {
   }
 
   deleteProject(id: number): Promise<any> {
-    return this.http.delete(`${this.baseUrl}/projects/delete.php?id=${id}`, {observe: 'body'}).toPromise();
+    return this.http.delete(`${this.baseUrl}/projects/delete/?id=${id}`, {observe: 'body'}).toPromise();
   }
 
   searchProjectByTitle(title: string): Observable<Project[]> {
