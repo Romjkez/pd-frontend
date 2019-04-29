@@ -26,7 +26,7 @@ export class SearchComponent implements OnInit {
   constructor(private apiService: ApiService, public router: Router) {
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.searchValue = new FormControl('',
       [Validators.minLength(3), Validators.maxLength(99)]);
   }

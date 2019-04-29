@@ -28,7 +28,8 @@
                 placeholder="Введите сообщение..."></textarea>
       </label>
     </mat-form-field>
-    <button (click)="sendMessage()" [disabled]="!input?.length || input?.length<1" mat-button matSuffix mat-icon-button
+    <button (click)="sendMessage()" [disabled]="!input?.length || input?.trim().length<1" mat-button matSuffix
+            mat-icon-button
             aria-label="Отправить" title="Отправить">
       <mat-icon color="primary">send</mat-icon>
     </button>

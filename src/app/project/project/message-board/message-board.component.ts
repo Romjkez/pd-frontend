@@ -3,8 +3,9 @@ import {ChatService} from '../../../shared/services/chat.service';
 import {catchError, filter, tap} from 'rxjs/operators';
 import {parseJwt} from '../../../shared/utils/functions.util';
 import {ActivatedRoute} from '@angular/router';
-import {EMPTY, of} from 'rxjs';
-import {MatDialog, MatSnackBar} from '@angular/material';
+import {of} from 'rxjs';
+import {MatSnackBar} from '@angular/material';
+import {AuthService} from '../../../shared/services/auth.service';
 
 export interface MessageAuthor {
   id: number;
@@ -27,7 +28,7 @@ export interface ChatMessage {
 })
 export class MessageBoardComponent implements OnInit {
   messages: ChatMessage[];
-  input: string;
+  input = '';
   selfId: number = parseJwt(localStorage.getItem('token')).data.id;
   projectId = +this.activatedRoute.snapshot.paramMap.get('id');
 
@@ -35,7 +36,7 @@ export class MessageBoardComponent implements OnInit {
   @ViewChild('confirmDeletionDialog') confirmDeletionDialog: TemplateRef<any>;
 
   constructor(private chatService: ChatService, private activatedRoute: ActivatedRoute, private snackBar: MatSnackBar,
-              private dialog: MatDialog) {
+              private authService: AuthService) {
   }
 
   ngOnInit(): void {
@@ -49,9 +50,14 @@ export class MessageBoardComponent implements OnInit {
         tap(newMessage => this.messages.unshift(newMessage)),
         tap(() => this.input = ''),
         catchError(e => {
-          this.snackBar.open(`Ошибка при отправке сообщения:\n${e.error.message}`, 'Закрыть');
-          return of(console.error(e));
-        }))
+            if (e.status === 401) {
+              this.authService.logout();
+              return of(this.snackBar.open(`Ошибка:\n${e.error.message}`, 'Закрыть', {duration: 5000}));
+            } else if (e.status !== 403) {
+              return of(this.snackBar.open(`Ошибка при отправке сообщения:\n${e.error.message}`, 'Закрыть'));
+            }
+          }
+        ))
       .subscribe();
   }
 
@@ -61,8 +67,14 @@ export class MessageBoardComponent implements OnInit {
         filter(response => response.length && response.length > 0),
         tap(messages => this.messages = messages),
         // tap(() => setTimeout(() => this.getMessages(), 10000)),
-        catchError(e => e.status !== 403 ?
-          of(this.snackBar.open(`Ошибка при получении сообщений:\n${e.error.message}`, 'Закрыть')) : EMPTY
+        catchError(e => {
+            if (e.status === 401) {
+              this.authService.logout();
+              return of(this.snackBar.open(`Ошибка:\n${e.error.message}`, 'Закрыть', {duration: 5000}));
+            } else if (e.status !== 403) {
+              return of(this.snackBar.open(`Ошибка при получении сообщений:\n${e.error.message}`, 'Закрыть'));
+            }
+          }
         ))
       .subscribe();
   }
@@ -74,13 +86,20 @@ export class MessageBoardComponent implements OnInit {
         tap(() => this.messages.map(
           (val, i) => +val.message_id === +messageId ? this.messages.splice(i, 1) : '')),
         tap(() => this.snackBar.open('Сообщение успешно удалено', 'Закрыть', {duration: 3000})),
-        catchError(e => of(this.snackBar.open(`Ошибка при удалении сообщения:\n${e.error.message}`, 'Закрыть'))
+        catchError(e => {
+            if (e.status === 401) {
+              this.authService.logout();
+              return of(this.snackBar.open(`Ошибка:\n${e.error.message}`, 'Закрыть', {duration: 5000}));
+            } else if (e.status !== 403) {
+              return of(this.snackBar.open(`Ошибка при удалении сообщения:\n${e.error.message}`, 'Закрыть'));
+            }
+          }
         ))
       .subscribe();
   }
 
   onKeyPress(event: KeyboardEvent) {
-    if (event.key === 'Enter' && event.isTrusted) {
+    if (event.key === 'Enter' && event.isTrusted && event.shiftKey === false && this.input.trim().length > 1) {
       this.sendMessage();
     }
   }
