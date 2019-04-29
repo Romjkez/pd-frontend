@@ -3,6 +3,7 @@ import {ApiService} from '../../shared/services/api.service';
 import {Project} from '../../shared/models/project.model';
 import {MatSnackBar} from '@angular/material';
 import {Tag} from '../../shared/models/tags.model';
+import {NgModel} from '@angular/forms';
 
 @Component({
   selector: 'app-main-page',
@@ -42,7 +43,7 @@ export class MainPageComponent implements OnInit {
       }
       if (tagsResponse.length && tagsResponse.length > 0) {
         this.tags = tagsResponse;
-        this.selectAllTags();
+        // this.selectAllTags();
       } else {
         this.snackBar.open(`Не удалось загрузить теги:\n ${(<any>tagsResponse).message}`, 'Закрыть', {duration: 5000});
       }
@@ -64,11 +65,18 @@ export class MainPageComponent implements OnInit {
     });
   }
 
-  selectAllTags(): void {
-    if (this.tags && this.selectedTags.length < this.tags.length) {
-      this.selectedTags.length = 0;
-      this.tags.forEach(tag => this.selectedTags.push(tag.value));
-      console.log(this.selectedTags);
-    }
+  selectAllTags(select: NgModel, tags: Tag[]): void {
+    select.update.emit(tags);
+    console.log(this.selectedTags);
+  }
+
+  compareFn(x: Tag, y: Tag): boolean {
+    return x && y ? x.value === y.value : x === y;
+  }
+
+  deselectAllTags(select: NgModel): void {
+    select.update.emit();
+    this.selectedTags = [];
+    console.log(this.selectedTags);
   }
 }

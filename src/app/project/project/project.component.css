@@ -6,6 +6,10 @@
   margin-top: 20px;
 }
 
+.page-wrapper {
+  margin: 0 auto;
+}
+
 .side-form h2 {
   text-align: center;
   margin: 10% 0 0 0;
@@ -216,12 +220,13 @@
   align-items: center;
 }
 
-.project-view__info, .message-board {
+/* .project-view__info, .message-board {
   flex: 1;
-}
+} */
 
 .message-board {
-  padding-left: 2%
+  padding-left: 2%;
+  width: 40%;
 }
 
 .proj-tags__item {

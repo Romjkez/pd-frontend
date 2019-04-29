@@ -70,8 +70,11 @@ export class AdminCabinetComponent implements OnInit {
         this.snackBar.open(`Ошибка при редактировании: ${res}`, 'Закрыть');
       }
     }).catch(e => {
-      this.snackBar.open(`Ошибка при редактировании: ${e}`, 'Закрыть');
+      this.snackBar.open(`Ошибка при редактировании: ${e.error.message}`, 'Закрыть');
       console.error(e);
+      if (e.status === 401) {
+        this.authService.logout();
+      }
     });
   }
 
@@ -86,8 +89,11 @@ export class AdminCabinetComponent implements OnInit {
         this.snackBar.open(`Ошибка при добавлении: ${res}`, 'Закрыть');
       }
     }).catch(e => {
-      this.snackBar.open(`Ошибка при добавлении: ${e}`, 'Закрыть');
+      this.snackBar.open(`Ошибка при добавлении: ${e.error.message}`, 'Закрыть');
       console.error(e);
+      if (e.status === 401) {
+        this.authService.logout();
+      }
     });
   }
 
@@ -99,8 +105,11 @@ export class AdminCabinetComponent implements OnInit {
         this.snackBar.open(`Ошибка при удалении: ${res}`, 'Закрыть');
       }
     }).catch(e => {
-      this.snackBar.open(`Ошибка при удалении: ${e}`, 'Закрыть');
+      this.snackBar.open(`Ошибка при удалении: ${e.error.message}`, 'Закрыть');
       console.error(e);
+      if (e.status === 401) {
+        this.authService.logout();
+      }
     });
   }
 }
