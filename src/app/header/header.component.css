@@ -13,6 +13,12 @@ header {
   z-index: 500;
 }
 
+.page-wrapper {
+  width: 75%;
+  margin: 0 auto;
+  max-width: 1330px;
+}
+
 .burger__menu {
   display: none;
 }
@@ -164,6 +170,12 @@ header {
   .burger__menu {
     display: block;
   }
+
+  .header__reg-auth {
+    display: none;
+  }
+
+
 }
 
 @media (min-width: 768px) and (max-width: 991.98px) {
