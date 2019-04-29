@@ -4,6 +4,7 @@ h1, h2, h3, h4, h5 {
 
 .page-wrapper {
   position: relative;
+  width: 75%;
 }
 
 .profile-block {
@@ -28,7 +29,7 @@ h1, h2, h3, h4, h5 {
 
 .profile-block__info {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
 }
 
 .snippet {
@@ -90,6 +91,7 @@ h1, h2, h3, h4, h5 {
 .profile-block__user-info {
   width: 60%;
   font-size: 15px;
+  margin-left: 30px;
 }
 
 .user-info__item {
@@ -118,8 +120,12 @@ h1, h2, h3, h4, h5 {
 
   .profile-block {
     width: 100%;
-    padding: 20px;
+    padding: 0;
     box-sizing: border-box;
+  }
+
+  .profile-block:first-child {
+    padding: 0;
   }
 
 
@@ -171,7 +177,7 @@ h1, h2, h3, h4, h5 {
 
 @media (min-width: 768px) and (max-width: 1199px) {
   .page-wrapper {
-    width: 95%;
+    width: 75%;
   }
 
   .profile-block {

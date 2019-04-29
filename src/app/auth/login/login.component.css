@@ -11,6 +11,10 @@
   font-family: 'Roboto', sans-serif;
 }
 
+.form__reg {
+  font-size: 20px;
+}
+
 div {
   box-sizing: border-box;
   border-radius: 3px;
@@ -42,7 +46,7 @@ div {
 .auth-form__back-button {
   position: absolute;
   left: 0;
-  top: 10px;
+  top: 3px;
 }
 
 .auth-form__back-button:hover {

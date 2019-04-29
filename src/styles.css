@@ -20,6 +20,10 @@ h1, h2, h3, h4, h5 {
   font-weight: 400;
 }
 
+.page-wrapper { 
+  margin: 0 auto;
+}
+
 .proj-tags__item {
   font-size: 14px;
   margin-right: 10px;
