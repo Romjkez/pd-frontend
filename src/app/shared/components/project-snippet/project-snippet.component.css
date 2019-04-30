@@ -1,13 +1,11 @@
 .snippet {
   height: auto;
   width: 100%;
-  /*background-color: #fff;*/
-  /*color: #253942;*/
   color: #eee;
   border-radius: 3px;
   margin-bottom: 20px;
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16),
-  0 3px 6px rgba(0, 0, 0, 0.23);
+  box-shadow: 0 3px 6px rgba(0, 0, 0, .16),
+  0 3px 6px rgba(0, 0, 0, .23);
   box-sizing: border-box;
   display: block;
   transition: .25s;
@@ -15,8 +13,8 @@
 
 .snippet:hover {
   transform: scale(1.01);
-  box-shadow: 0 3px 20px rgba(0, 0, 0, 0.16),
-  0 3px 20px rgba(0, 0, 0, 0.23);
+  box-shadow: 0 3px 20px rgba(0, 0, 0, .16),
+  0 3px 20px rgba(0, 0, 0, .23);
   border: none;
 }
 
@@ -29,7 +27,6 @@
 }
 
 .snippet__curator {
-  /*color: #6a767c;*/
   color: #fff;
 }
 
@@ -42,7 +39,6 @@
   display: flex;
   justify-content: flex-start;
   flex-wrap: wrap;
-  /*border-bottom: 1px solid #d1d1d1;*/
   padding-bottom: 5px;
   margin-bottom: 10px;
 }

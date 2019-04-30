@@ -4,6 +4,7 @@ import {Project} from '../../shared/models/project.model';
 import {MatSnackBar} from '@angular/material';
 import {Tag} from '../../shared/models/tags.model';
 import {NgModel} from '@angular/forms';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'app-main-page',
@@ -20,7 +21,8 @@ export class MainPageComponent implements OnInit {
   tags: Tag[];
   selectedTags: string[] = [];
 
-  constructor(private apiService: ApiService, private snackBar: MatSnackBar) {
+  constructor(private apiService: ApiService, private snackBar: MatSnackBar, private router: Router,
+              private activatedRoute: ActivatedRoute) {
   }
 
   async ngOnInit() {
@@ -43,7 +45,6 @@ export class MainPageComponent implements OnInit {
       }
       if (tagsResponse.length && tagsResponse.length > 0) {
         this.tags = tagsResponse;
-        // this.selectAllTags();
       } else {
         this.snackBar.open(`Не удалось загрузить теги:\n ${(<any>tagsResponse).message}`, 'Закрыть', {duration: 5000});
       }
@@ -53,21 +54,32 @@ export class MainPageComponent implements OnInit {
       .finally(() => this.loading = false);
   }
 
-  async switchPage(newPage: number) {
-    await this.apiService.getProjectsByStatus(this.statusFilter, this.perPage, newPage).then((res) => {
-      this.currentPage = res.page;
-      this.totalPages = res.pages;
-      this.perPage = res.per_page;
-      this.projects = res.data;
-    }).catch(e => {
-      this.snackBar.open('Не удалось загрузить проекты', 'Закрыть');
-      console.error('Failed to get projects:', e);
+  switchPage(newPage: number) {
+    this.activatedRoute.queryParams.pipe().subscribe(params => {
+      if (params.tags) {
+        this.apiService.getProjectsByTags(params.tags, newPage, this.perPage, this.statusFilter).then((res) => {
+          this.projects = res.data || [];
+          this.currentPage = res.page;
+          this.totalPages = res.pages;
+        }).catch((e) => {
+          this.snackBar.open('Не удалось применить фильтр', 'Закрыть', {duration: 5000});
+          console.error(e);
+        }).finally(() => this.loading = false);
+      } else {
+        this.apiService.getProjectsByStatus(this.statusFilter, this.perPage, newPage).then((res) => {
+          this.currentPage = res.page;
+          this.totalPages = res.pages;
+          this.projects = res.data;
+        }).catch(e => {
+          this.snackBar.open('Не удалось загрузить проекты', 'Закрыть');
+          console.error('Failed to get projects:', e);
+        });
+      }
     });
   }
 
   selectAllTags(select: NgModel, tags: Tag[]): void {
     select.update.emit(tags);
-    console.log(this.selectedTags);
   }
 
   compareFn(x: Tag, y: Tag): boolean {
@@ -77,6 +89,28 @@ export class MainPageComponent implements OnInit {
   deselectAllTags(select: NgModel): void {
     select.update.emit();
     this.selectedTags = [];
-    console.log(this.selectedTags);
+  }
+
+  async onTagsFilterChange(newValue: Tag[], newPage?: number) {
+    if (newValue && newValue.length !== 0) {
+      this.loading = true;
+      this.projects.length = 0;
+      const searchTags = {tags: ''};
+      newValue.forEach(itm => {
+        Object.keys(itm).forEach(key =>
+          key === 'value' ? searchTags.tags = searchTags.tags.concat(`${encodeURIComponent(itm[key])},`) : false);
+      });
+      await this.apiService.getProjectsByTags(searchTags.tags, this.currentPage, this.perPage, this.statusFilter).then((res) => {
+        this.projects = res.data || [];
+        this.totalPages = res.pages;
+        this.currentPage = res.page;
+      }).catch((e) => {
+        this.snackBar.open('Не удалось применить фильтр', 'Закрыть', {duration: 5000});
+        console.error(e);
+      }).finally(() => this.loading = false);
+      this.router.navigate(['/'], {queryParams: newValue.length === this.tags.length ? {tags: 'all'} : searchTags});
+    } else {
+      this.router.navigate(['/']);
+    }
   }
 }

@@ -78,6 +78,10 @@ export class ApiService {
     return this.http.get<UserProjects>(`${this.baseUrl}/projects/get.php?user=${id}`).toPromise();
   }
 
+  getProjectsByTags(tags: string, page: number, per_page: number, status?: number) {
+    return this.http.get<Projects>(`${this.baseUrl}/projects/get.php?tags=${tags}&page=${page}&per_page=${per_page}&status=${status || ''}`).toPromise();
+  }
+
   createProject(form: object | string): Promise<any> {
     return this.http.post(`${this.baseUrl}/projects/create/`, form, {
       headers: {'Content-Type': 'application/x-www-form-urlencoded'},
