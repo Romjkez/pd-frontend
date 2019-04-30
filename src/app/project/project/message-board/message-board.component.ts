@@ -1,4 +1,4 @@
-import {Component, ElementRef, OnInit, TemplateRef, ViewChild} from '@angular/core';
+import {Component, ElementRef, Input, OnInit, TemplateRef, ViewChild} from '@angular/core';
 import {ChatService} from '../../../shared/services/chat.service';
 import {catchError, filter, tap} from 'rxjs/operators';
 import {parseJwt} from '../../../shared/utils/functions.util';
@@ -31,6 +31,7 @@ export class MessageBoardComponent implements OnInit {
   input = '';
   selfId: number = parseJwt(localStorage.getItem('token')).data.id;
   projectId = +this.activatedRoute.snapshot.paramMap.get('id');
+  @Input() isAvailable: boolean;
 
   @ViewChild('messagesContainer') messagesContainer: ElementRef<HTMLDivElement>;
   @ViewChild('confirmDeletionDialog') confirmDeletionDialog: TemplateRef<any>;
@@ -40,7 +41,9 @@ export class MessageBoardComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getMessages();
+    if (this.isAvailable) {
+      this.getMessages();
+    }
   }
 
   sendMessage(): void {
