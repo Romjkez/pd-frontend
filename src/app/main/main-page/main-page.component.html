@@ -6,10 +6,10 @@
         <app-search [target]="'project'"></app-search>
         <app-preloader *ngIf="loading"></app-preloader>
         <h3 *ngIf="totalPages<1" style="text-align: center">Никто ещё не разместил проект...</h3>
-        <ng-container *ngFor="let project of projects | paginate: {
+        <div *ngFor="let project of projects | paginate: {
         itemsPerPage: perPage, currentPage: currentPage, totalItems: perPage*totalPages}">
           <app-project-snippet [project]="project"></app-project-snippet>
-        </ng-container>
+        </div>
         <div class="pagination" *ngIf="totalPages>0">
           <pagination-controls
             responsive="true"
@@ -25,6 +25,7 @@
             <div class="filter">
               <mat-form-field>
                 <mat-select multiple placeholder="По тегам" [(ngModel)]="selectedTags" [compareWith]="compareFn"
+                            (ngModelChange)="onTagsFilterChange($event)"
                             #tagsSelect="ngModel">
                   <mat-option *ngFor="let tag of tags" [value]="tag">
                     {{tag.category}} | {{tag.value}}
