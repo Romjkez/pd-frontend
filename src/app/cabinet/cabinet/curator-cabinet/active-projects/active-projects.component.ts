@@ -37,7 +37,8 @@ export class ActiveProjectsComponent implements OnInit {
   }
 
   async switchPage(newPage: number) {
-    await this.apiService.getProjectsByStatus(this.statusFilter, this.perPage, newPage).then((res) => {
+    const curator = parseJwt(this.authService.getToken()).data.id;
+    await this.apiService.getProjectsByStatusAndCurator(this.statusFilter, curator, this.perPage, newPage).then((res) => {
       this.currentPage = res.page;
       this.totalPages = res.pages;
       this.perPage = res.per_page;

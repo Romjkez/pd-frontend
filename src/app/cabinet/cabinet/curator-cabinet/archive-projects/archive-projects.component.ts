@@ -29,11 +29,9 @@ export class ArchiveProjectsComponent implements OnInit {
         this.totalPages = res.pages;
         this.perPage = res.per_page;
         this.projects = res.data;
-        this.loading = false;
       }).catch(e => {
-        this.loading = false;
         console.error('Failed to get archive projects:', e);
-      });
+      }).finally(() => this.loading = false);
   }
 
   async switchPage(newPage: number) {

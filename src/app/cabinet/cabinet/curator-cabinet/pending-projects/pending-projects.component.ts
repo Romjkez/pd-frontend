@@ -22,22 +22,21 @@ export class PendingProjectsComponent implements OnInit {
 
   async ngOnInit() {
     this.loading = true;
-    const curator = parseJwt(this.authService.getToken()).data.email;
+    const curator = parseJwt(this.authService.getToken()).data.id;
     await this.apiService.getProjectsByStatusAndCurator(this.statusFilter, curator, this.perPage, this.currentPage)
       .then((res) => {
         this.currentPage = res.page;
         this.totalPages = res.pages;
         this.perPage = res.per_page;
         this.projects = res.data;
-        this.loading = false;
       }).catch(e => {
-        this.loading = false;
         console.error('Failed to get pending projects:', e);
-      });
+      }).finally(() => this.loading = false);
   }
 
   async switchPage(newPage: number) {
-    await this.apiService.getProjectsByStatus(this.statusFilter, this.perPage, newPage).then((res) => {
+    const curator = parseJwt(this.authService.getToken()).data.id;
+    await this.apiService.getProjectsByStatusAndCurator(this.statusFilter, curator, this.perPage, newPage).then((res) => {
       this.currentPage = res.page;
       this.totalPages = res.pages;
       this.perPage = res.per_page;

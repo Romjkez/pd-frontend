@@ -1,6 +1,6 @@
 <section class="chat">
   <div class="messages-container" #messagesContainer>
-    <div *ngIf="messages==null || messages?.length<1" class="empty-message">Здесь будут отображаться сообщения</div>
+    <div *ngIf="!messages || messages?.length<1" class="empty-message">Здесь будут отображаться сообщения</div>
     <div class="single-message" *ngFor="let message of messages" [ngClass]="message.author.id==selfId?'float-right':''">
       <div class="single-message__controls" *ngIf="message.author.id==selfId">
         <button (click)="snackBar.open('Редактирование временно недоступно','OK',{duration:3500})" mat-button

@@ -87,8 +87,9 @@
             </div>
           </div>
         </div>
-        <div *ngIf="selfId==this.project?.curator.id || membersIds.includes(selfId)" class="message-board">
-          <app-message-board></app-message-board>
+        <div *ngIf="!loading" class="message-board">
+          <app-message-board *ngIf="selfId==this.project?.curator.id || membersIds.includes(selfId)"
+                             [isAvailable]="selfId==project.curator.id || membersIds.includes(selfId)"></app-message-board>
         </div>
       </div>
       <div class="project-view__request">
