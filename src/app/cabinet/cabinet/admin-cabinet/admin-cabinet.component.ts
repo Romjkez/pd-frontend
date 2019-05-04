@@ -1,11 +1,11 @@
 import {Component, OnInit, TemplateRef, ViewChild} from '@angular/core';
-import {ApiService} from '../../../shared/services/api.service';
 import {MatDialog, MatSnackBar} from '@angular/material';
-import {Projects} from '../../../shared/models/project.model';
-import {Tag} from '../../../shared/models/tags.model';
-import {ListItem} from '../../../shared/components/editable-list/editable-list.component';
-import {AuthService} from '../../../shared/services/auth.service';
-import {TagsService} from '../../../shared/services/tags.service';
+import {ProjectsService} from '../../../modules/shared/services/projects.service';
+import {TagsService} from '../../../modules/shared/services/tags.service';
+import {AuthService} from '../../../modules/shared/services/auth.service';
+import {Tag} from '../../../modules/shared/models/tags.model';
+import {ListItem} from '../../../modules/shared/components/editable-list/editable-list.component';
+import {Projects} from '../../../modules/shared/models/project.model';
 
 @Component({
   selector: 'app-admin-cabinet',
@@ -22,13 +22,13 @@ export class AdminCabinetComponent implements OnInit {
   tags: Tag[];
   @ViewChild('tagsModal') tagsModal: TemplateRef<any>;
 
-  constructor(private apiService: ApiService, private snackBar: MatSnackBar, private matDialog: MatDialog,
+  constructor(private projectsService: ProjectsService, private snackBar: MatSnackBar, private matDialog: MatDialog,
               private authService: AuthService, private tagsService: TagsService) {
   }
 
   async ngOnInit() {
     this.loading = true;
-    await this.apiService.getProjectsByStatus(this.statusFilter, this.perPage, this.currentPage)
+    await this.projectsService.getProjectsByStatus(this.statusFilter, this.perPage, this.currentPage)
       .then((res) => {
         this.currentPage = res.page;
         this.totalPages = res.pages;
@@ -41,7 +41,7 @@ export class AdminCabinetComponent implements OnInit {
   }
 
   async switchPage(newPage: number) {
-    await this.apiService.getProjectsByStatus(this.statusFilter, this.perPage, newPage).then((res) => {
+    await this.projectsService.getProjectsByStatus(this.statusFilter, this.perPage, newPage).then((res) => {
       this.currentPage = res.page;
       this.totalPages = res.pages;
       this.perPage = res.per_page;

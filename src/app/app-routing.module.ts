@@ -1,14 +1,14 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {MainPageComponent} from './main/main-page/main-page.component';
-import {ProjectComponent} from './project/project/project.component';
 import {NotFoundPageComponent} from './not-found-page/not-found-page.component';
-import {RegisterComponent} from './auth/register/register.component';
-import {LoginComponent} from './auth/login/login.component';
 import {CabinetComponent} from './cabinet/cabinet/cabinet.component';
-import {AuthGuardService} from './shared/services/auth-guard.service';
-import {CreateProjectComponent} from './project/project/create-project/create-project.component';
-import {EditProjectComponent} from './project/project/edit-project/edit-project.component';
+import {ProjectComponent} from './modules/project/view-project/project.component';
+import {CreateProjectComponent} from './modules/project/create-project/create-project.component';
+import {EditProjectComponent} from './modules/project/edit-project/edit-project.component';
+import {MainPageComponent} from './modules/main/main-page/main-page.component';
+import {RegisterComponent} from './modules/auth/register/register.component';
+import {LoginComponent} from './modules/auth/login/login.component';
+import {AuthGuardService} from './modules/shared/services/auth-guard.service';
 
 const routes: Routes = [
   {
@@ -19,17 +19,17 @@ const routes: Routes = [
   },
   {
     path: 'log',
-    loadChildren: './logs/logs.module#LogsModule'
+    loadChildren: './modules/logs/logs.module#LogsModule'
   },
   {
     path: 'user',
     data: {animation: 'UserView'},
-    loadChildren: './user/user.module#UserModule'
+    loadChildren: './modules/user/user.module#UserModule'
   },
   {
     path: 'edit_profile',
     data: {animation: 'EditProfileView'},
-    loadChildren: './user/user.module#UserModule'
+    loadChildren: './modules/user/user.module#UserModule'
   },
   {
     path: 'project/:id',
