@@ -34,7 +34,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
     MatExpansionModule,
     MatSelectModule,
     MatIconModule,
-    MatTooltipModule
+    MatTooltipModule,
   ],
   exports: [MainPageComponent],
 })

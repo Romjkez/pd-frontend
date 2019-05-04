@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {AuthService} from '../shared/services/auth.service';
-import {ApiService} from '../shared/services/api.service';
 import {parseJwt} from '../shared/utils/functions.util';
 import {User} from '../shared/models/user.model';
+import {UserService} from '../shared/services/user.service';
 
 @Component({
   selector: 'app-header',
@@ -13,7 +13,7 @@ export class HeaderComponent implements OnInit {
   user: User;
   id: number;
 
-  constructor(public authService: AuthService, private apiService: ApiService) {
+  constructor(public authService: AuthService, private userService: UserService) {
   }
   async ngOnInit() {
     this.authService.authChange.subscribe(() => this.getHeaderData());
@@ -24,7 +24,7 @@ export class HeaderComponent implements OnInit {
     if (this.authService.getToken()) {
       const parsedToken = parseJwt(this.authService.getToken());
       this.id = parsedToken.data.id;
-      await this.apiService.getUserById(this.id).then((res: User) => {
+      await this.userService.getUserById(this.id).then((res: User) => {
         this.user = res;
       }).catch(e => console.error(e));
     }

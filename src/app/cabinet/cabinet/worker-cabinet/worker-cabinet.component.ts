@@ -3,6 +3,7 @@ import {ApiService} from '../../../shared/services/api.service';
 import {AuthService} from '../../../shared/services/auth.service';
 import {UserProjects} from '../../../shared/models/project.model';
 import {Applications} from '../../../shared/models/application.model';
+import {ApplicationsService} from '../../../shared/services/applications.service';
 
 @Component({
   selector: 'app-worker-cabinet',
@@ -16,14 +17,14 @@ export class WorkerCabinetComponent implements OnInit {
   apps: Applications;
   loading: boolean;
 
-  constructor(private apiService: ApiService, private authService: AuthService) {
+  constructor(private applicationsService: ApplicationsService, private apiService: ApiService, private authService: AuthService) {
   }
 
   ngOnInit() {
     this.loading = true;
     Promise.all([
       this.apiService.getUserProjects(this.authService.getUserId()),
-      this.apiService.getUserApps(this.authService.getUserId(), this.per_page, this.page)
+      this.applicationsService.getUserApps(this.authService.getUserId(), this.per_page, this.page)
     ])
       .then(([projects, apps]) => {
         this.projects = projects;
@@ -34,7 +35,7 @@ export class WorkerCabinetComponent implements OnInit {
   }
 
   async switchPage(newPage: number) {
-    await this.apiService.getUserApps(this.authService.getUserId(), this.per_page, newPage).then((res) => {
+    await this.applicationsService.getUserApps(this.authService.getUserId(), this.per_page, newPage).then((res) => {
       this.page = res.page;
       this.per_page = res.per_page;
       this.projects = res.data;

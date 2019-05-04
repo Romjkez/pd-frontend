@@ -5,7 +5,7 @@ import {Router} from '@angular/router';
 import {HttpErrorResponse, HttpResponse} from '@angular/common/http';
 import {MatSnackBar} from '@angular/material';
 import {back} from '../../shared/utils/functions.util';
-import {ApiService} from '../../shared/services/api.service';
+import {UserService} from '../../shared/services/user.service';
 
 export interface FormLabels {
   worker: {
@@ -40,7 +40,7 @@ export class RegisterComponent implements OnInit {
   back = back;
   @ViewChild('submitButton') submitButton: ElementRef;
 
-  constructor(private authService: AuthService, private router: Router, private apiService: ApiService, private snackBar: MatSnackBar) {
+  constructor(private authService: AuthService, private router: Router, private userService: UserService, private snackBar: MatSnackBar) {
   }
 
   ngOnInit() {
@@ -144,6 +144,6 @@ export class RegisterComponent implements OnInit {
     &std_group=${this.regForm.controls.std_group.value.trim()}
     &avatar=${this.regForm.controls.avatar.value.trim()}
     &description=${this.regForm.controls.description.value.trim()}`;
-    return this.apiService.registerUser(body);
+    return this.userService.registerUser(body);
   }
 }

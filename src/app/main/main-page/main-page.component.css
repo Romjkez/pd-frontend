@@ -56,16 +56,6 @@ h3 {
   top: 0;
 }
 
-.filter-block__clear-filters_desktop {
-  font-size: 13px;
-  color: #207ec9;
-}
-
-.filter-block__clear-filters_desktop:hover {
-  color: #297ab9;
-  text-decoration: underline;
-}
-
 .pagination {
   width: 100%;
   display: flex;
@@ -82,12 +72,15 @@ h3 {
 
 .filter-block__cancel {
   display: none;
-  justify-content: space-between;
-  align-items: center;
+  margin-top: 2%
 }
 
-.filter-block__confirm {
-  text-align: center;
+.filter-block__reset {
+  text-align: center
+}
+
+.filter-block__reset > button, .filter-block__cancel > button {
+  width: 100%;
 }
 
 .search {
@@ -97,6 +90,12 @@ h3 {
 
 .filter {
   display: flex;
+}
+
+.sorts__item {
+  display: flex;
+  justify-content: space-between;
+  line-height: 2em;
 }
 
 @media (max-width: 767.98px) {
@@ -140,10 +139,6 @@ h3 {
   .filter-block__cancel {
     display: flex;
     justify-content: center;
-  }
-
-  .filter-block__clear-filters_desktop {
-    display: none;
   }
 
   .mobileOverlay {

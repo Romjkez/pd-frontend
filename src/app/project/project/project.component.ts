@@ -10,6 +10,7 @@ import {parseJwt} from '../../shared/utils/functions.util';
 import {Project} from '../../shared/models/project.model';
 import {ParsedWorkerApplication} from '../../shared/models/application.model';
 import {FileUploadModalComponent} from '../../modules/appFileUpload/file-upload-modal/file-upload-modal.component';
+import {ApplicationsService} from '../../shared/services/applications.service';
 
 @Component({
   selector: 'app-project',
@@ -35,8 +36,8 @@ export class ProjectComponent implements OnInit {
   @ViewChild('joinFormSubmit') joinFormSubmit: ElementRef;
   @ViewChild('confirmDeletionDialog') confirmDeletionDialog: TemplateRef<any>;
 
-  constructor(private activatedRoute: ActivatedRoute, private apiService: ApiService, private snackBar: MatSnackBar,
-              private router: Router, public authService: AuthService, public matDialog: MatDialog) {
+  constructor(private activatedRoute: ActivatedRoute, private applicationsService: ApplicationsService, private snackBar: MatSnackBar,
+              private router: Router, public authService: AuthService, public matDialog: MatDialog, private apiService: ApiService) {
   }
 
   async ngOnInit() {
@@ -49,7 +50,7 @@ export class ProjectComponent implements OnInit {
     });
     this.getProject(id);
     if (this.authService.isAuthorized()) {
-      this.apiService.isWorkerRequestedJoin(this.authService.getUserId(), <any>id).then(res => {
+      this.applicationsService.isWorkerRequestedJoin(this.authService.getUserId(), <any>id).then(res => {
         if (res.message === 'true') {
           this.joinRequested = true;
           this.loading = false;
@@ -95,7 +96,7 @@ export class ProjectComponent implements OnInit {
     const team = this.joinForm.controls.team.value;
     const role = this.joinForm.controls.role.value;
     const comment = this.joinForm.controls.comment.value;
-    await this.apiService.createApp(workerId, projectId, team, role, comment).then(res => {
+    await this.applicationsService.createApp(workerId, projectId, team, role, comment).then(res => {
       if (res.message === 'true') {
         this.snackBar.open(`Заявка подана: ${role}, команда №${team + 1}`, '', {duration: 4000});
         this.joinRequested = true;
@@ -111,7 +112,7 @@ export class ProjectComponent implements OnInit {
   }
 
   async getApps() {
-    await this.apiService.getAppsByProjectAndStatus(this.project.id, 0).then(res => {
+    await this.applicationsService.getAppsByProjectAndStatus(this.project.id, 0).then(res => {
       if (!res.message) {
         this.apps = res;
       } else {
@@ -124,7 +125,7 @@ export class ProjectComponent implements OnInit {
   }
 
   async acceptApplication(id: number) {
-    this.apiService.updateApp(id, 1).then(res => {
+    this.applicationsService.updateApp(id, 1).then(res => {
       if (res.message === 'true') {
         this.snackBar.open(`Заявка одобрена`, 'Закрыть', {duration: 4000});
         this.getApps();
@@ -139,7 +140,7 @@ export class ProjectComponent implements OnInit {
   }
 
   async declineApplication(id: number) {
-    this.apiService.updateApp(id, 2).then(res => {
+    this.applicationsService.updateApp(id, 2).then(res => {
       if (res.message === 'true') {
         this.snackBar.open(`Заявка отклонена`, 'Закрыть', {duration: 4000});
         this.getApps();

@@ -5,6 +5,7 @@ import {AuthService} from '../../shared/services/auth.service';
 import {parseJwt} from '../../shared/utils/functions.util';
 import {UserProjects} from '../../shared/models/project.model';
 import {User} from '../../shared/models/user.model';
+import {UserService} from '../../shared/services/user.service';
 
 
 @Component({
@@ -19,14 +20,14 @@ export class UserViewComponent implements OnInit {
   projects: UserProjects;
 
   constructor(private activatedRoute: ActivatedRoute, private apiService: ApiService, private router: Router,
-              public authService: AuthService) {
+              public authService: AuthService, private userService: UserService) {
   }
 
   async ngOnInit() {
     this.loading = true;
     const id = this.activatedRoute.snapshot.paramMap.get('id');
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
-    await this.apiService.getUserById(id).then((res: User) => {
+    await this.userService.getUserById(id).then((res: User) => {
       if (res.surname && res.id) {
         this.user = res;
         if (this.authService.getToken().length > 0) {

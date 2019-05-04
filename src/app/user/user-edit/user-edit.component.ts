@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import {ApiService} from '../../shared/services/api.service';
 import {AuthService} from '../../shared/services/auth.service';
 import {MatSnackBar} from '@angular/material';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
@@ -8,6 +7,7 @@ import {FormLabels} from '../../auth/register/register.component';
 import {HttpResponse} from '@angular/common/http';
 import {back, parseJwt} from '../../shared/utils/functions.util';
 import {User} from '../../shared/models/user.model';
+import {UserService} from '../../shared/services/user.service';
 
 @Component({
   selector: 'app-user-edit',
@@ -20,7 +20,8 @@ export class UserEditComponent implements OnInit {
   regForm: FormGroup;
   formLabels: FormLabels;
   back = back;
-  constructor(private activatedRoute: ActivatedRoute, private apiService: ApiService, private snackBar: MatSnackBar,
+
+  constructor(private activatedRoute: ActivatedRoute, private userService: UserService, private snackBar: MatSnackBar,
               private authService: AuthService, private router: Router) {
   }
 
@@ -29,7 +30,7 @@ export class UserEditComponent implements OnInit {
       this.router.navigate(['/']);
     }
     this.loading = true;
-    await this.apiService.getUserById(parseJwt(this.authService.getToken()).data.id).then(res => {
+    await this.userService.getUserById(parseJwt(this.authService.getToken()).data.id).then(res => {
       this.user = res;
       this.regForm = new FormGroup({
         name: new FormControl(this.user.name),
@@ -76,7 +77,7 @@ export class UserEditComponent implements OnInit {
   update() {
     const data = this.regForm.getRawValue();
     data.id = parseJwt(this.authService.getToken()).data.id;
-    this.apiService.updateUser(data).then((res: HttpResponse<any>) => {
+    this.userService.updateUser(data).then((res: HttpResponse<any>) => {
       if (res.status === 202) {
         this.snackBar.open('Профиль успешно обновлён', 'Закрыть', {duration: 3500});
         const id = <string>data.id;
