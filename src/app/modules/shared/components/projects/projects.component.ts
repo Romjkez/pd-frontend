@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {Project} from '../../models/project.model';
 
 @Component({
@@ -6,18 +6,16 @@ import {Project} from '../../models/project.model';
   templateUrl: './projects.component.html',
   styleUrls: ['./projects.component.css']
 })
-export class ProjectsComponent implements OnInit {
+export class ProjectsComponent {
+  @Input() currentPage = 1;
+  @Input() perPage = 5;
+  @Input() totalPages = 1;
   @Input() projects: Project[];
-  perPage = 5;
-  currentPage = 1;
-  totalPages: number;
+  @Input() id: string;
+  @Output() switchPage: EventEmitter<{ newPage: number, id: string }> = new EventEmitter();
 
-  constructor() {
-  }
-
-  ngOnInit() {
-  }
-
-  switchPage(newPage: number) {
+  onSwitchPage(newPage: number): void {
+    this.currentPage = newPage;
+    this.switchPage.emit({newPage: newPage, id: this.id});
   }
 }

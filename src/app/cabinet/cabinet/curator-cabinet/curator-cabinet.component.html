@@ -3,13 +3,19 @@
     <a routerLink="/cabinet/create_project" class="button project-cr-button mobile">создать проект</a>
     <mat-tab-group dynamicHeight="true" animationDuration="300">
       <mat-tab label="Активные">
-        <app-active-projects></app-active-projects>
+        <app-projects [projects]="activeProjects" [currentPage]="currentPage.active" [id]="'active'"
+                      [totalPages]="totalPages.active" (switchPage)="switchPage($event)">
+        </app-projects>
       </mat-tab>
       <mat-tab label="На рассмотрении">
-        <app-pending-projects></app-pending-projects>
+        <app-projects [projects]="pendingProjects" [currentPage]="currentPage.pending" [id]="'pending'"
+                      [totalPages]="totalPages.pending" (switchPage)="switchPage($event)">
+        </app-projects>
       </mat-tab>
       <mat-tab label="Архив">
-        <app-archive-projects></app-archive-projects>
+        <app-projects [projects]="archiveProjects" [currentPage]="currentPage.archive" [id]="'archive'"
+                      [totalPages]="totalPages.archive" (switchPage)="switchPage($event)">
+        </app-projects>
       </mat-tab>
     </mat-tab-group>
   </div>

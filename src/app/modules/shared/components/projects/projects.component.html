@@ -1,10 +1,10 @@
+<h4 style="text-align: center;margin-top:3%" *ngIf="!projects">Список проектов пуст</h4>
 <app-project-snippet [project]="project"
                      *ngFor="let project of projects | paginate: {
-                               id: 'active',
-          itemsPerPage: perPage, currentPage: currentPage, totalItems: perPage*totalPages
-          }"></app-project-snippet>
-<pagination-controls *ngIf="totalPages>0"
+          itemsPerPage: perPage, currentPage: currentPage, totalItems: perPage*totalPages, id: id
+           }"></app-project-snippet>
+<pagination-controls *ngIf="totalPages>1"
                      responsive="true"
                      nextLabel="Вперёд"
                      previousLabel="Назад"
-                     (pageChange)="switchPage($event)" [id]="'active'"></pagination-controls>
+                     (pageChange)="onSwitchPage($event)" [id]="id"></pagination-controls>

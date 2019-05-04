@@ -4,6 +4,7 @@ import {ProjectsService} from '../../../modules/shared/services/projects.service
 import {AuthService} from '../../../modules/shared/services/auth.service';
 import {UserProjects} from '../../../modules/shared/models/project.model';
 import {ApplicationsService} from '../../../modules/shared/services/applications.service';
+import {MatSnackBar} from '@angular/material';
 
 @Component({
   selector: 'app-worker-cabinet',
@@ -17,7 +18,8 @@ export class WorkerCabinetComponent implements OnInit {
   apps: Applications;
   loading: boolean;
 
-  constructor(private applicationsService: ApplicationsService, private projectsService: ProjectsService, private authService: AuthService) {
+  constructor(private applicationsService: ApplicationsService, private projectsService: ProjectsService,
+              private authService: AuthService, private snackBar: MatSnackBar) {
   }
 
   ngOnInit() {
@@ -30,17 +32,21 @@ export class WorkerCabinetComponent implements OnInit {
         this.projects = projects;
         this.apps = apps;
       })
-      .catch(e => console.error(e))
+      .catch(e => {
+        this.snackBar.open(`Ошибка загрузки: ${e.error.message}`, 'Закрыть', {duration: 5000});
+        console.error(e);
+      })
       .finally(() => this.loading = false);
   }
 
   async switchPage(newPage: number) {
-    await this.applicationsService.getUserApps(this.authService.getUserId(), this.per_page, newPage).then((res) => {
+    this.loading = true;
+    await this.applicationsService.getUserApps(this.authService.getUserId(), this.per_page, newPage).then(res => {
       this.page = res.page;
-      this.per_page = res.per_page;
       this.projects = res.data;
     }).catch(e => {
-      console.error('Failed to get active projects:', e);
-    });
+      this.snackBar.open(`Не удалось загрузить проекты: ${e.error.message}`, 'Закрыть', {duration: 5000});
+      console.error(e);
+    }).finally(() => this.loading = false);
   }
 }

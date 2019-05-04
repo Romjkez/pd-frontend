@@ -3,8 +3,7 @@
     <div class="tabs_block">
       <mat-tab-group dynamicHeight="true" animationDuration="300">
         <mat-tab label="Проекты">
-          <h4 style="text-align: center;margin-top:3%" *ngIf="projects?.active_projects==null">Список проектов пуст</h4>
-          <app-projects [projects]="projects?.active_projects"></app-projects>
+          <app-projects [projects]="projects?.active_projects" [id]="'user_active'"></app-projects>
         </mat-tab>
         <mat-tab label="Заявки">
           <div class="apps__header" *ngIf="apps?.data?.length > 0">
@@ -16,7 +15,7 @@
           <div class="apps__body">
             <h4 style="text-align: center;margin-top:3%" *ngIf="apps?.data==null">Список заявок пуст</h4>
             <app-application-snippet [application]="app" *ngFor="let app of apps?.data | paginate: {
-                               id: 'active',
+                               id: 'apps',
           itemsPerPage: per_page, currentPage: page, totalItems: per_page*apps?.pages
           }"></app-application-snippet>
             <div class="pagination">
@@ -24,14 +23,12 @@
                                    responsive="true"
                                    nextLabel="Вперёд"
                                    previousLabel="Назад"
-                                   (pageChange)="switchPage($event)" [id]="'active'"></pagination-controls>
+                                   (pageChange)="switchPage($event)" [id]="'apps'"></pagination-controls>
             </div>
           </div>
         </mat-tab>
         <mat-tab label="Архив проектов">
-          <h4 style="text-align: center;margin-top:3%" *ngIf="projects?.finished_projects==null">Список проектов
-            пуст</h4>
-          <app-projects [projects]="projects?.finished_projects"></app-projects>
+          <app-projects [projects]="projects?.finished_projects" [id]="'user_archive'"></app-projects>
         </mat-tab>
       </mat-tab-group>
     </div>
