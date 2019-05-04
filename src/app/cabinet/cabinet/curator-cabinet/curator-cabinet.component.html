@@ -1,20 +1,20 @@
-<main class="main">
-  <div class="cabinet-wrapper">
-    <div class="tabs_block">
-      <mat-tab-group dynamicHeight="true" animationDuration="300">
-        <mat-tab label="Активные" >
-          <app-active-projects></app-active-projects>
-        </mat-tab>
-        <mat-tab label="На рассмотрении">
-          <app-pending-projects></app-pending-projects>
-        </mat-tab>
-        <mat-tab label="Архив">
-          <app-archive-projects></app-archive-projects>
-        </mat-tab>
-      </mat-tab-group>
-    </div>
-    <div class="create-project">
-      <a routerLink="/cabinet/create_project" class="button project-cr-button">создать проект</a>
-    </div>
+<main class="cabinet-wrapper">
+  <div class="tabs_block">
+    <a routerLink="/cabinet/create_project" class="button project-cr-button mobile">создать проект</a>
+    <mat-tab-group dynamicHeight="true" animationDuration="300">
+      <mat-tab label="Активные">
+        <app-active-projects></app-active-projects>
+      </mat-tab>
+      <mat-tab label="На рассмотрении">
+        <app-pending-projects></app-pending-projects>
+      </mat-tab>
+      <mat-tab label="Архив">
+        <app-archive-projects></app-archive-projects>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+  <div class="create-project">
+    <a routerLink="/cabinet/create_project" class="button project-cr-button">создать проект</a>
   </div>
 </main>
+

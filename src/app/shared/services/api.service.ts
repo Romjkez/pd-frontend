@@ -65,8 +65,7 @@ export class ApiService {
   }
 
   updateProject(form: object | string): Promise<any> {
-    return this.http.post(`${this.baseUrl}/projects/update.php`, form, {
-      headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+    return this.http.put(`${this.baseUrl}/projects/update/?${form}`, '', {
       observe: 'body'
     }).toPromise();
   }

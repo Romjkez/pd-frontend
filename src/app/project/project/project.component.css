@@ -220,10 +220,6 @@
   align-items: center;
 }
 
-/* .project-view__info, .message-board {
-  flex: 1;
-} */
-
 .message-board {
   padding-left: 2%;
   width: 40%;
@@ -383,7 +379,9 @@ button mat-icon {
     width: 95%;
   }
 
-
+  .message-board {
+    width: auto;
+  }
 }
 
 @media (max-width: 991.98px) {

@@ -11,6 +11,7 @@ import {
   MatButtonToggleModule,
   MatDialogModule,
   MatExpansionModule,
+  MatMenuModule,
   MatSnackBar,
   MatSnackBarModule
 } from '@angular/material';
@@ -50,6 +51,7 @@ import {AuthInterceptor} from './shared/services/auth.interceptor';
     MatMomentDateModule,
     MatExpansionModule,
     MatButtonModule,
+    MatMenuModule,
   ],
   exports: [
     FormsModule,

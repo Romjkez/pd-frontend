@@ -23,7 +23,7 @@ export class MainPageComponent implements OnInit {
   selectedTags: string[] = [];
   sortOptions = '-id';
 
-  constructor(private apiService: ApiService, private snackBar: MatSnackBar, private router: Router,
+  constructor(private apiService: ApiService, private snackBar: MatSnackBar, public router: Router,
               private activatedRoute: ActivatedRoute, private tagsService: TagsService) {
   }
 
