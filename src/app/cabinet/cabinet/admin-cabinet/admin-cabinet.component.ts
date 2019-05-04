@@ -32,24 +32,23 @@ export class AdminCabinetComponent implements OnInit {
       .then((res) => {
         this.currentPage = res.page;
         this.totalPages = res.pages;
-        this.perPage = res.per_page;
         this.projects = res;
       }).catch(e => {
-        this.snackBar.open('Не удалось загрузить проекты', 'Закрыть');
-        console.error('Failed to get pending projects:', e);
+        this.snackBar.open(`Не удалось загрузить проекты: ${e.error.message}`, 'Закрыть');
+        console.error(e);
       }).finally(() => this.loading = false);
   }
 
   async switchPage(newPage: number) {
+    this.loading = true;
     await this.projectsService.getProjectsByStatus(this.statusFilter, this.perPage, newPage).then((res) => {
       this.currentPage = res.page;
       this.totalPages = res.pages;
-      this.perPage = res.per_page;
       this.projects = res;
     }).catch(e => {
-      this.snackBar.open('Не удалось загрузить проекты', 'Закрыть', {duration: 4000});
-      console.error('Failed to get pending projects:', e);
-    });
+      this.snackBar.open(`Не удалось загрузить проекты: ${e.error.message}`, 'Закрыть', {duration: 4000});
+      console.error(e);
+    }).finally(() => this.loading = false);
   }
 
   async openTagsDialog() {

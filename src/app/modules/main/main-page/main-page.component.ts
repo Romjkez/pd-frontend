@@ -29,7 +29,7 @@ export class MainPageComponent implements OnInit {
 
   async ngOnInit() {
     this.loading = true;
-    this.switchPage(1);
+    this.switchPage({newPage: 1});
     Promise.all([
       this.projectsService.updateProjectsDeadlines(),
       this.tagsService.getTags()
@@ -48,37 +48,37 @@ export class MainPageComponent implements OnInit {
       .finally(() => this.loading = false);
   }
 
-  switchPage(newPage: number) {
+  switchPage(ev: { newPage: number, id?: string }) {
     this.activatedRoute.queryParams.pipe().subscribe(params => {
       this.loading = true;
       if (params.tags) {
         this.resetSorts();
-        this.projectsService.getProjectsByTags(params.tags, newPage, this.perPage, this.statusFilter).then((res) => {
+        this.projectsService.getProjectsByTags(params.tags, ev.newPage, this.perPage, this.statusFilter).then((res) => {
           this.projects = res.data || [];
           this.currentPage = res.page;
           this.totalPages = res.pages;
         }).catch(e => {
-          this.snackBar.open(`Не удалось применить фильтр: ${e}`, 'Закрыть', {duration: 5000});
+          this.snackBar.open(`Не удалось применить фильтр: ${e.error.message}`, 'Закрыть', {duration: 5000});
           console.error(e);
         }).finally(() => this.loading = false);
       } else if (params.sort) {
         this.sortOptions = params.sort;
-        this.projectsService.getProjectsByStatus(this.statusFilter, this.perPage, newPage, this.sortOptions).then(res => {
+        this.projectsService.getProjectsByStatus(this.statusFilter, this.perPage, ev.newPage, this.sortOptions).then(res => {
           this.projects = res.data || [];
           this.totalPages = res.pages;
           this.currentPage = res.page;
         }).catch(e => {
-          this.snackBar.open('Не удалось отсортировать проекты', 'Закрыть', {duration: 5000});
+          this.snackBar.open(`Не удалось отсортировать проекты: ${e.error.message}`, 'Закрыть', {duration: 5000});
           console.error(e);
         }).finally(() => this.loading = false);
       } else {
         this.sortOptions = '-id';
-        this.projectsService.getProjectsByStatus(this.statusFilter, this.perPage, newPage).then((res) => {
+        this.projectsService.getProjectsByStatus(this.statusFilter, this.perPage, ev.newPage).then((res) => {
           this.currentPage = res.page;
           this.totalPages = res.pages;
           this.projects = res.data || [];
         }).catch(e => {
-          this.snackBar.open('Не удалось загрузить проекты', 'Закрыть', {duration: 5000});
+          this.snackBar.open(`Не удалось загрузить проекты: ${e.error.message}`, 'Закрыть', {duration: 5000});
           console.error(e);
         }).finally(() => this.loading = false);
       }
@@ -161,7 +161,7 @@ export class MainPageComponent implements OnInit {
       })
       .catch(e => {
         console.log(e);
-        this.snackBar.open(`Не удалось отсортировать проекты: ${e}`, 'Закрыть', {duration: 5000});
+        this.snackBar.open(`Не удалось отсортировать проекты: ${e.error.message}`, 'Закрыть', {duration: 5000});
       })
       .finally(() => this.loading = false);
   }
