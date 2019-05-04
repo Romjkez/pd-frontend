@@ -32,7 +32,7 @@ import {FileUploadModalComponent} from './file-upload-modal/file-upload-modal.co
     AppFileUploadComponent,
     AppFileUploadQueueComponent,
     FileUploadInputForDirective,
-    BytesPipe
+    BytesPipe,
   ],
   entryComponents: [FileUploadModalComponent]
 })

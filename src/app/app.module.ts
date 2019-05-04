@@ -19,12 +19,12 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {NgxPaginationModule} from 'ngx-pagination';
 import {CabinetModule} from './cabinet/cabinet.module';
-import {AuthModule} from './auth/auth.module';
-import {MainModule} from './main/main.module';
-import {SharedModule} from './shared/shared.module';
-import {ProjectModule} from './project/project.module';
 import {MatMomentDateModule} from '@angular/material-moment-adapter';
-import {AuthInterceptor} from './shared/services/auth.interceptor';
+import {ProjectModule} from './modules/project/project.module';
+import {MainModule} from './modules/main/main.module';
+import {AuthModule} from './modules/auth/auth.module';
+import {SharedModule} from './modules/shared/shared.module';
+import {AuthInterceptor} from './modules/shared/services/auth.interceptor';
 
 @NgModule({
   declarations: [

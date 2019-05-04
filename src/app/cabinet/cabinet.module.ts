@@ -10,7 +10,7 @@ import {ActiveProjectsComponent} from './cabinet/curator-cabinet/active-projects
 import {PendingProjectsComponent} from './cabinet/curator-cabinet/pending-projects/pending-projects.component';
 import {ArchiveProjectsComponent} from './cabinet/curator-cabinet/archive-projects/archive-projects.component';
 import {AppRoutingModule} from '../app-routing.module';
-import {SharedModule} from '../shared/shared.module';
+import {SharedModule} from '../modules/shared/shared.module';
 
 @NgModule({
   declarations: [

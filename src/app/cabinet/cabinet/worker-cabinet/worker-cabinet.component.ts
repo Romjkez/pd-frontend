@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
-import {ApiService} from '../../../shared/services/api.service';
-import {AuthService} from '../../../shared/services/auth.service';
-import {UserProjects} from '../../../shared/models/project.model';
-import {Applications} from '../../../shared/models/application.model';
-import {ApplicationsService} from '../../../shared/services/applications.service';
+import {Applications} from '../../../modules/shared/models/application.model';
+import {ProjectsService} from '../../../modules/shared/services/projects.service';
+import {AuthService} from '../../../modules/shared/services/auth.service';
+import {UserProjects} from '../../../modules/shared/models/project.model';
+import {ApplicationsService} from '../../../modules/shared/services/applications.service';
 
 @Component({
   selector: 'app-worker-cabinet',
@@ -17,13 +17,13 @@ export class WorkerCabinetComponent implements OnInit {
   apps: Applications;
   loading: boolean;
 
-  constructor(private applicationsService: ApplicationsService, private apiService: ApiService, private authService: AuthService) {
+  constructor(private applicationsService: ApplicationsService, private projectsService: ProjectsService, private authService: AuthService) {
   }
 
   ngOnInit() {
     this.loading = true;
     Promise.all([
-      this.apiService.getUserProjects(this.authService.getUserId()),
+      this.projectsService.getUserProjects(this.authService.getUserId()),
       this.applicationsService.getUserApps(this.authService.getUserId(), this.per_page, this.page)
     ])
       .then(([projects, apps]) => {

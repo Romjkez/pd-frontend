@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {AuthService} from '../../../../shared/services/auth.service';
-import {ApiService} from '../../../../shared/services/api.service';
-import {parseJwt} from '../../../../shared/utils/functions.util';
-import {Project} from '../../../../shared/models/project.model';
+import {Project} from '../../../../modules/shared/models/project.model';
+import {ProjectsService} from '../../../../modules/shared/services/projects.service';
+import {AuthService} from '../../../../modules/shared/services/auth.service';
+import {parseJwt} from '../../../../modules/shared/utils/functions.util';
 
 @Component({
   selector: 'app-pending-projects',
@@ -17,13 +17,13 @@ export class PendingProjectsComponent implements OnInit {
   perPage = 5;
   statusFilter = 30;
 
-  constructor(private authService: AuthService, private apiService: ApiService) {
+  constructor(private authService: AuthService, private projectsService: ProjectsService) {
   }
 
   async ngOnInit() {
     this.loading = true;
     const curator = parseJwt(this.authService.getToken()).data.id;
-    await this.apiService.getProjectsByStatusAndCurator(this.statusFilter, curator, this.perPage, this.currentPage)
+    await this.projectsService.getProjectsByStatusAndCurator(this.statusFilter, curator, this.perPage, this.currentPage)
       .then((res) => {
         this.currentPage = res.page;
         this.totalPages = res.pages;
@@ -36,7 +36,7 @@ export class PendingProjectsComponent implements OnInit {
 
   async switchPage(newPage: number) {
     const curator = parseJwt(this.authService.getToken()).data.id;
-    await this.apiService.getProjectsByStatusAndCurator(this.statusFilter, curator, this.perPage, newPage).then((res) => {
+    await this.projectsService.getProjectsByStatusAndCurator(this.statusFilter, curator, this.perPage, newPage).then((res) => {
       this.currentPage = res.page;
       this.totalPages = res.pages;
       this.perPage = res.per_page;
