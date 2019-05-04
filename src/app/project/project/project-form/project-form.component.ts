@@ -6,6 +6,7 @@ import {MatDatepickerInputEvent, MatSnackBar} from '@angular/material';
 import {Tag} from '../../../shared/models/tags.model';
 import {ApiService} from '../../../shared/services/api.service';
 import {ActivatedRoute, Router} from '@angular/router';
+import {TagsService} from '../../../shared/services/tags.service';
 
 @Component({
   selector: 'app-project-form',
@@ -31,7 +32,7 @@ export class ProjectFormComponent implements OnInit {
   @Input() isEditingProject: boolean;
 
   constructor(private apiService: ApiService, private snackBar: MatSnackBar, private router: Router,
-              private activatedRoute: ActivatedRoute) {
+              private activatedRoute: ActivatedRoute, private tagsService: TagsService) {
   }
 
   async ngOnInit() {
@@ -39,7 +40,7 @@ export class ProjectFormComponent implements OnInit {
     if (this.isEditingProject) {
       const id = this.activatedRoute.snapshot.paramMap.get('id');
       await Promise.all([
-        this.apiService.getTags(),
+        this.tagsService.getTags(),
         this.apiService.getProjectById(id)
       ]).then(([tags, project]) => {
         this.tagsList = tags;
@@ -73,7 +74,7 @@ export class ProjectFormComponent implements OnInit {
         console.error(e);
       }).finally(() => this.loading = false);
     } else {
-      await this.apiService.getTags().then((res) => {
+      await this.tagsService.getTags().then((res) => {
         this.tagsList = res;
         this.projectForm = new FormGroup({
           title:

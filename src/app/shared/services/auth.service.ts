@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {Router} from '@angular/router';
 import {Subject} from 'rxjs';
 import {parseJwt} from '../utils/functions.util';
-import {ApiService} from './api.service';
+import {UserService} from './user.service';
 
 @Injectable({
   providedIn: 'root'
@@ -11,12 +11,12 @@ import {ApiService} from './api.service';
 export class AuthService {
   authChange = new Subject();
 
-  constructor(private apiService: ApiService, private router: Router) {
+  constructor(private userService: UserService, private router: Router) {
   }
 
   login(email: string, pass: string): Promise<any> {
     const params = `email=${email}&pass=${pass}`;
-    return this.apiService.authorizeUser(params);
+    return this.userService.authorizeUser(params);
   }
 
   logout(): void {

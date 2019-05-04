@@ -12,6 +12,10 @@
   box-sizing: border-box;
 }
 
+.project-cr-button.mobile {
+  display: none
+}
+
 .tabs_block {
   flex: 80%;
   max-width: 1200px;
@@ -42,7 +46,18 @@ mat-tab-group {
     border: none;
     margin-bottom: 30px;
   }
+}
 
+@media screen and (max-width: 767.5px) {
+  .create-project {
+    display: none
+  }
+
+  .project-cr-button.mobile {
+    display: block;
+    padding: 3%;
+    height: auto
+  }
 }
 
 @media (min-width: 576px) and (max-width: 767.98px) {

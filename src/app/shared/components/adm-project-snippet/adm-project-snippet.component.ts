@@ -29,7 +29,6 @@ export class AdmProjectSnippetComponent implements OnInit, OnDestroy {
   }
 
   async updateProject(): Promise<any> {
-    console.log('update');
     if (this.approveForm.controls.approve.value === 'true') {
       await this.apiService.updateProjectStatus(this.project.id, 1, '').then((res: HttpResponse<any>) => {
         this.snackBar.open('Статус проекта успешно обновлён', 'Закрыть', {duration: 3000});

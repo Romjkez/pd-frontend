@@ -45,17 +45,43 @@
                 <mat-icon>cancel</mat-icon>
               </button>
             </div>
+            <h3>сортировки</h3>
+            <div class="sorts">
+              <div class="sorts__item">
+                <div>По дате завершения проекта</div>
+                <div>
+                  <mat-icon [color]="sortOptions=='finish_date'?'accent':undefined">arrow_upward</mat-icon>
+                  <mat-slide-toggle id="finishDateSort" [checked]="sortOptions=='-finish_date'"
+                                    (change)="onSortOptionsChange($event)"></mat-slide-toggle>
+                  <mat-icon [color]="sortOptions=='-finish_date'?'accent':undefined">arrow_downward</mat-icon>
+                </div>
+              </div>
+              <div class="sorts__item">
+                <div>По дате окончания записи</div>
+                <div>
+                  <mat-icon [color]="sortOptions=='deadline'?'accent':undefined">arrow_upward</mat-icon>
+                  <mat-slide-toggle id="deadlineSort" [checked]="sortOptions=='-deadline'"
+                                    (change)="onSortOptionsChange($event)"></mat-slide-toggle>
+                  <mat-icon [color]="sortOptions=='-deadline'?'accent':undefined">arrow_downward</mat-icon>
+                </div>
+              </div>
+              <div class="sorts__item">
+                <div>По новизне</div>
+                <div>
+                  <mat-icon [color]="sortOptions=='id'?'accent':undefined">arrow_upward</mat-icon>
+                  <mat-slide-toggle id="idSort" [checked]="sortOptions=='-id'"
+                                    (change)="onSortOptionsChange($event)"></mat-slide-toggle>
+                  <mat-icon [color]="sortOptions=='-id'?'accent':undefined">arrow_downward</mat-icon>
+                </div>
+              </div>
+            </div>
 
           </div>
-          <div class="filter-block__confirm">
-            <button class="button button_confirm">подтведить</button>
-            <button mat-button style="width:100%" class="filter-block__clear-filters_desktop">сбросить</button>
+          <div class="filter-block__reset">
+            <button mat-button mat-raised-button (click)="router.navigate(['/'])">сбросить</button>
           </div>
           <div class="filter-block__cancel">
-            <button mat-button (click)="filters.classList.remove('mobileOverlay')"
-                    style="width:100%;background:#eee; margin-top: 2%">отмена
-            </button>
-            <!--<button mat-button class="filter-block__clear-filters">сбросить</button>-->
+            <button mat-button mat-raised-button (click)="filters.classList.remove('mobileOverlay')">отмена</button>
           </div>
         </div>
       </div>
