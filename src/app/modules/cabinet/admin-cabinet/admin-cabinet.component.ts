@@ -22,7 +22,7 @@ export class AdminCabinetComponent implements OnInit {
   tags: Tag[];
   @ViewChild('tagsModal') tagsModal: TemplateRef<any>;
 
-  constructor(private projectsService: ProjectsService, private snackBar: MatSnackBar, private matDialog: MatDialog,
+  constructor(private projectsService: ProjectsService, public snackBar: MatSnackBar, private matDialog: MatDialog,
               private authService: AuthService, private tagsService: TagsService) {
   }
 
