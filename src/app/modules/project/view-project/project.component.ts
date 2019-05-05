@@ -38,7 +38,8 @@ export class ProjectComponent implements OnInit {
   @ViewChild('confirmDeletionDialog') confirmDeletionDialog: TemplateRef<any>;
 
   constructor(private activatedRoute: ActivatedRoute, private applicationsService: ApplicationsService, private snackBar: MatSnackBar,
-              private router: Router, public authService: AuthService, public matDialog: MatDialog, private projectsService: ProjectsService) {
+              private router: Router, public authService: AuthService, public matDialog: MatDialog,
+              private projectsService: ProjectsService) {
   }
 
   async ngOnInit() {
@@ -106,7 +107,8 @@ export class ProjectComponent implements OnInit {
       }
       this.joinFormSubmit.nativeElement.removeAttribute('disabled');
     }).catch(e => {
-      this.snackBar.open('Не удалось подать заявку. Возможно, кого-то уже взяли на эту позицию', 'Закрыть', {duration: 4000});
+      this.snackBar.open(`Не удалось подать заявку. ${e.error.message || 'отсутствует соединение с интернетом'}`,
+        'Закрыть', {duration: 4000});
       console.error(e);
       this.joinFormSubmit.nativeElement.removeAttribute('disabled');
     });
@@ -135,7 +137,7 @@ export class ProjectComponent implements OnInit {
       }
       this.getProject(this.activatedRoute.snapshot.paramMap.get('id'));
     }).catch(e => {
-      this.snackBar.open(`Ошибка: ${e}`, 'Закрыть');
+      this.snackBar.open(`Ошибка: ${e.error.message || 'отсутствует соединение с интернетом'}`, 'Закрыть');
       console.error(e);
     });
   }
@@ -149,7 +151,7 @@ export class ProjectComponent implements OnInit {
         this.snackBar.open(`Ошибка при отказе: ${res.message}`, 'Закрыть');
       }
     }).catch(e => {
-      this.snackBar.open(`Ошибка: ${e}`, 'Закрыть');
+      this.snackBar.open(`Ошибка: ${e.error.message || 'отсутствует соединение с интернетом'}`, 'Закрыть');
       console.error(e);
     });
   }
@@ -177,6 +179,7 @@ export class ProjectComponent implements OnInit {
         this.selfId = -1;
       }
     }).catch(e => {
+      this.snackBar.open(`Ошибка: ${e.error.message || 'отсутствует соединение с интернетом'} `, 'Закрыть');
       console.error(e);
     }).finally(() => this.loading = false);
   }

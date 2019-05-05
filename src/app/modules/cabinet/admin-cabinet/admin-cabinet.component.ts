@@ -1,11 +1,11 @@
 import {Component, OnInit, TemplateRef, ViewChild} from '@angular/core';
 import {MatDialog, MatSnackBar} from '@angular/material';
-import {ProjectsService} from '../../../modules/shared/services/projects.service';
-import {TagsService} from '../../../modules/shared/services/tags.service';
-import {AuthService} from '../../../modules/shared/services/auth.service';
-import {Tag} from '../../../modules/shared/models/tags.model';
-import {ListItem} from '../../../modules/shared/components/editable-list/editable-list.component';
-import {Projects} from '../../../modules/shared/models/project.model';
+import {ProjectsService} from '../../shared/services/projects.service';
+import {TagsService} from '../../shared/services/tags.service';
+import {AuthService} from '../../shared/services/auth.service';
+import {Tag} from '../../shared/models/tags.model';
+import {ListItem} from '../../shared/components/editable-list/editable-list.component';
+import {Projects} from '../../shared/models/project.model';
 
 @Component({
   selector: 'app-admin-cabinet',
@@ -22,7 +22,7 @@ export class AdminCabinetComponent implements OnInit {
   tags: Tag[];
   @ViewChild('tagsModal') tagsModal: TemplateRef<any>;
 
-  constructor(private projectsService: ProjectsService, private snackBar: MatSnackBar, private matDialog: MatDialog,
+  constructor(private projectsService: ProjectsService, public snackBar: MatSnackBar, private matDialog: MatDialog,
               private authService: AuthService, private tagsService: TagsService) {
   }
 
@@ -34,7 +34,8 @@ export class AdminCabinetComponent implements OnInit {
         this.totalPages = res.pages;
         this.projects = res;
       }).catch(e => {
-        this.snackBar.open(`Не удалось загрузить проекты: ${e.error.message}`, 'Закрыть');
+        this.snackBar.open(`Не удалось загрузить проекты: ${e.error.message || 'отсутствует соединение с интернетом'}`,
+          'Закрыть');
         console.error(e);
       }).finally(() => this.loading = false);
   }
@@ -46,7 +47,8 @@ export class AdminCabinetComponent implements OnInit {
       this.totalPages = res.pages;
       this.projects = res;
     }).catch(e => {
-      this.snackBar.open(`Не удалось загрузить проекты: ${e.error.message}`, 'Закрыть', {duration: 4000});
+      this.snackBar.open(`Не удалось загрузить проекты: ${e.error.message || 'отсутствует соединение с интернетом'}`,
+        'Закрыть', {duration: 4000});
       console.error(e);
     }).finally(() => this.loading = false);
   }
@@ -56,8 +58,11 @@ export class AdminCabinetComponent implements OnInit {
       this.tags = res;
       this.matDialog.open(this.tagsModal, {width: '90%', maxWidth: '1000px'});
     }).catch(e => {
-      this.snackBar.open(`Не удалось открыть список тегов: ${e.error.message}`, 'Закрыть', {duration: 5000});
-      this.authService.logout();
+      this.snackBar.open(`Не удалось открыть список тегов: ${e.error.message || 'отсутствует соединение с интернетом'}`,
+        'Закрыть', {duration: 5000});
+      if (e.status === 401) {
+        this.authService.logout();
+      }
       console.error(e);
     });
   }
@@ -67,10 +72,11 @@ export class AdminCabinetComponent implements OnInit {
       if (res.message === 'true') {
         this.snackBar.open('Тег отредактирован', 'Закрыть', {duration: 2500});
       } else {
-        this.snackBar.open(`Ошибка при редактировании: ${res}`, 'Закрыть');
+        this.snackBar.open(`Ошибка при редактировании: ${res.message}`, 'Закрыть');
       }
     }).catch(e => {
-      this.snackBar.open(`Ошибка при редактировании: ${e.error.message}`, 'Закрыть');
+      this.snackBar.open(`Ошибка при редактировании: ${e.error.message || 'отсутствует соединение с интернетом'}`,
+        'Закрыть');
       console.error(e);
       if (e.status === 401) {
         this.authService.logout();
@@ -86,10 +92,10 @@ export class AdminCabinetComponent implements OnInit {
           this.snackBar.open(`Тег "${res.value}" добавлен`, 'Закрыть', {duration: 3000});
         }).catch(e => console.error(e));
       } else {
-        this.snackBar.open(`Ошибка при добавлении: ${res}`, 'Закрыть');
+        this.snackBar.open(`Ошибка при добавлении: ${(<any>res).message}`, 'Закрыть');
       }
     }).catch(e => {
-      this.snackBar.open(`Ошибка при добавлении: ${e.error.message}`, 'Закрыть');
+      this.snackBar.open(`Ошибка при добавлении: ${e.error.message || 'отсутствует соединение с интернетом'}`, 'Закрыть');
       console.error(e);
       if (e.status === 401) {
         this.authService.logout();
@@ -102,10 +108,10 @@ export class AdminCabinetComponent implements OnInit {
       if (res.message === 'true') {
         this.snackBar.open(`Тег "${tag.value}" удалён`, 'Закрыть', {duration: 3500});
       } else {
-        this.snackBar.open(`Ошибка при удалении: ${res}`, 'Закрыть');
+        this.snackBar.open(`Ошибка при удалении: ${res.message}`, 'Закрыть');
       }
     }).catch(e => {
-      this.snackBar.open(`Ошибка при удалении: ${e.error.message}`, 'Закрыть');
+      this.snackBar.open(`Ошибка при удалении: ${e.error.message || 'отсутствует соединение с интернетом'}`, 'Закрыть');
       console.error(e);
       if (e.status === 401) {
         this.authService.logout();

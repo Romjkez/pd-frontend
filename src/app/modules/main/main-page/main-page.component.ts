@@ -58,7 +58,8 @@ export class MainPageComponent implements OnInit {
           this.currentPage = res.page;
           this.totalPages = res.pages;
         }).catch(e => {
-          this.snackBar.open(`Не удалось применить фильтр: ${e.error.message}`, 'Закрыть', {duration: 5000});
+          this.snackBar.open(`Не удалось применить фильтр: ${e.error.message || 'отсутствует соединение с интернетом'}`,
+            'Закрыть', {duration: 5000});
           console.error(e);
         }).finally(() => this.loading = false);
       } else if (params.sort) {
@@ -68,7 +69,8 @@ export class MainPageComponent implements OnInit {
           this.totalPages = res.pages;
           this.currentPage = res.page;
         }).catch(e => {
-          this.snackBar.open(`Не удалось отсортировать проекты: ${e.error.message}`, 'Закрыть', {duration: 5000});
+          this.snackBar.open(`Не удалось отсортировать проекты: ${e.error.message || 'отсутствует соединение с интернетом'}`,
+            'Закрыть', {duration: 5000});
           console.error(e);
         }).finally(() => this.loading = false);
       } else {
@@ -78,7 +80,8 @@ export class MainPageComponent implements OnInit {
           this.totalPages = res.pages;
           this.projects = res.data || [];
         }).catch(e => {
-          this.snackBar.open(`Не удалось загрузить проекты: ${e.error.message}`, 'Закрыть', {duration: 5000});
+          this.snackBar.open(`Не удалось загрузить проекты: ${e.error.message || 'отсутствует соединение с интернетом'}`,
+            'Закрыть', {duration: 5000});
           console.error(e);
         }).finally(() => this.loading = false);
       }
@@ -114,7 +117,8 @@ export class MainPageComponent implements OnInit {
         this.totalPages = res.pages;
         this.currentPage = res.page;
       }).catch((e) => {
-        this.snackBar.open(`Не удалось применить фильтр: ${e}`, 'Закрыть', {duration: 5000});
+        this.snackBar.open(`Не удалось применить фильтр: ${e.error.message || 'отсутствует соединение с интернетом'}`,
+          'Закрыть', {duration: 5000});
         console.error(e);
       }).finally(() => this.loading = false);
       this.router.navigate(['/'], {queryParams: newValue.length === this.tags.length ? {tags: 'all'} : searchTags});
@@ -161,7 +165,8 @@ export class MainPageComponent implements OnInit {
       })
       .catch(e => {
         console.log(e);
-        this.snackBar.open(`Не удалось отсортировать проекты: ${e.error.message}`, 'Закрыть', {duration: 5000});
+        this.snackBar.open(`Не удалось отсортировать проекты: ${e.error.message || 'отсутствует соединение с интернетом'}`,
+          'Закрыть', {duration: 5000});
       })
       .finally(() => this.loading = false);
   }

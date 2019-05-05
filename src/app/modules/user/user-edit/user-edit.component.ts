@@ -46,11 +46,11 @@ export class UserEditComponent implements OnInit {
         description: new FormControl(this.user.description),
         old_pass: new FormControl('')
       });
-      this.loading = false;
     }).catch(e => {
       console.error(e);
-      this.snackBar.open('Не удалось получить информацию о пользователе', 'Закрыть', {duration: 5000});
-    });
+      this.snackBar.open(`Ошибка: ${e.error.message || 'отсутствует соединение с интернетом'}`,
+        'Закрыть', {duration: 5000});
+    }).finally(() => this.loading = false);
     this.formLabels = {
       worker: {
         surname: 'Фамилия',
@@ -74,7 +74,7 @@ export class UserEditComponent implements OnInit {
     };
   }
 
-  update() {
+  update(): void {
     const data = this.regForm.getRawValue();
     data.id = parseJwt(this.authService.getToken()).data.id;
     this.userService.updateUser(data).then((res: HttpResponse<any>) => {
@@ -88,7 +88,8 @@ export class UserEditComponent implements OnInit {
       }
     }).catch(e => {
       console.error(e);
-      this.snackBar.open('Не удалось обновить профиль', 'Закрыть', {duration: 5000});
+      this.snackBar.open(`Ошибка при обновлении профиля: ${e.error.message || 'отсутствует соединение с интернетом'}`,
+        'Закрыть', {duration: 5000});
     });
   }
 }

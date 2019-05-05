@@ -1,85 +1,84 @@
 <app-preloader *ngIf="loading"></app-preloader>
-<main *ngIf="!loading" class="main">
-    <div class="page-wrapper">
-      <form class="form" [formGroup]="regForm" (ngSubmit)="update()">
-            <div class="form__title">
-                <div class="auth-form__back-button">
-                    <a (click)="back()">
-                        <img class="auth-form__back-image" src="../assets/img/back_button.svg" alt="back button">
-                    </a>
-                </div>
-                <h2 class="form__reg">Редактирование профиля</h2>
-            </div>
-            <div class="form__user-info">
-                <div class="row">
-                    <div class="form__row">
-                        <label>
-                            <span class="required-sign">*</span>
-                            {{regForm.controls.usergroup.value == 1 ? formLabels.worker.surname : formLabels.curator.surname}}
-                            <input type="text" class="form__input form__input_row" formControlName="surname">
-                        </label>
-                    </div>
-                    <div class="form__row">
-                        <label><span class="required-sign" *ngIf="regForm.controls.usergroup.value == 1">*</span>
-                            {{formLabels.name}}
-                            <input type="text" class="form__input form__input_row" formControlName="name"></label>
-                    </div>
-                </div>
-                <label>{{formLabels.middlename}}<input type="text" class="form__input"
-                                                       formControlName="middlename"></label>
-                <label>
-                    <span class="required-sign">*</span>
-                    {{formLabels.email}}<input type="email" class="form__input" formControlName="email"></label>
-                <div class="row">
-                    <div class="form__row">
-                        <label>
-                            {{formLabels.password}}
-                            <input placeholder="Не менее 6 символов" type="password" class="form__input"
-                                   formControlName="pass">
-                        </label>
-                    </div>
-                    <div class="form__row">
-                        <label>
-                            {{formLabels.repeatPassword}}
-                            <input type="password" class="form__input" formControlName="pass_repeat">
-                        </label>
-                    </div>
-                </div>
-              <div class="row"
-                   *ngIf="regForm.controls.pass.value.length>5 && regForm.controls.pass_repeat.value.length>5">
-                <div class="form__row">
-                  <label>
-                    <span class="required-sign">*</span>
-                    {{formLabels.old_password}}
-                    <input type="password" class="form__input"
-                           formControlName="old_pass">
-                  </label>
-                </div>
-              </div>
-                <label>{{formLabels.tel}}<input type="tel" class="form__input" formControlName="tel"></label>
-                <div *ngIf="regForm.controls.usergroup.value==1" id="worker-input">
-                    <label>Учебная группа<input type="text" class="form__input" formControlName="std_group"></label>
-                </div>
-                <input *ngIf="regForm.controls.usergroup.value!==1" type="text" class="form__input" hidden
-                       formControlName="std_group">
-                <label>{{regForm.controls.usergroup.value == 1 ? formLabels.worker.avatar : formLabels.curator.avatar}}
-                    <input type="text" class="form__input" formControlName="avatar">
-                </label>
-                <label>
-                    {{regForm.controls.usergroup.value == 1 ? formLabels.worker.description : formLabels.curator.description}}
-                    <textarea cols="30" rows="20" class="form__input" formControlName="description"></textarea>
-                </label>
-                <div class="form__submit">
-                  <button
-                    [disabled]="(regForm.controls.name.value.length<1 && regForm.controls.usergroup.value == 1) ||
+<main *ngIf="!loading" class="page-wrapper">
+  <form class="form" [formGroup]="regForm" (ngSubmit)="update()">
+    <div class="form__title">
+      <div class="auth-form__back-button">
+        <a (click)="back()">
+          <img class="auth-form__back-image" src="../assets/img/back_button.svg" alt="back button">
+        </a>
+      </div>
+      <h2 class="form__reg">Редактирование профиля</h2>
+    </div>
+    <div class="form__user-info">
+      <div class="row">
+        <div class="form__row">
+          <label>
+            <span class="required-sign">*</span>
+            {{regForm.controls.usergroup.value == 1 ? formLabels.worker.surname : formLabels.curator.surname}}
+            <input type="text" class="form__input form__input_row" formControlName="surname">
+          </label>
+        </div>
+        <div class="form__row">
+          <label><span class="required-sign" *ngIf="regForm.controls.usergroup.value == 1">*</span>
+            {{formLabels.name}}
+            <input type="text" class="form__input form__input_row" formControlName="name"></label>
+        </div>
+      </div>
+      <label>{{formLabels.middlename}}<input type="text" class="form__input"
+                                             formControlName="middlename"></label>
+      <label>
+        <span class="required-sign">*</span>
+        {{formLabels.email}}<input type="email" class="form__input" formControlName="email"></label>
+      <div class="row">
+        <div class="form__row">
+          <label>
+            {{formLabels.password}}
+            <input placeholder="Не менее 6 символов" type="password" class="form__input"
+                   formControlName="pass">
+          </label>
+        </div>
+        <div class="form__row">
+          <label>
+            {{formLabels.repeatPassword}}
+            <input type="password" class="form__input" formControlName="pass_repeat">
+          </label>
+        </div>
+      </div>
+      <div class="row"
+           *ngIf="regForm.controls.pass.value.length>5 && regForm.controls.pass_repeat.value.length>5">
+        <div class="form__row">
+          <label>
+            <span class="required-sign">*</span>
+            {{formLabels.old_password}}
+            <input type="password" class="form__input"
+                   formControlName="old_pass">
+          </label>
+        </div>
+      </div>
+      <label>{{formLabels.tel}}<input type="tel" class="form__input" formControlName="tel"></label>
+      <div *ngIf="regForm.controls.usergroup.value==1" id="worker-input">
+        <label>Учебная группа<input type="text" class="form__input" formControlName="std_group"></label>
+      </div>
+      <input *ngIf="regForm.controls.usergroup.value!==1" type="text" class="form__input" hidden
+             formControlName="std_group">
+      <label>{{regForm.controls.usergroup.value == 1 ? formLabels.worker.avatar : formLabels.curator.avatar}}
+        <input type="text" class="form__input" formControlName="avatar">
+      </label>
+      <label>
+        {{regForm.controls.usergroup.value == 1 ? formLabels.worker.description : formLabels.curator.description}}
+        <textarea cols="30" rows="20" class="form__input" formControlName="description"></textarea>
+      </label>
+      <div class="form__submit">
+        <button
+          [disabled]="(regForm.controls.name.value.length<1 && regForm.controls.usergroup.value == 1) ||
                     !regForm.valid ||
                      (regForm.controls.pass.value.length>5 && regForm.controls.pass.value.length>5 && regForm.controls.old_pass.value.length<6)"
-                    type="submit" class="button reg-form__button reg-form__button-submit">
-                        Подтвердить
-                    </button>
-                    <br>
-                </div>
-            </div>
-        </form>
+          type="submit" class="button reg-form__button reg-form__button-submit">
+          Подтвердить
+        </button>
+        <br>
+      </div>
     </div>
+  </form>
 </main>
+

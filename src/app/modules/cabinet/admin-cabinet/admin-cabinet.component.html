@@ -3,7 +3,7 @@
     <app-preloader *ngIf="loading"></app-preloader>
     <h2 style="text-align: center; margin: 2% 0">Ожидающие модерации проекты</h2>
     <h2 *ngIf="totalPages===0">Нет новых проектов</h2>
-    <section>
+
       <app-adm-project-snippet [project]="project" *ngFor="let project of projects?.data | paginate: {
       id: 'pending',
         itemsPerPage: perPage, currentPage: currentPage, totalItems: perPage*totalPages
@@ -15,12 +15,13 @@
                              previousLabel="Назад"
                              (pageChange)="switchPage($event)" [id]="'pending'"></pagination-controls>
       </div>
-    </section>
+
   </div>
   <div class="column">
     <nav class="menu">
       <a class="menu-item" (click)="openTagsDialog()">Теги</a>
-      <a class="menu-item">История действий</a>
+      <a class="menu-item" (click)="snackBar.open('Раздел находится в разработке','Закрыть',{duration: 3500})">
+        История действий</a>
     </nav>
     <ng-template #tagsModal>
       <mat-dialog-content>

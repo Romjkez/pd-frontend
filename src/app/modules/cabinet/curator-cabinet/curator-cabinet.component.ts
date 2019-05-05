@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
-import {parseJwt} from '../../../modules/shared/utils/functions.util';
-import {ProjectsService} from '../../../modules/shared/services/projects.service';
-import {AuthService} from '../../../modules/shared/services/auth.service';
-import {Project} from '../../../modules/shared/models/project.model';
 import {MatSnackBar} from '@angular/material';
+import {Project} from '../../shared/models/project.model';
+import {ProjectsService} from '../../shared/services/projects.service';
+import {AuthService} from '../../shared/services/auth.service';
+import {parseJwt} from '../../shared/utils/functions.util';
 
 @Component({
   selector: 'app-curator-cabinet',

@@ -5,18 +5,6 @@
       <div class="snippet-column">
         <app-search [target]="'project'"></app-search>
         <app-preloader *ngIf="loading"></app-preloader>
-        <h3 *ngIf="totalPages<1" style="text-align: center">Никто ещё не разместил проект...</h3>
-        <!--<div *ngFor="let project of projects | paginate: {
-        itemsPerPage: perPage, currentPage: currentPage, totalItems: perPage*totalPages}">
-          <app-project-snippet [project]="project"></app-project-snippet>
-        </div>
-        <div class="pagination" *ngIf="totalPages>0">
-          <pagination-controls
-            responsive="true"
-            nextLabel="Вперёд"
-            previousLabel="Назад"
-            (pageChange)="switchPage($event)"></pagination-controls>
-        </div>-->
         <app-projects [projects]="projects" [id]="'projects_list'" [currentPage]="currentPage" [totalPages]="totalPages"
                       (switchPage)="switchPage($event)">
         </app-projects>
