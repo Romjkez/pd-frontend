@@ -56,7 +56,6 @@ const routes: Routes = [
   {
     path: 'cabinet',
     loadChildren: './modules/cabinet/cabinet.module#CabinetModule',
-    pathMatch: 'full',
     data: {animation: 'Cabinet'},
     canActivate: [AuthGuardService],
   },

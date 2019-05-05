@@ -7,16 +7,14 @@ const routes: Routes = [
   {
     path: '',
     component: CabinetComponent,
-    pathMatch: 'full',
     data: {animation: 'Cabinet'},
-    children: [
-      {
-        path: 'create_project',
-        pathMatch: 'full',
-        component: CreateProjectComponent,
-        data: {animation: 'CreateProject'}
-      }
-    ]
+    pathMatch: 'full',
+  },
+  {
+    path: 'create_project',
+    component: CreateProjectComponent,
+    data: {animation: 'CreateProject'},
+    pathMatch: 'full',
   }
 ];
 
