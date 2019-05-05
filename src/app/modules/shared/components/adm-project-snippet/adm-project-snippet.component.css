@@ -38,7 +38,6 @@
 }
 
 .adm-project-wrapper {
-  width: 50%;
   margin: 1% auto 0 auto;
   border: 1px solid gray;
 }
@@ -81,28 +80,7 @@
   }
 }
 
-
-@media screen and (max-width: 1600px) {
-  .adm-project-wrapper {
-    width: 70%;
-  }
-}
-
-@media screen and (max-width: 1000px) {
-  .adm-project-wrapper {
-    width: 100%;
-  }
-}
-
 @media (min-width: 576px) and (max-width: 991.98px) {
-  .page-wrapper {
-    width: 95%;
-  }
-
-  .cabinet-wrapper {
-    width: 95%;
-  }
-
   .approve-button {
     width: 50%;
   }

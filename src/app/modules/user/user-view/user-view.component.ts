@@ -6,6 +6,7 @@ import {UserService} from '../../shared/services/user.service';
 import {AuthService} from '../../shared/services/auth.service';
 import {parseJwt} from '../../shared/utils/functions.util';
 import {UserProjects} from '../../shared/models/project.model';
+import {MatSnackBar} from '@angular/material';
 
 
 @Component({
@@ -20,7 +21,7 @@ export class UserViewComponent implements OnInit {
   projects: UserProjects;
 
   constructor(private activatedRoute: ActivatedRoute, private projectsService: ProjectsService, private router: Router,
-              public authService: AuthService, private userService: UserService) {
+              public authService: AuthService, private userService: UserService, private snackBar: MatSnackBar) {
   }
 
   async ngOnInit() {
@@ -42,8 +43,10 @@ export class UserViewComponent implements OnInit {
       this.projectsService.getUserProjects(this.user.id).then(res => {
         this.projects = res;
       });
-      this.loading = false;
-    }).catch(e => console.error(e));
+    }).catch(e => {
+      this.snackBar.open(`Ошибка: ${e.error.message || 'отсутствует соединение с интернетом'}`, 'Закрыть');
+      console.error(e);
+    }).finally(() => this.loading = false);
   }
 
 }

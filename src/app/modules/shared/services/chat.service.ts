@@ -4,7 +4,7 @@ import {Observable} from 'rxjs';
 import {ChatMessage} from '../../project/message-board/message-board.component';
 import {environment} from '../../../../environments/environment';
 
-interface ApiMessage {
+export interface ApiMessage {
   message: string;
   code?: number;
 }

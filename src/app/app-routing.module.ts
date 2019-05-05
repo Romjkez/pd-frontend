@@ -59,12 +59,6 @@ const routes: Routes = [
     data: {animation: 'Cabinet'},
     canActivate: [AuthGuardService],
   },
-  /*{
-    path: 'cabinet/create_project',
-    component: CreateProjectComponent,
-    pathMatch: 'full',
-    data: {animation: 'CreateProject'}
-  },*/
   {
     path: '404',
     component: NotFoundPageComponent,

@@ -70,7 +70,7 @@ export class ProjectFormComponent implements OnInit {
           files: new FormControl(this.project.files)
         });
       }).catch((e) => {
-        this.snackBar.open(`Произошла ошибка: ${e}`, 'Закрыть');
+        this.snackBar.open(`Ошибка: ${e.error.message || 'отсутствует соединение с интернетом'}`, 'Закрыть');
         console.error(e);
       }).finally(() => this.loading = false);
     } else {
@@ -90,7 +90,7 @@ export class ProjectFormComponent implements OnInit {
           files: new FormControl('')
         });
       }).catch(e => {
-        this.snackBar.open(`Ошибка: ${e}`, 'Закрыть', {duration: 5000});
+        this.snackBar.open(`Ошибка: ${e.error.message || 'отсутствует соединение с интернетом'}`, 'Закрыть', {duration: 5000});
         console.error(e);
         }
       ).finally(() => this.loading = false);
@@ -125,7 +125,8 @@ export class ProjectFormComponent implements OnInit {
           }
         ).catch(e => {
           this.submitButton.nativeElement.removeAttribute('disabled');
-          this.snackBar.open(`Не удалось отредактировать проект: ${e}`, 'Закрыть');
+          this.snackBar.open(`Не удалось отредактировать проект: ${e.error.message || 'отсутствует соединение с интернетом'}`,
+            'Закрыть');
           console.error(e);
         }).finally(() => this.projectForm.controls.tags = new FormArray([]));
       } else {
@@ -140,7 +141,8 @@ export class ProjectFormComponent implements OnInit {
           }
         ).catch(e => {
           this.submitButton.nativeElement.removeAttribute('disabled');
-          this.snackBar.open(`Не удалось создать проект: ${e}`, 'Закрыть');
+          this.snackBar.open(`Не удалось создать проект: ${e.error.message || 'отсутствует соединение с интернетом'}`,
+            'Закрыть');
           console.error(e);
         });
       }

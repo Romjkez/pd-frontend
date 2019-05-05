@@ -34,7 +34,8 @@ export class AdminCabinetComponent implements OnInit {
         this.totalPages = res.pages;
         this.projects = res;
       }).catch(e => {
-        this.snackBar.open(`Не удалось загрузить проекты: ${e.error.message}`, 'Закрыть');
+        this.snackBar.open(`Не удалось загрузить проекты: ${e.error.message || 'отсутствует соединение с интернетом'}`,
+          'Закрыть');
         console.error(e);
       }).finally(() => this.loading = false);
   }
@@ -46,7 +47,8 @@ export class AdminCabinetComponent implements OnInit {
       this.totalPages = res.pages;
       this.projects = res;
     }).catch(e => {
-      this.snackBar.open(`Не удалось загрузить проекты: ${e.error.message}`, 'Закрыть', {duration: 4000});
+      this.snackBar.open(`Не удалось загрузить проекты: ${e.error.message || 'отсутствует соединение с интернетом'}`,
+        'Закрыть', {duration: 4000});
       console.error(e);
     }).finally(() => this.loading = false);
   }
@@ -56,8 +58,11 @@ export class AdminCabinetComponent implements OnInit {
       this.tags = res;
       this.matDialog.open(this.tagsModal, {width: '90%', maxWidth: '1000px'});
     }).catch(e => {
-      this.snackBar.open(`Не удалось открыть список тегов: ${e.error.message}`, 'Закрыть', {duration: 5000});
-      this.authService.logout();
+      this.snackBar.open(`Не удалось открыть список тегов: ${e.error.message || 'отсутствует соединение с интернетом'}`,
+        'Закрыть', {duration: 5000});
+      if (e.status === 401) {
+        this.authService.logout();
+      }
       console.error(e);
     });
   }
@@ -67,10 +72,11 @@ export class AdminCabinetComponent implements OnInit {
       if (res.message === 'true') {
         this.snackBar.open('Тег отредактирован', 'Закрыть', {duration: 2500});
       } else {
-        this.snackBar.open(`Ошибка при редактировании: ${res}`, 'Закрыть');
+        this.snackBar.open(`Ошибка при редактировании: ${res.message}`, 'Закрыть');
       }
     }).catch(e => {
-      this.snackBar.open(`Ошибка при редактировании: ${e.error.message}`, 'Закрыть');
+      this.snackBar.open(`Ошибка при редактировании: ${e.error.message || 'отсутствует соединение с интернетом'}`,
+        'Закрыть');
       console.error(e);
       if (e.status === 401) {
         this.authService.logout();
@@ -86,10 +92,10 @@ export class AdminCabinetComponent implements OnInit {
           this.snackBar.open(`Тег "${res.value}" добавлен`, 'Закрыть', {duration: 3000});
         }).catch(e => console.error(e));
       } else {
-        this.snackBar.open(`Ошибка при добавлении: ${res}`, 'Закрыть');
+        this.snackBar.open(`Ошибка при добавлении: ${(<any>res).message}`, 'Закрыть');
       }
     }).catch(e => {
-      this.snackBar.open(`Ошибка при добавлении: ${e.error.message}`, 'Закрыть');
+      this.snackBar.open(`Ошибка при добавлении: ${e.error.message || 'отсутствует соединение с интернетом'}`, 'Закрыть');
       console.error(e);
       if (e.status === 401) {
         this.authService.logout();
@@ -102,10 +108,10 @@ export class AdminCabinetComponent implements OnInit {
       if (res.message === 'true') {
         this.snackBar.open(`Тег "${tag.value}" удалён`, 'Закрыть', {duration: 3500});
       } else {
-        this.snackBar.open(`Ошибка при удалении: ${res}`, 'Закрыть');
+        this.snackBar.open(`Ошибка при удалении: ${res.message}`, 'Закрыть');
       }
     }).catch(e => {
-      this.snackBar.open(`Ошибка при удалении: ${e.error.message}`, 'Закрыть');
+      this.snackBar.open(`Ошибка при удалении: ${e.error.message || 'отсутствует соединение с интернетом'}`, 'Закрыть');
       console.error(e);
       if (e.status === 401) {
         this.authService.logout();
