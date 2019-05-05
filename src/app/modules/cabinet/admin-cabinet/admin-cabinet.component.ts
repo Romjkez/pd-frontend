@@ -1,11 +1,11 @@
 import {Component, OnInit, TemplateRef, ViewChild} from '@angular/core';
 import {MatDialog, MatSnackBar} from '@angular/material';
-import {ProjectsService} from '../../../modules/shared/services/projects.service';
-import {TagsService} from '../../../modules/shared/services/tags.service';
-import {AuthService} from '../../../modules/shared/services/auth.service';
-import {Tag} from '../../../modules/shared/models/tags.model';
-import {ListItem} from '../../../modules/shared/components/editable-list/editable-list.component';
-import {Projects} from '../../../modules/shared/models/project.model';
+import {ProjectsService} from '../../shared/services/projects.service';
+import {TagsService} from '../../shared/services/tags.service';
+import {AuthService} from '../../shared/services/auth.service';
+import {Tag} from '../../shared/models/tags.model';
+import {ListItem} from '../../shared/components/editable-list/editable-list.component';
+import {Projects} from '../../shared/models/project.model';
 
 @Component({
   selector: 'app-admin-cabinet',

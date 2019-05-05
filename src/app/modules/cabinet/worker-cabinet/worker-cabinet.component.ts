@@ -1,10 +1,10 @@
 import {Component, OnInit} from '@angular/core';
-import {Applications} from '../../../modules/shared/models/application.model';
-import {ProjectsService} from '../../../modules/shared/services/projects.service';
-import {AuthService} from '../../../modules/shared/services/auth.service';
-import {UserProjects} from '../../../modules/shared/models/project.model';
-import {ApplicationsService} from '../../../modules/shared/services/applications.service';
 import {MatSnackBar} from '@angular/material';
+import {ProjectsService} from '../../shared/services/projects.service';
+import {Applications} from '../../shared/models/application.model';
+import {AuthService} from '../../shared/services/auth.service';
+import {UserProjects} from '../../shared/models/project.model';
+import {ApplicationsService} from '../../shared/services/applications.service';
 
 @Component({
   selector: 'app-worker-cabinet',

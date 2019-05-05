@@ -1,9 +1,7 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {NotFoundPageComponent} from './not-found-page/not-found-page.component';
-import {CabinetComponent} from './cabinet/cabinet/cabinet.component';
 import {ProjectComponent} from './modules/project/view-project/project.component';
-import {CreateProjectComponent} from './modules/project/create-project/create-project.component';
 import {EditProjectComponent} from './modules/project/edit-project/edit-project.component';
 import {MainPageComponent} from './modules/main/main-page/main-page.component';
 import {RegisterComponent} from './modules/auth/register/register.component';
@@ -57,17 +55,17 @@ const routes: Routes = [
   },
   {
     path: 'cabinet',
-    component: CabinetComponent,
+    loadChildren: './modules/cabinet/cabinet.module#CabinetModule',
     pathMatch: 'full',
     data: {animation: 'Cabinet'},
     canActivate: [AuthGuardService],
   },
-  {
+  /*{
     path: 'cabinet/create_project',
     component: CreateProjectComponent,
     pathMatch: 'full',
     data: {animation: 'CreateProject'}
-  },
+  },*/
   {
     path: '404',
     component: NotFoundPageComponent,

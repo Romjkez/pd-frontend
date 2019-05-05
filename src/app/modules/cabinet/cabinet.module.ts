@@ -1,13 +1,15 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {WorkerCabinetComponent} from './cabinet/worker-cabinet/worker-cabinet.component';
-import {AdminCabinetComponent} from './cabinet/admin-cabinet/admin-cabinet.component';
-import {CuratorCabinetComponent} from './cabinet/curator-cabinet/curator-cabinet.component';
+import {WorkerCabinetComponent} from './worker-cabinet/worker-cabinet.component';
+import {AdminCabinetComponent} from './admin-cabinet/admin-cabinet.component';
+import {CuratorCabinetComponent} from './curator-cabinet/curator-cabinet.component';
 import {CabinetComponent} from './cabinet/cabinet.component';
 import {MatDialogModule, MatTabsModule} from '@angular/material';
 import {NgxPaginationModule} from 'ngx-pagination';
-import {AppRoutingModule} from '../app-routing.module';
-import {SharedModule} from '../modules/shared/shared.module';
+import {SharedModule} from '../shared/shared.module';
+import {CabinetRoutingModule} from './cabinet-routing.module';
+import {RouterModule} from '@angular/router';
+import {ProjectModule} from '../project/project.module';
 
 @NgModule({
   declarations: [
@@ -18,11 +20,13 @@ import {SharedModule} from '../modules/shared/shared.module';
   ],
   imports: [
     CommonModule,
+    RouterModule,
+    CabinetRoutingModule,
     MatTabsModule,
     NgxPaginationModule,
-    AppRoutingModule,
     SharedModule,
     MatDialogModule,
+    ProjectModule
   ]
 })
 export class CabinetModule {

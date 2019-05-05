@@ -7,18 +7,15 @@ import {HeaderComponent} from './header/header.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {
   MatButtonModule,
-  MatButtonToggle,
   MatButtonToggleModule,
   MatDialogModule,
   MatExpansionModule,
   MatMenuModule,
-  MatSnackBar,
   MatSnackBarModule
 } from '@angular/material';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {NgxPaginationModule} from 'ngx-pagination';
-import {CabinetModule} from './cabinet/cabinet.module';
 import {MatMomentDateModule} from '@angular/material-moment-adapter';
 import {ProjectModule} from './modules/project/project.module';
 import {MainModule} from './modules/main/main.module';
@@ -43,7 +40,6 @@ import {AuthInterceptor} from './modules/shared/services/auth.interceptor';
     MatDialogModule,
     HttpClientModule,
     NgxPaginationModule,
-    CabinetModule,
     AuthModule,
     MainModule,
     SharedModule,
@@ -59,10 +55,9 @@ import {AuthInterceptor} from './modules/shared/services/auth.interceptor';
     MatSnackBarModule,
     MatDialogModule,
     NgxPaginationModule,
-    CabinetModule,
-    HeaderComponent
+    HeaderComponent,
   ],
-  providers: [MatSnackBar, MatButtonToggle, {
+  providers: [{
     provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true
   }],
   bootstrap: [AppComponent]
