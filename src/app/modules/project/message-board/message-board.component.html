@@ -5,7 +5,7 @@
       <div class="single-message__controls" *ngIf="message.author.id==selfId">
         <button (click)="editMessage(message)" mat-button
                 aria-label="Редактировать" title="Редактировать">
-          <mat-icon color="primary">edit</mat-icon>
+          <mat-icon color="primary">{{editingMessage ? "cancel" : "edit"}}</mat-icon>
         </button>
         <button (click)="deleteMessage(message.message_id)" mat-button aria-label="Удалить" title="Удалить"
                 style="color:#ff0000">

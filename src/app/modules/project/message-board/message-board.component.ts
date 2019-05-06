@@ -106,8 +106,14 @@ export class MessageBoardComponent implements OnInit {
   }
 
   editMessage(message: ChatMessage): void {
-    this.input = message.message;
-    this.editingMessage = message.message_id;
+    if (this.editingMessage) {
+      this.editingMessage = undefined;
+      this.input = '';
+    } else {
+      this.input = message.message;
+      this.editingMessage = message.message_id;
+    }
+
   }
 
   confirmMessageEdit(): void {
