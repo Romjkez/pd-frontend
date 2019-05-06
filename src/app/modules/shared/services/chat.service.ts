@@ -28,6 +28,11 @@ export class ChatService {
     return this.http.delete<{ message: string }>(`${this.baseUrl}/chat/?message_id=${messageId}`, {observe: 'body'});
   }
 
+  editMessage(messageId: number, message: string): Observable<ApiMessage> {
+    return this.http.put<{ message: string }>(`${this.baseUrl}/chat/?message_id=${messageId}&message=${message}`, '',
+      {observe: 'body'});
+  }
+
   getProjectMessages(project_id: number): Observable<ChatMessage[]> {
     return this.http.get<ChatMessage[]>(`${this.baseUrl}/chat/?project_id=${project_id}`, {observe: 'body'});
   }
