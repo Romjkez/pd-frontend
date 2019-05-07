@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {ProjectsService} from '../../services/projects.service';
 import {MatSnackBar} from '@angular/material';
@@ -10,9 +10,9 @@ import {Project} from '../../models/project.model';
   styleUrls: ['./adm-project-snippet.component.css']
 })
 export class AdmProjectSnippetComponent implements OnInit {
-  @Input() project: Project;
   approveForm: FormGroup;
-  visible = true;
+  @Input() project: Project;
+  @Output() moderated: EventEmitter<number> = new EventEmitter();
 
   constructor(private projectsService: ProjectsService, private snackBar: MatSnackBar) {
   }
@@ -30,7 +30,7 @@ export class AdmProjectSnippetComponent implements OnInit {
         .then(res => {
           if (res.message === 'true') {
             this.snackBar.open('Статус проекта успешно обновлён', 'Закрыть', {duration: 3000});
-            this.visible = false;
+            this.moderated.emit();
           }
         })
         .catch(e => {
@@ -44,7 +44,9 @@ export class AdmProjectSnippetComponent implements OnInit {
           .then(res => {
             if (res.message === 'true') {
               this.snackBar.open('Статус проекта успешно обновлён', 'Закрыть', {duration: 3000});
-              this.visible = false;
+              this.moderated.emit();
+            } else {
+              console.log(res.message);
             }
           }).catch(e => {
             this.snackBar.open(`Не удалось обновить статус проекта: ${e.error.message || 'отсутствует соединение с интернетом'}`,

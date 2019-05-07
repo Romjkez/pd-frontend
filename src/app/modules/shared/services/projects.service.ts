@@ -60,7 +60,7 @@ export class ProjectsService {
     const data = `id=${id}&status=${status}&adm_comment=${comment}`;
     return this.http.post(`${this.baseUrl}/projects/updateProjectStatus.php`, data, {
       headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-      observe: 'response'
+      observe: 'body'
     }).toPromise();
   }
 

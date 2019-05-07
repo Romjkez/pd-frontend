@@ -4,10 +4,10 @@
     <h2 style="text-align: center; margin: 2% 0">Ожидающие модерации проекты</h2>
     <h2 *ngIf="totalPages===0">Нет новых проектов</h2>
 
-      <app-adm-project-snippet [project]="project" *ngFor="let project of projects?.data | paginate: {
-      id: 'pending',
+    <app-adm-project-snippet [project]="project" (moderated)="projects.data.splice(i, 1)"
+                             *ngFor="let project of projects?.data | paginate: { id: 'pending',
         itemsPerPage: perPage, currentPage: currentPage, totalItems: perPage*totalPages
-        }"></app-adm-project-snippet>
+        }; let i=index"></app-adm-project-snippet>
       <div class="pagination">
         <pagination-controls *ngIf="totalPages>0"
                              responsive="true"
