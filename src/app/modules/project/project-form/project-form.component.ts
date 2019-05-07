@@ -7,6 +7,10 @@ import {ProjectsService} from '../../shared/services/projects.service';
 import {TagsService} from '../../shared/services/tags.service';
 import {back, isMobile, parseJwt} from '../../shared/utils/functions.util';
 import {Tag} from '../../shared/models/tags.model';
+import {FileService} from '../../shared/services/file.service';
+import {catchError, filter, tap} from 'rxjs/operators';
+import {of} from 'rxjs';
+import {AuthService} from '../../shared/services/auth.service';
 
 @Component({
   selector: 'app-project-form',
@@ -32,7 +36,8 @@ export class ProjectFormComponent implements OnInit {
   @Input() isEditingProject: boolean;
 
   constructor(private projectsService: ProjectsService, private snackBar: MatSnackBar, private router: Router,
-              private activatedRoute: ActivatedRoute, private tagsService: TagsService) {
+              private activatedRoute: ActivatedRoute, private tagsService: TagsService, private fileService: FileService,
+              private authService: AuthService) {
   }
 
   async ngOnInit() {
@@ -153,6 +158,24 @@ export class ProjectFormComponent implements OnInit {
     if (event.value !== null) {
       this.minProjectFinishDate = event.value._d;
     }
+  }
+
+  removeDocument(fileId: number, index: number): void {
+    this.fileService.removeFile(fileId)
+      .pipe(
+        filter(res => res.message === 'true'),
+        tap(() => this.project.files.splice(index, 1)),
+        tap(() => this.snackBar.open('Документ успешно удалён', 'Закрыть', {duration: 3000})),
+        catchError(e => {
+          if (e.status === 401) {
+            this.authService.logout();
+            return of(this.snackBar.open(`Ошибка: ${e.error.message}`, 'Закрыть', {duration: 5000}));
+          } else {
+            return of(this.snackBar.open(`Ошибка при удалении документа: ${e.error.message || 'отсутствует интернет-соединение'}`,
+              'Закрыть'));
+          }
+        }))
+      .subscribe();
   }
 
   private makeTeams(): object[] {

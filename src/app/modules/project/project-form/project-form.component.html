@@ -99,6 +99,16 @@
                  class="form__input form__date"
                  formControlName="avatar">
         </label>
+        <div *ngIf="isEditingProject">Документы проекта
+          <span *ngIf="!project.files"> отсутствуют</span>
+          <div class="file" *ngFor="let file of project.files; let i = index">
+            <a [href]="file.link">{{file.title}}</a>
+            <button type="button" mat-button mat-raised-button (click)="removeDocument(file.id,i)">
+              <span>Удалить</span>
+              <mat-icon>remove_circle</mat-icon>
+            </button>
+          </div>
+        </div>
         <div class="form__submit">
           <button [disabled]="!projectForm.valid" type="submit"
                   class="button form__button reg-form__button-submit" #submitButton>

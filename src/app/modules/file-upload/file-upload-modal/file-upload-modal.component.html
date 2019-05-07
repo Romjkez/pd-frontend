@@ -1,11 +1,11 @@
-<h2>Загрузка файлов проекта</h2>
-<input type="file" [fileUploadInputFor]="fileUploadQueue"/>
+<h2 mat-dialog-title>Загрузка файлов проекта</h2>
+<input type="file" [appFileUploadInputFor]="fileUploadQueue">
 <br><br>
-<div [fileUploadInputFor]="fileUploadQueue" class="upload-drop-zone">
+<div [appFileUploadInputFor]="fileUploadQueue" class="upload-drop-zone">
   Перетащите файлы сюда
 </div>
 <div>
-  <app-file-upload-queue #fileUploadQueue multiple (closed)="close()" (error)="onError($event)">
+  <app-file-upload-queue #fileUploadQueue (closed)="close()" (error)="onError($event)">
     <app-file-upload (uploaded)="onUpload($event)" [file]="file" [id]="i"
                      *ngFor="let file of fileUploadQueue.files; let i = index"
                      [project_id]="data.project_id"></app-file-upload>

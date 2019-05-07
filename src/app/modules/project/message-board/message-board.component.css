@@ -70,6 +70,7 @@ button[disabled] mat-icon {
   box-shadow: 0 0 2px #333;
   border-radius: 5px 5px 5px 0;
   padding: 1%;
+  transition: background-color 150ms ease-out;
 }
 
 .single-message__footer {
@@ -85,4 +86,9 @@ button[disabled] mat-icon {
   align-self: flex-end;
   border-radius: 5px 5px 0 5px;
   margin: 0 5px 0 0;
+}
+
+.editing {
+  background-color: #ffA500;
+  box-shadow: 0 0 4px #333;
 }

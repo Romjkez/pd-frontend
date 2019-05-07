@@ -1,4 +1,4 @@
-<div *ngIf="visible" class="adm-project-wrapper">
+<div class="adm-project-wrapper">
   <app-project-snippet [project]="project"></app-project-snippet>
   <div class="approval-form">
     <form [formGroup]="approveForm" (ngSubmit)="updateProject()">

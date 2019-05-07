@@ -60,7 +60,7 @@ export class ProjectsService {
     const data = `id=${id}&status=${status}&adm_comment=${comment}`;
     return this.http.post(`${this.baseUrl}/projects/updateProjectStatus.php`, data, {
       headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-      observe: 'response'
+      observe: 'body'
     }).toPromise();
   }
 
@@ -81,10 +81,11 @@ export class ProjectsService {
   /*
   ** PROJECTS ARCHIVE
    */
-  getArchiveProjects(perPage: number, page: number): Promise<Projects> {
+
+  /*getArchiveProjects(perPage: number, page: number): Promise<Projects> {
     return this.http.get<Projects>(
       `${this.baseUrl}/projects/getArchive.php?per_page=${perPage}&page=${page}`).toPromise();
-  }
+  }*/
 
   getArchiveProjectsByCurator(curator: number | string, perPage: number, page: number): Promise<Projects> {
     return this.http.get<Projects>(

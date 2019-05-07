@@ -27,8 +27,9 @@ export interface ChatMessage {
   styleUrls: ['./message-board.component.css']
 })
 export class MessageBoardComponent implements OnInit {
-  messages: ChatMessage[];
+  messages: ChatMessage[] = [];
   input = '';
+  editingMessage: number;
   selfId: number = parseJwt(localStorage.getItem('token')).data.id;
   projectId = +this.activatedRoute.snapshot.paramMap.get('id');
   @Input() isAvailable: boolean;
@@ -55,9 +56,10 @@ export class MessageBoardComponent implements OnInit {
         catchError(e => {
             if (e.status === 401) {
               this.authService.logout();
-              return of(this.snackBar.open(`Ошибка:\n${e.error.message}`, 'Закрыть', {duration: 5000}));
-            } else if (e.status !== 403) {
-              return of(this.snackBar.open(`Ошибка при отправке сообщения:\n${e.error.message}`, 'Закрыть'));
+              return of(this.snackBar.open(`Ошибка: ${e.error.message}`, 'Закрыть', {duration: 5000}));
+            } else {
+              return of(this.snackBar.open(`Ошибка при отправке сообщения: ${e.error.message || 'отсутствует интернет-соединение'}`,
+                'Закрыть'));
             }
           }
         ))
@@ -73,16 +75,17 @@ export class MessageBoardComponent implements OnInit {
         catchError(e => {
             if (e.status === 401) {
               this.authService.logout();
-              return of(this.snackBar.open(`Ошибка:\n${e.error.message}`, 'Закрыть', {duration: 5000}));
-            } else if (e.status !== 403) {
-              return of(this.snackBar.open(`Ошибка при получении сообщений:\n${e.error.message}`, 'Закрыть'));
+              return of(this.snackBar.open(`Ошибка: ${e.error.message}`, 'Закрыть', {duration: 5000}));
+            } else {
+              return of(this.snackBar.open(`Ошибка при получении сообщений: ${e.error.message || 'отсутствует интернет-соединение'}`,
+                'Закрыть'));
             }
           }
         ))
       .subscribe();
   }
 
-  deleteMessage(messageId: number) {
+  deleteMessage(messageId: number): void {
     this.chatService.deleteMessage(messageId)
       .pipe(
         filter(res => res.message === 'true'),
@@ -92,16 +95,47 @@ export class MessageBoardComponent implements OnInit {
         catchError(e => {
             if (e.status === 401) {
               this.authService.logout();
-              return of(this.snackBar.open(`Ошибка:\n${e.error.message}`, 'Закрыть', {duration: 5000}));
-            } else if (e.status !== 403) {
-              return of(this.snackBar.open(`Ошибка при удалении сообщения:\n${e.error.message}`, 'Закрыть'));
+              return of(this.snackBar.open(`Ошибка: ${e.error.message}`, 'Закрыть', {duration: 5000}));
+            } else {
+              return of(this.snackBar.open(`Ошибка при удалении сообщения: ${e.error.message || 'отсутствует интернет-соединение'}`,
+                'Закрыть'));
             }
           }
         ))
       .subscribe();
   }
 
-  onKeyPress(event: KeyboardEvent) {
+  editMessage(message: ChatMessage): void {
+    if (this.editingMessage) {
+      this.editingMessage = undefined;
+      this.input = '';
+    } else {
+      this.input = message.message;
+      this.editingMessage = message.message_id;
+    }
+
+  }
+
+  confirmMessageEdit(): void {
+    this.chatService.editMessage(this.editingMessage, this.input)
+      .pipe(
+        filter(res => res.message === 'true'),
+        tap(() => this.messages.map(elem => elem.message_id === this.editingMessage ? elem.message = this.input : false)),
+        tap(() => this.editingMessage = undefined),
+        tap(() => this.input = ''),
+        catchError(e => {
+          if (e.status === 401) {
+            this.authService.logout();
+            return of(this.snackBar.open(`Ошибка: ${e.error.message}`, 'Закрыть', {duration: 5000}));
+          } else {
+            return of(this.snackBar.open(`Ошибка при редактировании сообщения: ${e.error.message || 'отсутствует интернет-соединение'}`,
+              'Закрыть'));
+          }
+        }))
+      .subscribe();
+  }
+
+  onKeyPress(event: KeyboardEvent): void {
     if (event.key === 'Enter' && event.isTrusted && event.shiftKey === false && this.input.trim().length > 1) {
       this.sendMessage();
     }

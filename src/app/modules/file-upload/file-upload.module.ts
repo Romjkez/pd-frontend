@@ -1,5 +1,4 @@
 import {NgModule} from '@angular/core';
-import {FileUploadInputForDirective} from './fileUploadInputFor.directive';
 
 import {MatButtonModule, MatCardModule, MatDialogModule, MatProgressBarModule} from '@angular/material';
 import {MatIconModule} from '@angular/material/icon';
@@ -9,6 +8,7 @@ import {CommonModule} from '@angular/common';
 import {AppFileUploadQueueComponent} from './app-file-upload-queue/app-file-upload-queue.component';
 import {AppFileUploadComponent} from './app-file-upload/app-file-upload.component';
 import {FileUploadModalComponent} from './file-upload-modal/file-upload-modal.component';
+import {FileUploadInputForDirective} from './fileUploadInputFor.directive';
 
 
 @NgModule({
@@ -36,5 +36,5 @@ import {FileUploadModalComponent} from './file-upload-modal/file-upload-modal.co
   ],
   entryComponents: [FileUploadModalComponent]
 })
-export class AppFileUploadModule {
+export class FileUploadModule {
 }

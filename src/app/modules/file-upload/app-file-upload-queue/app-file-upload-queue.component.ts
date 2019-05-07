@@ -6,7 +6,6 @@ import {AppFileUploadComponent} from '../app-file-upload/app-file-upload.compone
 @Component({
   selector: 'app-file-upload-queue',
   templateUrl: `app-file-upload-queue.component.html`,
-  exportAs: 'appFileUploadQueue',
   styleUrls: ['./app-file-upload-queue.component.css'],
 
 })
