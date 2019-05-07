@@ -22,7 +22,7 @@ import {MomentDateAdapter} from '@angular/material-moment-adapter';
 import {EditProjectComponent} from './edit-project/edit-project.component';
 import {ProjectFormComponent} from './project-form/project-form.component';
 import {MessageBoardComponent} from './message-board/message-board.component';
-import {AppFileUploadModule} from '../appFileUpload/appFileUpload.module';
+import {FileUploadModule} from '../file-upload/file-upload.module';
 import {SharedModule} from '../shared/shared.module';
 
 @NgModule({
@@ -49,7 +49,7 @@ import {SharedModule} from '../shared/shared.module';
     MatIconModule,
     MatButtonModule,
     MatDialogModule,
-    AppFileUploadModule
+    FileUploadModule
   ],
   exports: [ProjectComponent, CreateProjectComponent, MatIconModule],
   providers: [

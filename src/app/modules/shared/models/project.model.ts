@@ -1,6 +1,7 @@
 import {User} from './user.model';
 
 export interface ProjectDocument {
+  id: number;
   title: string;
   link: string;
 }

@@ -377,19 +377,23 @@ button mat-icon {
     width: 95%;
   }
 
+  .document {
+    margin-bottom: 5%
+  }
+
   .message-board {
-    width: auto;
+    width: 100%;
   }
 }
 
-@media (max-width: 991.98px) {
-
+@media screen and (min-width: 768px) and (max-width: 991.98px) {
+  .message-board {
+    width: 60%;
+  }
 }
 
-@media (max-width: 1199px) {
+@media screen and (min-width: 992px) and (max-width: 1199px) {
   .page-wrapper {
     width: 95%;
   }
-
-
 }

@@ -7,7 +7,7 @@ import {HttpResponse} from '@angular/common/http';
 import {Project} from '../../shared/models/project.model';
 import {colorMap, statusMap} from '../../shared/components/project-snippet/project-snippet.component';
 import {ProjectsService} from '../../shared/services/projects.service';
-import {FileUploadModalComponent} from '../../appFileUpload/file-upload-modal/file-upload-modal.component';
+import {FileUploadModalComponent} from '../../file-upload/file-upload-modal/file-upload-modal.component';
 import {AuthService} from '../../shared/services/auth.service';
 import {parseJwt} from '../../shared/utils/functions.util';
 import {ApplicationsService} from '../../shared/services/applications.service';
@@ -216,5 +216,9 @@ export class ProjectComponent implements OnInit {
 
   openUploadModal() {
     this.matDialog.open(FileUploadModalComponent, {data: {project_id: +this.project.id}});
+    // todo Добавить динамическое обновление списка документов при загрузке
+    /*dialogRef.afterClosed().pipe(
+      tap((res) => console.log(res))
+    );*/
   }
 }

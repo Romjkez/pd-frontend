@@ -1,34 +1,27 @@
-import {Directive, ElementRef, EventEmitter, HostListener, Input, Output,} from '@angular/core';
+import {Directive, ElementRef, HostListener, Input} from '@angular/core';
+import {AppFileUploadQueueComponent} from './app-file-upload-queue/app-file-upload-queue.component';
 
-/**
- * A material design file upload queue component.
- */
 @Directive({
-  selector: 'input[fileUploadInputFor], div[fileUploadInputFor]',
+  selector: '[appFileUploadInputFor]'
 })
 export class FileUploadInputForDirective {
-
-
-  private _queue: any = null;
+  private _queue: AppFileUploadQueueComponent;
   private _element: HTMLElement;
-  @Output() public onFileSelected: EventEmitter<File[]> = new EventEmitter<File[]>();
 
   constructor(private element: ElementRef) {
     this._element = this.element.nativeElement;
   }
 
-
-  @Input('fileUploadInputFor')
-  set fileUploadQueue(value: any) {
+  @Input('appFileUploadInputFor')
+  set fileUploadQueue(value: AppFileUploadQueueComponent) {
     if (value) {
       this._queue = value;
     }
   }
 
   @HostListener('change')
-  public onChange(): any {
+  onChange(): void {
     const files = this.element.nativeElement.files;
-    this.onFileSelected.emit(files);
 
     for (let i = 0; i < files.length; i++) {
       this._queue.add(files[i]);
@@ -37,10 +30,8 @@ export class FileUploadInputForDirective {
   }
 
   @HostListener('drop', ['$event'])
-  public onDrop(event: any): any {
+  onDrop(event: DragEvent): void {
     const files = event.dataTransfer.files;
-    this.onFileSelected.emit(files);
-
     for (let i = 0; i < files.length; i++) {
       this._queue.add(files[i]);
     }
@@ -50,8 +41,7 @@ export class FileUploadInputForDirective {
   }
 
   @HostListener('dragover', ['$event'])
-  public onDropOver(event: any): any {
+  onDropOver(event: DragEvent): void {
     event.preventDefault();
   }
-
 }

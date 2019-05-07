@@ -45,8 +45,6 @@ export class AdmProjectSnippetComponent implements OnInit {
             if (res.message === 'true') {
               this.snackBar.open('Статус проекта успешно обновлён', 'Закрыть', {duration: 3000});
               this.moderated.emit();
-            } else {
-              console.log(res.message);
             }
           }).catch(e => {
             this.snackBar.open(`Не удалось обновить статус проекта: ${e.error.message || 'отсутствует соединение с интернетом'}`,

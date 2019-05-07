@@ -2,14 +2,9 @@ import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {HttpClient, HttpEventType, HttpHeaders, HttpParams} from '@angular/common/http';
 import {environment} from '../../../../environments/environment';
 
-
-/**
- * A material design file upload component.
- */
 @Component({
   selector: 'app-file-upload',
   templateUrl: `./app-file-upload.component.html`,
-  exportAs: 'appFileUpload',
   host: {
     'class': 'app-file-upload',
   },
@@ -21,9 +16,8 @@ export class AppFileUploadComponent {
     private httpClient: HttpClient) {
   }
 
-  public isUploading = false;
+  isUploading = false;
 
-  /* Http request input bindings */
   httpUrl = `${environment.baseUrl}/file/`;
   @Input() project_id: number;
 
@@ -36,11 +30,11 @@ export class AppFileUploadComponent {
   fileAlias = 'file';
 
   @Input()
-  get file(): any {
+  get file(): File {
     return this._file;
   }
 
-  set file(file: any) {
+  set file(file: File) {
     this._file = file;
     this.total = this._file.size;
   }
@@ -58,14 +52,14 @@ export class AppFileUploadComponent {
   @Output() removeEvent = new EventEmitter<AppFileUploadComponent>();
   @Output() uploaded = new EventEmitter();
 
-  public progressPercentage = 0;
-  public loaded = 0;
-  public total = 0;
+  progressPercentage = 0;
+  loaded = 0;
+  total = 0;
   private _file: any;
   private _id: number;
   private fileUploadSubscription: any;
 
-  public upload(): void {
+  upload(): void {
     this.isUploading = true;
 
     const formData = new FormData();
@@ -92,7 +86,7 @@ export class AppFileUploadComponent {
     });
   }
 
-  public remove(): void {
+  remove(): void {
     if (this.fileUploadSubscription) {
       this.fileUploadSubscription.unsubscribe();
     }
