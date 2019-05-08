@@ -8,12 +8,6 @@ header {
   z-index: 500;
 }
 
-.page-wrapper {
-  width: 75%;
-  margin: 0 auto;
-  max-width: 1330px;
-}
-
 .burger__menu {
   display: none;
 }
@@ -25,7 +19,9 @@ header {
 }
 
 .header__content {
-  width: 100%;
+  width: 75%;
+  margin: 0 auto;
+  max-width: 1330px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -145,7 +141,7 @@ header {
     margin-bottom: 15px;
   }
 
-  .page-wrapper {
+  .header__content {
     width: 90%;
   }
 
@@ -180,7 +176,7 @@ header {
 }
 
 @media (min-width: 768px) and (max-width: 991.98px) {
-  .page-wrapper {
+  .header__content {
     width: 95%;
   }
 
@@ -190,7 +186,7 @@ header {
 }
 
 @media (min-width: 992px) and (max-width: 1199.98px) {
-  .page-wrapper {
+  .header__content {
     width: 95%;
   }
 }
