@@ -9,7 +9,7 @@
                  class="left-column__photoContent" alt="Avatar">
           </div>
           <div class="left-column__edit">
-            <a *ngIf="canEdit" routerLink="/edit_profile" class="button profile-block__edit-button">Редактировать
+            <a *ngIf="canEdit" [routerLink]="['/user/'+user.id+'/edit']" class="button profile-block__edit-button">Редактировать
               профиль</a>
           </div>
         </div>

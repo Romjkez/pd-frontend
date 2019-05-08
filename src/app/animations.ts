@@ -28,7 +28,7 @@ export const slideInAnimation =
       query(':enter', animateChild()),
     ]),
     transition('MainPage => Cabinet,  UserView => MainPage, CreateProject => MainPage, ProjectView => MainPage, ' +
-      'LoginView => MainPage, RegisterView => MainPage', [
+      'ProjectView => Cabinet, LoginView => MainPage, RegisterView => MainPage', [
       style({position: 'relative'}),
       query(':enter, :leave', [
         style({

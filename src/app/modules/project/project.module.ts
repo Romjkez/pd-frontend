@@ -24,6 +24,7 @@ import {ProjectFormComponent} from './project-form/project-form.component';
 import {MessageBoardComponent} from './message-board/message-board.component';
 import {FileUploadModule} from '../file-upload/file-upload.module';
 import {SharedModule} from '../shared/shared.module';
+import {ProjectRoutingModule} from './project-routing.module';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import {SharedModule} from '../shared/shared.module';
   imports: [
     CommonModule,
     RouterModule,
+    ProjectRoutingModule,
     SharedModule,
     MatTooltipModule,
     ReactiveFormsModule,
@@ -46,12 +48,11 @@ import {SharedModule} from '../shared/shared.module';
     MatInputModule,
     MatDatepickerModule,
     MatMenuModule,
+    FileUploadModule,
     MatIconModule,
     MatButtonModule,
     MatDialogModule,
-    FileUploadModule
   ],
-  exports: [ProjectComponent, CreateProjectComponent, MatIconModule],
   providers: [
     {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
     {provide: MAT_DATE_LOCALE, useValue: 'ru'},
