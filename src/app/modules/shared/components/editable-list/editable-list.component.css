@@ -1,64 +1,68 @@
 header > h2 {
-  margin: 2% 0;
+  margin: 2% 0
 }
 
 .list-item {
   margin-top: 3%;
-  transition: margin-top 250ms;
+  transition: margin-top 250ms
 }
 
 .list-item__wrapper {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-between
 }
 
 .item-controls {
   display: flex;
   width: 30%;
   justify-content: flex-end;
-  min-width: 150px;
+  min-width: 150px
 }
 
 .item-content {
-  min-width: 200px;
+  min-width: 200px
 }
 
 .list-item__wrapper button {
   margin-left: 1%;
-  border: 1px solid #eee;
+  border: 1px solid #eee
 }
 
 .list-controls__add-button {
   width: 100%;
   background: #eee;
-  min-width: 350px;
+  min-width: 350px
 }
 
 button[mat-button] mat-icon {
-  display: none;
+  display: none
 }
 
 button[mat-button] b {
-  display: block;
+  display: block
 }
 
 input {
-  height: 1.5em;
+  height: 1.5em
+}
+
+.color-primary {
+  color: #673ab7
 }
 
 @media screen and (max-width: 767px) {
   .list-item {
-    margin-top: 3%;
+    margin-top: 3%
   }
 
   button[mat-button] mat-icon {
     display: flex;
     align-items: center;
     margin: 0 auto;
-    height: 3rem;
+    height: 3rem
   }
 
   button[mat-button] b {
-    display: none;
+    display: none
   }
 }

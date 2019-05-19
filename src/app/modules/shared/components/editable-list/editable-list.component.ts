@@ -41,7 +41,7 @@ export class EditableListComponent implements OnInit {
     this.label_remove = this.label_remove || 'Remove';
     this.label_cancel = this.label_cancel || 'Cancel';
     this.label_confirm = this.label_confirm || 'Confirm';
-    this.removeModalQuestion = this.removeModalQuestion || 'Remove tag?';
+    this.removeModalQuestion = this.removeModalQuestion || 'Remove item?';
   }
 
   onEdit(item: ListItem): void {
@@ -69,9 +69,6 @@ export class EditableListComponent implements OnInit {
   }
 
   requestAddingItem(): void {
-    /*let max = 0;
-    const items = this.items;
-    items.forEach(value => max = ++value.id > max ? value.id : max);*/
     this.addingItem = {
       id: -1,
       category: '',
