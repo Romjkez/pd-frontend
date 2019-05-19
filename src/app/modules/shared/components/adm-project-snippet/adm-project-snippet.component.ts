@@ -7,7 +7,7 @@ import {Project} from '../../models/project.model';
 @Component({
   selector: 'app-adm-project-snippet',
   templateUrl: './adm-project-snippet.component.html',
-  styleUrls: ['./adm-project-snippet.component.css']
+  styleUrls: ['./adm-project-snippet.component.scss']
 })
 export class AdmProjectSnippetComponent implements OnInit {
   approveForm: FormGroup;

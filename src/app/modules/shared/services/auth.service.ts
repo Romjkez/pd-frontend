@@ -32,12 +32,12 @@ export class AuthService {
     return '';
   }
 
-  public getUserGroup(): number {
+  getUserGroup(): number {
     const parsedToken = parseJwt(this.getToken());
     return parsedToken.data.usergroup;
   }
 
-  public getUserId(): number {
+  getUserId(): number {
     const parsedToken = parseJwt(this.getToken());
     return parsedToken.data.id;
   }

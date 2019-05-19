@@ -1,13 +1,13 @@
 import {Component, OnInit} from '@angular/core';
-import {User} from '../modules/shared/models/user.model';
-import {UserService} from '../modules/shared/services/user.service';
-import {AuthService} from '../modules/shared/services/auth.service';
-import {parseJwt} from '../modules/shared/utils/functions.util';
+import {User} from '../../modules/shared/models/user.model';
+import {UserService} from '../../modules/shared/services/user.service';
+import {AuthService} from '../../modules/shared/services/auth.service';
+import {parseJwt} from '../../modules/shared/utils/functions.util';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.css']
+  styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
   user: User;

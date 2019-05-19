@@ -9,13 +9,13 @@
   box-sizing: border-box;
   display: block;
   transition: .25s;
-}
 
-.snippet:hover {
-  transform: scale(1.01);
-  box-shadow: 0 3px 20px rgba(0, 0, 0, .16),
-  0 3px 20px rgba(0, 0, 0, .23);
-  border: none;
+  &:hover {
+    transform: scale(1.01);
+    box-shadow: 0 3px 20px rgba(0, 0, 0, .16),
+    0 3px 20px rgba(0, 0, 0, .23);
+    border: none;
+  }
 }
 
 .snippet__link {

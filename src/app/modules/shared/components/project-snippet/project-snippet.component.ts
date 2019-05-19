@@ -19,7 +19,7 @@ export const colorMap: Map<string, string> = new Map([
 @Component({
   selector: 'app-project-snippet',
   templateUrl: './project-snippet.component.html',
-  styleUrls: ['./project-snippet.component.css']
+  styleUrls: ['./project-snippet.component.scss']
 })
 export class ProjectSnippetComponent implements OnInit {
   @Input() project: Project;

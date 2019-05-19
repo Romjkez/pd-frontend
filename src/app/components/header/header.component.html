@@ -1,0 +1,70 @@
+<header>
+  <div class="header__content">
+    <div class="header__left-side">
+      <div class="header__logo">
+        <a [routerLink]="'/'" style="display: flex; align-items: center; color: #d5d5d5; font-size: 12px;">
+          <img class="logo-image" src="../../../assets/logo.png" alt="logo" draggable="false"
+               style="margin-right: 10px">
+          <span class="header__title">портал подбора <br> студенческих проектов</span>
+        </a>
+      </div>
+      <button *ngIf="user?.id" mat-icon-button mat-button style="color: #fff" class="burger__menu"
+              [matMenuTriggerFor]="headerMenu">
+        <mat-icon>menu</mat-icon>
+      </button>
+      <div class="header__menu">
+        <a class="menu__item" [routerLink]="'/'"
+           routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
+          <span class="menu__item__link">все проекты</span>
+        </a>
+        <a *ngIf="authService.isAuthorized()" class="menu__item" [routerLink]="'/cabinet'"
+           routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
+          <span class="menu__item__link">личный кабинет</span>
+        </a>
+      </div>
+    </div>
+
+    <div *ngIf="!authService.isAuthorized()" class="header__reg-auth">
+      <a [routerLink]="'/login'" class="reg-auth__item">Вход</a> /
+      <a [routerLink]="'/register'" class="reg-auth__item">Регистрация</a>
+    </div>
+
+    <div *ngIf="authService.isAuthorized()" class="header__profile-link">
+      <a [routerLink]="'/user/'+user?.id" class="profile-link__link">
+        <h3 class="profile-link__name">{{user?.surname}} {{user?.name.length == 0 ? '' : user?.name}}</h3>
+        <div class="profile-link__photo">
+          <img src="{{user?.avatar?.length == 0 ? '../assets/img/avatar.png' : user?.avatar}}"
+               class="profile-link__photoContent" alt="Фотография">
+        </div>
+      </a>
+      <div class="profile-link__logout">
+        <a (click)="authService.logout()" class="profile-link__logout">выйти</a>
+      </div>
+    </div>
+  </div>
+</header>
+<mat-menu #headerMenu="matMenu">
+  <div *ngIf="authService.isAuthorized()" mat-menu-item
+       style="display: flex;align-items:center;cursor:default;background:#fff;pointer-events:none">
+    <img src="{{user?.avatar?.length == 0 ? '../assets/img/avatar.png' : user?.avatar}}"
+         class="profile-link__photoContent" alt="Фотография">
+    <b
+      style="margin-left:1em;font-size:1.2em">{{user?.surname}} {{user?.name.length == 0 ? '' : user?.name[0] + '.'}}</b>
+  </div>
+  <a *ngIf="authService.isAuthorized()" mat-menu-item [routerLink]="'/user/'+user?.id" [routerLinkActive]="'active'">
+    <mat-icon>person</mat-icon>
+    <span>Профиль</span>
+  </a>
+  <a *ngIf="authService.isAuthorized()" mat-menu-item [routerLink]="'/cabinet'" [routerLinkActive]="'active'">
+    <mat-icon>event_seat</mat-icon>
+    <span>Личный кабинет</span>
+  </a>
+  <button *ngIf="authService.isAuthorized()" mat-menu-item (click)="authService.logout()">
+    <mat-icon>exit_to_app</mat-icon>
+    <span>Выйти</span>
+  </button>
+  <a *ngIf="!authService.isAuthorized()" mat-menu-item [routerLink]="'/login'">
+    <mat-icon>account_circle</mat-icon>
+    <span>Авторизоваться</span>
+  </a>
+</mat-menu>

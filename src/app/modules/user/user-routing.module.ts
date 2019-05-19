@@ -7,17 +7,18 @@ const routes: Routes = [
   {
     path: ':id',
     component: UserViewComponent,
+    data: {animation: 'UserView'},
     pathMatch: 'full'
   },
   {
-    path: '',
+    path: ':id/edit',
     component: UserEditComponent,
+    data: {animation: 'EditProfileView'},
   }
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  imports: [RouterModule.forChild(routes)]
 })
 export class UserRoutingModule {
 }

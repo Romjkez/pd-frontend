@@ -26,8 +26,8 @@ import {ProjectModule} from '../project/project.module';
     NgxPaginationModule,
     SharedModule,
     MatDialogModule,
-    ProjectModule
-  ]
+    ProjectModule,
+  ],
 })
 export class CabinetModule {
 }

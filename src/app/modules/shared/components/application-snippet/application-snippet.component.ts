@@ -5,7 +5,7 @@ import {ParsedProjectApplication} from '../../models/application.model';
 @Component({
   selector: 'app-application-snippet',
   templateUrl: './application-snippet.component.html',
-  styleUrls: ['./application-snippet.component.css']
+  styleUrls: ['./application-snippet.component.scss']
 })
 export class ApplicationSnippetComponent implements OnInit {
   @Input() application: ParsedProjectApplication;

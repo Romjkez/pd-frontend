@@ -14,7 +14,7 @@ export class UserService {
 
   registerUser(body: string): Promise<any> {
     const headers = new HttpHeaders('Content-Type: application/x-www-form-urlencoded');
-    return this.http.post(`${this.baseUrl}/user/add.php`, body, {headers, observe: 'response'})
+    return this.http.post(`${this.baseUrl}/user/add.php`, body, {headers, observe: 'body'})
       .toPromise();
   }
 

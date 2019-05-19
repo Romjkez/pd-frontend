@@ -8,7 +8,7 @@ import {environment} from '../../../../environments/environment';
   host: {
     'class': 'app-file-upload',
   },
-  styleUrls: ['./app-file-upload.component.css'],
+  styleUrls: ['./app-file-upload.component.scss'],
 })
 export class AppFileUploadComponent {
 

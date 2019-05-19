@@ -1,8 +1,6 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {NotFoundPageComponent} from './not-found-page/not-found-page.component';
-import {ProjectComponent} from './modules/project/view-project/project.component';
-import {EditProjectComponent} from './modules/project/edit-project/edit-project.component';
+import {NotFoundPageComponent} from './components/not-found-page/not-found-page.component';
 import {MainPageComponent} from './modules/main/main-page/main-page.component';
 import {RegisterComponent} from './modules/auth/register/register.component';
 import {LoginComponent} from './modules/auth/login/login.component';
@@ -21,26 +19,18 @@ const routes: Routes = [
   },
   {
     path: 'user',
-    data: {animation: 'UserView'},
     loadChildren: './modules/user/user.module#UserModule'
   },
   {
-    path: 'edit_profile',
-    data: {animation: 'EditProfileView'},
-    loadChildren: './modules/user/user.module#UserModule'
+    path: 'project',
+    loadChildren: './modules/project/project.module#ProjectModule'
   },
-  {
-    path: 'project/:id',
-    component: ProjectComponent,
-    pathMatch: 'full',
-    data: {animation: 'ProjectView'}
-  },
-  {
-    path: 'project/:id/edit',
+  /*{
+    path: 'project',
     component: EditProjectComponent,
     pathMatch: 'full',
     data: {animation: 'EditProfileView'}
-  },
+  },*/
   {
     path: 'register',
     component: RegisterComponent,
@@ -64,10 +54,10 @@ const routes: Routes = [
     component: NotFoundPageComponent,
     pathMatch: 'full'
   },
-  {
+  /*{
     path: '**',
     redirectTo: '404'
-  }
+  }*/
 ];
 
 @NgModule({

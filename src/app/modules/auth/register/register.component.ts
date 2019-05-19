@@ -1,7 +1,7 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
-import {HttpErrorResponse, HttpResponse} from '@angular/common/http';
+import {HttpErrorResponse} from '@angular/common/http';
 import {MatSnackBar} from '@angular/material';
 import {UserService} from '../../shared/services/user.service';
 import {AuthService} from '../../shared/services/auth.service';
@@ -32,7 +32,7 @@ export interface FormLabels {
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
-  styleUrls: ['./register.component.css']
+  styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent implements OnInit {
   regForm: FormGroup;
@@ -87,8 +87,8 @@ export class RegisterComponent implements OnInit {
     if (this.regForm.controls.pass.value === this.regForm.controls.pass_repeat.value) {
       if (this.regForm.controls.usergroup.value === 1) {
         if (this.regForm.controls.name.value.trim().length !== 0) {
-          await this.requestRegister().then((res: HttpResponse<any>) => {
-              if (res.body.message === 'true') {
+          await this.requestRegister().then(res => {
+            if (res.message && res.message === 'true') {
                 this.snackBar.open('Поздравляем с регистрацией. Теперь можно авторизоваться', 'Понятно', {duration: 4500});
                 this.router.navigate(['/login']);
               }
@@ -103,8 +103,8 @@ export class RegisterComponent implements OnInit {
           this.snackBar.open('Укажите имя', 'Закрыть', {duration: 4000});
         }
       } else {
-        await this.requestRegister().then((res) => {
-          if (res.body.message === 'true') {
+        await this.requestRegister().then(res => {
+          if (res.message && res.message === 'true') {
             this.snackBar.open('Поздравляем с регистрацией. Теперь можно авторизоваться', 'Понятно', {duration: 4500});
             this.router.navigate(['/login']);
           }

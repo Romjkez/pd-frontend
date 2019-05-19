@@ -47,17 +47,16 @@ div {
   position: absolute;
   left: 0;
   top: 3px;
-}
 
-.auth-form__back-button:hover {
-  cursor: pointer;
+  &:hover {
+    cursor: pointer
+  }
 }
 
 .auth-form__back-image {
   width: 20px;
   height: 20px;
 }
-
 
 .auth-form__form {
   display: flex;
@@ -76,8 +75,10 @@ div {
   box-sizing: border-box;
 }
 
-.auth-form__button:hover {
-  background-color: #207ec9;
+.auth-form__button {
+  &:hover {
+    background-color: #207ec9;
+  }
 }
 
 .register-block {
@@ -91,13 +92,14 @@ div {
   color: #2196f3;
 }
 
-.register-block__link:hover {
-  color: #297ab9;
+.register-block__link {
+  &:hover {
+    color: #297ab9;
+  }
 }
 
 .auth-social-block__title {
-  margin: 0;
-  margin-bottom: 15px;
+  margin: 0 0 15px;
   font-weight: 400;
   font-size: 17px;
 }
@@ -110,10 +112,10 @@ div {
 
 .auth-social-block__list-item {
   transition: 0.3s;
-}
 
-.auth-social-block__list-item:hover {
-  opacity: 0.7;
+  &:hover {
+    opacity: 0.7;
+  }
 }
 
 .auth-social-block__image {
