@@ -4,7 +4,7 @@ import {AuthService} from '../../shared/services/auth.service';
 @Component({
   selector: 'app-cabinet',
   templateUrl: './cabinet.component.html',
-  styleUrls: ['./cabinet.component.css']
+  styleUrls: ['./cabinet.component.scss']
 })
 export class CabinetComponent implements OnInit {
 

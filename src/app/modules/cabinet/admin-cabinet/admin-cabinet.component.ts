@@ -10,7 +10,7 @@ import {Projects} from '../../shared/models/project.model';
 @Component({
   selector: 'app-admin-cabinet',
   templateUrl: './admin-cabinet.component.html',
-  styleUrls: ['./admin-cabinet.component.css']
+  styleUrls: ['./admin-cabinet.component.scss']
 })
 export class AdminCabinetComponent implements OnInit {
   projects: Projects;

@@ -9,7 +9,7 @@ import {ApplicationsService} from '../../shared/services/applications.service';
 @Component({
   selector: 'app-worker-cabinet',
   templateUrl: './worker-cabinet.component.html',
-  styleUrls: ['./worker-cabinet.component.css']
+  styleUrls: ['./worker-cabinet.component.scss']
 })
 export class WorkerCabinetComponent implements OnInit {
   projects: UserProjects;

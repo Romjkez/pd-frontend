@@ -5,15 +5,34 @@
   justify-content: center;
 }
 
-.project-cr-button {
-  height: 30px;
-  margin-top: 0;
-  padding: 9px 10px;
+.apps__header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  color: #7b7b7b;
+  padding: 0 20px;
   box-sizing: border-box;
-}
+  margin: 20px 0 10px 0;
+  text-align: center;
+  font-weight: bold;
 
-.project-cr-button.mobile {
-  display: none
+  div {
+    &:first-child {
+      flex: 3;
+    }
+
+    &:nth-child(3), &:nth-child(4) {
+      flex: 2;
+    }
+
+    &:nth-child(2) {
+      flex: 1;
+    }
+
+    &:last-child {
+      flex: 2;
+    }
+  }
 }
 
 .tabs_block {
@@ -26,9 +45,11 @@ mat-tab-group {
   width: 100%;
 }
 
-.create-project {
-  width: 200px;
-  margin: 1% 0 0 0;
+.pagination {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
 }
 
 @media (max-width: 575.98px) {
@@ -40,23 +61,8 @@ mat-tab-group {
     width: 90%;
   }
 
-  .tabs_block {
-    flex-direction: column;
-    height: 75px;
-    border: none;
-    margin-bottom: 30px;
-  }
-}
-
-@media screen and (max-width: 767.5px) {
-  .create-project {
-    display: none
-  }
-
-  .project-cr-button.mobile {
-    display: block;
-    padding: 3%;
-    height: auto
+  .tabs_block__item {
+    margin-right: 30px;
   }
 }
 
@@ -78,16 +84,4 @@ mat-tab-group {
   .cabinet-wrapper {
     width: 95%;
   }
-}
-
-@media screen and (min-width: 992px) and (max-width: 1599px) {
-  .cabinet-wrapper {
-    width: 85%;
-  }
-
-  .tabs_block {
-    flex: 80%;
-    max-width: 900px;
-  }
-
 }

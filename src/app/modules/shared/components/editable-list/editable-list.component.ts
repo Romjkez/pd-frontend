@@ -12,7 +12,7 @@ export interface ListItem {
 @Component({
   selector: 'app-editable-list',
   templateUrl: './editable-list.component.html',
-  styleUrls: ['./editable-list.component.css']
+  styleUrls: ['./editable-list.component.scss']
 })
 export class EditableListComponent implements OnInit {
   editingItem: ListItem;

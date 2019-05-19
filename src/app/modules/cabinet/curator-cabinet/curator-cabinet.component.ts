@@ -8,7 +8,7 @@ import {parseJwt} from '../../shared/utils/functions.util';
 @Component({
   selector: 'app-curator-cabinet',
   templateUrl: './curator-cabinet.component.html',
-  styleUrls: ['./curator-cabinet.component.css']
+  styleUrls: ['./curator-cabinet.component.scss']
 })
 export class CuratorCabinetComponent implements OnInit {
   activeProjects: Project[] | null;

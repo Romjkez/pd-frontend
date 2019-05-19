@@ -14,19 +14,23 @@
 }
 
 mat-form-field {
-  width: 90%
+  width: 90%;
 }
 
-.chat-controls button[mat-button] {
-  width: 10%;
+.chat-controls {
+  button[mat-button] {
+    width: 10%;
+  }
 }
 
 mat-icon {
   transition: color 250ms ease-out;
 }
 
-button[disabled] mat-icon {
-  color: #eee;
+button[disabled] {
+  mat-icon {
+    color: #eee;
+  }
 }
 
 .empty-message {
@@ -39,14 +43,16 @@ button[disabled] mat-icon {
   width: 75%;
   transition: all 250ms;
   margin: 0 0 0 5px;
-}
 
-.single-message:hover > .single-message__controls {
-  transform: translateX(0);
-}
+  &:not(:first-child) {
+    margin-top: 10px;
+  }
 
-.single-message:not(:first-child) {
-  margin-top: 10px;
+  &:hover {
+    .single-message__controls {
+      transform: translateX(0);
+    }
+  }
 }
 
 .single-message__controls {

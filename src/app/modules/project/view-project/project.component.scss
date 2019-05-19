@@ -4,10 +4,6 @@
   margin-top: 20px;
 }
 
-.page-wrapper {
-  margin: 0 auto;
-}
-
 .side-form h2 {
   text-align: center;
   margin: 10% 0 0 0;
@@ -73,8 +69,10 @@
   height: 100%;
 }
 
-.requests__header > .title {
-  margin-top: 0;
+.requests__header {
+  .title {
+    margin-top: 0;
+  }
 }
 
 .side-form__item {
@@ -82,8 +80,7 @@
 }
 
 .button_confirm {
-  margin: 0;
-  margin-left: 20px;
+  margin: 0 0 0 20px;
   width: 30%;
 }
 
@@ -114,6 +111,24 @@
   border-radius: 3px;
   margin-bottom: 10px;
   text-align: center;
+
+  div {
+    &:first-child {
+      flex: 3;
+    }
+
+    &:nth-child(3), &:nth-child(4) {
+      flex: 2;
+    }
+
+    &:nth-child(2) {
+      flex: 1;
+    }
+
+    &:last-child {
+      flex: 1;
+    }
+  }
 }
 
 .project-view__documents {
@@ -121,26 +136,34 @@
   flex-direction: column;
 }
 
-.apps__header > div:first-child,
-.body__row > div:first-child {
-  flex: 3;
-}
+.apps__header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  color: #7b7b7b;
+  padding: 0 20px;
+  box-sizing: border-box;
+  margin: 20px 0 10px 0;
+  text-align: center;
+  font-weight: bold;
 
-.apps__header > div:nth-child(3),
-.apps__header > div:nth-child(4),
-.body__row > div:nth-child(3),
-.body__row > div:nth-child(4) {
-  flex: 2;
-}
+  div {
+    &:first-child {
+      flex: 3;
+    }
 
-.apps__header > div:nth-child(2),
-.body__row > div:nth-child(2) {
-  flex: 1;
-}
+    &:nth-child(3), &:nth-child(4) {
+      flex: 2;
+    }
 
-.apps__header > div:last-child,
-.body__row > div:last-child {
-  flex: 1;
+    &:nth-child(2) {
+      flex: 1;
+    }
+
+    &:last-child {
+      flex: 1;
+    }
+  }
 }
 
 .row__button {
@@ -157,16 +180,20 @@
 .button-accept {
   background-color: green;
   margin-right: 15px;
-}
 
-.button-accept:hover,
-.button-reject:hover {
-  opacity: 0.8;
-  transform: scale(1.1);
+  &:hover {
+    opacity: 0.8;
+    transform: scale(1.1);
+  }
 }
 
 .button-reject {
   background-color: red;
+
+  &:hover {
+    opacity: 0.8;
+    transform: scale(1.1);
+  }
 }
 
 .project-view {
@@ -254,10 +281,10 @@
 
 .curator-link {
   color: #207ec9;
-}
 
-.curator-link:hover {
-  text-decoration: underline;
+  &:hover {
+    text-decoration: underline;
+  }
 }
 
 .snippet__proj-tags {
@@ -302,8 +329,10 @@
   color: #207ec9;
 }
 
-.teammate:last-child {
-  border: none;
+.teammate {
+  &:last-child {
+    border: none;
+  }
 }
 
 .row__buttons {
@@ -315,8 +344,10 @@ button[mat-menu-item][disabled] {
   color: #d8d8d8 !important;
 }
 
-button mat-icon {
-  transform: scale(1.5);
+button {
+  mat-icon {
+    transform: scale(1.5);
+  }
 }
 
 /*--------------------*/

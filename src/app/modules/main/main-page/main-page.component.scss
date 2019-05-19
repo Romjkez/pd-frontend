@@ -1,6 +1,5 @@
 .page-wrapper {
   width: 75%;
-  margin: 0 auto;
   max-width: 1330px;
 }
 
@@ -12,8 +11,10 @@ h3 {
   font-size: 15px;
 }
 
-.reg-auth__item:hover {
-  text-decoration: underline;
+.reg-auth__item {
+  &:hover {
+    text-decoration: underline;
+  }
 }
 
 .logo-image {
@@ -72,15 +73,19 @@ h3 {
 
 .filter-block__cancel {
   display: none;
-  margin-top: 2%
+  margin-top: 2%;
+
+  button {
+    width: 100%;
+  }
 }
 
 .filter-block__reset {
-  text-align: center
-}
+  text-align: center;
 
-.filter-block__reset > button, .filter-block__cancel > button {
-  width: 100%;
+  button {
+    width: 100%;
+  }
 }
 
 .search {

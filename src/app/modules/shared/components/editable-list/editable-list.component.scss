@@ -7,11 +7,6 @@ header > h2 {
   transition: margin-top 250ms
 }
 
-.list-item__wrapper {
-  display: flex;
-  justify-content: space-between
-}
-
 .item-controls {
   display: flex;
   width: 30%;
@@ -23,9 +18,14 @@ header > h2 {
   min-width: 200px
 }
 
-.list-item__wrapper button {
-  margin-left: 1%;
-  border: 1px solid #eee
+.list-item__wrapper {
+  display: flex;
+  justify-content: space-between;
+
+  button {
+    margin-left: 1%;
+    border: 1px solid #eee
+  }
 }
 
 .list-controls__add-button {
@@ -34,12 +34,14 @@ header > h2 {
   min-width: 350px
 }
 
-button[mat-button] mat-icon {
-  display: none
-}
+button[mat-button] {
+  mat-icon {
+    display: none
+  }
 
-button[mat-button] b {
-  display: block
+  b {
+    display: block
+  }
 }
 
 input {
@@ -55,14 +57,17 @@ input {
     margin-top: 3%
   }
 
-  button[mat-button] mat-icon {
-    display: flex;
-    align-items: center;
-    margin: 0 auto;
-    height: 3rem
-  }
+  button[mat-button] {
+    mat-icon {
+      display: flex;
+      align-items: center;
+      margin: 0 auto;
+      height: 3rem
+    }
 
-  button[mat-button] b {
-    display: none
+    b {
+      display: none
+
+    }
   }
 }

@@ -43,25 +43,28 @@
   background: #207ec9;
   color: #fff;
   cursor: pointer;
-}
 
-.menu-item:hover {
-  background: #2098e6;
+  &:hover {
+    background: #2098e6;
+  }
 }
 
 @media screen and (max-width: 767.9px) {
-
 }
 
 @media screen and (max-width: 1199.9px) {
-  .column:first-child {
-    width: 40%
+  .column {
+    &:first-child {
+      width: 40%
+    }
   }
 }
 
 @media screen and (max-width: 1599.9px) {
-  .column:first-child {
-    width: 50%
+  .column {
+    &:first-child {
+      width: 50%
+    }
   }
 }
 
@@ -71,8 +74,10 @@
     max-width: 1400px
   }
 
-  .column:first-child {
-    width: 70%;
-    max-width: 780px
+  .column {
+    &:first-child {
+      width: 70%;
+      max-width: 780px
+    }
   }
 }
