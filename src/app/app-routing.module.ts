@@ -25,12 +25,6 @@ const routes: Routes = [
     path: 'project',
     loadChildren: './modules/project/project.module#ProjectModule'
   },
-  /*{
-    path: 'project',
-    component: EditProjectComponent,
-    pathMatch: 'full',
-    data: {animation: 'EditProfileView'}
-  },*/
   {
     path: 'register',
     component: RegisterComponent,
@@ -54,10 +48,10 @@ const routes: Routes = [
     component: NotFoundPageComponent,
     pathMatch: 'full'
   },
-  /*{
+  {
     path: '**',
     redirectTo: '404'
-  }*/
+  }
 ];
 
 @NgModule({
