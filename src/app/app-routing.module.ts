@@ -15,22 +15,16 @@ const routes: Routes = [
   },
   {
     path: 'log',
-    loadChildren: './modules/logs/logs.module#LogsModule'
+    loadChildren: () => import('./modules/logs/logs.module').then(m => m.LogsModule)
   },
   {
     path: 'user',
-    loadChildren: './modules/user/user.module#UserModule'
+    loadChildren: () => import('./modules/user/user.module').then(m => m.UserModule)
   },
   {
     path: 'project',
-    loadChildren: './modules/project/project.module#ProjectModule'
+    loadChildren: () => import('./modules/project/project.module').then(m => m.ProjectModule)
   },
-  /*{
-    path: 'project',
-    component: EditProjectComponent,
-    pathMatch: 'full',
-    data: {animation: 'EditProfileView'}
-  },*/
   {
     path: 'register',
     component: RegisterComponent,
@@ -45,7 +39,7 @@ const routes: Routes = [
   },
   {
     path: 'cabinet',
-    loadChildren: './modules/cabinet/cabinet.module#CabinetModule',
+    loadChildren: () => import('./modules/cabinet/cabinet.module').then(m => m.CabinetModule),
     data: {animation: 'Cabinet'},
     canActivate: [AuthGuardService],
   },
@@ -54,10 +48,10 @@ const routes: Routes = [
     component: NotFoundPageComponent,
     pathMatch: 'full'
   },
-  /*{
+  {
     path: '**',
     redirectTo: '404'
-  }*/
+  }
 ];
 
 @NgModule({

@@ -34,8 +34,8 @@ export class ProjectComponent implements OnInit {
   selfId: number;
   membersIds: number[] = [];
   apps: ParsedWorkerApplication[];
-  @ViewChild('joinFormSubmit') joinFormSubmit: ElementRef;
-  @ViewChild('confirmDeletionDialog') confirmDeletionDialog: TemplateRef<any>;
+  @ViewChild('joinFormSubmit', {static: false}) joinFormSubmit: ElementRef;
+  @ViewChild('confirmDeletionDialog', {static: false}) confirmDeletionDialog: TemplateRef<any>;
 
   constructor(private activatedRoute: ActivatedRoute, private applicationsService: ApplicationsService, private snackBar: MatSnackBar,
               private router: Router, public authService: AuthService, public matDialog: MatDialog,

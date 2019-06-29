@@ -31,7 +31,7 @@ export class ProjectFormComponent implements OnInit {
   teamsInfo: { roles: string[], teams: number };
   checkedTagsList: string[] = [];
 
-  @ViewChild('submitButton') submitButton: ElementRef;
+  @ViewChild('submitButton', {static: true}) submitButton: ElementRef;
 
   @Input() isEditingProject: boolean;
 

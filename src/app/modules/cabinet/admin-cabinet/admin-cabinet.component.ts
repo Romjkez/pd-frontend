@@ -20,7 +20,7 @@ export class AdminCabinetComponent implements OnInit {
   statusFilter = 0;
   loading: boolean;
   tags: Tag[];
-  @ViewChild('tagsModal') tagsModal: TemplateRef<any>;
+  @ViewChild('tagsModal', {static: false}) tagsModal: TemplateRef<any>;
 
   constructor(private projectsService: ProjectsService, public snackBar: MatSnackBar, private matDialog: MatDialog,
               private authService: AuthService, private tagsService: TagsService) {

@@ -34,8 +34,8 @@ export class MessageBoardComponent implements OnInit {
   projectId = +this.activatedRoute.snapshot.paramMap.get('id');
   @Input() isAvailable: boolean;
 
-  @ViewChild('messagesContainer') messagesContainer: ElementRef<HTMLDivElement>;
-  @ViewChild('confirmDeletionDialog') confirmDeletionDialog: TemplateRef<any>;
+  @ViewChild('messagesContainer', {static: false}) messagesContainer: ElementRef<HTMLDivElement>;
+  @ViewChild('confirmDeletionDialog', {static: false}) confirmDeletionDialog: TemplateRef<any>;
 
   constructor(private chatService: ChatService, private activatedRoute: ActivatedRoute, private snackBar: MatSnackBar,
               private authService: AuthService) {
