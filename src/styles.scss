@@ -1,5 +1,4 @@
 @import '~@angular/material/theming';
-
 @include mat-core();
 
 $candy-app-primary: mat-palette($mat-indigo);
@@ -32,7 +31,7 @@ h1, h2, h3, h4, h5 {
   font-weight: 400;
 }
 
-.page-wrapper { 
+.page-wrapper {
   margin: 0 auto;
 }
 
