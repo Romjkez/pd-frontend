@@ -30,7 +30,7 @@ export class EditableListComponent implements OnInit {
   @Output() edited: EventEmitter<ListItem> = new EventEmitter();
   @Output() removed: EventEmitter<ListItem> = new EventEmitter();
   @Output() added: EventEmitter<ListItem> = new EventEmitter();
-  @ViewChild('removeModal') removeModal: TemplateRef<any>;
+  @ViewChild('removeModal', {static: false}) removeModal: TemplateRef<any>;
 
   constructor(private dialog: MatDialog) {
   }
