@@ -1,8 +1,8 @@
 # Портал подбора студенческих проектов // University projects portal
 
-Проект использует [Angular](https://angular.io) версии 7.2.13.
+Проект использует [Angular](https://angular.io) версии 8.0.3.
 
-Based on [Angular](https://angular.io) 7.2.13
+Based on [Angular](https://angular.io) 8.0.3
 
 
 ### Архитектура // Architecture
