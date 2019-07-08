@@ -38,7 +38,7 @@ export class RegisterComponent implements OnInit {
   regForm: FormGroup;
   formLabels: FormLabels;
   back = back;
-  @ViewChild('submitButton', {static: true}) submitButton: ElementRef;
+  @ViewChild('submitButton', {static: false}) submitButton: ElementRef;
 
   constructor(private authService: AuthService, private router: Router, private userService: UserService, private snackBar: MatSnackBar) {
   }

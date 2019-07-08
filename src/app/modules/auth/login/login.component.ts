@@ -13,7 +13,7 @@ import {back} from '../../shared/utils/functions.util';
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   back = back;
-  @ViewChild('loginButton', {static: true}) loginButton: ElementRef;
+  @ViewChild('loginButton', {static: false}) loginButton: ElementRef;
 
   constructor(private authService: AuthService, private snackBar: MatSnackBar, private router: Router) {
   }
