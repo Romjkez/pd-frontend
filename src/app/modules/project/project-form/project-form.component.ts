@@ -22,7 +22,20 @@ export class ProjectFormComponent implements OnInit {
   isMobile = isMobile;
 
   loading: boolean;
-  projectForm: FormGroup;
+  projectForm: FormGroup = new FormGroup({
+    id: new FormControl(null),
+    title:
+      new FormControl(null, [Validators.required, Validators.minLength((2)), Validators.maxLength(255)]),
+    description:
+      new FormControl(null, [Validators.required, Validators.minLength((2))]),
+    deadline: new FormControl(null, [Validators.required]),
+    finish_date: new FormControl(null, [Validators.required]),
+    roles: new FormControl(null, [Validators.required]),
+    teamsCount: new FormControl(null, [Validators.required, Validators.min(1), Validators.max(10)]),
+    tags: new FormArray([]),
+    avatar: new FormControl(null),
+    files: new FormControl(null)
+  });
   minApplyFinishDate: Date; // minimum date of finishing getting user applies
   maxApplyFinishDate: Date; // maximum date of finishing getting user applies
   minProjectFinishDate: Date; // minimum date of finishing project

@@ -14,21 +14,21 @@ export class TagsService {
   }
 
   getTags(): Promise<Tag[]> {
-    return this.http.get<Tag[]>(`${this.baseUrl}/tags/`).toPromise();
+    return this.http.get<Tag[]>(`${this.baseUrl}/tags/index.php`).toPromise();
   }
 
   editTag(tag: Tag): Promise<any> {
-    return this.http.put(`${this.baseUrl}/tags/`, `id=${tag.id}&category=${tag.category}&value=${tag.value}`).toPromise();
+    return this.http.put(`${this.baseUrl}/tags/index.php`, `id=${tag.id}&category=${tag.category}&value=${tag.value}`).toPromise();
   }
 
   addTag(tag: Tag): Promise<Tag> {
-    return this.http.post<Tag>(`${this.baseUrl}/tags/`, `category=${tag.category}&value=${tag.value}`, {
+    return this.http.post<Tag>(`${this.baseUrl}/tags/index.php`, `category=${tag.category}&value=${tag.value}`, {
       headers: {'Content-Type': 'application/x-www-form-urlencoded'},
       observe: 'body'
     }).toPromise();
   }
 
   deleteTag(id: number): Promise<any> {
-    return this.http.delete(`${this.baseUrl}/tags/?id=${id}`).toPromise();
+    return this.http.delete(`${this.baseUrl}/tags/index.php?id=${id}`).toPromise();
   }
 }
