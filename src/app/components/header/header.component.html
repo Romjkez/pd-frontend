@@ -8,7 +8,7 @@
           <span class="header__title">портал подбора <br> студенческих проектов</span>
         </a>
       </div>
-      <button *ngIf="user?.id" mat-icon-button mat-button style="color: #fff" class="burger__menu"
+      <button mat-icon-button mat-button style="color: #fff" class="burger__menu"
               [matMenuTriggerFor]="headerMenu">
         <mat-icon>menu</mat-icon>
       </button>
@@ -25,8 +25,8 @@
     </div>
 
     <div *ngIf="!authService.isAuthorized()" class="header__reg-auth">
-      <a [routerLink]="'/login'" class="reg-auth__item">Вход</a> /
-      <a [routerLink]="'/register'" class="reg-auth__item">Регистрация</a>
+      <a routerLink="/login" class="reg-auth__item">Вход</a> /
+      <a routerLink="/register" class="reg-auth__item">Регистрация</a>
     </div>
 
     <div *ngIf="authService.isAuthorized()" class="header__profile-link">
@@ -63,8 +63,12 @@
     <mat-icon>exit_to_app</mat-icon>
     <span>Выйти</span>
   </button>
-  <a *ngIf="!authService.isAuthorized()" mat-menu-item [routerLink]="'/login'">
+  <a *ngIf="!authService.isAuthorized()" mat-menu-item routerLink="/login">
     <mat-icon>account_circle</mat-icon>
-    <span>Авторизоваться</span>
+    <span>Авторизация</span>
+  </a>
+  <a *ngIf="!authService.isAuthorized()" mat-menu-item routerLink="/register">
+    <mat-icon>person_add</mat-icon>
+    <span>Регистрация</span>
   </a>
 </mat-menu>
