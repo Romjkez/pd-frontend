@@ -15,3 +15,7 @@ Based on [Angular](https://angular.io) 8.0.3
 Project modules are in `src/modules`
 
 Reusable components, services, models, pipes are in `SharedModule`
+
+
+### Репозиторий с бэкендом // Backend repo
+https://github.com/Romjkez/student-projects-portal
